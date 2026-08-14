@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>EOD Report</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1>EOD Report</h1>
@@ -59,41 +60,6 @@
 
   <pre id="output"></pre>
 
-  <script>
-    function generateReport() {
-      const date = document.getElementById("date").value;
-      const location = document.getElementById("location").value;
-      const inspector = document.getElementById("inspector").value;
-      const chassis = document.getElementById("chassis").value;
-      const notes = document.getElementById("notes").value;
-
-      const report =
-`End of Day Report
-
-Date: ${date}
-
-End of Day Report for:
-${location}
-
-Inspector:
-${inspector}
-
-CHASSIS
-${chassis}
-
-OTHER NOTES
-${notes}`;
-
-      document.getElementById("output").textContent = report;
-    }
-
-    function copyReport() {
-      const text = document.getElementById("output").textContent;
-
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Report copied!");
-      });
-    }
-  </script>
+<script src="app.js"></script>
 </body>
 </html>
