@@ -1,105 +1,482 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>EOD Report</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="EOD Inspection">
+<meta name="theme-color" content="#111111">
+<title>EOD Inspection — Harrisburg</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#eef0f3;
+  color:#171717;
+  -webkit-font-smoothing:antialiased;
+}
+header{
+  background:#111;
+  color:#fff;
+  padding:18px 20px;
+  text-align:center;
+  font-size:21px;
+  font-weight:700;
+}
+.app{
+  max-width:760px;
+  margin:0 auto;
+  padding:18px 14px 50px;
+}
+.card{
+  background:#fff;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+h2{
+  margin:0 0 14px;
+  font-size:20px;
+}
+.date{
+  text-align:center;
+  font-weight:600;
+  margin-bottom:12px;
+}
+.progress{
+  font-size:18px;
+  font-weight:700;
+  text-align:center;
+  margin-bottom:8px;
+}
+.progressbar{
+  height:12px;
+  background:#ddd;
+  border-radius:20px;
+  overflow:hidden;
+  margin-bottom:20px;
+}
+.fill{
+  height:100%;
+  width:82.14%;
+  background:#111;
+  transition:width .25s ease;
+}
+label{
+  display:block;
+  font-weight:650;
+  margin:13px 0 6px;
+}
+input,select,textarea{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid #c9cdd3;
+  border-radius:11px;
+  font-size:17px;
+  background:#fff;
+}
+textarea{
+  min-height:110px;
+  resize:vertical;
+}
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+button{
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:15px;
+  margin-top:15px;
+  font-size:17px;
+  font-weight:750;
+  cursor:pointer;
+  background:#111;
+  color:#fff;
+  -webkit-tap-highlight-color:transparent;
+}
+button.secondary{
+  background:#e3e5e8;
+  color:#111;
+}
+button:active{
+  transform:scale(.99);
+}
+#preview{
+  white-space:pre-wrap;
+  background:#f5f6f7;
+  border:1px solid #d7d9dc;
+  border-radius:12px;
+  padding:15px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:14px;
+  line-height:1.5;
+  overflow:auto;
+}
+.hidden{display:none}
+@media(max-width:520px){
+  .row{grid-template-columns:1fr}
+  .app{padding:12px 10px 40px}
+  .card{padding:16px}
+}
+</style>
 </head>
 
 <body>
-  <main class="app-shell">
 
-    <header>
-      <div>
-        <p class="eyebrow">Inspection</p>
-        <h1>EOD Report</h1>
-        <p class="muted">End of Day Report</p>
-      </div>
-    </header>
+<header>EOD Inspection</header>
 
-    <section class="card">
-      <h2>Report Information</h2>
+<main class="app">
 
-      <div class="grid two">
-        <label>
-          Date
-          <input type="date" id="date">
-        </label>
+<section class="card">
+  <div class="date">Harrisburg — 8/14/26</div>
 
-        <label>
-          Location
-          <input
-            type="text"
-            id="location"
-            placeholder="Harrisburg"
-          >
-        </label>
+  <div class="progress">
+    <span id="count">23</span> / 28
+  </div>
 
-        <label>
-          Inspector
-          <input type="text" id="inspector">
-        </label>
-      </div>
-    </section>
+  <div class="progressbar">
+    <div class="fill" id="fill"></div>
+  </div>
+</section>
 
-    <section class="card">
-      <div class="section-heading">
-        <h2>Chassis</h2>
-      </div>
+<section class="card">
 
-      <label>
-        Chassis numbers and defects
-        <textarea
-          id="chassis"
-          rows="10"
-          placeholder="Enter chassis numbers and defects..."
-        ></textarea>
-      </label>
-    </section>
+<h2>Add Inspection</h2>
 
-    <section class="card">
-      <div class="section-heading">
-        <h2>Other Notes</h2>
-      </div>
+<label for="prefix">Chassis Prefix</label>
+<select id="prefix">
+  <option value="NSPZ">NSPZ</option>
+  <option value="NSFZ">NSFZ</option>
+</select>
 
-      <label>
-        Additional notes
-        <textarea
-          id="notes"
-          rows="8"
-          placeholder="Enter additional notes..."
-        ></textarea>
-      </label>
-    </section>
+<label for="number">Chassis Number</label>
+<input
+  id="number"
+  inputmode="numeric"
+  maxlength="6"
+  placeholder="Enter 6 digits"
+>
 
-    <div class="actions">
-      <button onclick="generateReport()">Generate Report</button>
-      <button
-        class="secondary"
-        onclick="copyReport()"
-      >
-        Copy Report
-      </button>
-      <button
-        class="secondary"
-        onclick="clearForm()"
-      >
-        Clear
-      </button>
-    </div>
+<div class="row">
 
-    <section class="card output-card">
-      <div class="section-heading">
-        <h2>Report Preview</h2>
-        <span class="status" id="status"></span>
-      </div>
+<div>
+<label for="type">Inspection Type</label>
+<select id="type">
+  <option value="5652">5652 — Pre-repair</option>
+  <option value="5900">5900 — Post-repair</option>
+  <option value="5658">5658 — Add-on</option>
+</select>
+</div>
 
-      <pre id="output"></pre>
-    </section>
+<div>
+<label for="condition">Condition</label>
+<select id="condition">
+  <option value="Defect">Defect</option>
+  <option value="No Defect">No Defect</option>
+</select>
+</div>
 
-  </main>
+</div>
 
-  <script src="app.js"></script>
+<label for="chassisNote">Chassis Note</label>
+<input
+  id="chassisNote"
+  placeholder="Example: 145D dwell"
+>
+
+<button id="addInspection">ADD INSPECTION</button>
+
+</section>
+
+<section class="card">
+
+<h2>Comments or Notes of Interest</h2>
+
+<textarea
+  id="notes"
+  placeholder="Enter comments or notes of interest..."
+></textarea>
+
+<button id="generateEod">GENERATE EOD</button>
+
+</section>
+
+<section class="card hidden" id="previewCard">
+
+<h2>EOD Report Preview</h2>
+
+<div id="preview"></div>
+
+<button id="emailEod" class="secondary">EMAIL EOD</button>
+
+</section>
+
+</main>
+
+<script>
+(() => {
+
+const data = {
+
+"5652": {
+  "Pre-repair": [
+    ["NSPZ 145161","No Defect",""],
+    ["NSFZ 135576","No Defect",""],
+    ["NSPZ 132919","No Defect",""],
+    ["NSPZ 131240","No Defect",""],
+    ["NSPZ 136467","No Defect",""],
+    ["NSPZ 153348","No Defect",""],
+    ["NSPZ 163633","Defect",""],
+    ["NSPZ 149752","Defect",""],
+    ["NSPZ 142228","Defect",""],
+    ["NSPZ 170033","Defect",""],
+    ["NSPZ 148830","Defect",""],
+    ["NSPZ 166136","Defect",""],
+    ["NSPZ 134402","Defect",""],
+    ["NSPZ 171318","Defect",""],
+    ["NSPZ 166338","Defect",""],
+    ["NSPZ 138881","Defect",""],
+    ["NSPZ 134083","Defect",""],
+    ["NSPZ 152567","Defect",""],
+    ["NSPZ 160200","Defect",""],
+    ["NSPZ 137068","Defect",""],
+    ["NSPZ 134328","Defect",""]
+  ],
+  "Post-repair": [],
+  "Add-on": []
+},
+
+"5900": {
+  "Pre-repair": [],
+  "Post-repair": [
+    ["NSPZ 135385","No Defect",""],
+    ["NSPZ 131561","Defect",""]
+  ],
+  "Add-on": []
+},
+
+"5658": {
+  "Pre-repair": [],
+  "Post-repair": [],
+  "Add-on": []
+}
+
+};
+
+function totalInspections(){
+  let total = 0;
+
+  Object.values(data).forEach(type => {
+    Object.values(type).forEach(section => {
+      total += section.length;
+    });
+  });
+
+  return total;
+}
+
+function updateProgress(){
+
+  const count = totalInspections();
+
+  document.getElementById("count").textContent = count;
+
+  document.getElementById("fill").style.width =
+    Math.min(100, (count / 28) * 100) + "%";
+}
+
+function addInspection(){
+
+  const prefix =
+    document.getElementById("prefix").value;
+
+  const number =
+    document.getElementById("number").value.trim();
+
+  const type =
+    document.getElementById("type").value;
+
+  const condition =
+    document.getElementById("condition").value;
+
+  const note =
+    document.getElementById("chassisNote").value.trim();
+
+  if(!/^\d{6}$/.test(number)){
+    alert("Enter exactly 6 digits for the chassis number.");
+    document.getElementById("number").focus();
+    return;
+  }
+
+  let section;
+
+  if(type === "5652"){
+    section = "Pre-repair";
+  }else if(type === "5900"){
+    section = "Post-repair";
+  }else{
+    section = "Add-on";
+  }
+
+  data[type][section].push([
+    prefix + " " + number,
+    condition,
+    note
+  ]);
+
+  document.getElementById("number").value = "";
+  document.getElementById("chassisNote").value = "";
+
+  updateProgress();
+
+  document.getElementById("number").focus();
+}
+
+function buildEOD(){
+
+  let out = "";
+
+  out += "End of Day Report\n\n";
+  out += "Date: 8/14/26\n\n";
+  out += "End of Day Report for:\n";
+  out += "Harrisburg\n\n";
+
+  out += "CHASSIS\n";
+
+  const sections = [
+    ["5652","Pre-repair",
+     "pre-repair NO defects - 5652",
+     "pre-repair WITH defects - 5652"],
+
+    ["5900","Post-repair",
+     "post repair NO defects - 5900",
+     "post repair WITH defects - 5900"],
+
+    ["5658","Add-on",
+     "add-on NO defects - 5658",
+     "add-on WITH defects - 5658"]
+  ];
+
+  sections.forEach(([type,section,noText,yesText]) => {
+
+    ["No Defect","Defect"].forEach(condition => {
+
+      const items =
+        data[type][section]
+        .filter(item => item[1] === condition);
+
+      out += "(" + items.length + ") " +
+        (condition === "Defect" ? yesText : noText) +
+        "\n";
+
+      out += "Chassis Numbers:\n";
+
+      items.forEach((item,index) => {
+
+        out += "\t" + (index + 1) +
+          ". " + item[0] + "\n";
+
+        if(item[2]){
+          out += "\t   Note: " +
+            item[2] + "\n";
+        }
+
+      });
+
+      out += "\n";
+
+    });
+
+  });
+
+  out += "CHASSIS RACKS\n";
+
+  out += "(0) pre-repair NO defects - 5657\n";
+  out += "Chassis Rack Numbers:\n\n";
+
+  out += "(0) pre-repair WITH defects - 5657\n";
+  out += "Chassis Rack Numbers:\n\n";
+
+  out += "(" + totalInspections() +
+    ") TOTAL INSPECTIONS\n\n";
+
+  out += "Comments or Notes of Interest:\n";
+  out += document.getElementById("notes").value.trim();
+
+  return out;
+}
+
+function generateEOD(){
+
+  document.getElementById("preview").textContent =
+    buildEOD();
+
+  document.getElementById("previewCard")
+    .classList.remove("hidden");
+
+  document.getElementById("previewCard")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+}
+
+function emailEOD(){
+
+  const body =
+    encodeURIComponent(buildEOD());
+
+  const subject =
+    encodeURIComponent(
+      "End of Day Report - Harrisburg - 8/14/26"
+    );
+
+  window.location.href =
+    "mailto:?subject=" +
+    subject +
+    "&body=" +
+    body;
+}
+
+document.getElementById("number")
+.addEventListener("input", event => {
+
+  event.target.value =
+    event.target.value
+    .replace(/\D/g,"")
+    .slice(0,6);
+
+});
+
+document.getElementById("number")
+.addEventListener("keydown", event => {
+
+  if(event.key === "Enter"){
+    addInspection();
+  }
+
+});
+
+document.getElementById("addInspection")
+.addEventListener("click", addInspection);
+
+document.getElementById("generateEod")
+.addEventListener("click", generateEOD);
+
+document.getElementById("emailEod")
+.addEventListener("click", emailEOD);
+
+updateProgress();
+
+})();
+</script>
+
 </body>
 </html>
