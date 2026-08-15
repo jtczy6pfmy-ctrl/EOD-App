@@ -10,9 +10,9 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "./EOD-Inspection-icon.svg",
+      "src": "./EOD-Inspection-icon.png",
       "sizes": "any",
-      "type": "image/svg+xml",
+      "type": "image/png+xml",
       "purpose": "any maskable"
     }
   ]
