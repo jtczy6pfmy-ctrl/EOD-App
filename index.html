@@ -135,7 +135,7 @@ button:active{
 <main class="app">
 
 <section class="card">
-<div class="date" id="reportDate">Harrisburg — 8/14/26</div>
+  <div class="date" id="reportDate"></div>
 
   <div class="progress">
     <span id="count">0</span> / 28
@@ -319,7 +319,7 @@ function buildEOD(){
   let out = "";
 
   out += "End of Day Report\n\n";
-  out += "Date: 8/14/26\n\n";
+  out += "Date: " + formatDate() + "\n\n";
   out += "End of Day Report for:\n";
   out += "Harrisburg\n\n";
 
