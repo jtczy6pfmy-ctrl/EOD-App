@@ -3,6 +3,7 @@
   "short_name": "EOD",
   "description": "End of Day Inspection Report — Harrisburg",
   "start_url": "./",
+  "scope": ""./",
   "display": "standalone",
   "background_color": "#eef0f3",
   "theme_color": "#111111",
