@@ -7,5 +7,13 @@
   "display": "standalone",
   "background_color": "#eef0f3",
   "theme_color": "#111111",
-  "orientation": "portrait-primary"
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./EOD-Inspection-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
