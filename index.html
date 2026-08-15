@@ -441,18 +441,28 @@ function emailEOD(){
   const body =
     encodeURIComponent(buildEOD());
 
+  const reportDate =
+    document.getElementById("reportDate")
+    .textContent.split("—")[1].trim();
+
   const subject =
     encodeURIComponent(
-      "End of Day Report - Harrisburg - " +
-      formatDate()
+      "End of Day Report - Harrisburg - " + reportDate
     );
 
   const outlookUrl =
-    "https://outlook.office.com/mail/deeplink/compose" +
-    "?subject=" + subject +
-    "&body=" + body;
+    "ms-outlook://compose?subject=" +
+    subject +
+    "&body=" +
+    body;
+
+  resetForNextDay();
 
   window.location.href = outlookUrl;
+
+  setTimeout(() => {
+    window.close();
+  }, 1000);
 }
 
 document.getElementById("number")
