@@ -1,11 +1,11 @@
 {
-  "name": "EOD Inspection",
-  "short_name": "EOD",
-  "description": "End of Day Inspection Report — Harrisburg",
+  "name": "EOD Inspection — Harrisburg",
+  "short_name": "EOD Inspection",
+  "description": "Harrisburg End of Day Inspection Report",
   "start_url": "./",
-  "scope": ""./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#eef0f3",
   "theme_color": "#111111",
-  "orientation": "portrait"
+  "orientation": "portrait-primary"
 }
