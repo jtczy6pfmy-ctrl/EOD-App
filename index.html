@@ -6,60 +6,100 @@
   <title>EOD Report</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <h1>EOD Report</h1>
-  <p>End of Day Report</p>
+  <main class="app-shell">
 
-  <label>
-    Date:
-    <input type="date" id="date">
-  </label>
+    <header>
+      <div>
+        <p class="eyebrow">Inspection</p>
+        <h1>EOD Report</h1>
+        <p class="muted">End of Day Report</p>
+      </div>
+    </header>
 
-  <br><br>
+    <section class="card">
+      <h2>Report Information</h2>
 
-  <label>
-    Location:
-    <input type="text" id="location" placeholder="Harrisburg">
-  </label>
+      <div class="grid two">
+        <label>
+          Date
+          <input type="date" id="date">
+        </label>
 
-  <br><br>
+        <label>
+          Location
+          <input
+            type="text"
+            id="location"
+            placeholder="Harrisburg"
+          >
+        </label>
 
-  <label>
-    Inspector:
-    <input type="text" id="inspector">
-  </label>
+        <label>
+          Inspector
+          <input type="text" id="inspector">
+        </label>
+      </div>
+    </section>
 
-  <br><br>
+    <section class="card">
+      <div class="section-heading">
+        <h2>Chassis</h2>
+      </div>
 
-  <h2>Chassis</h2>
+      <label>
+        Chassis numbers and defects
+        <textarea
+          id="chassis"
+          rows="10"
+          placeholder="Enter chassis numbers and defects..."
+        ></textarea>
+      </label>
+    </section>
 
-  <textarea
-    id="chassis"
-    rows="10"
-    cols="40"
-    placeholder="Enter chassis numbers and defects..."
-  ></textarea>
+    <section class="card">
+      <div class="section-heading">
+        <h2>Other Notes</h2>
+      </div>
 
-  <br><br>
+      <label>
+        Additional notes
+        <textarea
+          id="notes"
+          rows="8"
+          placeholder="Enter additional notes..."
+        ></textarea>
+      </label>
+    </section>
 
-  <h2>Other Notes</h2>
+    <div class="actions">
+      <button onclick="generateReport()">Generate Report</button>
+      <button
+        class="secondary"
+        onclick="copyReport()"
+      >
+        Copy Report
+      </button>
+      <button
+        class="secondary"
+        onclick="clearForm()"
+      >
+        Clear
+      </button>
+    </div>
 
-  <textarea
-    id="notes"
-    rows="8"
-    cols="40"
-    placeholder="Enter additional notes..."
-  ></textarea>
+    <section class="card output-card">
+      <div class="section-heading">
+        <h2>Report Preview</h2>
+        <span class="status" id="status"></span>
+      </div>
 
-  <br><br>
+      <pre id="output"></pre>
+    </section>
 
-  <button onclick="generateReport()">Generate Report</button>
-  <button onclick="copyReport()">Copy Report</button>
+  </main>
 
-  <h2>Report Preview</h2>
-
-  <pre id="output"></pre>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
