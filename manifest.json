@@ -10,7 +10,7 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "./EOD-Inspection-icon.png",
+      "src": "./EOD-Inspection-chassis-icon.png",
       "sizes": "1254x1254",
       "type": "image/png",
       "purpose": "any maskable"
