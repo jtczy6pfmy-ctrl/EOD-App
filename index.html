@@ -438,11 +438,13 @@ function emailEOD(){
       "End of Day Report - Harrisburg - 8/14/26"
     );
 
-  window.location.href =
-    "mailto:?subject=" +
+  const outlookUrl =
+    "ms-outlook://compose?subject=" +
     subject +
     "&body=" +
     body;
+
+  window.location.href = outlookUrl;
 }
 
 document.getElementById("number")
