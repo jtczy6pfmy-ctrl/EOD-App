@@ -135,7 +135,7 @@ button:active{
 <main class="app">
 
 <section class="card">
-  <div class="date">Harrisburg — 8/14/26</div>
+<div class="date" id="reportDate">Harrisburg — 8/14/26</div>
 
   <div class="progress">
     <span id="count">23</span> / 28
@@ -428,14 +428,51 @@ function generateEOD(){
     });
 }
 
+function formatDate(date = new Date()){
+  return (date.getMonth() + 1) + "/" +
+    date.getDate() + "/" +
+    String(date.getFullYear()).slice(-2);
+}
+
+function resetForNextDay(){
+
+  Object.values(data).forEach(type => {
+    Object.keys(type).forEach(section => {
+      type[section].length = 0;
+    });
+  });
+
+  document.getElementById("notes").value = "";
+  document.getElementById("number").value = "";
+  document.getElementById("chassisNote").value = "";
+  document.getElementById("preview").textContent = "";
+
+  document.getElementById("previewCard")
+    .classList.add("hidden");
+
+  document.getElementById("reportDate").textContent =
+    "Harrisburg — " + formatDate();
+
+  updateProgress();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
 function emailEOD(){
 
   const body =
     encodeURIComponent(buildEOD());
 
+  const reportDate =
+    document.getElementById("reportDate")
+    .textContent.split("—")[1].trim();
+
   const subject =
     encodeURIComponent(
-      "End of Day Report - Harrisburg - 8/14/26"
+      "End of Day Report - Harrisburg - " + reportDate
     );
 
   const outlookUrl =
@@ -443,6 +480,8 @@ function emailEOD(){
     subject +
     "&body=" +
     body;
+
+  resetForNextDay();
 
   window.location.href = outlookUrl;
 }
