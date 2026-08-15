@@ -1,4 +1,4 @@
-const CACHE_NAME = "eod-inspection-v1";
+const CACHE_NAME = "eod-inspection-v2";
 
 const FILES_TO_CACHE = [
   "./",
