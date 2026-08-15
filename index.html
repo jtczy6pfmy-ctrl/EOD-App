@@ -62,7 +62,7 @@ h2{
 }
 .fill{
   height:100%;
-  width:82.14%;
+  width:0%;
   background:#111;
   transition:width .25s ease;
 }
@@ -135,7 +135,7 @@ button:active{
 <main class="app">
 
 <section class="card">
-  <div class="date" id="reportDate">Harrisburg</div>
+  <div class="date" id="reportDate"></div>
 
   <div class="progress">
     <span id="count">0</span> / 28
@@ -441,28 +441,18 @@ function emailEOD(){
   const body =
     encodeURIComponent(buildEOD());
 
-  const reportDate =
-    document.getElementById("reportDate")
-    .textContent.split("—")[1].trim();
-
   const subject =
     encodeURIComponent(
-      "End of Day Report - Harrisburg - " + reportDate
+      "End of Day Report - Harrisburg - " +
+      formatDate()
     );
 
   const outlookUrl =
-    "ms-outlook://compose?subject=" +
-    subject +
-    "&body=" +
-    body;
-
-  resetForNextDay();
+    "https://outlook.office.com/mail/deeplink/compose" +
+    "?subject=" + subject +
+    "&body=" + body;
 
   window.location.href = outlookUrl;
-
-  setTimeout(() => {
-  window.close();
-}, 1000);
 }
 
 document.getElementById("number")
@@ -492,6 +482,9 @@ document.getElementById("generateEod")
 
 document.getElementById("emailEod")
 .addEventListener("click", emailEOD);
+
+document.getElementById("reportDate").textContent =
+  "Harrisburg — " + formatDate();
 
 updateProgress();
 
