@@ -136,6 +136,17 @@ button:active{
 
 <section class="card">
   <div class="date" id="reportDate">Harrisburg</div>
+  const today = new Date();
+
+const dateString = today.toLocaleDateString("en-US", {
+
+  month: "numeric",
+
+  day: "numeric",
+
+  year: "2-digit"
+
+});
 
   <div class="progress">
     <span id="count">0</span> / 28
