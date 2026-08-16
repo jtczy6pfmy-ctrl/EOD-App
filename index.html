@@ -44,6 +44,10 @@
   --success-bg:#e8f6ee;
   --success-border:#bfe5ce;
 
+  --danger:#c62828;
+  --danger-bg:#fff0f0;
+  --danger-border:#e3aaaa;
+
   --overlay:rgba(0,0,0,.45);
 }
 
@@ -103,6 +107,7 @@ header{
   background:var(--accent);
 }
 
+
 /* PROGRESS */
 
 .date{
@@ -135,19 +140,9 @@ header{
 }
 
 @keyframes countBump{
-
-  0%{
-    transform:scale(1);
-  }
-
-  45%{
-    transform:scale(1.18);
-  }
-
-  100%{
-    transform:scale(1);
-  }
-
+  0%{transform:scale(1)}
+  45%{transform:scale(1.18)}
+  100%{transform:scale(1)}
 }
 
 .progressbar{
@@ -175,19 +170,9 @@ header{
 }
 
 @keyframes progressPulse{
-
-  0%{
-    transform:scaleY(1);
-  }
-
-  45%{
-    transform:scaleY(1.22);
-  }
-
-  100%{
-    transform:scaleY(1);
-  }
-
+  0%{transform:scaleY(1)}
+  45%{transform:scaleY(1.22)}
+  100%{transform:scaleY(1)}
 }
 
 .progress.complete .fill{
@@ -195,19 +180,9 @@ header{
 }
 
 @keyframes completedBar{
-
-  0%{
-    transform:scaleY(1);
-  }
-
-  40%{
-    transform:scaleY(1.35);
-  }
-
-  100%{
-    transform:scaleY(1);
-  }
-
+  0%{transform:scaleY(1)}
+  40%{transform:scaleY(1.35)}
+  100%{transform:scaleY(1)}
 }
 
 .progress-complete-message{
@@ -224,7 +199,7 @@ header{
 }
 
 
-/* MILESTONE — ENHANCED */
+/* MILESTONE */
 
 .progressbar.milestone{
   position:relative;
@@ -244,7 +219,6 @@ header{
   opacity:0;
   pointer-events:none;
   z-index:5;
-  box-shadow:0 0 0 0 var(--text);
 }
 
 .progressbar.milestone.hit::after{
@@ -252,37 +226,30 @@ header{
 }
 
 @keyframes milestonePop{
-
   0%{
     opacity:0;
     transform:translate(-50%,-50%) scale(0);
-    box-shadow:0 0 0 0 var(--text);
   }
 
   15%{
     opacity:1;
     transform:translate(-50%,-50%) scale(1);
-    box-shadow:0 0 0 3px var(--text);
   }
 
   45%{
     opacity:.8;
     transform:translate(-50%,-50%) scale(4);
-    box-shadow:0 0 0 8px transparent;
   }
 
   75%{
     opacity:.4;
     transform:translate(-50%,-50%) scale(7);
-    box-shadow:0 0 0 12px transparent;
   }
 
   100%{
     opacity:0;
     transform:translate(-50%,-50%) scale(10);
-    box-shadow:0 0 0 16px transparent;
   }
-
 }
 
 
@@ -367,7 +334,10 @@ button{
   color:var(--accent-text);
   -webkit-tap-highlight-color:transparent;
   box-shadow:0 2px 5px rgba(0,0,0,.12);
-  transition:transform .08s ease,box-shadow .15s ease;
+  transition:
+    transform .08s ease,
+    box-shadow .15s ease,
+    opacity .15s ease;
 }
 
 button:active{
@@ -376,6 +346,7 @@ button:active{
 
 button:disabled{
   cursor:default;
+  opacity:.75;
 }
 
 button.secondary{
@@ -402,7 +373,42 @@ button.secondary{
 }
 
 
-/* DUPLICATE MODAL */
+/* ADDED RECORD FLASH */
+
+.record-added{
+  animation:recordAdded .45s ease;
+}
+
+@keyframes recordAdded{
+  0%{
+    box-shadow:0 4px 18px rgba(15,23,42,.08);
+  }
+
+  40%{
+    box-shadow:0 0 0 4px rgba(22,131,75,.14),
+               0 8px 24px rgba(15,23,42,.12);
+  }
+
+  100%{
+    box-shadow:0 4px 18px rgba(15,23,42,.08);
+  }
+}
+
+
+/* PREVIEW ACTIONS */
+
+.preview-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.preview-actions button{
+  margin-top:17px;
+}
+
+
+/* MODAL */
 
 .modal-overlay{
   position:fixed;
@@ -429,6 +435,19 @@ button.secondary{
   border-radius:18px;
   padding:22px;
   box-shadow:0 20px 60px rgba(0,0,0,.28);
+  animation:modalIn .18s ease-out;
+}
+
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:translateY(8px) scale(.98);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
 }
 
 .modal-title{
@@ -490,6 +509,10 @@ button.secondary{
     min-height:52px;
   }
 
+  .preview-actions{
+    grid-template-columns:1fr;
+  }
+
 }
 
 
@@ -513,6 +536,9 @@ button.secondary{
     --success:#51d98c;
     --success-bg:#14291f;
     --success-border:#245b3c;
+    --danger:#ff7474;
+    --danger-bg:#321919;
+    --danger-border:#693434;
   }
 
   html,
@@ -564,11 +590,13 @@ button.secondary{
 </style>
 </head>
 
+
 <body>
 
 <header>
   EOD Inspection
 </header>
+
 
 <main class="app">
 
@@ -587,7 +615,10 @@ button.secondary{
     <div class="fill" id="fill"></div>
   </div>
 
-  <div class="progress-complete-message" id="completeMessage">
+  <div
+    class="progress-complete-message"
+    id="completeMessage"
+  >
     ✓ Daily inspection target complete
   </div>
 
@@ -596,11 +627,15 @@ button.secondary{
 
 <!-- CHASSIS -->
 
-<section class="card">
+<section class="card" id="chassisCard">
 
 <h2>Chassis</h2>
 
-<input type="hidden" id="equipment" value="Chassis">
+<input
+  type="hidden"
+  id="equipment"
+  value="Chassis"
+>
 
 <div class="row">
 
@@ -635,6 +670,7 @@ button.secondary{
 
 </div>
 
+
 <div class="row">
 
   <div>
@@ -644,6 +680,7 @@ button.secondary{
     </label>
 
     <select id="type">
+
       <option value="5652">
         5652 — Pre-repair
       </option>
@@ -655,9 +692,11 @@ button.secondary{
       <option value="5658">
         5658 — Add-on
       </option>
+
     </select>
 
   </div>
+
 
   <div>
 
@@ -666,6 +705,7 @@ button.secondary{
     </label>
 
     <select id="condition">
+
       <option value="Defect">
         Defect
       </option>
@@ -673,11 +713,13 @@ button.secondary{
       <option value="No Defect">
         No Defect
       </option>
+
     </select>
 
   </div>
 
 </div>
+
 
 <label for="equipmentNote">
   Inspection Note
@@ -689,6 +731,7 @@ button.secondary{
   autocomplete="off"
 >
 
+
 <button id="addInspection">
   ADD INSPECTION
 </button>
@@ -698,7 +741,7 @@ button.secondary{
 
 <!-- CONTAINERS -->
 
-<section class="card">
+<section class="card" id="containersCard">
 
 <h2>Containers</h2>
 
@@ -719,6 +762,7 @@ button.secondary{
 
   </div>
 
+
   <div>
 
     <label for="containerNumber">
@@ -736,6 +780,7 @@ button.secondary{
   </div>
 
 </div>
+
 
 <div class="row">
 
@@ -763,6 +808,7 @@ button.secondary{
 
   </div>
 
+
   <div>
 
     <label for="containerCondition">
@@ -785,6 +831,7 @@ button.secondary{
 
 </div>
 
+
 <label for="containerNote">
   Inspection Note
 </label>
@@ -795,6 +842,7 @@ button.secondary{
   autocomplete="off"
 >
 
+
 <button id="addContainerInspection">
   ADD INSPECTION
 </button>
@@ -804,7 +852,7 @@ button.secondary{
 
 <!-- CHASSIS RACKS -->
 
-<section class="card">
+<section class="card" id="racksCard">
 
 <h2>Chassis Racks</h2>
 
@@ -821,6 +869,7 @@ button.secondary{
     </div>
 
   </div>
+
 
   <div>
 
@@ -840,6 +889,7 @@ button.secondary{
 
 </div>
 
+
 <div class="row">
 
   <div>
@@ -853,6 +903,7 @@ button.secondary{
     </div>
 
   </div>
+
 
   <div>
 
@@ -876,6 +927,7 @@ button.secondary{
 
 </div>
 
+
 <label for="rackNote">
   Inspection Note
 </label>
@@ -885,6 +937,7 @@ button.secondary{
   placeholder="Example: 145D dwell"
   autocomplete="off"
 >
+
 
 <button id="addRackInspection">
   ADD INSPECTION
@@ -906,6 +959,7 @@ button.secondary{
   placeholder="Enter comments or notes of interest..."
 ></textarea>
 
+
 <button id="generateEod">
   GENERATE EOD
 </button>
@@ -915,17 +969,36 @@ button.secondary{
 
 <!-- REPORT PREVIEW -->
 
-<section class="card hidden" id="previewCard">
+<section
+  class="card hidden"
+  id="previewCard"
+>
 
 <h2>
   EOD Report Preview
 </h2>
 
+
 <div id="preview"></div>
 
-<button id="emailEod" class="secondary">
-  EMAIL EOD
-</button>
+
+<div class="preview-actions">
+
+  <button
+    id="emailEod"
+    class="secondary"
+  >
+    EMAIL EOD
+  </button>
+
+  <button
+    id="editReport"
+    class="secondary"
+  >
+    BACK TO EDIT
+  </button>
+
+</div>
 
 </section>
 
@@ -954,6 +1027,7 @@ button.secondary{
       class="modal-message"
       id="duplicateModalMessage"
     ></p>
+
 
     <div class="modal-actions">
 
@@ -1012,6 +1086,7 @@ const data = {
 
   },
 
+
   containers:{
 
     "5653":{
@@ -1034,6 +1109,7 @@ const data = {
 
   },
 
+
   racks:{
 
     "5657":{
@@ -1048,31 +1124,49 @@ const data = {
 /* DOM */
 
 const duplicateModal =
-  document.getElementById("duplicateModal");
+  document.getElementById(
+    "duplicateModal"
+  );
 
 const duplicateModalMessage =
-  document.getElementById("duplicateModalMessage");
+  document.getElementById(
+    "duplicateModalMessage"
+  );
 
 const duplicateYes =
-  document.getElementById("duplicateYes");
+  document.getElementById(
+    "duplicateYes"
+  );
 
 const duplicateNo =
-  document.getElementById("duplicateNo");
+  document.getElementById(
+    "duplicateNo"
+  );
 
 const progressContainer =
-  document.getElementById("progressContainer");
+  document.getElementById(
+    "progressContainer"
+  );
 
 const progressBar =
-  document.getElementById("progressBar");
+  document.getElementById(
+    "progressBar"
+  );
 
 const fill =
-  document.getElementById("fill");
+  document.getElementById(
+    "fill"
+  );
 
 const countElement =
-  document.getElementById("count");
+  document.getElementById(
+    "count"
+  );
 
 const completeMessage =
-  document.getElementById("completeMessage");
+  document.getElementById(
+    "completeMessage"
+  );
 
 let duplicateYesAction = null;
 let duplicateCancelFocus = null;
@@ -1085,19 +1179,25 @@ function totalInspections(){
 
   let total = 0;
 
-  Object.values(data).forEach(equipment => {
+  Object.values(data).forEach(
+    equipment => {
 
-    Object.values(equipment).forEach(type => {
+      Object.values(equipment).forEach(
+        type => {
 
-      Object.values(type).forEach(section => {
+          Object.values(type).forEach(
+            section => {
 
-        total += section.length;
+              total += section.length;
 
-      });
+            }
+          );
 
-    });
+        }
+      );
 
-  });
+    }
+  );
 
   return total;
 
@@ -1111,8 +1211,11 @@ function updateProgress(){
   const count =
     totalInspections();
 
-  countElement.textContent =
+  const displayCount =
     Math.min(count,28);
+
+  countElement.textContent =
+    displayCount;
 
   fill.style.width =
     Math.min(
@@ -1121,9 +1224,9 @@ function updateProgress(){
     ) + "%";
 
 
-  /* COUNT ANIMATION */
-
-  if(count !== previousProgress){
+  if(
+    count !== previousProgress
+  ){
 
     progressContainer.classList.remove(
       "count-bump"
@@ -1138,9 +1241,9 @@ function updateProgress(){
   }
 
 
-  /* NORMAL BAR ANIMATION */
-
-  if(count > previousProgress){
+  if(
+    count > previousProgress
+  ){
 
     fill.classList.remove(
       "progress-pulse"
@@ -1155,10 +1258,9 @@ function updateProgress(){
   }
 
 
-  /* ENHANCED MILESTONES */
-
   const milestones =
     [7,14,21,28];
+
 
   if(
     count > previousProgress &&
@@ -1166,37 +1268,34 @@ function updateProgress(){
   ){
 
     progressBar.classList.remove(
-      "milestone"
-    );
-
-    progressBar.classList.remove(
+      "milestone",
       "hit"
     );
 
     void progressBar.offsetWidth;
 
     progressBar.classList.add(
-      "milestone"
-    );
-
-    progressBar.classList.add(
+      "milestone",
       "hit"
     );
 
-    setTimeout(() => {
+    setTimeout(
+      () => {
 
-      progressBar.classList.remove(
-        "hit"
-      );
+        progressBar.classList.remove(
+          "hit"
+        );
 
-    },850);
+      },
+      850
+    );
 
   }
 
 
-  /* DAILY TARGET */
-
-  if(count >= 28){
+  if(
+    count >= 28
+  ){
 
     progressContainer.classList.add(
       "complete"
@@ -1219,28 +1318,42 @@ function updateProgress(){
   }
 
 
-  previousProgress = count;
+  previousProgress =
+    count;
 
 }
 
 
-/* BUTTON CONFIRMATION */
+/* BUTTON FEEDBACK */
 
 const addedButtonTimers = {};
 
 
-function showButtonAdded(buttonId){
+function showButtonAdded(
+  buttonId,
+  cardId
+){
 
   const button =
-    document.getElementById(buttonId);
+    document.getElementById(
+      buttonId
+    );
+
+  const card =
+    document.getElementById(
+      cardId
+    );
+
 
   if(!button){
     return;
   }
 
+
   clearTimeout(
     addedButtonTimers[buttonId]
   );
+
 
   button.textContent =
     "✓ ADDED";
@@ -1248,16 +1361,43 @@ function showButtonAdded(buttonId){
   button.disabled =
     true;
 
+
+  if(card){
+
+    card.classList.remove(
+      "record-added"
+    );
+
+    void card.offsetWidth;
+
+    card.classList.add(
+      "record-added"
+    );
+
+  }
+
+
   addedButtonTimers[buttonId] =
-    setTimeout(() => {
+    setTimeout(
+      () => {
 
-      button.textContent =
-        "ADD INSPECTION";
+        button.textContent =
+          "ADD INSPECTION";
 
-      button.disabled =
-        false;
+        button.disabled =
+          false;
 
-    },900);
+        if(card){
+
+          card.classList.remove(
+            "record-added"
+          );
+
+        }
+
+      },
+      900
+    );
 
 }
 
@@ -1283,23 +1423,28 @@ function showDuplicateModal(
     "This inspection has already been entered today.\n\n" +
     "Do you want to add it anyway?";
 
+
   duplicateYesAction =
     yesAction;
 
   duplicateCancelFocus =
     cancelFocus;
 
+
   duplicateModal.classList.add(
     "show"
   );
+
 
   duplicateModal.setAttribute(
     "aria-hidden",
     "false"
   );
 
+
   document.body.style.overflow =
     "hidden";
+
 
   duplicateNo.focus();
 
@@ -1312,22 +1457,28 @@ function closeDuplicateModal(){
     "show"
   );
 
+
   duplicateModal.setAttribute(
     "aria-hidden",
     "true"
   );
 
+
   document.body.style.overflow =
     "";
+
 
   duplicateYesAction =
     null;
 
+
   const focusTarget =
     duplicateCancelFocus;
 
+
   duplicateCancelFocus =
     null;
+
 
   if(
     focusTarget &&
@@ -1350,6 +1501,7 @@ duplicateYes.addEventListener(
       duplicateYesAction;
 
     closeDuplicateModal();
+
 
     if(
       typeof action ===
@@ -1433,23 +1585,28 @@ function addInspection(){
       "prefix"
     ).value;
 
+
   const numberInput =
     document.getElementById(
       "number"
     );
 
+
   const number =
     numberInput.value.trim();
+
 
   const type =
     document.getElementById(
       "type"
     ).value;
 
+
   const condition =
     document.getElementById(
       "condition"
     ).value;
+
 
   const note =
     document.getElementById(
@@ -1538,19 +1695,32 @@ function addChassisRecord(
     note
   ]);
 
+
   document.getElementById(
     "number"
   ).value = "";
+
 
   document.getElementById(
     "equipmentNote"
   ).value = "";
 
+
+  document.getElementById(
+    "number"
+  ).classList.remove(
+    "input-ready"
+  );
+
+
   updateProgress();
 
+
   showButtonAdded(
-    "addInspection"
+    "addInspection",
+    "chassisCard"
   );
+
 
   document.getElementById(
     "number"
@@ -1570,23 +1740,28 @@ function addContainerInspection(){
     .trim()
     .toUpperCase();
 
+
   const numberInput =
     document.getElementById(
       "containerNumber"
     );
 
+
   const number =
     numberInput.value.trim();
+
 
   const type =
     document.getElementById(
       "containerType"
     ).value;
 
+
   const condition =
     document.getElementById(
       "containerCondition"
     ).value;
+
 
   const note =
     document.getElementById(
@@ -1692,23 +1867,37 @@ function addContainerRecord(
     note
   ]);
 
+
   document.getElementById(
     "containerPrefix"
   ).value = "";
+
 
   document.getElementById(
     "containerNumber"
   ).value = "";
 
+
   document.getElementById(
     "containerNote"
   ).value = "";
 
+
+  document.getElementById(
+    "containerNumber"
+  ).classList.remove(
+    "input-ready"
+  );
+
+
   updateProgress();
 
+
   showButtonAdded(
-    "addContainerInspection"
+    "addContainerInspection",
+    "containersCard"
   );
+
 
   document.getElementById(
     "containerPrefix"
@@ -1726,13 +1915,16 @@ function addRackInspection(){
       "rackNumber"
     );
 
+
   const number =
     numberInput.value.trim();
+
 
   const condition =
     document.getElementById(
       "rackCondition"
     ).value;
+
 
   const note =
     document.getElementById(
@@ -1807,19 +1999,32 @@ function addRackRecord(
     note
   ]);
 
+
   document.getElementById(
     "rackNumber"
   ).value = "";
+
 
   document.getElementById(
     "rackNote"
   ).value = "";
 
+
+  document.getElementById(
+    "rackNumber"
+  ).classList.remove(
+    "input-ready"
+  );
+
+
   updateProgress();
 
+
   showButtonAdded(
-    "addRackInspection"
+    "addRackInspection",
+    "racksCard"
   );
+
 
   document.getElementById(
     "rackNumber"
@@ -1843,55 +2048,62 @@ function addSectionToReport(
   [
     "No Defect",
     "Defect"
-  ].forEach(condition => {
+  ].forEach(
+    condition => {
 
-    const items =
-      equipmentData[type][section]
-        .filter(
-          item =>
-            item[1] === condition
-        );
-
-    output.push(
-      "(" +
-      items.length +
-      ") " +
-      (
-        condition === "Defect"
-          ? yesText
-          : noText
-      )
-    );
-
-    output.push(
-      numberLabel + ":"
-    );
-
-    items.forEach(
-      (item,index) => {
-
-        output.push(
-          "\t" +
-          (index + 1) +
-          ". " +
-          item[0]
-        );
-
-        if(item[2]){
-
-          output.push(
-            "\t   Note: " +
-            item[2]
+      const items =
+        equipmentData[type][section]
+          .filter(
+            item =>
+              item[1] === condition
           );
 
+
+      output.push(
+        "(" +
+        items.length +
+        ") " +
+        (
+          condition === "Defect"
+            ? yesText
+            : noText
+        )
+      );
+
+
+      output.push(
+        numberLabel + ":"
+      );
+
+
+      items.forEach(
+        (item,index) => {
+
+          output.push(
+            "\t" +
+            (index + 1) +
+            ". " +
+            item[0]
+          );
+
+
+          if(item[2]){
+
+            output.push(
+              "\t   Note: " +
+              item[2]
+            );
+
+          }
+
         }
+      );
 
-      }
-    );
 
-    output.push("");
+      output.push("");
 
-  });
+    }
+  );
 
 }
 
@@ -1900,28 +2112,36 @@ function buildEOD(){
 
   const out = [];
 
+
   out.push(
     "End of Day Report"
   );
 
+
   out.push("");
+
 
   out.push(
     "Date: " +
     formatDate()
   );
 
+
   out.push("");
+
 
   out.push(
     "End of Day Report for:"
   );
 
+
   out.push(
     "Harrisburg"
   );
 
+
   out.push("");
+
 
   out.push(
     "CHASSIS"
@@ -2021,17 +2241,21 @@ function buildEOD(){
     ") TOTAL INSPECTIONS"
   );
 
+
   out.push("");
+
 
   out.push(
     "Comments or Notes of Interest:"
   );
+
 
   out.push(
     document.getElementById(
       "notes"
     ).value.trim()
   );
+
 
   return out.join("\n");
 
@@ -2047,11 +2271,13 @@ function generateEOD(){
   ).textContent =
     buildEOD();
 
+
   document.getElementById(
     "previewCard"
   ).classList.remove(
     "hidden"
   );
+
 
   document.getElementById(
     "previewCard"
@@ -2059,6 +2285,24 @@ function generateEOD(){
     behavior:"smooth",
     block:"start"
   });
+
+}
+
+
+/* BACK TO EDIT */
+
+function editReport(){
+
+  document.getElementById(
+    "previewCard"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "notes"
+  ).focus();
 
 }
 
@@ -2116,18 +2360,38 @@ function resetForNextDay(){
     "containerNote",
     "rackNumber",
     "rackNote"
-  ].forEach(id => {
+  ].forEach(
+    id => {
 
-    document.getElementById(
-      id
-    ).value = "";
+      document.getElementById(
+        id
+      ).value = "";
 
-  });
+    }
+  );
+
+
+  [
+    "number",
+    "containerNumber",
+    "rackNumber"
+  ].forEach(
+    id => {
+
+      document.getElementById(
+        id
+      ).classList.remove(
+        "input-ready"
+      );
+
+    }
+  );
 
 
   document.getElementById(
     "preview"
   ).textContent = "";
+
 
   document.getElementById(
     "previewCard"
@@ -2135,15 +2399,19 @@ function resetForNextDay(){
     "hidden"
   );
 
+
   document.getElementById(
     "reportDate"
   ).textContent =
     "Harrisburg — " +
     formatDate();
 
+
   previousProgress = 0;
 
+
   updateProgress();
+
 
   window.scrollTo({
     top:0,
@@ -2160,6 +2428,7 @@ function emailEOD(){
   const body =
     buildEOD();
 
+
   const reportDate =
     document.getElementById(
       "reportDate"
@@ -2167,6 +2436,7 @@ function emailEOD(){
     .textContent
     .split("—")[1]
     .trim();
+
 
   const subject =
     "End of Day Report - Harrisburg - " +
@@ -2199,6 +2469,7 @@ document.getElementById(
       event.target.value
         .replace(/\D/g,"")
         .slice(0,6);
+
 
     event.target.classList.toggle(
       "input-ready",
@@ -2239,6 +2510,7 @@ document.getElementById(
         .replace(/\D/g,"")
         .slice(0,6);
 
+
     event.target.classList.toggle(
       "input-ready",
       event.target.value.length === 6
@@ -2258,6 +2530,7 @@ document.getElementById(
       event.target.value
         .replace(/\D/g,"")
         .slice(0,6);
+
 
     event.target.classList.toggle(
       "input-ready",
@@ -2359,6 +2632,14 @@ document.getElementById(
 
 
 document.getElementById(
+  "editReport"
+).addEventListener(
+  "click",
+  editReport
+);
+
+
+document.getElementById(
   "emailEod"
 ).addEventListener(
   "click",
@@ -2373,6 +2654,7 @@ document.getElementById(
 ).textContent =
   "Harrisburg — " +
   formatDate();
+
 
 updateProgress();
 
