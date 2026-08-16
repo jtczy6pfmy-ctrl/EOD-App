@@ -40,7 +40,6 @@
 
   <title>EOD Inspection — Harrisburg</title>
 
-
 <style>
 
 /* =========================================================
@@ -188,39 +187,9 @@ header{
   font-size:26px;
   font-weight:800;
   color:var(--text);
-
-  transition:
-    transform .2s ease;
 }
-
-.progress-count-bump{
-  animation:countBump .28s ease-out;
-}
-
-@keyframes countBump{
-
-  0%{
-    transform:scale(1);
-  }
-
-  45%{
-    transform:scale(1.16);
-  }
-
-  100%{
-    transform:scale(1);
-  }
-
-}
-
-
-/* =========================================================
-   PROGRESS BAR
-   ========================================================= */
 
 .progressbar{
-  position:relative;
-
   height:16px;
 
   background:var(--progress-bg);
@@ -250,7 +219,7 @@ header{
   border-radius:999px;
 
   transition:
-    width .45s cubic-bezier(.22,.61,.36,1);
+    width .35s ease;
 
   box-shadow:
     0 1px 4px rgba(0,0,0,.2);
@@ -259,9 +228,8 @@ header{
 }
 
 /*
-  Subtle "pizza tracker" style movement.
-  The bar continues to have a very gentle
-  moving highlight even while sitting still.
+  Subtle continuous motion, similar to a
+  polished tracking/progress indicator.
 */
 
 .fill::after{
@@ -272,30 +240,86 @@ header{
   top:0;
   bottom:0;
 
-  width:90px;
+  left:-45%;
 
-  left:-100px;
+  width:45%;
 
   background:linear-gradient(
     90deg,
     transparent,
-    rgba(255,255,255,.20),
+    rgba(255,255,255,.18),
     transparent
   );
 
   animation:
-    progressShimmer 2.4s linear infinite;
+    progressShimmer 2.8s ease-in-out infinite;
 }
 
 @keyframes progressShimmer{
 
   0%{
-    left:-100px;
+    left:-45%;
   }
 
   100%{
-    left:calc(100% + 100px);
+    left:120%;
   }
+
+}
+
+
+/* =========================================================
+   SECTION COUNTS
+   ========================================================= */
+
+.section-status{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:7px;
+
+  margin-top:12px;
+
+  min-height:20px;
+
+  color:var(--muted);
+
+  font-size:13px;
+
+  font-weight:700;
+
+  letter-spacing:.01em;
+
+  text-align:center;
+
+}
+
+.section-status::before{
+
+  content:"";
+
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:#aeb6bf;
+
+  transition:
+    background .2s ease,
+    transform .2s ease;
+
+}
+
+.section-status.active::before{
+
+  background:#3f474f;
+
+  transform:scale(1.15);
 
 }
 
@@ -434,7 +458,8 @@ button{
 
   transition:
     transform .08s ease,
-    box-shadow .15s ease;
+    box-shadow .15s ease,
+    background .15s ease;
 }
 
 button:hover{
@@ -456,66 +481,32 @@ button.secondary{
 
 
 /* =========================================================
-   INSPECTION ADDED MESSAGE
+   ADDED BUTTON ANIMATION
    ========================================================= */
 
-.inspection-added{
-  display:flex;
+button.inspection-added{
 
-  align-items:center;
-  justify-content:center;
+  background:#303840;
 
-  min-height:24px;
-
-  margin-top:10px;
-
-  color:#2f6b3b;
-
-  font-size:14px;
-  font-weight:750;
-
-  opacity:0;
-
-  transform:
-    translateY(-4px)
-    scale(.98);
-
-  pointer-events:none;
-
-  transition:
-    opacity .2s ease,
-    transform .2s ease;
-}
-
-.inspection-added.show{
-  opacity:1;
-
-  transform:
-    translateY(0)
-    scale(1);
+  color:#ffffff;
 
   animation:
-    addedPulse .32s ease-out;
+    addedPulse .28s ease-out;
+
 }
 
 @keyframes addedPulse{
 
   0%{
-    transform:
-      translateY(-4px)
-      scale(.96);
+    transform:scale(1);
   }
 
-  55%{
-    transform:
-      translateY(0)
-      scale(1.04);
+  50%{
+    transform:scale(1.025);
   }
 
   100%{
-    transform:
-      translateY(0)
-      scale(1);
+    transform:scale(1);
   }
 
 }
@@ -820,9 +811,13 @@ button.secondary{
     background:linear-gradient(
       90deg,
       transparent,
-      rgba(0,0,0,.16),
+      rgba(0,0,0,.12),
       transparent
     );
+  }
+
+  .section-status.active::before{
+    background:#f4f6f8;
   }
 
   input,
@@ -855,6 +850,11 @@ button.secondary{
     color:#11161c;
   }
 
+  button.inspection-added{
+    background:#dfe4e8;
+    color:#11161c;
+  }
+
   button.secondary,
   .modal-no{
     background:#303943;
@@ -870,10 +870,6 @@ button.secondary{
     background:#0f141a;
     border-color:#3b4550;
     color:#f4f6f8;
-  }
-
-  .inspection-added{
-    color:#7dcc8a;
   }
 
 }
@@ -898,7 +894,6 @@ button.secondary{
 
 </style>
 </head>
-
 
 <body>
 
@@ -1061,13 +1056,11 @@ button.secondary{
   ADD INSPECTION
 </button>
 
-
 <div
-  class="inspection-added"
-  id="chassisAdded"
-  aria-live="polite"
+  class="section-status"
+  id="chassisStatus"
 >
-  ✓ Inspection Added
+  0 inspections added
 </div>
 
 </section>
@@ -1184,13 +1177,11 @@ button.secondary{
   ADD INSPECTION
 </button>
 
-
 <div
-  class="inspection-added"
-  id="containerAdded"
-  aria-live="polite"
+  class="section-status"
+  id="containerStatus"
 >
-  ✓ Inspection Added
+  0 inspections added
 </div>
 
 </section>
@@ -1292,13 +1283,11 @@ button.secondary{
   ADD INSPECTION
 </button>
 
-
 <div
-  class="inspection-added"
-  id="rackAdded"
-  aria-live="polite"
+  class="section-status"
+  id="rackStatus"
 >
-  ✓ Inspection Added
+  0 inspections added
 </div>
 
 </section>
@@ -1510,61 +1499,78 @@ let duplicateCancelFocus = null;
 
 
 /* =========================================================
-   INSPECTION ADDED MESSAGE
+   SECTION STATUS
    ========================================================= */
 
-let addedMessageTimer = null;
-
-
-function showInspectionAdded(
-  elementId
+function updateSectionStatus(
+  statusId,
+  count
 ){
 
-  const message =
-    document.getElementById(
-      elementId
+  const status =
+    document.getElementById(statusId);
+
+
+  status.textContent =
+    count +
+    (
+      count === 1
+        ? " inspection added"
+        : " inspections added"
     );
 
 
-  if(!message){
-    return;
-  }
+  status.classList.toggle(
+    "active",
+    count > 0
+  );
+
+}
 
 
-  /*
-    Clear an existing timer so repeated
-    quick entries don't fight each other.
-  */
+/* =========================================================
+   BUTTON CONFIRMATION
+   ========================================================= */
 
-  if(addedMessageTimer){
-    clearTimeout(addedMessageTimer);
-  }
+function showAddedButton(
+  buttonId
+){
 
-
-  /*
-    Restart the animation cleanly.
-  */
-
-  message.classList.remove("show");
+  const button =
+    document.getElementById(buttonId);
 
 
-  void message.offsetWidth;
+  const originalText =
+    button.dataset.originalText ||
+    "ADD INSPECTION";
 
 
-  message.classList.add("show");
+  button.dataset.originalText =
+    originalText;
 
 
-  addedMessageTimer =
-    setTimeout(
-      () => {
+  button.textContent =
+    "✓ INSPECTION ADDED";
 
-        message.classList.remove(
-          "show"
-        );
 
-      },
-      2200
-    );
+  button.classList.add(
+    "inspection-added"
+  );
+
+
+  window.setTimeout(
+    () => {
+
+      button.textContent =
+        originalText;
+
+      button.classList.remove(
+        "inspection-added"
+      );
+
+    },
+    1100
+  );
 
 }
 
@@ -1576,7 +1582,6 @@ function showInspectionAdded(
 function totalInspections(){
 
   let total = 0;
-
 
   Object.values(data)
     .forEach(equipment => {
@@ -1595,7 +1600,6 @@ function totalInspections(){
 
     });
 
-
   return total;
 
 }
@@ -1611,55 +1615,86 @@ function updateProgress(){
     totalInspections();
 
 
-  const countElement =
-    document.getElementById(
-      "count"
-    );
+  document
+    .getElementById("count")
+    .textContent =
+      count;
 
 
-  const fill =
-    document.getElementById(
-      "fill"
-    );
-
-
-  const oldCount =
-    Number(
-      countElement.textContent
-    );
-
-
-  countElement.textContent =
-    count;
+  document
+    .getElementById("fill")
+    .style.width =
+      Math.min(
+        100,
+        (count / 28) * 100
+      ) + "%";
 
 
   /*
-    Give the number a tiny bump whenever
-    a new inspection is actually added.
+    Keep each section's count synchronized.
   */
 
-  if(count > oldCount){
-
-    countElement.classList.remove(
-      "progress-count-bump"
-    );
-
-
-    void countElement.offsetWidth;
-
-
-    countElement.classList.add(
-      "progress-count-bump"
-    );
-
-  }
+  const chassisCount =
+    Object.values(data.chassis)
+      .reduce(
+        (total,type) =>
+          total +
+          Object.values(type)
+            .reduce(
+              (sum,section) =>
+                sum + section.length,
+              0
+            ),
+        0
+      );
 
 
-  fill.style.width =
-    Math.min(
-      100,
-      (count / 28) * 100
-    ) + "%";
+  const containerCount =
+    Object.values(data.containers)
+      .reduce(
+        (total,type) =>
+          total +
+          Object.values(type)
+            .reduce(
+              (sum,section) =>
+                sum + section.length,
+              0
+            ),
+        0
+      );
+
+
+  const rackCount =
+    Object.values(data.racks)
+      .reduce(
+        (total,type) =>
+          total +
+          Object.values(type)
+            .reduce(
+              (sum,section) =>
+                sum + section.length,
+              0
+            ),
+        0
+      );
+
+
+  updateSectionStatus(
+    "chassisStatus",
+    chassisCount
+  );
+
+
+  updateSectionStatus(
+    "containerStatus",
+    containerCount
+  );
+
+
+  updateSectionStatus(
+    "rackStatus",
+    rackCount
+  );
 
 }
 
@@ -1763,7 +1798,7 @@ function closeDuplicateModal(){
 
 
 /* =========================================================
-   DUPLICATE YES
+   YES
    ========================================================= */
 
 duplicateYes
@@ -1791,7 +1826,7 @@ duplicateYes
 
 
 /* =========================================================
-   DUPLICATE NO
+   NO
    ========================================================= */
 
 duplicateNo
@@ -1806,7 +1841,7 @@ duplicateNo
 
 
 /* =========================================================
-   MODAL OUTSIDE TAP
+   OUTSIDE MODAL
    ========================================================= */
 
 duplicateModal
@@ -1946,13 +1981,6 @@ function addInspection(){
     number;
 
 
-  /*
-    Same chassis + same inspection type
-    = possible duplicate.
-
-    Different inspection types are allowed.
-  */
-
   if(
     hasDuplicate(
       data.chassis,
@@ -2038,13 +2066,8 @@ function addChassisRecord(
   updateProgress();
 
 
-  /*
-    Chassis message appears directly
-    under the Chassis button.
-  */
-
-  showInspectionAdded(
-    "chassisAdded"
+  showAddedButton(
+    "addInspection"
   );
 
 
@@ -2242,13 +2265,8 @@ function addContainerRecord(
   updateProgress();
 
 
-  /*
-    Container message appears directly
-    under the Containers button.
-  */
-
-  showInspectionAdded(
-    "containerAdded"
+  showAddedButton(
+    "addContainerInspection"
   );
 
 
@@ -2393,13 +2411,8 @@ function addRackRecord(
   updateProgress();
 
 
-  /*
-    Rack message appears directly
-    under the Chassis Racks button.
-  */
-
-  showInspectionAdded(
-    "rackAdded"
+  showAddedButton(
+    "addRackInspection"
   );
 
 
@@ -2775,32 +2788,6 @@ function resetForNextDay(){
     .getElementById("previewCard")
     .classList
     .add("hidden");
-
-
-  /*
-    Make sure all three confirmation
-    messages are hidden for the next day.
-  */
-
-  [
-    "chassisAdded",
-    "containerAdded",
-    "rackAdded"
-  ]
-  .forEach(id => {
-
-    const element =
-      document.getElementById(id);
-
-    if(element){
-
-      element.classList.remove(
-        "show"
-      );
-
-    }
-
-  });
 
 
   document
