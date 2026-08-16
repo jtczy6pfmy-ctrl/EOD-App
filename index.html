@@ -2,161 +2,233 @@
 <html lang="en">
 <head>
   <link rel="apple-touch-icon" href="./EOD-Inspection-chassis-icon.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="EOD Inspection">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#111111">
-<title>EOD Inspection — Harrisburg</title>
 
-<style>
-*{box-sizing:border-box}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="EOD Inspection">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#111111">
 
-body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#eef0f3;
-  color:#171717;
-  -webkit-font-smoothing:antialiased;
-}
+  <title>EOD Inspection — Harrisburg</title>
 
-header{
-  background:#111;
-  color:#fff;
-  padding:18px 20px;
-  text-align:center;
-  font-size:21px;
-  font-weight:700;
-}
+  <style>
+    *{box-sizing:border-box}
 
-.app{
-  max-width:760px;
-  margin:0 auto;
-  padding:18px 14px 50px;
-}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:#eef0f3;
+      color:#171717;
+      -webkit-font-smoothing:antialiased;
+    }
 
-.card{
-  background:#fff;
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 2px 10px rgba(0,0,0,.08);
-}
+    header{
+      background:#111;
+      color:#fff;
+      padding:18px 20px;
+      text-align:center;
+      font-size:21px;
+      font-weight:700;
+    }
 
-h2{
-  margin:0 0 14px;
-  font-size:20px;
-}
+    .app{
+      max-width:760px;
+      margin:0 auto;
+      padding:18px 14px 50px;
+    }
 
-.date{
-  text-align:center;
-  font-weight:600;
-  margin-bottom:12px;
-}
+    .card{
+      background:#fff;
+      border-radius:18px;
+      padding:20px;
+      margin-bottom:16px;
+      box-shadow:0 2px 10px rgba(0,0,0,.08);
+    }
 
-.progress{
-  font-size:18px;
-  font-weight:700;
-  text-align:center;
-  margin-bottom:8px;
-}
+    h2{
+      margin:0 0 14px;
+      font-size:20px;
+    }
 
-.progressbar{
-  height:12px;
-  background:#ddd;
-  border-radius:20px;
-  overflow:hidden;
-  margin-bottom:20px;
-}
+    .section-subtitle{
+      font-size:14px;
+      color:#666;
+      margin-bottom:14px;
+    }
 
-.fill{
-  height:100%;
-  width:0%;
-  background:#111;
-  transition:width .25s ease;
-}
+    .date{
+      text-align:center;
+      font-weight:600;
+      margin-bottom:12px;
+    }
 
-label{
-  display:block;
-  font-weight:650;
-  margin:13px 0 6px;
-}
+    .progress{
+      font-size:18px;
+      font-weight:700;
+      text-align:center;
+      margin-bottom:8px;
+    }
 
-input,select,textarea{
-  width:100%;
-  padding:13px 14px;
-  border:1px solid #c9cdd3;
-  border-radius:11px;
-  font-size:17px;
-  background:#fff;
-}
+    .progressbar{
+      height:12px;
+      background:#ddd;
+      border-radius:20px;
+      overflow:hidden;
+      margin-bottom:4px;
+    }
 
-textarea{
-  min-height:110px;
-  resize:vertical;
-}
+    .fill{
+      height:100%;
+      width:0%;
+      background:#111;
+      transition:width .25s ease;
+    }
 
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
+    .inspection-section{
+      border:1px solid #d7d9dc;
+      border-radius:14px;
+      padding:15px;
+      margin-bottom:14px;
+      background:#fafafa;
+    }
 
-button{
-  width:100%;
-  border:0;
-  border-radius:12px;
-  padding:15px;
-  margin-top:15px;
-  font-size:17px;
-  font-weight:750;
-  cursor:pointer;
-  background:#111;
-  color:#fff;
-  -webkit-tap-highlight-color:transparent;
-}
+    .inspection-title{
+      font-weight:750;
+      font-size:16px;
+      margin-bottom:12px;
+    }
 
-button.secondary{
-  background:#e3e5e8;
-  color:#111;
-}
+    .entry-row{
+      display:grid;
+      grid-template-columns:110px 1fr;
+      gap:8px;
+    }
 
-button:active{
-  transform:scale(.99);
-}
+    input,
+    textarea{
+      width:100%;
+      padding:12px 13px;
+      border:1px solid #c9cdd3;
+      border-radius:10px;
+      font-size:17px;
+      background:#fff;
+    }
 
-#preview{
-  white-space:pre-wrap;
-  background:#f5f6f7;
-  border:1px solid #d7d9dc;
-  border-radius:12px;
-  padding:15px;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:14px;
-  line-height:1.5;
-  overflow:auto;
-}
+    .prefix{
+      text-transform:uppercase;
+      text-align:center;
+      font-weight:700;
+    }
 
-.hidden{
-  display:none;
-}
+    .number{
+      font-weight:500;
+      color:#111;
+    }
 
-@media(max-width:520px){
-  .row{
-    grid-template-columns:1fr;
-  }
+    .note-row{
+      margin-top:8px;
+    }
 
-  .app{
-    padding:12px 10px 40px;
-  }
+    .note-row input{
+      font-size:15px;
+    }
 
-  .card{
-    padding:16px;
-  }
-}
-</style>
+    .add-button{
+      margin-top:9px;
+      padding:11px;
+      font-size:15px;
+    }
+
+    button{
+      width:100%;
+      border:0;
+      border-radius:12px;
+      padding:15px;
+      margin-top:15px;
+      font-size:17px;
+      font-weight:750;
+      cursor:pointer;
+      background:#111;
+      color:#fff;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    button.secondary{
+      background:#e3e5e8;
+      color:#111;
+    }
+
+    button:active{
+      transform:scale(.99);
+    }
+
+    .entries{
+      margin-top:12px;
+    }
+
+    .entry{
+      background:#fff;
+      border:1px solid #ddd;
+      border-radius:9px;
+      padding:9px 10px;
+      margin-top:7px;
+      font-size:15px;
+    }
+
+    .entry-number{
+      font-weight:700;
+    }
+
+    .entry-note{
+      color:#666;
+      font-size:13px;
+      margin-top:3px;
+    }
+
+    .empty{
+      color:#999;
+      font-size:14px;
+      margin-top:8px;
+    }
+
+    textarea{
+      min-height:110px;
+      resize:vertical;
+    }
+
+    #preview{
+      white-space:pre-wrap;
+      background:#f5f6f7;
+      border:1px solid #d7d9dc;
+      border-radius:12px;
+      padding:15px;
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      font-size:14px;
+      line-height:1.5;
+      overflow:auto;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    @media(max-width:520px){
+
+      .app{
+        padding:12px 10px 40px;
+      }
+
+      .card{
+        padding:16px;
+      }
+
+      .entry-row{
+        grid-template-columns:100px 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -165,136 +237,414 @@ button:active{
 
 <main class="app">
 
-<section class="card">
+  <!-- DATE / PROGRESS -->
 
-  <div class="date" id="reportDate"></div>
+  <section class="card">
 
-  <div class="progress">
-    <span id="count">0</span> / 28
-  </div>
+    <div class="date" id="reportDate"></div>
 
-  <div class="progressbar">
-    <div class="fill" id="fill"></div>
-  </div>
+    <div class="progress">
+      <span id="count">0</span> / 28
+    </div>
 
-</section>
+    <div class="progressbar">
+      <div class="fill" id="fill"></div>
+    </div>
 
-
-<section class="card">
-
-<h2>Add Inspection</h2>
-
-<label for="equipment">Equipment Type</label>
-
-<select id="equipment">
-
-  <option value="Chassis">Chassis</option>
-
-  <option value="Container">Container</option>
-
-  <option value="Chassis Rack">Chassis Rack</option>
-
-</select>
+  </section>
 
 
-<label for="prefix">4-Character Prefix</label>
+  <!-- CHASSIS -->
 
-<select id="prefix">
+  <section class="card">
 
-  <option value="NSPZ">NSPZ</option>
-  <option value="NSFZ">NSFZ</option>
+    <h2>CHASSIS</h2>
 
-</select>
-
-
-<label for="number">Equipment Number</label>
-
-<input
-  id="number"
-  inputmode="numeric"
-  maxlength="6"
-  placeholder="Enter 6 digits"
->
+    <div class="section-subtitle">
+      Enter a 4-letter prefix and 6-digit chassis number.
+    </div>
 
 
-<div class="row">
+    <div class="inspection-section" data-key="chassis_pre_no">
 
-<div>
+      <div class="inspection-title">
+        Pre-repair — NO defects — 5652
+      </div>
 
-<label for="type">Inspection Type</label>
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="NSPZ">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
 
-<select id="type">
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
 
-  <option value="5652">5652 — Pre-repair</option>
+      <button class="add-button">ADD CHASSIS</button>
 
-  <option value="5900">5900 — Post-repair</option>
+      <div class="entries"></div>
 
-  <option value="5658">5658 — Add-on</option>
-
-</select>
-
-</div>
-
-
-<div>
-
-<label for="condition">Condition</label>
-
-<select id="condition">
-
-  <option value="Defect">Defect</option>
-
-  <option value="No Defect">No Defect</option>
-
-</select>
-
-</div>
-
-</div>
+    </div>
 
 
-<label for="equipmentNote">Inspection Note</label>
+    <div class="inspection-section" data-key="chassis_pre_defect">
 
-<input
-  id="equipmentNote"
-  placeholder="Example: 145D dwell"
->
+      <div class="inspection-title">
+        Pre-repair — WITH defects — 5652
+      </div>
 
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="NSPZ">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
 
-<button id="addInspection">
-  ADD INSPECTION
-</button>
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
 
-</section>
+      <button class="add-button">ADD CHASSIS</button>
 
+      <div class="entries"></div>
 
-<section class="card">
-
-<h2>Comments or Notes of Interest</h2>
-
-<textarea
-  id="notes"
-  placeholder="Enter comments or notes of interest..."
-></textarea>
-
-<button id="generateEod">
-  GENERATE EOD
-</button>
-
-</section>
+    </div>
 
 
-<section class="card hidden" id="previewCard">
+    <div class="inspection-section" data-key="chassis_post_no">
 
-<h2>EOD Report Preview</h2>
+      <div class="inspection-title">
+        Post-repair — NO defects — 5900
+      </div>
 
-<div id="preview"></div>
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="NSPZ">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
 
-<button id="emailEod" class="secondary">
-  EMAIL EOD
-</button>
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
 
-</section>
+      <button class="add-button">ADD CHASSIS</button>
+
+      <div class="entries"></div>
+
+    </div>
+
+
+    <div class="inspection-section" data-key="chassis_post_defect">
+
+      <div class="inspection-title">
+        Post-repair — WITH defects — 5900
+      </div>
+
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="NSPZ">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
+
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
+
+      <button class="add-button">ADD CHASSIS</button>
+
+      <div class="entries"></div>
+
+    </div>
+
+
+    <div class="inspection-section" data-key="chassis_addon_no">
+
+      <div class="inspection-title">
+        Add-on — NO defects — 5658
+      </div>
+
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="NSPZ">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
+
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
+
+      <button class="add-button">ADD CHASSIS</button>
+
+      <div class="entries"></div>
+
+    </div>
+
+
+    <div class="inspection-section" data-key="chassis_addon_defect">
+
+      <div class="inspection-title">
+        Add-on — WITH defects — 5658
+      </div>
+
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="NSPZ">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
+
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
+
+      <button class="add-button">ADD CHASSIS</button>
+
+      <div class="entries"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CONTAINERS -->
+
+  <section class="card">
+
+    <h2>CONTAINERS</h2>
+
+    <div class="section-subtitle">
+      Enter a 4-letter prefix and 6-digit container number.
+    </div>
+
+
+    <div class="inspection-section" data-key="container_pre_no">
+
+      <div class="inspection-title">
+        Pre-repair — NO defects — 5653
+      </div>
+
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="ABCD">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
+
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
+
+      <button class="add-button">ADD CONTAINER</button>
+
+      <div class="entries"></div>
+
+    </div>
+
+
+    <div class="inspection-section" data-key="container_pre_defect">
+
+      <div class="inspection-title">
+        Pre-repair — WITH defects — 5653
+      </div>
+
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="ABCD">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
+
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
+
+      <button class="add-button">ADD CONTAINER</button>
+
+      <div class="entries"></div>
+
+    </div>
+
+
+    <div class="inspection-section" data-key="container_post_no">
+
+      <div class="inspection-title">
+        Post-repair — NO defects — 5900
+      </div>
+
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="ABCD">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
+
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
+
+      <button class="add-button">ADD CONTAINER</button>
+
+      <div class="entries"></div>
+
+    </div>
+
+
+    <div class="inspection-section" data-key="container_post_defect">
+
+      <div class="inspection-title">
+        Post-repair — WITH defects — 5900
+      </div>
+
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="ABCD">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
+
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
+
+      <button class="add-button">ADD CONTAINER</button>
+
+      <div class="entries"></div>
+
+    </div>
+
+
+    <div class="inspection-section" data-key="container_addon_no">
+
+      <div class="inspection-title">
+        Add-on — NO defects — 5658
+      </div>
+
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="ABCD">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
+
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
+
+      <button class="add-button">ADD CONTAINER</button>
+
+      <div class="entries"></div>
+
+    </div>
+
+
+    <div class="inspection-section" data-key="container_addon_defect">
+
+      <div class="inspection-title">
+        Add-on — WITH defects — 5658
+      </div>
+
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="ABCD">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
+
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
+
+      <button class="add-button">ADD CONTAINER</button>
+
+      <div class="entries"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CHASSIS RACKS -->
+
+  <section class="card">
+
+    <h2>CHASSIS RACKS</h2>
+
+    <div class="section-subtitle">
+      Enter a 4-letter prefix and 6-digit chassis rack number.
+    </div>
+
+
+    <div class="inspection-section" data-key="rack_pre_no">
+
+      <div class="inspection-title">
+        Pre-repair — NO defects — 5657
+      </div>
+
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="ABCD">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
+
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
+
+      <button class="add-button">ADD RACK</button>
+
+      <div class="entries"></div>
+
+    </div>
+
+
+    <div class="inspection-section" data-key="rack_pre_defect">
+
+      <div class="inspection-title">
+        Pre-repair — WITH defects — 5657
+      </div>
+
+      <div class="entry-row">
+        <input class="prefix" maxlength="4" placeholder="ABCD">
+        <input class="number" inputmode="numeric" maxlength="6" placeholder="6 digits">
+      </div>
+
+      <div class="note-row">
+        <input class="note" placeholder="Inspection note (optional)">
+      </div>
+
+      <button class="add-button">ADD RACK</button>
+
+      <div class="entries"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TOTAL -->
+
+  <section class="card">
+
+    <h2>TOTAL INSPECTIONS</h2>
+
+    <div class="progress">
+      <span id="total">0</span>
+    </div>
+
+  </section>
+
+
+  <!-- NOTES -->
+
+  <section class="card">
+
+    <h2>Comments or Notes of Interest</h2>
+
+    <textarea
+      id="notes"
+      placeholder="Enter comments or notes of interest..."
+    ></textarea>
+
+    <button id="generateEod">
+      GENERATE EOD
+    </button>
+
+  </section>
+
+
+  <!-- PREVIEW -->
+
+  <section class="card hidden" id="previewCard">
+
+    <h2>EOD Report Preview</h2>
+
+    <div id="preview"></div>
+
+    <button id="emailEod" class="secondary">
+      EMAIL EOD
+    </button>
+
+  </section>
 
 </main>
 
@@ -302,274 +652,226 @@ button:active{
 <script>
 (() => {
 
-const data = {
+  const sections = {};
 
-  chassis: {
-    "5652": {
-      "Pre-repair": [],
-      "Post-repair": [],
-      "Add-on": []
-    },
+  document.querySelectorAll(".inspection-section").forEach(section => {
+    sections[section.dataset.key] = [];
+  });
 
-    "5900": {
-      "Pre-repair": [],
-      "Post-repair": [],
-      "Add-on": []
-    },
 
-    "5658": {
-      "Pre-repair": [],
-      "Post-repair": [],
-      "Add-on": []
-    }
-  },
+  function totalInspections(){
 
-  containers: {
-    "5653": {
-      "Pre-repair": [],
-      "Post-repair": [],
-      "Add-on": []
-    },
+    let total = 0;
 
-    "5900": {
-      "Pre-repair": [],
-      "Post-repair": [],
-      "Add-on": []
-    },
+    Object.values(sections).forEach(section => {
+      total += section.length;
+    });
 
-    "5658": {
-      "Pre-repair": [],
-      "Post-repair": [],
-      "Add-on": []
-    }
-  },
+    return total;
 
-  racks: {
-    "5657": {
-      "Pre-repair": []
-    }
   }
 
-};
+
+  function updateProgress(){
+
+    const count = totalInspections();
+
+    document.getElementById("count").textContent = count;
+
+    document.getElementById("total").textContent = count;
+
+    document.getElementById("fill").style.width =
+      Math.min(100,(count / 28) * 100) + "%";
+
+  }
 
 
-function totalInspections(){
+  function addInspection(sectionElement){
 
-  let total = 0;
+    const prefixInput =
+      sectionElement.querySelector(".prefix");
 
-  Object.values(data).forEach(equipment => {
+    const numberInput =
+      sectionElement.querySelector(".number");
 
-    Object.values(equipment).forEach(type => {
+    const noteInput =
+      sectionElement.querySelector(".note");
 
-      Object.values(type).forEach(section => {
+    const prefix =
+      prefixInput.value.trim().toUpperCase();
 
-        total += section.length;
+    const number =
+      numberInput.value.trim();
 
-      });
+    const note =
+      noteInput.value.trim();
+
+
+    if(!/^[A-Z]{4}$/.test(prefix)){
+
+      alert("Enter exactly 4 letters for the prefix.");
+
+      prefixInput.focus();
+
+      return;
+
+    }
+
+
+    if(!/^\d{6}$/.test(number)){
+
+      alert("Enter exactly 6 digits for the equipment number.");
+
+      numberInput.focus();
+
+      return;
+
+    }
+
+
+    const key = sectionElement.dataset.key;
+
+
+    sections[key].push({
+      number: prefix + " " + number,
+      note: note
+    });
+
+
+    prefixInput.value = "";
+
+    numberInput.value = "";
+
+    noteInput.value = "";
+
+
+    renderSection(sectionElement);
+
+    updateProgress();
+
+    prefixInput.focus();
+
+  }
+
+
+  function renderSection(sectionElement){
+
+    const key = sectionElement.dataset.key;
+
+    const entriesDiv =
+      sectionElement.querySelector(".entries");
+
+    entriesDiv.innerHTML = "";
+
+
+    if(sections[key].length === 0){
+
+      const empty =
+        document.createElement("div");
+
+      empty.className = "empty";
+
+      empty.textContent =
+        "No inspections entered.";
+
+      entriesDiv.appendChild(empty);
+
+      return;
+
+    }
+
+
+    sections[key].forEach((item,index) => {
+
+      const entry =
+        document.createElement("div");
+
+      entry.className = "entry";
+
+      entry.innerHTML =
+        '<div class="entry-number">' +
+        (index + 1) +
+        ". " +
+        escapeHtml(item.number) +
+        "</div>" +
+        (
+          item.note
+          ? '<div class="entry-note">Note: ' +
+            escapeHtml(item.note) +
+            "</div>"
+          : ""
+        );
+
+      entriesDiv.appendChild(entry);
 
     });
 
-  });
-
-  return total;
-}
-
-
-function updateProgress(){
-
-  const count = totalInspections();
-
-  document.getElementById("count").textContent = count;
-
-  document.getElementById("fill").style.width =
-    Math.min(100, (count / 28) * 100) + "%";
-}
-
-
-function updateInspectionTypeOptions(){
-
-  const equipment =
-    document.getElementById("equipment").value;
-
-  const typeSelect =
-    document.getElementById("type");
-
-  if(equipment === "Chassis"){
-
-    typeSelect.innerHTML = `
-      <option value="5652">5652 — Pre-repair</option>
-      <option value="5900">5900 — Post-repair</option>
-      <option value="5658">5658 — Add-on</option>
-    `;
-
   }
 
-  else if(equipment === "Container"){
 
-    typeSelect.innerHTML = `
-      <option value="5653">5653 — Pre-repair</option>
-      <option value="5900">5900 — Post-repair</option>
-      <option value="5658">5658 — Add-on</option>
-    `;
+  function escapeHtml(text){
 
-  }
+    const div =
+      document.createElement("div");
 
-  else if(equipment === "Chassis Rack"){
+    div.textContent = text;
 
-    typeSelect.innerHTML = `
-      <option value="5657">5657 — Pre-repair</option>
-    `;
-
-  }
-
-}
-
-
-function addInspection(){
-
-  const equipment =
-    document.getElementById("equipment").value;
-
-  const prefix =
-    document.getElementById("prefix").value;
-
-  const number =
-    document.getElementById("number").value.trim();
-
-  const type =
-    document.getElementById("type").value;
-
-  const condition =
-    document.getElementById("condition").value;
-
-  const note =
-    document.getElementById("equipmentNote").value.trim();
-
-
-  if(!/^\d{6}$/.test(number)){
-
-    alert("Enter exactly 6 digits for the equipment number.");
-
-    document.getElementById("number").focus();
-
-    return;
+    return div.innerHTML;
 
   }
 
 
-  let equipmentData;
+  function getItems(key){
 
-  if(equipment === "Chassis"){
-
-    equipmentData = data.chassis;
-
-  }
-
-  else if(equipment === "Container"){
-
-    equipmentData = data.containers;
-
-  }
-
-  else{
-
-    equipmentData = data.racks;
+    return sections[key] || [];
 
   }
 
 
-  let section;
+  function addReportSection(
+    out,
+    keyNo,
+    keyDefect,
+    noText,
+    defectText,
+    numberLabel
+  ){
 
-  if(type === "5652" || type === "5653"){
+    const noItems =
+      getItems(keyNo);
 
-    section = "Pre-repair";
-
-  }
-
-  else if(type === "5900"){
-
-    section = "Post-repair";
-
-  }
-
-  else if(type === "5658"){
-
-    section = "Add-on";
-
-  }
-
-  else if(type === "5657"){
-
-    section = "Pre-repair";
-
-  }
+    const defectItems =
+      getItems(keyDefect);
 
 
-  equipmentData[type][section].push([
+    out.push(
+      "(" +
+      noItems.length +
+      ") " +
+      noText
+    );
 
-    prefix + " " + number,
-
-    condition,
-
-    note
-
-  ]);
-
-
-  document.getElementById("number").value = "";
-
-  document.getElementById("equipmentNote").value = "";
-
-
-  updateProgress();
-
-
-  document.getElementById("number").focus();
-
-}
-
-
-function addSectionToReport(
-  output,
-  equipmentData,
-  section,
-  type,
-  noText,
-  yesText,
-  numberLabel
-){
-
-  ["No Defect","Defect"].forEach(condition => {
-
-    const items =
-      equipmentData[type][section]
-      .filter(item => item[1] === condition);
-
-
-    output.push(
-      "(" + items.length + ") " +
-      (condition === "Defect" ? yesText : noText)
+    out.push(
+      numberLabel +
+      ":"
     );
 
 
-    output.push(numberLabel + ":");
+    noItems.forEach((item,index) => {
 
-
-    items.forEach((item,index) => {
-
-      output.push(
+      out.push(
         "\t" +
         (index + 1) +
         ". " +
-        item[0]
+        item.number
       );
 
 
-      if(item[2]){
+      if(item.note){
 
-        output.push(
+        out.push(
           "\t   Note: " +
-          item[2]
+          item.note
         );
 
       }
@@ -577,352 +879,422 @@ function addSectionToReport(
     });
 
 
-    output.push("");
-
-  });
-
-}
+    out.push("");
 
 
-function buildEOD(){
+    out.push(
+      "(" +
+      defectItems.length +
+      ") " +
+      defectText
+    );
 
-  const out = [];
-
-
-  out.push("End of Day Report");
-
-  out.push("");
-
-  out.push("Date: " + formatDate());
-
-  out.push("");
-
-  out.push("End of Day Report for:");
-
-  out.push("Harrisburg");
-
-  out.push("");
+    out.push(
+      numberLabel +
+      ":"
+    );
 
 
-  /* =========================
-     CHASSIS
-     ========================= */
+    defectItems.forEach((item,index) => {
 
-  out.push("CHASSIS");
-
-
-  addSectionToReport(
-    out,
-    data.chassis,
-    "Pre-repair",
-    "5652",
-    "pre-repair NO defects - 5652",
-    "pre-repair WITH defects - 5652",
-    "Chassis Numbers"
-  );
+      out.push(
+        "\t" +
+        (index + 1) +
+        ". " +
+        item.number
+      );
 
 
-  addSectionToReport(
-    out,
-    data.chassis,
-    "Post-repair",
-    "5900",
-    "post repair NO defects - 5900",
-    "post repair WITH defects - 5900",
-    "Chassis Numbers"
-  );
+      if(item.note){
 
+        out.push(
+          "\t   Note: " +
+          item.note
+        );
 
-  addSectionToReport(
-    out,
-    data.chassis,
-    "Add-on",
-    "5658",
-    "add-on NO defects - 5658",
-    "add-on WITH defects - 5658",
-    "Chassis Numbers"
-  );
+      }
 
-
-  /* =========================
-     CONTAINERS
-     ========================= */
-
-  out.push("CONTAINERS");
-
-
-  addSectionToReport(
-    out,
-    data.containers,
-    "Pre-repair",
-    "5653",
-    "pre-repair NO defects - 5653",
-    "pre-repair WITH defects - 5653",
-    "Container Numbers"
-  );
-
-
-  addSectionToReport(
-    out,
-    data.containers,
-    "Post-repair",
-    "5900",
-    "post repair NO defects - 5900",
-    "post repair WITH defects - 5900",
-    "Container Numbers"
-  );
-
-
-  addSectionToReport(
-    out,
-    data.containers,
-    "Add-on",
-    "5658",
-    "add-on NO defects - 5658",
-    "add-on WITH defects - 5658",
-    "Container Numbers"
-  );
-
-
-  /* =========================
-     CHASSIS RACKS
-     ========================= */
-
-  out.push("CHASSIS RACKS");
-
-
-  addSectionToReport(
-    out,
-    data.racks,
-    "Pre-repair",
-    "5657",
-    "pre-repair NO defects - 5657",
-    "pre-repair WITH defects - 5657",
-    "Chassis Rack Numbers"
-  );
-
-
-  /* =========================
-     TOTAL
-     ========================= */
-
-  out.push(
-    "(" +
-    totalInspections() +
-    ") TOTAL INSPECTIONS"
-  );
-
-
-  out.push("");
-
-  out.push("Comments or Notes of Interest:");
-
-  out.push(
-    document
-      .getElementById("notes")
-      .value
-      .trim()
-  );
-
-
-  return out.join("\n");
-
-}
-
-
-function generateEOD(){
-
-  document.getElementById("preview").textContent =
-    buildEOD();
-
-
-  document
-    .getElementById("previewCard")
-    .classList.remove("hidden");
-
-
-  document
-    .getElementById("previewCard")
-    .scrollIntoView({
-      behavior:"smooth",
-      block:"start"
     });
 
-}
+
+    out.push("");
+
+  }
 
 
-function formatDate(date = new Date()){
+  function buildEOD(){
 
-  return (
-    (date.getMonth() + 1) +
-    "/" +
-    date.getDate() +
-    "/" +
-    String(date.getFullYear()).slice(-2)
-  );
-
-}
+    const out = [];
 
 
-function resetForNextDay(){
+    out.push("End of Day Report");
 
-  Object.values(data).forEach(equipment => {
+    out.push("");
 
-    Object.values(equipment).forEach(type => {
+    out.push(
+      "Date: " +
+      formatDate()
+    );
 
-      Object.keys(type).forEach(section => {
+    out.push("");
 
-        type[section].length = 0;
+    out.push(
+      "End of Day Report for:"
+    );
+
+    out.push("Harrisburg");
+
+    out.push("");
+
+
+    /* =========================
+       CHASSIS
+       ========================= */
+
+    out.push("CHASSIS");
+
+
+    addReportSection(
+      out,
+      "chassis_pre_no",
+      "chassis_pre_defect",
+      "pre-repair NO defects - 5652",
+      "pre-repair WITH defects - 5652",
+      "Chassis Numbers"
+    );
+
+
+    addReportSection(
+      out,
+      "chassis_post_no",
+      "chassis_post_defect",
+      "post repair NO defects - 5900",
+      "post repair WITH defects - 5900",
+      "Chassis Numbers"
+    );
+
+
+    addReportSection(
+      out,
+      "chassis_addon_no",
+      "chassis_addon_defect",
+      "add-on NO defects - 5658",
+      "add-on WITH defects - 5658",
+      "Chassis Numbers"
+    );
+
+
+    /* =========================
+       CONTAINERS
+       ========================= */
+
+    out.push("CONTAINERS");
+
+
+    addReportSection(
+      out,
+      "container_pre_no",
+      "container_pre_defect",
+      "pre-repair NO defects - 5653",
+      "pre-repair WITH defects - 5653",
+      "Container Numbers"
+    );
+
+
+    addReportSection(
+      out,
+      "container_post_no",
+      "container_post_defect",
+      "post repair NO defects - 5900",
+      "post repair WITH defects - 5900",
+      "Container Numbers"
+    );
+
+
+    addReportSection(
+      out,
+      "container_addon_no",
+      "container_addon_defect",
+      "add-on NO defects - 5658",
+      "add-on WITH defects - 5658",
+      "Container Numbers"
+    );
+
+
+    /* =========================
+       CHASSIS RACKS
+       ========================= */
+
+    out.push("CHASSIS RACKS");
+
+
+    addReportSection(
+      out,
+      "rack_pre_no",
+      "rack_pre_defect",
+      "pre-repair NO defects - 5657",
+      "pre-repair WITH defects - 5657",
+      "Chassis Rack Numbers"
+    );
+
+
+    /* =========================
+       TOTAL
+       ========================= */
+
+    out.push(
+      "(" +
+      totalInspections() +
+      ") TOTAL INSPECTIONS"
+    );
+
+
+    out.push("");
+
+    out.push(
+      "Comments or Notes of Interest:"
+    );
+
+    out.push(
+      document
+        .getElementById("notes")
+        .value
+        .trim()
+    );
+
+
+    return out.join("\n");
+
+  }
+
+
+  function generateEOD(){
+
+    document.getElementById("preview").textContent =
+      buildEOD();
+
+
+    document
+      .getElementById("previewCard")
+      .classList.remove("hidden");
+
+
+    document
+      .getElementById("previewCard")
+      .scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+  }
+
+
+  function formatDate(date = new Date()){
+
+    return (
+      (date.getMonth() + 1) +
+      "/" +
+      date.getDate() +
+      "/" +
+      String(date.getFullYear()).slice(-2)
+    );
+
+  }
+
+
+  function resetForNextDay(){
+
+    Object.keys(sections).forEach(key => {
+
+      sections[key].length = 0;
+
+    });
+
+
+    document
+      .querySelectorAll(".inspection-section")
+      .forEach(section => {
+
+        section.querySelector(".prefix").value = "";
+
+        section.querySelector(".number").value = "";
+
+        section.querySelector(".note").value = "";
+
+        renderSection(section);
+
+      });
+
+
+    document.getElementById("notes").value = "";
+
+    document.getElementById("preview").textContent = "";
+
+
+    document
+      .getElementById("previewCard")
+      .classList.add("hidden");
+
+
+    document.getElementById("reportDate").textContent =
+      "Harrisburg — " +
+      formatDate();
+
+
+    updateProgress();
+
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+  }
+
+
+  function emailEOD(){
+
+    const body =
+      buildEOD();
+
+
+    const reportDate =
+      document
+        .getElementById("reportDate")
+        .textContent
+        .split("—")[1]
+        .trim();
+
+
+    const subject =
+      "End of Day Report - Harrisburg - " +
+      reportDate;
+
+
+    resetForNextDay();
+
+
+    window.location.href =
+      "mailto:joe@caliberis.com" +
+      "?cc=dgeist@caliberis.com,jdoan@aspectassociates.com" +
+      "&subject=" +
+      encodeURIComponent(subject) +
+      "&body=" +
+      encodeURIComponent(body);
+
+  }
+
+
+  /* =========================
+     PREFIX INPUT
+     ========================= */
+
+  document
+    .querySelectorAll(".prefix")
+    .forEach(input => {
+
+      input.addEventListener("input",event => {
+
+        event.target.value =
+          event.target.value
+            .replace(/[^a-zA-Z]/g,"")
+            .toUpperCase()
+            .slice(0,4);
 
       });
 
     });
 
-  });
+
+  /* =========================
+     NUMBER INPUT
+     ========================= */
+
+  document
+    .querySelectorAll(".number")
+    .forEach(input => {
+
+      input.addEventListener("input",event => {
+
+        event.target.value =
+          event.target.value
+            .replace(/\D/g,"")
+            .slice(0,6);
+
+      });
+
+    });
 
 
-  document.getElementById("notes").value = "";
+  /* =========================
+     SECTION BUTTONS
+     ========================= */
 
-  document.getElementById("number").value = "";
+  document
+    .querySelectorAll(".inspection-section")
+    .forEach(section => {
 
-  document.getElementById("equipmentNote").value = "";
+      section
+        .querySelector(".add-button")
+        .addEventListener(
+          "click",
+          () => addInspection(section)
+        );
 
-  document.getElementById("preview").textContent = "";
+
+      section
+        .querySelector(".number")
+        .addEventListener(
+          "keydown",
+          event => {
+
+            if(event.key === "Enter"){
+
+              addInspection(section);
+
+            }
+
+          }
+        );
+
+    });
+
+
+  /* =========================
+     MAIN BUTTONS
+     ========================= */
+
+  document
+    .getElementById("generateEod")
+    .addEventListener(
+      "click",
+      generateEOD
+    );
 
 
   document
-    .getElementById("previewCard")
-    .classList.add("hidden");
+    .getElementById("emailEod")
+    .addEventListener(
+      "click",
+      emailEOD
+    );
 
+
+  /* =========================
+     STARTUP
+     ========================= */
 
   document.getElementById("reportDate").textContent =
-    "Harrisburg — " + formatDate();
+    "Harrisburg — " +
+    formatDate();
+
+
+  document
+    .querySelectorAll(".inspection-section")
+    .forEach(renderSection);
 
 
   updateProgress();
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-function emailEOD(){
-
-  const body = buildEOD();
-
-
-  const reportDate =
-    document
-      .getElementById("reportDate")
-      .textContent
-      .split("—")[1]
-      .trim();
-
-
-  const subject =
-    "End of Day Report - Harrisburg - " +
-    reportDate;
-
-
-  resetForNextDay();
-
-
-  window.location.href =
-    'mailto:joe@caliberis.com' +
-    '?cc=dgeist@caliberis.com,jdoan@aspectassociates.com' +
-    '&subject=' +
-    encodeURIComponent(subject) +
-    '&body=' +
-    encodeURIComponent(body);
-
-}
-
-
-/* =========================
-   EQUIPMENT CHANGE
-   ========================= */
-
-document
-  .getElementById("equipment")
-  .addEventListener(
-    "change",
-    updateInspectionTypeOptions
-  );
-
-
-/* =========================
-   NUMBER INPUT
-   ========================= */
-
-document
-  .getElementById("number")
-  .addEventListener("input", event => {
-
-    event.target.value =
-      event.target.value
-        .replace(/\D/g,"")
-        .slice(0,6);
-
-  });
-
-
-document
-  .getElementById("number")
-  .addEventListener("keydown", event => {
-
-    if(event.key === "Enter"){
-
-      addInspection();
-
-    }
-
-  });
-
-
-/* =========================
-   BUTTONS
-   ========================= */
-
-document
-  .getElementById("addInspection")
-  .addEventListener(
-    "click",
-    addInspection
-  );
-
-
-document
-  .getElementById("generateEod")
-  .addEventListener(
-    "click",
-    generateEOD
-  );
-
-
-document
-  .getElementById("emailEod")
-  .addEventListener(
-    "click",
-    emailEOD
-  );
-
-
-/* =========================
-   STARTUP
-   ========================= */
-
-document.getElementById("reportDate").textContent =
-  "Harrisburg — " + formatDate();
-
-
-updateInspectionTypeOptions();
-
-updateProgress();
-
 
 })();
 </script>
@@ -930,9 +1302,9 @@ updateProgress();
 
 <script>
 
-if ("serviceWorker" in navigator) {
+if("serviceWorker" in navigator){
 
-  window.addEventListener("load", () => {
+  window.addEventListener("load",() => {
 
     navigator.serviceWorker.register(
       "./service-worker.js"
