@@ -196,11 +196,6 @@ button:active{
 
 <main class="app">
 
-
-<!-- =========================
-     DATE / PROGRESS
-     ========================= -->
-
 <section class="card">
 
   <div class="date" id="reportDate"></div>
@@ -226,7 +221,6 @@ button:active{
 
 <input type="hidden" id="equipment" value="Chassis">
 
-
 <div class="row">
 
   <div>
@@ -241,7 +235,6 @@ button:active{
     </select>
 
   </div>
-
 
   <div>
 
@@ -258,7 +251,6 @@ button:active{
 
 </div>
 
-
 <div class="row">
 
   <div>
@@ -268,15 +260,12 @@ button:active{
     <select id="type">
 
       <option value="5652">5652 — Pre-repair</option>
-
       <option value="5900">5900 — Post-repair</option>
-
       <option value="5658">5658 — Add-on</option>
 
     </select>
 
   </div>
-
 
   <div>
 
@@ -285,7 +274,6 @@ button:active{
     <select id="condition">
 
       <option value="Defect">Defect</option>
-
       <option value="No Defect">No Defect</option>
 
     </select>
@@ -294,14 +282,12 @@ button:active{
 
 </div>
 
-
 <label for="equipmentNote">Inspection Note</label>
 
 <input
   id="equipmentNote"
   placeholder="Example: 145D dwell"
 >
-
 
 <button id="addInspection">
   ADD INSPECTION
@@ -320,7 +306,6 @@ button:active{
 
 <h2>Containers</h2>
 
-
 <div class="row">
 
   <div>
@@ -336,7 +321,6 @@ button:active{
     >
 
   </div>
-
 
   <div>
 
@@ -355,7 +339,6 @@ button:active{
 
 </div>
 
-
 <div class="row">
 
   <div>
@@ -365,15 +348,12 @@ button:active{
     <select id="containerType">
 
       <option value="5653">5653 — Pre-repair</option>
-
       <option value="5900">5900 — Post-repair</option>
-
       <option value="5658">5658 — Add-on</option>
 
     </select>
 
   </div>
-
 
   <div>
 
@@ -382,7 +362,6 @@ button:active{
     <select id="containerCondition">
 
       <option value="Defect">Defect</option>
-
       <option value="No Defect">No Defect</option>
 
     </select>
@@ -391,7 +370,6 @@ button:active{
 
 </div>
 
-
 <label for="containerNote">Inspection Note</label>
 
 <input
@@ -399,11 +377,9 @@ button:active{
   placeholder="Example: 145D dwell"
 >
 
-
 <button id="addContainerInspection">
   ADD INSPECTION
 </button>
-
 
 <div
   class="entry-list"
@@ -421,23 +397,17 @@ button:active{
 
 <h2>Chassis Racks</h2>
 
-
 <div class="row">
 
   <div>
 
-    <label for="rackPrefix">4-Character Prefix</label>
+    <label>4-Character Prefix</label>
 
-    <input
-      id="rackPrefix"
-      class="rack-prefix"
-      maxlength="4"
-      placeholder="ABCD"
-      autocomplete="off"
-    >
+    <div class="static-type">
+      ZNSU
+    </div>
 
   </div>
-
 
   <div>
 
@@ -456,7 +426,6 @@ button:active{
 
 </div>
 
-
 <div class="row">
 
   <div>
@@ -469,7 +438,6 @@ button:active{
 
   </div>
 
-
   <div>
 
     <label for="rackCondition">Condition</label>
@@ -477,7 +445,6 @@ button:active{
     <select id="rackCondition">
 
       <option value="Defect">Defect</option>
-
       <option value="No Defect">No Defect</option>
 
     </select>
@@ -486,7 +453,6 @@ button:active{
 
 </div>
 
-
 <label for="rackNote">Inspection Note</label>
 
 <input
@@ -494,11 +460,9 @@ button:active{
   placeholder="Example: 145D dwell"
 >
 
-
 <button id="addRackInspection">
   ADD INSPECTION
 </button>
-
 
 <div
   class="entry-list"
@@ -544,17 +508,11 @@ button:active{
 
 </section>
 
-
 </main>
 
 
 <script>
 (() => {
-
-
-/* =========================
-   DATA
-   ========================= */
 
 const data = {
 
@@ -607,29 +565,6 @@ const data = {
 };
 
 
-/* =========================
-   NEW SECTION DATA
-   ========================= */
-
-const containerSections = {
-  "pre-no": [],
-  "pre-defect": [],
-  "post-no": [],
-  "post-defect": [],
-  "addon-no": [],
-  "addon-defect": []
-};
-
-const rackSections = {
-  "pre-no": [],
-  "pre-defect": []
-};
-
-
-/* =========================
-   TOTAL
-   ========================= */
-
 function totalInspections(){
 
   let total = 0;
@@ -645,18 +580,6 @@ function totalInspections(){
       });
 
     });
-
-  });
-
-  Object.values(containerSections).forEach(section => {
-
-    total += section.length;
-
-  });
-
-  Object.values(rackSections).forEach(section => {
-
-    total += section.length;
 
   });
 
@@ -682,58 +605,7 @@ function updateProgress(){
 
 
 /* =========================
-   CHASSIS DISPLAY
-   ========================= */
-
-function renderChassis(){
-
-  const list =
-    document.getElementById(
-      "chassisInspectionList"
-    );
-
-  list.innerHTML = "";
-
-  const type =
-    document.getElementById("type").value;
-
-  const condition =
-    document.getElementById("condition").value;
-
-  const section =
-    type === "5652"
-      ? "Pre-repair"
-      : type === "5900"
-        ? "Post-repair"
-        : "Add-on";
-
-  data.chassis[type][section]
-    .forEach((item,index) => {
-
-      const div =
-        document.createElement("div");
-
-      div.className = "entry";
-
-      div.textContent =
-        (index + 1) +
-        ". " +
-        item[0] +
-        " — " +
-        item[1] +
-        (item[2]
-          ? " — " + item[2]
-          : "");
-
-      list.appendChild(div);
-
-    });
-
-}
-
-
-/* =========================
-   CHASSIS ADD
+   CHASSIS
    ========================= */
 
 function addInspection(){
@@ -801,8 +673,51 @@ function addInspection(){
 }
 
 
+function renderChassis(){
+
+  const list =
+    document.getElementById(
+      "chassisInspectionList"
+    );
+
+  list.innerHTML = "";
+
+
+  Object.keys(data.chassis)
+    .forEach(type => {
+
+      Object.keys(data.chassis[type])
+        .forEach(section => {
+
+          data.chassis[type][section]
+            .forEach(item => {
+
+              const div =
+                document.createElement("div");
+
+              div.className = "entry";
+
+              div.textContent =
+                item[0] +
+                " — " +
+                item[1] +
+                (item[2]
+                  ? " — " + item[2]
+                  : "");
+
+              list.appendChild(div);
+
+            });
+
+        });
+
+    });
+
+}
+
+
 /* =========================
-   CONTAINER ADD
+   CONTAINERS
    ========================= */
 
 function addContainerInspection(){
@@ -897,10 +812,6 @@ function addContainerInspection(){
 }
 
 
-/* =========================
-   CONTAINER RENDER
-   ========================= */
-
 function renderContainers(){
 
   const list =
@@ -945,16 +856,12 @@ function renderContainers(){
 
 
 /* =========================
-   RACK ADD
+   CHASSIS RACKS
    ========================= */
 
 function addRackInspection(){
 
-  const prefix =
-    document.getElementById("rackPrefix")
-      .value
-      .trim()
-      .toUpperCase();
+  const prefix = "ZNSU";
 
   const number =
     document.getElementById("rackNumber")
@@ -969,21 +876,6 @@ function addRackInspection(){
     document.getElementById("rackNote")
       .value
       .trim();
-
-
-  if(!/^[A-Z]{4}$/.test(prefix)){
-
-    alert(
-      "Enter exactly 4 letters for the chassis rack prefix."
-    );
-
-    document
-      .getElementById("rackPrefix")
-      .focus();
-
-    return;
-
-  }
 
 
   if(!/^\d{6}$/.test(number)){
@@ -1012,8 +904,6 @@ function addRackInspection(){
   ]);
 
 
-  document.getElementById("rackPrefix").value = "";
-
   document.getElementById("rackNumber").value = "";
 
   document.getElementById("rackNote").value = "";
@@ -1024,15 +914,11 @@ function addRackInspection(){
   updateProgress();
 
   document
-    .getElementById("rackPrefix")
+    .getElementById("rackNumber")
     .focus();
 
 }
 
-
-/* =========================
-   RACK RENDER
-   ========================= */
 
 function renderRacks(){
 
@@ -1068,7 +954,7 @@ function renderRacks(){
 
 
 /* =========================
-   REPORT SECTION
+   REPORT
    ========================= */
 
 function addSectionToReport(
@@ -1138,10 +1024,6 @@ function addSectionToReport(
 }
 
 
-/* =========================
-   BUILD EOD
-   ========================= */
-
 function buildEOD(){
 
   const out = [];
@@ -1172,8 +1054,6 @@ function buildEOD(){
 
   out.push("");
 
-
-  /* CHASSIS */
 
   out.push(
     "CHASSIS"
@@ -1213,8 +1093,6 @@ function buildEOD(){
   );
 
 
-  /* CONTAINERS */
-
   out.push(
     "CONTAINERS"
   );
@@ -1253,8 +1131,6 @@ function buildEOD(){
   );
 
 
-  /* CHASSIS RACKS */
-
   out.push(
     "CHASSIS RACKS"
   );
@@ -1270,8 +1146,6 @@ function buildEOD(){
     "Chassis Rack Numbers"
   );
 
-
-  /* TOTAL */
 
   out.push(
     "(" +
@@ -1376,22 +1250,6 @@ function resetForNextDay(){
     });
 
 
-  Object.values(containerSections)
-    .forEach(section => {
-
-      section.length = 0;
-
-    });
-
-
-  Object.values(rackSections)
-    .forEach(section => {
-
-      section.length = 0;
-
-    });
-
-
   document
     .getElementById("notes")
     .value = "";
@@ -1419,11 +1277,6 @@ function resetForNextDay(){
 
   document
     .getElementById("containerNote")
-    .value = "";
-
-
-  document
-    .getElementById("rackPrefix")
     .value = "";
 
 
@@ -1557,22 +1410,6 @@ document
         event.target.value
           .replace(/\D/g,"")
           .slice(0,6);
-
-    }
-  );
-
-
-document
-  .getElementById("rackPrefix")
-  .addEventListener(
-    "input",
-    event => {
-
-      event.target.value =
-        event.target.value
-          .replace(/[^a-zA-Z]/g,"")
-          .toUpperCase()
-          .slice(0,4);
 
     }
   );
