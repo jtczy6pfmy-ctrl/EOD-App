@@ -60,13 +60,23 @@
   --muted:#68727d;
   --input:#ffffff;
   --input-border:#c8ced6;
+
   --accent:#17202a;
   --accent-text:#ffffff;
+
   --secondary:#e5e8ec;
   --secondary-text:#17202a;
+
   --progress-bg:#d9dee5;
+
+  --success:#16834b;
+  --success-bg:#e8f6ee;
+  --success-border:#bfe5ce;
+
   --overlay:rgba(0,0,0,.45);
-  --shadow:0 4px 18px rgba(15,23,42,.08);
+
+  --shadow:
+    0 4px 18px rgba(15,23,42,.08);
 }
 
 html{
@@ -106,7 +116,8 @@ header{
   font-weight:750;
   letter-spacing:.01em;
 
-  box-shadow:0 2px 10px rgba(0,0,0,.18);
+  box-shadow:
+    0 2px 10px rgba(0,0,0,.18);
 }
 
 .app{
@@ -122,7 +133,10 @@ header{
 .card{
   background:var(--card);
 
-  border:1px solid var(--card-border);
+  border:
+    1px
+    solid
+    var(--card-border);
 
   border-radius:16px;
 
@@ -158,6 +172,11 @@ header{
   background:var(--accent);
 }
 
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
 .date{
   text-align:center;
 
@@ -186,7 +205,32 @@ header{
 .progress span{
   font-size:26px;
   font-weight:800;
+
   color:var(--text);
+
+  transition:
+    transform .22s ease;
+}
+
+.progress.count-bump span{
+  animation:
+    countBump .35s ease;
+}
+
+@keyframes countBump{
+
+  0%{
+    transform:scale(1);
+  }
+
+  45%{
+    transform:scale(1.18);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
 }
 
 .progressbar{
@@ -202,124 +246,233 @@ header{
 
   box-shadow:
     inset 0 1px 3px rgba(0,0,0,.12);
+
+  position:relative;
+}
+
+.progressbar::after{
+  content:"";
+
+  position:absolute;
+
+  top:2px;
+  bottom:2px;
+
+  left:-35%;
+
+  width:35%;
+
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.30),
+      transparent
+    );
+
+  animation:
+    progressSheen 2.8s ease-in-out infinite;
+
+  pointer-events:none;
+}
+
+@keyframes progressSheen{
+
+  0%{
+    left:-35%;
+  }
+
+  55%{
+    left:105%;
+  }
+
+  100%{
+    left:105%;
+  }
+
 }
 
 .fill{
-  position:relative;
-
   height:100%;
+
   width:0%;
 
-  background:linear-gradient(
-    90deg,
-    #343a40,
-    #111
-  );
+  background:
+    linear-gradient(
+      90deg,
+      #343a40,
+      #111
+    );
 
   border-radius:999px;
 
   transition:
-    width .35s ease;
+    width .45s cubic-bezier(.22,.8,.25,1),
+    filter .25s ease;
 
   box-shadow:
     0 1px 4px rgba(0,0,0,.2);
 
+  position:relative;
+
   overflow:hidden;
 }
-
-/*
-  Subtle continuous motion, similar to a
-  polished tracking/progress indicator.
-*/
 
 .fill::after{
   content:"";
 
   position:absolute;
 
-  top:0;
-  bottom:0;
+  inset:0;
 
-  left:-45%;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255,255,255,.18) 45%,
+      transparent 75%
+    );
 
-  width:45%;
-
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.18),
-    transparent
-  );
+  background-size:200% 100%;
 
   animation:
-    progressShimmer 2.8s ease-in-out infinite;
+    fillGlow 2.2s linear infinite;
 }
 
-@keyframes progressShimmer{
+@keyframes fillGlow{
+
+  from{
+    background-position:
+      200% 0;
+  }
+
+  to{
+    background-position:
+      -200% 0;
+  }
+
+}
+
+.progress.complete .fill{
+  filter:
+    brightness(1.18);
+
+  animation:
+    completedBar .65s ease;
+}
+
+@keyframes completedBar{
 
   0%{
-    left:-45%;
+    transform:scaleY(1);
+  }
+
+  40%{
+    transform:scaleY(1.35);
   }
 
   100%{
-    left:120%;
+    transform:scaleY(1);
+  }
+
+}
+
+.progress-complete-message{
+  display:none;
+
+  margin-top:9px;
+
+  text-align:center;
+
+  font-size:13px;
+  font-weight:750;
+
+  color:var(--success);
+
+  animation:
+    completeMessage .45s ease;
+}
+
+.progress-complete-message.show{
+  display:block;
+}
+
+@keyframes completeMessage{
+
+  from{
+    opacity:0;
+    transform:translateY(4px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
   }
 
 }
 
 
 /* =========================================================
-   SECTION COUNTS
+   MILESTONE
    ========================================================= */
 
-.section-status{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  gap:7px;
-
-  margin-top:12px;
-
-  min-height:20px;
-
-  color:var(--muted);
-
-  font-size:13px;
-
-  font-weight:700;
-
-  letter-spacing:.01em;
-
-  text-align:center;
-
+.milestone{
+  position:relative;
 }
 
-.section-status::before{
-
+.milestone::after{
   content:"";
 
-  width:7px;
-  height:7px;
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:8px;
+  height:8px;
 
   border-radius:50%;
 
-  background:#aeb6bf;
+  background:var(--text);
 
-  transition:
-    background .2s ease,
-    transform .2s ease;
+  transform:
+    translate(-50%,-50%)
+    scale(0);
 
+  opacity:0;
+
+  pointer-events:none;
 }
 
-.section-status.active::before{
+.milestone.hit::after{
+  animation:
+    milestonePop .65s ease-out;
+}
 
-  background:#3f474f;
+@keyframes milestonePop{
 
-  transform:scale(1.15);
+  0%{
+    opacity:.8;
+    transform:
+      translate(-50%,-50%)
+      scale(0);
+  }
+
+  45%{
+    opacity:.35;
+    transform:
+      translate(-50%,-50%)
+      scale(10);
+  }
+
+  100%{
+    opacity:0;
+    transform:
+      translate(-50%,-50%)
+      scale(16);
+  }
 
 }
 
@@ -351,7 +504,10 @@ textarea{
     13px
     14px;
 
-  border:1px solid var(--input-border);
+  border:
+    1px
+    solid
+    var(--input-border);
 
   border-radius:10px;
 
@@ -365,7 +521,8 @@ textarea{
 
   transition:
     border-color .15s ease,
-    box-shadow .15s ease;
+    box-shadow .15s ease,
+    transform .15s ease;
 }
 
 input:focus,
@@ -386,6 +543,33 @@ textarea::placeholder{
 textarea{
   min-height:115px;
   resize:vertical;
+}
+
+.input-ready{
+  border-color:var(--success) !important;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(22,131,75,.10) !important;
+
+  animation:
+    inputReady .28s ease;
+}
+
+@keyframes inputReady{
+
+  0%{
+    transform:scale(1);
+  }
+
+  45%{
+    transform:scale(1.008);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
 }
 
 .row{
@@ -458,8 +642,7 @@ button{
 
   transition:
     transform .08s ease,
-    box-shadow .15s ease,
-    background .15s ease;
+    box-shadow .15s ease;
 }
 
 button:hover{
@@ -481,43 +664,137 @@ button.secondary{
 
 
 /* =========================================================
-   ADDED BUTTON ANIMATION
+   ADDED CONFIRMATION
    ========================================================= */
 
-button.inspection-added{
+.added-message{
+  display:none;
 
-  background:#303840;
+  align-items:center;
+  gap:9px;
 
-  color:#ffffff;
+  margin-top:13px;
+
+  padding:
+    11px
+    13px;
+
+  border:
+    1px
+    solid
+    var(--success-border);
+
+  border-radius:10px;
+
+  background:var(--success-bg);
+
+  color:var(--success);
+
+  font-size:14px;
+  font-weight:750;
+}
+
+.added-message.show{
+  display:flex;
 
   animation:
-    addedPulse .28s ease-out;
+    addedIn .32s ease-out;
+}
+
+.added-message.hiding{
+  animation:
+    addedOut .28s ease-in forwards;
+}
+
+.added-check{
+  width:20px;
+  height:20px;
+
+  flex:0 0 20px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--success);
+
+  color:#fff;
+
+  font-size:12px;
+  font-weight:900;
+}
+
+@keyframes addedIn{
+
+  from{
+    opacity:0;
+    transform:
+      translateY(-5px)
+      scale(.98);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
 
 }
 
-@keyframes addedPulse{
+@keyframes addedOut{
 
-  0%{
-    transform:scale(1);
+  from{
+    opacity:1;
+    transform:translateY(0);
   }
 
-  50%{
-    transform:scale(1.025);
-  }
-
-  100%{
-    transform:scale(1);
+  to{
+    opacity:0;
+    transform:translateY(-4px);
   }
 
 }
 
 
 /* =========================================================
-   ENTRIES / REPORT
+   ENTRIES
    ========================================================= */
 
 .entry-list{
-  margin-top:10px;
+  margin-top:15px;
+}
+
+.entry-list.empty{
+  color:var(--muted);
+
+  font-size:14px;
+
+  padding:
+    3px
+    2px
+    1px;
+}
+
+.empty-state{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  color:var(--muted);
+
+  font-size:14px;
+}
+
+.empty-dot{
+  width:7px;
+  height:7px;
+
+  border-radius:50%;
+
+  background:var(--progress-bg);
 }
 
 .entry{
@@ -538,6 +815,45 @@ button.inspection-added{
 
   font-size:15px;
   line-height:1.4;
+
+  animation:
+    entryIn .3s ease-out;
+}
+
+@keyframes entryIn{
+
+  from{
+    opacity:0;
+    transform:
+      translateY(-5px);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      translateY(0);
+  }
+
+}
+
+.entry-number{
+  font-weight:800;
+}
+
+.entry-meta{
+  color:var(--muted);
+
+  font-size:13px;
+
+  margin-top:3px;
+}
+
+.entry-note{
+  margin-top:5px;
+
+  color:var(--text);
+
+  font-size:14px;
 }
 
 #preview{
@@ -635,12 +951,16 @@ button.inspection-added{
 
   from{
     opacity:0;
-    transform:scale(.96) translateY(8px);
+    transform:
+      scale(.96)
+      translateY(8px);
   }
 
   to{
     opacity:1;
-    transform:scale(1) translateY(0);
+    transform:
+      scale(1)
+      translateY(0);
   }
 
 }
@@ -731,7 +1051,6 @@ button.inspection-added{
 
   .modal{
     padding:20px;
-
     border-radius:17px;
   }
 
@@ -770,6 +1089,12 @@ button.inspection-added{
 
     --progress-bg:#303943;
 
+    --success:#51d98c;
+
+    --success-bg:#14291f;
+
+    --success-border:#245b3c;
+
     --overlay:rgba(0,0,0,.65);
 
     --shadow:
@@ -807,19 +1132,6 @@ button.inspection-added{
     background:#f4f6f8;
   }
 
-  .fill::after{
-    background:linear-gradient(
-      90deg,
-      transparent,
-      rgba(0,0,0,.12),
-      transparent
-    );
-  }
-
-  .section-status.active::before{
-    background:#f4f6f8;
-  }
-
   input,
   select,
   textarea{
@@ -847,11 +1159,6 @@ button.inspection-added{
 
   button{
     background:#f4f6f8;
-    color:#11161c;
-  }
-
-  button.inspection-added{
-    background:#dfe4e8;
     color:#11161c;
   }
 
@@ -916,20 +1223,33 @@ button.inspection-added{
     id="reportDate"
   ></div>
 
-  <div class="progress">
+  <div
+    class="progress"
+    id="progressContainer"
+  >
 
     <span id="count">0</span>
     / 28
 
   </div>
 
-  <div class="progressbar">
+  <div
+    class="progressbar"
+    id="progressBar"
+  >
 
     <div
       class="fill"
       id="fill"
     ></div>
 
+  </div>
+
+  <div
+    class="progress-complete-message"
+    id="completeMessage"
+  >
+    ✓ Daily inspection target complete
   </div>
 
 </section>
@@ -1056,11 +1376,25 @@ button.inspection-added{
   ADD INSPECTION
 </button>
 
+
 <div
-  class="section-status"
-  id="chassisStatus"
+  class="added-message"
+  id="chassisAdded"
+  aria-live="polite"
 >
-  0 inspections added
+  <span class="added-check">✓</span>
+  <span>Inspection added</span>
+</div>
+
+
+<div
+  class="entry-list empty"
+  id="chassisEntries"
+>
+  <div class="empty-state">
+    <span class="empty-dot"></span>
+    No chassis inspections added yet.
+  </div>
 </div>
 
 </section>
@@ -1177,11 +1511,25 @@ button.inspection-added{
   ADD INSPECTION
 </button>
 
+
 <div
-  class="section-status"
-  id="containerStatus"
+  class="added-message"
+  id="containerAdded"
+  aria-live="polite"
 >
-  0 inspections added
+  <span class="added-check">✓</span>
+  <span>Inspection added</span>
+</div>
+
+
+<div
+  class="entry-list empty"
+  id="containerEntries"
+>
+  <div class="empty-state">
+    <span class="empty-dot"></span>
+    No container inspections added yet.
+  </div>
 </div>
 
 </section>
@@ -1283,11 +1631,25 @@ button.inspection-added{
   ADD INSPECTION
 </button>
 
+
 <div
-  class="section-status"
-  id="rackStatus"
+  class="added-message"
+  id="rackAdded"
+  aria-live="polite"
 >
-  0 inspections added
+  <span class="added-check">✓</span>
+  <span>Inspection added</span>
+</div>
+
+
+<div
+  class="entry-list empty"
+  id="rackEntries"
+>
+  <div class="empty-state">
+    <span class="empty-dot"></span>
+    No chassis rack inspections added yet.
+  </div>
 </div>
 
 </section>
@@ -1492,87 +1854,30 @@ const duplicateNo =
     "duplicateNo"
   );
 
+const progressContainer =
+  document.getElementById(
+    "progressContainer"
+  );
+
+const fill =
+  document.getElementById(
+    "fill"
+  );
+
+const countElement =
+  document.getElementById(
+    "count"
+  );
+
+const completeMessage =
+  document.getElementById(
+    "completeMessage"
+  );
+
 
 let duplicateYesAction = null;
 
 let duplicateCancelFocus = null;
-
-
-/* =========================================================
-   SECTION STATUS
-   ========================================================= */
-
-function updateSectionStatus(
-  statusId,
-  count
-){
-
-  const status =
-    document.getElementById(statusId);
-
-
-  status.textContent =
-    count +
-    (
-      count === 1
-        ? " inspection added"
-        : " inspections added"
-    );
-
-
-  status.classList.toggle(
-    "active",
-    count > 0
-  );
-
-}
-
-
-/* =========================================================
-   BUTTON CONFIRMATION
-   ========================================================= */
-
-function showAddedButton(
-  buttonId
-){
-
-  const button =
-    document.getElementById(buttonId);
-
-
-  const originalText =
-    button.dataset.originalText ||
-    "ADD INSPECTION";
-
-
-  button.dataset.originalText =
-    originalText;
-
-
-  button.textContent =
-    "✓ INSPECTION ADDED";
-
-
-  button.classList.add(
-    "inspection-added"
-  );
-
-
-  window.setTimeout(
-    () => {
-
-      button.textContent =
-        originalText;
-
-      button.classList.remove(
-        "inspection-added"
-      );
-
-    },
-    1100
-  );
-
-}
 
 
 /* =========================================================
@@ -1609,92 +1914,319 @@ function totalInspections(){
    PROGRESS
    ========================================================= */
 
+let previousProgress = 0;
+
 function updateProgress(){
 
   const count =
     totalInspections();
 
+  const displayCount =
+    Math.min(count,28);
 
-  document
-    .getElementById("count")
-    .textContent =
-      count;
+  countElement.textContent =
+    displayCount;
 
-
-  document
-    .getElementById("fill")
-    .style.width =
-      Math.min(
-        100,
-        (count / 28) * 100
-      ) + "%";
+  fill.style.width =
+    Math.min(
+      100,
+      (count / 28) * 100
+    ) + "%";
 
 
-  /*
-    Keep each section's count synchronized.
-  */
+  if(count !== previousProgress){
 
-  const chassisCount =
-    Object.values(data.chassis)
-      .reduce(
-        (total,type) =>
-          total +
-          Object.values(type)
-            .reduce(
-              (sum,section) =>
-                sum + section.length,
-              0
-            ),
-        0
+    progressContainer
+      .classList
+      .remove("count-bump");
+
+    void progressContainer.offsetWidth;
+
+    progressContainer
+      .classList
+      .add("count-bump");
+
+  }
+
+
+  const milestones =
+    [7,14,21,28];
+
+
+  if(
+    count > previousProgress &&
+    milestones.includes(count)
+  ){
+
+    const progressBar =
+      document.getElementById(
+        "progressBar"
       );
 
+    progressBar
+      .classList
+      .remove("milestone");
 
-  const containerCount =
-    Object.values(data.containers)
-      .reduce(
-        (total,type) =>
-          total +
-          Object.values(type)
-            .reduce(
-              (sum,section) =>
-                sum + section.length,
-              0
-            ),
-        0
-      );
+    void progressBar.offsetWidth;
 
+    progressBar
+      .classList
+      .add("milestone");
 
-  const rackCount =
-    Object.values(data.racks)
-      .reduce(
-        (total,type) =>
-          total +
-          Object.values(type)
-            .reduce(
-              (sum,section) =>
-                sum + section.length,
-              0
-            ),
-        0
-      );
+    progressBar
+      .classList
+      .add("hit");
+
+    setTimeout(() => {
+
+      progressBar
+        .classList
+        .remove("hit");
+
+    },700);
+
+  }
 
 
-  updateSectionStatus(
-    "chassisStatus",
-    chassisCount
+  if(count >= 28){
+
+    progressContainer
+      .classList
+      .add("complete");
+
+    completeMessage
+      .classList
+      .add("show");
+
+  }
+  else{
+
+    progressContainer
+      .classList
+      .remove("complete");
+
+    completeMessage
+      .classList
+      .remove("show");
+
+  }
+
+
+  previousProgress =
+    count;
+
+}
+
+
+/* =========================================================
+   ADDED MESSAGE
+   ========================================================= */
+
+const addedTimers = {};
+
+function showAddedMessage(
+  id,
+  text = "Inspection added"
+){
+
+  const element =
+    document.getElementById(id);
+
+  if(!element){
+    return;
+  }
+
+
+  const textElement =
+    element.querySelector(
+      "span:last-child"
+    );
+
+
+  if(textElement){
+
+    textElement.textContent =
+      text;
+
+  }
+
+
+  clearTimeout(
+    addedTimers[id]
   );
 
 
-  updateSectionStatus(
-    "containerStatus",
-    containerCount
-  );
+  element
+    .classList
+    .remove("hiding");
+
+  element
+    .classList
+    .remove("show");
+
+  void element.offsetWidth;
+
+  element
+    .classList
+    .add("show");
 
 
-  updateSectionStatus(
-    "rackStatus",
-    rackCount
-  );
+  addedTimers[id] =
+    setTimeout(() => {
+
+      element
+        .classList
+        .add("hiding");
+
+      setTimeout(() => {
+
+        element
+          .classList
+          .remove("show");
+
+        element
+          .classList
+          .remove("hiding");
+
+      },300);
+
+    },1800);
+
+}
+
+
+/* =========================================================
+   RENDER ENTRIES
+   ========================================================= */
+
+function renderEntries(
+  listId,
+  equipmentData
+){
+
+  const list =
+    document.getElementById(
+      listId
+    );
+
+  if(!list){
+    return;
+  }
+
+
+  const items = [];
+
+
+  Object.values(equipmentData)
+    .forEach(type => {
+
+      Object.values(type)
+        .forEach(section => {
+
+          section.forEach(item => {
+
+            items.push(item);
+
+          });
+
+        });
+
+    });
+
+
+  if(items.length === 0){
+
+    list.className =
+      "entry-list empty";
+
+    list.innerHTML =
+
+      '<div class="empty-state">' +
+        '<span class="empty-dot"></span>' +
+        'No inspections added yet.' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  list.className =
+    "entry-list";
+
+  list.innerHTML = "";
+
+
+  items.forEach(item => {
+
+    const entry =
+      document.createElement(
+        "div"
+      );
+
+    entry.className =
+      "entry";
+
+
+    const number =
+      document.createElement(
+        "div"
+      );
+
+    number.className =
+      "entry-number";
+
+    number.textContent =
+      item[0];
+
+
+    const meta =
+      document.createElement(
+        "div"
+      );
+
+    meta.className =
+      "entry-meta";
+
+    meta.textContent =
+      item[1];
+
+
+    entry.appendChild(
+      number
+    );
+
+    entry.appendChild(
+      meta
+    );
+
+
+    if(item[2]){
+
+      const note =
+        document.createElement(
+          "div"
+        );
+
+      note.className =
+        "entry-note";
+
+      note.textContent =
+        "Note: " +
+        item[2];
+
+      entry.appendChild(
+        note
+      );
+
+    }
+
+
+    list.appendChild(
+      entry
+    );
+
+  });
 
 }
 
@@ -1775,14 +2307,16 @@ function closeDuplicateModal(){
     .overflow = "";
 
 
-  duplicateYesAction = null;
+  duplicateYesAction =
+    null;
 
 
   const focusTarget =
     duplicateCancelFocus;
 
 
-  duplicateCancelFocus = null;
+  duplicateCancelFocus =
+    null;
 
 
   if(
@@ -1798,7 +2332,7 @@ function closeDuplicateModal(){
 
 
 /* =========================================================
-   YES
+   YES / NO
    ========================================================= */
 
 duplicateYes
@@ -1809,9 +2343,7 @@ duplicateYes
       const action =
         duplicateYesAction;
 
-
       closeDuplicateModal();
-
 
       if(
         typeof action === "function"
@@ -1825,10 +2357,6 @@ duplicateYes
   );
 
 
-/* =========================================================
-   NO
-   ========================================================= */
-
 duplicateNo
   .addEventListener(
     "click",
@@ -1839,10 +2367,6 @@ duplicateNo
     }
   );
 
-
-/* =========================================================
-   OUTSIDE MODAL
-   ========================================================= */
 
 duplicateModal
   .addEventListener(
@@ -1860,10 +2384,6 @@ duplicateModal
     }
   );
 
-
-/* =========================================================
-   ESCAPE
-   ========================================================= */
 
 document
   .addEventListener(
@@ -1917,9 +2437,13 @@ function addInspection(){
       .value;
 
 
-  const number =
+  const numberInput =
     document
-      .getElementById("number")
+      .getElementById("number");
+
+
+  const number =
+    numberInput
       .value
       .trim();
 
@@ -1951,11 +2475,7 @@ function addInspection(){
       "Enter exactly 6 digits for the chassis number."
     );
 
-
-    document
-      .getElementById("number")
-      .focus();
-
+    numberInput.focus();
 
     return;
 
@@ -1965,13 +2485,9 @@ function addInspection(){
   const section =
 
     type === "5652"
-
       ? "Pre-repair"
-
       : type === "5900"
-
         ? "Post-repair"
-
         : "Add-on";
 
 
@@ -2010,12 +2526,9 @@ function addInspection(){
 
       },
 
-      document.getElementById(
-        "number"
-      )
+      numberInput
 
     );
-
 
     return;
 
@@ -2063,11 +2576,17 @@ function addChassisRecord(
     .value = "";
 
 
+  renderEntries(
+    "chassisEntries",
+    data.chassis
+  );
+
+
   updateProgress();
 
 
-  showAddedButton(
-    "addInspection"
+  showAddedMessage(
+    "chassisAdded"
   );
 
 
@@ -2092,9 +2611,13 @@ function addContainerInspection(){
       .toUpperCase();
 
 
-  const number =
+  const numberInput =
     document
-      .getElementById("containerNumber")
+      .getElementById("containerNumber");
+
+
+  const number =
+    numberInput
       .value
       .trim();
 
@@ -2126,11 +2649,9 @@ function addContainerInspection(){
       "Enter exactly 4 letters for the container prefix."
     );
 
-
     document
       .getElementById("containerPrefix")
       .focus();
-
 
     return;
 
@@ -2145,11 +2666,7 @@ function addContainerInspection(){
       "Enter exactly 6 digits for the container number."
     );
 
-
-    document
-      .getElementById("containerNumber")
-      .focus();
-
+    numberInput.focus();
 
     return;
 
@@ -2159,13 +2676,9 @@ function addContainerInspection(){
   const section =
 
     type === "5653"
-
       ? "Pre-repair"
-
       : type === "5900"
-
         ? "Post-repair"
-
         : "Add-on";
 
 
@@ -2204,12 +2717,9 @@ function addContainerInspection(){
 
       },
 
-      document.getElementById(
-        "containerNumber"
-      )
+      numberInput
 
     );
-
 
     return;
 
@@ -2262,11 +2772,17 @@ function addContainerRecord(
     .value = "";
 
 
+  renderEntries(
+    "containerEntries",
+    data.containers
+  );
+
+
   updateProgress();
 
 
-  showAddedButton(
-    "addContainerInspection"
+  showAddedMessage(
+    "containerAdded"
   );
 
 
@@ -2287,9 +2803,13 @@ function addRackInspection(){
     "ZNSU";
 
 
-  const number =
+  const numberInput =
     document
-      .getElementById("rackNumber")
+      .getElementById("rackNumber");
+
+
+  const number =
+    numberInput
       .value
       .trim();
 
@@ -2315,11 +2835,7 @@ function addRackInspection(){
       "Enter exactly 6 digits for the chassis rack number."
     );
 
-
-    document
-      .getElementById("rackNumber")
-      .focus();
-
+    numberInput.focus();
 
     return;
 
@@ -2359,12 +2875,9 @@ function addRackInspection(){
 
       },
 
-      document.getElementById(
-        "rackNumber"
-      )
+      numberInput
 
     );
-
 
     return;
 
@@ -2408,11 +2921,17 @@ function addRackRecord(
     .value = "";
 
 
+  renderEntries(
+    "rackEntries",
+    data.racks
+  );
+
+
   updateProgress();
 
 
-  showAddedButton(
-    "addRackInspection"
+  showAddedMessage(
+    "rackAdded"
   );
 
 
@@ -2797,6 +3316,27 @@ function resetForNextDay(){
       formatDate();
 
 
+  previousProgress = 0;
+
+
+  renderEntries(
+    "chassisEntries",
+    data.chassis
+  );
+
+
+  renderEntries(
+    "containerEntries",
+    data.containers
+  );
+
+
+  renderEntries(
+    "rackEntries",
+    data.racks
+  );
+
+
   updateProgress();
 
 
@@ -2863,6 +3403,14 @@ document
           .replace(/\D/g,"")
           .slice(0,6);
 
+
+      event.target
+        .classList
+        .toggle(
+          "input-ready",
+          event.target.value.length === 6
+        );
+
     }
   );
 
@@ -2894,6 +3442,14 @@ document
           .replace(/\D/g,"")
           .slice(0,6);
 
+
+      event.target
+        .classList
+        .toggle(
+          "input-ready",
+          event.target.value.length === 6
+        );
+
     }
   );
 
@@ -2908,6 +3464,14 @@ document
         event.target.value
           .replace(/\D/g,"")
           .slice(0,6);
+
+
+      event.target
+        .classList
+        .toggle(
+          "input-ready",
+          event.target.value.length === 6
+        );
 
     }
   );
@@ -3024,6 +3588,24 @@ document
   .textContent =
     "Harrisburg — " +
     formatDate();
+
+
+renderEntries(
+  "chassisEntries",
+  data.chassis
+);
+
+
+renderEntries(
+  "containerEntries",
+  data.containers
+);
+
+
+renderEntries(
+  "rackEntries",
+  data.racks
+);
 
 
 updateProgress();
