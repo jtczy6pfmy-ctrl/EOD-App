@@ -147,3 +147,34 @@ button.secondary {
     min-height: 44px;
   }
 }
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #111827;
+    color: #f9fafb;
+  }
+
+  .card {
+    background: #1f2937;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .muted {
+    color: #9ca3af;
+  }
+
+  input,
+  textarea {
+    background: #111827;
+    color: #f9fafb;
+    border-color: #4b5563;
+  }
+
+  button.secondary {
+    background: #374151;
+    color: #f9fafb;
+  }
+
+  .status {
+    color: #34d399;
+  }
+}
