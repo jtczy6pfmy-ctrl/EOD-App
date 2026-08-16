@@ -236,15 +236,9 @@ button:active{
 
 <section class="card">
 
-<h2>Add Inspection</h2>
+<h2>Chassis</h2>
 
-<label for="equipment">Equipment Type</label>
-
-<select id="equipment">
-
-  <option value="Chassis">Chassis</option>
-
-</select>
+<input type="hidden" id="equipment" value="Chassis">
 
 
 <div class="row">
@@ -338,283 +332,98 @@ button:active{
 
 <h2>Containers</h2>
 
+<input type="hidden" id="containerEquipment" value="Container">
 
-<div class="subsection">
-
-<div class="section-title">
-Pre-repair NO defects — 5653
-</div>
 
 <div class="row">
 
-<div>
-<label>4-Letter Prefix</label>
-<input
-  class="container-prefix"
-  maxlength="4"
-  placeholder="ABCD"
-  autocomplete="off"
->
-</div>
+  <div>
 
-<div>
-<label>6-Digit Number</label>
-<input
-  class="container-number"
-  inputmode="numeric"
-  maxlength="6"
-  placeholder="123456"
-  autocomplete="off"
->
-</div>
+    <label for="containerPrefix">4-Character Prefix</label>
 
-</div>
+    <input
+      id="containerPrefix"
+      maxlength="4"
+      placeholder="ABCD"
+      autocomplete="off"
+    >
 
-<button
-  class="container-add"
-  data-section="pre-no"
->
-ADD CONTAINER
-</button>
+  </div>
 
-<div
-  class="entry-list"
-  id="container-pre-no-list"
-></div>
+
+  <div>
+
+    <label for="containerNumber">6-Digit Number</label>
+
+    <input
+      id="containerNumber"
+      inputmode="numeric"
+      maxlength="6"
+      placeholder="Enter 6 digits"
+      autocomplete="off"
+    >
+
+  </div>
 
 </div>
 
-
-<div class="subsection">
-
-<div class="section-title">
-Pre-repair WITH defects — 5653
-</div>
 
 <div class="row">
 
-<div>
-<label>4-Letter Prefix</label>
+  <div>
+
+    <label for="containerType">Inspection Type</label>
+
+    <select id="containerType">
+
+      <option value="5653">5653 — Pre-repair</option>
+
+      <option value="5900">5900 — Post-repair</option>
+
+      <option value="5658">5658 — Add-on</option>
+
+    </select>
+
+  </div>
+
+
+  <div>
+
+    <label for="containerCondition">Condition</label>
+
+    <select id="containerCondition">
+
+      <option value="Defect">Defect</option>
+
+      <option value="No Defect">No Defect</option>
+
+    </select>
+
+  </div>
+
+</div>
+
+
+<label for="containerNote">Inspection Note</label>
+
 <input
-  class="container-prefix"
-  maxlength="4"
-  placeholder="ABCD"
-  autocomplete="off"
+  id="containerNote"
+  placeholder="Example: 145D dwell"
 >
-</div>
 
-<div>
-<label>6-Digit Number</label>
-<input
-  class="container-number"
-  inputmode="numeric"
-  maxlength="6"
-  placeholder="123456"
-  autocomplete="off"
->
-</div>
 
-</div>
-
-<button
-  class="container-add"
-  data-section="pre-defect"
->
-ADD CONTAINER
+<button id="addContainerInspection">
+  ADD INSPECTION
 </button>
+
 
 <div
   class="entry-list"
-  id="container-pre-defect-list"
+  id="containerInspectionList"
 ></div>
-
-</div>
-
-
-<div class="subsection">
-
-<div class="section-title">
-Post-repair NO defects — 5900
-</div>
-
-<div class="row">
-
-<div>
-<label>4-Letter Prefix</label>
-<input
-  class="container-prefix"
-  maxlength="4"
-  placeholder="ABCD"
-  autocomplete="off"
->
-</div>
-
-<div>
-<label>6-Digit Number</label>
-<input
-  class="container-number"
-  inputmode="numeric"
-  maxlength="6"
-  placeholder="123456"
-  autocomplete="off"
->
-</div>
-
-</div>
-
-<button
-  class="container-add"
-  data-section="post-no"
->
-ADD CONTAINER
-</button>
-
-<div
-  class="entry-list"
-  id="container-post-no-list"
-></div>
-
-</div>
-
-
-<div class="subsection">
-
-<div class="section-title">
-Post-repair WITH defects — 5900
-</div>
-
-<div class="row">
-
-<div>
-<label>4-Letter Prefix</label>
-<input
-  class="container-prefix"
-  maxlength="4"
-  placeholder="ABCD"
-  autocomplete="off"
->
-</div>
-
-<div>
-<label>6-Digit Number</label>
-<input
-  class="container-number"
-  inputmode="numeric"
-  maxlength="6"
-  placeholder="123456"
-  autocomplete="off"
->
-</div>
-
-</div>
-
-<button
-  class="container-add"
-  data-section="post-defect"
->
-ADD CONTAINER
-</button>
-
-<div
-  class="entry-list"
-  id="container-post-defect-list"
-></div>
-
-</div>
-
-
-<div class="subsection">
-
-<div class="section-title">
-Add-on NO defects — 5658
-</div>
-
-<div class="row">
-
-<div>
-<label>4-Letter Prefix</label>
-<input
-  class="container-prefix"
-  maxlength="4"
-  placeholder="ABCD"
-  autocomplete="off"
->
-</div>
-
-<div>
-<label>6-Digit Number</label>
-<input
-  class="container-number"
-  inputmode="numeric"
-  maxlength="6"
-  placeholder="123456"
-  autocomplete="off"
->
-</div>
-
-</div>
-
-<button
-  class="container-add"
-  data-section="addon-no"
->
-ADD CONTAINER
-</button>
-
-<div
-  class="entry-list"
-  id="container-addon-no-list"
-></div>
-
-</div>
-
-
-<div class="subsection">
-
-<div class="section-title">
-Add-on WITH defects — 5658
-</div>
-
-<div class="row">
-
-<div>
-<label>4-Letter Prefix</label>
-<input
-  class="container-prefix"
-  maxlength="4"
-  placeholder="ABCD"
-  autocomplete="off"
->
-</div>
-
-<div>
-<label>6-Digit Number</label>
-<input
-  class="container-number"
-  inputmode="numeric"
-  maxlength="6"
-  placeholder="123456"
-  autocomplete="off"
->
-</div>
-
-</div>
-
-<button
-  class="container-add"
-  data-section="addon-defect"
->
-ADD CONTAINER
-</button>
-
-<div
-  class="entry-list"
-  id="container-addon-defect-list"
-></div>
-
-</div>
 
 </section>
+
 
 
 <!-- =========================
@@ -625,97 +434,91 @@ ADD CONTAINER
 
 <h2>Chassis Racks</h2>
 
+<input type="hidden" id="rackEquipment" value="Chassis Rack">
 
-<div class="subsection">
-
-<div class="section-title">
-Pre-repair NO defects — 5657
-</div>
 
 <div class="row">
 
-<div>
-<label>4-Letter Prefix</label>
-<input
-  class="rack-prefix"
-  maxlength="4"
-  placeholder="ABCD"
-  autocomplete="off"
->
-</div>
+  <div>
 
-<div>
-<label>6-Digit Number</label>
-<input
-  class="rack-number"
-  inputmode="numeric"
-  maxlength="6"
-  placeholder="123456"
-  autocomplete="off"
->
-</div>
+    <label for="rackPrefix">4-Character Prefix</label>
 
-</div>
+    <input
+      id="rackPrefix"
+      maxlength="4"
+      placeholder="ABCD"
+      autocomplete="off"
+    >
 
-<button
-  class="rack-add"
-  data-section="pre-no"
->
-ADD CHASSIS RACK
-</button>
+  </div>
 
-<div
-  class="entry-list"
-  id="rack-pre-no-list"
-></div>
+
+  <div>
+
+    <label for="rackNumber">6-Digit Number</label>
+
+    <input
+      id="rackNumber"
+      inputmode="numeric"
+      maxlength="6"
+      placeholder="Enter 6 digits"
+      autocomplete="off"
+    >
+
+  </div>
 
 </div>
 
-
-<div class="subsection">
-
-<div class="section-title">
-Pre-repair WITH defects — 5657
-</div>
 
 <div class="row">
 
-<div>
-<label>4-Letter Prefix</label>
+  <div>
+
+    <label for="rackType">Inspection Type</label>
+
+    <select id="rackType">
+
+      <option value="5657">5657 — Pre-repair</option>
+
+    </select>
+
+  </div>
+
+
+  <div>
+
+    <label for="rackCondition">Condition</label>
+
+    <select id="rackCondition">
+
+      <option value="Defect">Defect</option>
+
+      <option value="No Defect">No Defect</option>
+
+    </select>
+
+  </div>
+
+</div>
+
+
+<label for="rackNote">Inspection Note</label>
+
 <input
-  class="rack-prefix"
-  maxlength="4"
-  placeholder="ABCD"
-  autocomplete="off"
+  id="rackNote"
+  placeholder="Example: 145D dwell"
 >
-</div>
 
-<div>
-<label>6-Digit Number</label>
-<input
-  class="rack-number"
-  inputmode="numeric"
-  maxlength="6"
-  placeholder="123456"
-  autocomplete="off"
->
-</div>
 
-</div>
-
-<button
-  class="rack-add"
-  data-section="pre-defect"
->
-ADD CHASSIS RACK
+<button id="addRackInspection">
+  ADD INSPECTION
 </button>
+
 
 <div
   class="entry-list"
-  id="rack-pre-defect-list"
+  id="rackInspectionList"
 ></div>
-
-</div>
 
 </section>
 
