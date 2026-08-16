@@ -180,13 +180,14 @@ header{
   display:block;
 }
 
-/* MILESTONE */
+/* MILESTONE — FIXED */
 
-.milestone{
+.progressbar.milestone{
   position:relative;
+  overflow:visible;
 }
 
-.milestone::after{
+.progressbar.milestone::after{
   content:"";
   position:absolute;
   left:50%;
@@ -198,9 +199,10 @@ header{
   transform:translate(-50%,-50%) scale(0);
   opacity:0;
   pointer-events:none;
+  z-index:5;
 }
 
-.milestone.hit::after{
+.progressbar.milestone.hit::after{
   animation:milestonePop .65s ease-out;
 }
 
@@ -209,10 +211,17 @@ header{
     opacity:.8;
     transform:translate(-50%,-50%) scale(0);
   }
-  45%{
-    opacity:.35;
-    transform:translate(-50%,-50%) scale(10);
+
+  40%{
+    opacity:.45;
+    transform:translate(-50%,-50%) scale(6);
   }
+
+  70%{
+    opacity:.2;
+    transform:translate(-50%,-50%) scale(11);
+  }
+
   100%{
     opacity:0;
     transform:translate(-50%,-50%) scale(16);
