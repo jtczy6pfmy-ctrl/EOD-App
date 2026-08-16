@@ -1,8 +1,7 @@
-const CACHE_NAME = "eod-inspection-v2";
+const CACHE_NAME = "eod-inspection-v3";
 
 const FILES_TO_CACHE = [
   "./",
-  "./index.html",
   "./manifest.json"
 ];
 
@@ -27,6 +26,15 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
+
+  if (event.request.url.endsWith("/index.html")) {
+    event.respondWith(
+      fetch(event.request, { cache: "no-store" })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(cached => {
       return cached || fetch(event.request);
