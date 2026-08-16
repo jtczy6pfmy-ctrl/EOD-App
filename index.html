@@ -449,19 +449,13 @@ function emailEOD(){
   const subject =
     "End of Day Report - Harrisburg - " + reportDate;
 
-  const outlookUrl =
-    'ms-outlook://emails/new?to=' +
-    encodeURIComponent("joe@caliberis.com") +
-    '&cc=' +
-    encodeURIComponent("dgeist@caliberis.com,jdoan@aspectassociates.com") +
-    '&subject=' +
+  resetForNextDay();
+
+  window.location.href =
+    'mailto:?subject=' +
     encodeURIComponent(subject) +
     '&body=' +
     encodeURIComponent(body);
-
-  resetForNextDay();
-
-  window.location.href = outlookUrl;
 }
 
 document.getElementById("number")
@@ -499,6 +493,7 @@ updateProgress();
 
 })();
 </script>
+
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -506,5 +501,6 @@ if ("serviceWorker" in navigator) {
   });
 }
 </script>
+
 </body>
 </html>
