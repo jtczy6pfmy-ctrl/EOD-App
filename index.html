@@ -1,193 +1,634 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <link rel="apple-touch-icon" href="./EOD-Inspection-chassis-icon.png">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="UTF-8">
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="EOD Inspection">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
 
-<meta name="theme-color" content="#111111">
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
 
-<title>EOD Inspection — Harrisburg</title>
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="default"
+  >
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="EOD Inspection"
+  >
+
+  <meta
+    name="theme-color"
+    content="#eef1f5"
+    media="(prefers-color-scheme: light)"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0b0f14"
+    media="(prefers-color-scheme: dark)"
+  >
+
+  <title>EOD Inspection — Harrisburg</title>
 
 <style>
 
 *{
-  box-sizing:border-box
+  box-sizing:border-box;
+}
+
+:root{
+  color-scheme:light dark;
+
+  --bg:#eef1f5;
+  --card:#ffffff;
+  --card-border:#dfe3e8;
+  --text:#17202a;
+  --muted:#68727d;
+  --input:#ffffff;
+  --input-border:#c8ced6;
+  --accent:#17202a;
+  --accent-text:#ffffff;
+  --secondary:#e5e8ec;
+  --secondary-text:#17202a;
+  --progress-bg:#d9dee5;
+  --shadow:0 4px 18px rgba(15,23,42,.08);
+}
+
+html{
+  background:var(--bg);
 }
 
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#eef0f3;
-  color:#171717;
+  background:var(--bg);
+  color:var(--text);
   -webkit-font-smoothing:antialiased;
+  min-height:100vh;
 }
+
+/* =========================
+   HEADER
+   ========================= */
 
 header{
-  background:#111;
+  background:linear-gradient(
+    180deg,
+    #15191e 0%,
+    #0b0d10 100%
+  );
+
   color:#fff;
-  padding:18px 20px;
+
+  padding:20px 20px 19px;
+
   text-align:center;
-  font-size:21px;
-  font-weight:700;
+
+  font-size:22px;
+
+  font-weight:750;
+
+  letter-spacing:.01em;
+
+  box-shadow:
+    0 2px 10px rgba(0,0,0,.18);
 }
 
+
+/* =========================
+   MAIN APP
+   ========================= */
+
 .app{
-  max-width:760px;
+  width:min(760px,100%);
+
   margin:0 auto;
+
   padding:18px 14px 50px;
 }
 
+
+/* =========================
+   CARDS
+   ========================= */
+
 .card{
-  background:#fff;
-  border-radius:18px;
+  background:var(--card);
+
+  border:1px solid var(--card-border);
+
+  border-radius:16px;
+
   padding:20px;
+
   margin-bottom:16px;
-  box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+  box-shadow:var(--shadow);
 }
 
-h2{
-  margin:0 0 14px;
+.card h2{
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin:0 0 18px;
+
   font-size:20px;
+
+  line-height:1.2;
+
+  font-weight:750;
+
+  letter-spacing:-.01em;
 }
+
+.card h2::before{
+  content:"";
+
+  display:block;
+
+  width:4px;
+
+  height:22px;
+
+  border-radius:4px;
+
+  background:var(--accent);
+}
+
+
+/* =========================
+   DATE / PROGRESS
+   ========================= */
 
 .date{
   text-align:center;
-  font-weight:600;
+
+  color:var(--muted);
+
+  font-size:15px;
+
+  font-weight:650;
+
   margin-bottom:12px;
 }
 
 .progress{
-  font-size:18px;
-  font-weight:700;
+  font-size:17px;
+
+  font-weight:750;
+
   text-align:center;
-  margin-bottom:8px;
+
+  margin-bottom:9px;
+}
+
+.progress span{
+  font-size:24px;
 }
 
 .progressbar{
-  height:12px;
-  background:#ddd;
+  height:11px;
+
+  background:var(--progress-bg);
+
   border-radius:20px;
+
   overflow:hidden;
-  margin-bottom:20px;
 }
 
 .fill{
   height:100%;
+
   width:0%;
-  background:#111;
+
+  background:var(--accent);
+
+  border-radius:20px;
+
   transition:width .25s ease;
 }
 
+
+/* =========================
+   LABELS
+   ========================= */
+
 label{
   display:block;
-  font-weight:650;
-  margin:13px 0 6px;
+
+  font-weight:700;
+
+  font-size:14px;
+
+  color:var(--text);
+
+  margin:15px 0 7px;
 }
 
-input,select,textarea{
+
+/* =========================
+   INPUTS
+   ========================= */
+
+input,
+select,
+textarea{
   width:100%;
+
   padding:13px 14px;
-  border:1px solid #c9cdd3;
-  border-radius:11px;
+
+  border:1px solid var(--input-border);
+
+  border-radius:10px;
+
+  font-family:inherit;
+
   font-size:17px;
-  background:#fff;
+
+  background:var(--input);
+
+  color:var(--text);
+
+  outline:none;
+
+  transition:
+    border-color .15s ease,
+    box-shadow .15s ease,
+    background .15s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#6b7280;
+
+  box-shadow:
+    0 0 0 3px rgba(107,114,128,.14);
+}
+
+input::placeholder,
+textarea::placeholder{
+  color:#8a939e;
 }
 
 textarea{
-  min-height:110px;
+  min-height:115px;
+
   resize:vertical;
 }
 
+
+/* =========================
+   TWO COLUMN ROWS
+   ========================= */
+
 .row{
   display:grid;
+
   grid-template-columns:1fr 1fr;
-  gap:10px;
+
+  gap:14px;
 }
+
+
+/* =========================
+   STATIC FIELDS
+   ========================= */
+
+.static-type{
+  padding:13px 14px;
+
+  border:1px solid var(--input-border);
+
+  border-radius:10px;
+
+  font-size:17px;
+
+  background:var(--secondary);
+
+  color:var(--text);
+
+  font-weight:700;
+
+  min-height:49px;
+
+  display:flex;
+
+  align-items:center;
+}
+
+
+/* =========================
+   BUTTONS
+   ========================= */
 
 button{
   width:100%;
+
   border:0;
-  border-radius:12px;
-  padding:15px;
-  margin-top:15px;
-  font-size:17px;
+
+  border-radius:10px;
+
+  padding:14px 16px;
+
+  margin-top:17px;
+
+  min-height:50px;
+
+  font-family:inherit;
+
+  font-size:16px;
+
   font-weight:750;
+
+  letter-spacing:.02em;
+
   cursor:pointer;
-  background:#111;
-  color:#fff;
+
+  background:var(--accent);
+
+  color:var(--accent-text);
+
   -webkit-tap-highlight-color:transparent;
+
+  box-shadow:
+    0 2px 5px rgba(0,0,0,.12);
+
+  transition:
+    transform .08s ease,
+    opacity .15s ease,
+    box-shadow .15s ease;
 }
 
-button.secondary{
-  background:#e3e5e8;
-  color:#111;
+button:hover{
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.16);
 }
 
 button:active{
-  transform:scale(.99);
+  transform:scale(.985);
+
+  box-shadow:
+    0 1px 3px rgba(0,0,0,.12);
 }
+
+button.secondary{
+  background:var(--secondary);
+
+  color:var(--secondary-text);
+
+  box-shadow:none;
+}
+
+
+/* =========================
+   ENTRIES
+   ========================= */
 
 .entry-list{
   margin-top:10px;
 }
 
 .entry{
-  background:#f5f6f7;
-  border:1px solid #ddd;
+  background:var(--secondary);
+
+  border:1px solid var(--card-border);
+
   border-radius:10px;
-  padding:10px;
+
+  padding:11px 12px;
+
   margin-top:7px;
+
   font-size:15px;
+
+  line-height:1.4;
 }
 
-.static-type{
-  padding:13px 14px;
-  border:1px solid #c9cdd3;
+
+/* =========================
+   EOD PREVIEW
+   ========================= */
+
+#preview{
+  white-space:pre-wrap;
+
+  background:var(--secondary);
+
+  border:1px solid var(--card-border);
+
   border-radius:11px;
-  font-size:17px;
-  background:#f5f6f7;
-  font-weight:600;
+
+  padding:15px;
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+
+  font-size:14px;
+
+  line-height:1.55;
+
+  overflow:auto;
+
+  color:var(--text);
 }
+
+
+/* =========================
+   HIDDEN
+   ========================= */
 
 .hidden{
   display:none;
 }
 
-#preview{
-  white-space:pre-wrap;
-  background:#f5f6f7;
-  border:1px solid #d7d9dc;
-  border-radius:12px;
-  padding:15px;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:14px;
-  line-height:1.5;
-  overflow:auto;
-}
+
+/* =========================
+   MOBILE / IPAD
+   ========================= */
 
 @media(max-width:520px){
-
-  .row{
-    grid-template-columns:1fr;
-  }
 
   .app{
     padding:12px 10px 40px;
   }
 
   .card{
-    padding:16px;
+    padding:17px;
+
+    border-radius:15px;
+  }
+
+  .row{
+    grid-template-columns:1fr;
+
+    gap:2px;
+  }
+
+  header{
+    padding:18px 16px;
+
+    font-size:21px;
+  }
+
+  button{
+    min-height:52px;
+  }
+
+}
+
+
+/* =========================
+   DARK MODE
+   FOLLOWS IPAD SYSTEM SETTING
+   ========================= */
+
+@media(prefers-color-scheme:dark){
+
+  :root{
+
+    --bg:#0b0f14;
+
+    --card:#171d24;
+
+    --card-border:#2b333d;
+
+    --text:#f4f6f8;
+
+    --muted:#a7b0ba;
+
+    --input:#0f141a;
+
+    --input-border:#3b4550;
+
+    --accent:#f4f6f8;
+
+    --accent-text:#11161c;
+
+    --secondary:#242c35;
+
+    --secondary-text:#f4f6f8;
+
+    --progress-bg:#303943;
+
+    --shadow:
+      0 4px 18px rgba(0,0,0,.28);
+  }
+
+  html{
+    background:#0b0f14;
+  }
+
+  body{
+    background:#0b0f14;
+
+    color:#f4f6f8;
+  }
+
+  header{
+    background:#000;
+
+    color:#fff;
+  }
+
+  .card{
+    background:#171d24;
+
+    border-color:#2b333d;
+  }
+
+  .card h2::before{
+    background:#f4f6f8;
+  }
+
+  .progressbar{
+    background:#303943;
+  }
+
+  .fill{
+    background:#f4f6f8;
+  }
+
+  input,
+  select,
+  textarea{
+    background:#0f141a;
+
+    color:#f4f6f8;
+
+    border-color:#3b4550;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus{
+    border-color:#9aa4af;
+
+    box-shadow:
+      0 0 0 3px rgba(154,164,175,.14);
+  }
+
+  input::placeholder,
+  textarea::placeholder{
+    color:#7f8994;
+  }
+
+  .static-type{
+    background:#242c35;
+
+    border-color:#3b4550;
+
+    color:#f4f6f8;
+  }
+
+  button{
+    background:#f4f6f8;
+
+    color:#11161c;
+  }
+
+  button.secondary{
+    background:#303943;
+
+    color:#f4f6f8;
+  }
+
+  .entry{
+    background:#242c35;
+
+    border-color:#3b4550;
+
+    color:#f4f6f8;
+  }
+
+  #preview{
+    background:#0f141a;
+
+    border-color:#3b4550;
+
+    color:#f4f6f8;
   }
 
 }
 
 </style>
+
 </head>
 
 <body>
@@ -196,16 +637,27 @@ button:active{
 
 <main class="app">
 
+
 <section class="card">
 
-  <div class="date" id="reportDate"></div>
+  <div
+    class="date"
+    id="reportDate"
+  ></div>
 
   <div class="progress">
+
     <span id="count">0</span> / 28
+
   </div>
 
   <div class="progressbar">
-    <div class="fill" id="fill"></div>
+
+    <div
+      class="fill"
+      id="fill"
+    ></div>
+
   </div>
 
 </section>
@@ -219,26 +671,40 @@ button:active{
 
 <h2>Chassis</h2>
 
-<input type="hidden" id="equipment" value="Chassis">
+<input
+  type="hidden"
+  id="equipment"
+  value="Chassis"
+>
 
 <div class="row">
 
   <div>
 
-    <label for="prefix">4-Character Prefix</label>
+    <label for="prefix">
+      4-Character Prefix
+    </label>
 
     <select id="prefix">
 
-      <option value="NSPZ">NSPZ</option>
-      <option value="NSFZ">NSFZ</option>
+      <option value="NSPZ">
+        NSPZ
+      </option>
+
+      <option value="NSFZ">
+        NSFZ
+      </option>
 
     </select>
 
   </div>
 
+
   <div>
 
-    <label for="number">6-Digit Number</label>
+    <label for="number">
+      6-Digit Number
+    </label>
 
     <input
       id="number"
@@ -251,30 +717,49 @@ button:active{
 
 </div>
 
+
 <div class="row">
 
   <div>
 
-    <label for="type">Inspection Type</label>
+    <label for="type">
+      Inspection Type
+    </label>
 
     <select id="type">
 
-      <option value="5652">5652 — Pre-repair</option>
-      <option value="5900">5900 — Post-repair</option>
-      <option value="5658">5658 — Add-on</option>
+      <option value="5652">
+        5652 — Pre-repair
+      </option>
+
+      <option value="5900">
+        5900 — Post-repair
+      </option>
+
+      <option value="5658">
+        5658 — Add-on
+      </option>
 
     </select>
 
   </div>
 
+
   <div>
 
-    <label for="condition">Condition</label>
+    <label for="condition">
+      Condition
+    </label>
 
     <select id="condition">
 
-      <option value="Defect">Defect</option>
-      <option value="No Defect">No Defect</option>
+      <option value="Defect">
+        Defect
+      </option>
+
+      <option value="No Defect">
+        No Defect
+      </option>
 
     </select>
 
@@ -282,17 +767,20 @@ button:active{
 
 </div>
 
-<label for="equipmentNote">Inspection Note</label>
+
+<label for="equipmentNote">
+  Inspection Note
+</label>
 
 <input
   id="equipmentNote"
   placeholder="Example: 145D dwell"
 >
 
+
 <button id="addInspection">
   ADD INSPECTION
 </button>
-
 
 </section>
 
@@ -309,7 +797,9 @@ button:active{
 
   <div>
 
-    <label for="containerPrefix">4-Character Prefix</label>
+    <label for="containerPrefix">
+      4-Character Prefix
+    </label>
 
     <input
       id="containerPrefix"
@@ -321,9 +811,12 @@ button:active{
 
   </div>
 
+
   <div>
 
-    <label for="containerNumber">6-Digit Number</label>
+    <label for="containerNumber">
+      6-Digit Number
+    </label>
 
     <input
       id="containerNumber"
@@ -338,30 +831,49 @@ button:active{
 
 </div>
 
+
 <div class="row">
 
   <div>
 
-    <label for="containerType">Inspection Type</label>
+    <label for="containerType">
+      Inspection Type
+    </label>
 
     <select id="containerType">
 
-      <option value="5653">5653 — Pre-repair</option>
-      <option value="5900">5900 — Post-repair</option>
-      <option value="5658">5658 — Add-on</option>
+      <option value="5653">
+        5653 — Pre-repair
+      </option>
+
+      <option value="5900">
+        5900 — Post-repair
+      </option>
+
+      <option value="5658">
+        5658 — Add-on
+      </option>
 
     </select>
 
   </div>
 
+
   <div>
 
-    <label for="containerCondition">Condition</label>
+    <label for="containerCondition">
+      Condition
+    </label>
 
     <select id="containerCondition">
 
-      <option value="Defect">Defect</option>
-      <option value="No Defect">No Defect</option>
+      <option value="Defect">
+        Defect
+      </option>
+
+      <option value="No Defect">
+        No Defect
+      </option>
 
     </select>
 
@@ -369,17 +881,20 @@ button:active{
 
 </div>
 
-<label for="containerNote">Inspection Note</label>
+
+<label for="containerNote">
+  Inspection Note
+</label>
 
 <input
   id="containerNote"
   placeholder="Example: 145D dwell"
 >
 
+
 <button id="addContainerInspection">
   ADD INSPECTION
 </button>
-
 
 </section>
 
@@ -396,7 +911,9 @@ button:active{
 
   <div>
 
-    <label>4-Character Prefix</label>
+    <label>
+      4-Character Prefix
+    </label>
 
     <div class="static-type">
       ZNSU
@@ -404,9 +921,12 @@ button:active{
 
   </div>
 
+
   <div>
 
-    <label for="rackNumber">6-Digit Number</label>
+    <label for="rackNumber">
+      6-Digit Number
+    </label>
 
     <input
       id="rackNumber"
@@ -421,11 +941,14 @@ button:active{
 
 </div>
 
+
 <div class="row">
 
   <div>
 
-    <label>Inspection Type</label>
+    <label>
+      Inspection Type
+    </label>
 
     <div class="static-type">
       5657 — Pre-repair
@@ -433,14 +956,22 @@ button:active{
 
   </div>
 
+
   <div>
 
-    <label for="rackCondition">Condition</label>
+    <label for="rackCondition">
+      Condition
+    </label>
 
     <select id="rackCondition">
 
-      <option value="Defect">Defect</option>
-      <option value="No Defect">No Defect</option>
+      <option value="Defect">
+        Defect
+      </option>
+
+      <option value="No Defect">
+        No Defect
+      </option>
 
     </select>
 
@@ -448,17 +979,20 @@ button:active{
 
 </div>
 
-<label for="rackNote">Inspection Note</label>
+
+<label for="rackNote">
+  Inspection Note
+</label>
 
 <input
   id="rackNote"
   placeholder="Example: 145D dwell"
 >
 
+
 <button id="addRackInspection">
   ADD INSPECTION
 </button>
-
 
 </section>
 
@@ -487,27 +1021,36 @@ button:active{
      PREVIEW
      ========================= -->
 
-<section class="card hidden" id="previewCard">
+<section
+  class="card hidden"
+  id="previewCard"
+>
 
 <h2>EOD Report Preview</h2>
 
 <div id="preview"></div>
 
-<button id="emailEod" class="secondary">
+<button
+  id="emailEod"
+  class="secondary"
+>
   EMAIL EOD
 </button>
 
 </section>
 
+
 </main>
 
 
 <script>
+
 (() => {
 
 const data = {
 
   chassis: {
+
     "5652": {
       "Pre-repair": [],
       "Post-repair": [],
@@ -525,9 +1068,12 @@ const data = {
       "Post-repair": [],
       "Add-on": []
     }
+
   },
 
+
   containers: {
+
     "5653": {
       "Pre-repair": [],
       "Post-repair": [],
@@ -545,12 +1091,16 @@ const data = {
       "Post-repair": [],
       "Add-on": []
     }
+
   },
 
+
   racks: {
+
     "5657": {
       "Pre-repair": []
     }
+
   }
 
 };
@@ -581,16 +1131,20 @@ function totalInspections(){
 
 function updateProgress(){
 
-  const count = totalInspections();
+  const count =
+    totalInspections();
 
-  document.getElementById("count").textContent =
-    count;
+  document
+    .getElementById("count")
+    .textContent = count;
 
-  document.getElementById("fill").style.width =
-    Math.min(
-      100,
-      (count / 28) * 100
-    ) + "%";
+  document
+    .getElementById("fill")
+    .style.width =
+      Math.min(
+        100,
+        (count / 28) * 100
+      ) + "%";
 
 }
 
@@ -602,21 +1156,31 @@ function updateProgress(){
 function addInspection(){
 
   const prefix =
-    document.getElementById("prefix").value;
+    document
+      .getElementById("prefix")
+      .value;
 
   const number =
-    document.getElementById("number")
-      .value.trim();
+    document
+      .getElementById("number")
+      .value
+      .trim();
 
   const type =
-    document.getElementById("type").value;
+    document
+      .getElementById("type")
+      .value;
 
   const condition =
-    document.getElementById("condition").value;
+    document
+      .getElementById("condition")
+      .value;
 
   const note =
-    document.getElementById("equipmentNote")
-      .value.trim();
+    document
+      .getElementById("equipmentNote")
+      .value
+      .trim();
 
 
   if(!/^\d{6}$/.test(number)){
@@ -625,7 +1189,9 @@ function addInspection(){
       "Enter exactly 6 digits for the chassis number."
     );
 
-    document.getElementById("number").focus();
+    document
+      .getElementById("number")
+      .focus();
 
     return;
 
@@ -651,58 +1217,20 @@ function addInspection(){
   ]);
 
 
-  document.getElementById("number").value = "";
+  document
+    .getElementById("number")
+    .value = "";
 
-  document.getElementById("equipmentNote").value = "";
+  document
+    .getElementById("equipmentNote")
+    .value = "";
 
-  renderChassis();
 
   updateProgress();
 
-  document.getElementById("number").focus();
-
-}
-
-
-function renderChassis(){
-
-  const list =
-    document.getElementById(
-      "chassisInspectionList"
-    );
-
-  list.innerHTML = "";
-
-
-  Object.keys(data.chassis)
-    .forEach(type => {
-
-      Object.keys(data.chassis[type])
-        .forEach(section => {
-
-          data.chassis[type][section]
-            .forEach(item => {
-
-              const div =
-                document.createElement("div");
-
-              div.className = "entry";
-
-              div.textContent =
-                item[0] +
-                " — " +
-                item[1] +
-                (item[2]
-                  ? " — " + item[2]
-                  : "");
-
-              list.appendChild(div);
-
-            });
-
-        });
-
-    });
+  document
+    .getElementById("number")
+    .focus();
 
 }
 
@@ -714,24 +1242,31 @@ function renderChassis(){
 function addContainerInspection(){
 
   const prefix =
-    document.getElementById("containerPrefix")
+    document
+      .getElementById("containerPrefix")
       .value
       .trim()
       .toUpperCase();
 
   const number =
-    document.getElementById("containerNumber")
+    document
+      .getElementById("containerNumber")
       .value
       .trim();
 
   const type =
-    document.getElementById("containerType").value;
+    document
+      .getElementById("containerType")
+      .value;
 
   const condition =
-    document.getElementById("containerCondition").value;
+    document
+      .getElementById("containerCondition")
+      .value;
 
   const note =
-    document.getElementById("containerNote")
+    document
+      .getElementById("containerNote")
       .value
       .trim();
 
@@ -785,63 +1320,24 @@ function addContainerInspection(){
   ]);
 
 
-  document.getElementById("containerPrefix").value = "";
+  document
+    .getElementById("containerPrefix")
+    .value = "";
 
-  document.getElementById("containerNumber").value = "";
+  document
+    .getElementById("containerNumber")
+    .value = "";
 
-  document.getElementById("containerNote").value = "";
+  document
+    .getElementById("containerNote")
+    .value = "";
 
-
-  renderContainers();
 
   updateProgress();
 
   document
     .getElementById("containerPrefix")
     .focus();
-
-}
-
-
-function renderContainers(){
-
-  const list =
-    document.getElementById(
-      "containerInspectionList"
-    );
-
-  list.innerHTML = "";
-
-
-  Object.keys(data.containers)
-    .forEach(type => {
-
-      Object.keys(data.containers[type])
-        .forEach(section => {
-
-          data.containers[type][section]
-            .forEach(item => {
-
-              const div =
-                document.createElement("div");
-
-              div.className = "entry";
-
-              div.textContent =
-                item[0] +
-                " — " +
-                item[1] +
-                (item[2]
-                  ? " — " + item[2]
-                  : "");
-
-              list.appendChild(div);
-
-            });
-
-        });
-
-    });
 
 }
 
@@ -855,16 +1351,19 @@ function addRackInspection(){
   const prefix = "ZNSU";
 
   const number =
-    document.getElementById("rackNumber")
+    document
+      .getElementById("rackNumber")
       .value
       .trim();
 
   const condition =
-    document.getElementById("rackCondition")
+    document
+      .getElementById("rackCondition")
       .value;
 
   const note =
-    document.getElementById("rackNote")
+    document
+      .getElementById("rackNote")
       .value
       .trim();
 
@@ -895,51 +1394,20 @@ function addRackInspection(){
   ]);
 
 
-  document.getElementById("rackNumber").value = "";
+  document
+    .getElementById("rackNumber")
+    .value = "";
 
-  document.getElementById("rackNote").value = "";
+  document
+    .getElementById("rackNote")
+    .value = "";
 
-
-  renderRacks();
 
   updateProgress();
 
   document
     .getElementById("rackNumber")
     .focus();
-
-}
-
-
-function renderRacks(){
-
-  const list =
-    document.getElementById(
-      "rackInspectionList"
-    );
-
-  list.innerHTML = "";
-
-
-  data.racks["5657"]["Pre-repair"]
-    .forEach(item => {
-
-      const div =
-        document.createElement("div");
-
-      div.className = "entry";
-
-      div.textContent =
-        item[0] +
-        " — " +
-        item[1] +
-        (item[2]
-          ? " — " + item[2]
-          : "");
-
-      list.appendChild(div);
-
-    });
 
 }
 
@@ -958,59 +1426,60 @@ function addSectionToReport(
   numberLabel
 ){
 
-  ["No Defect","Defect"].forEach(condition => {
+  ["No Defect","Defect"]
+    .forEach(condition => {
 
-    const items =
-      equipmentData[type][section]
-        .filter(
-          item =>
-            item[1] === condition
-        );
+      const items =
+        equipmentData[type][section]
+          .filter(
+            item =>
+              item[1] === condition
+          );
 
-
-    output.push(
-      "(" +
-      items.length +
-      ") " +
-      (
-        condition === "Defect"
-          ? yesText
-          : noText
-      )
-    );
-
-
-    output.push(
-      numberLabel +
-      ":"
-    );
-
-
-    items.forEach((item,index) => {
 
       output.push(
-        "\t" +
-        (index + 1) +
-        ". " +
-        item[0]
+        "(" +
+        items.length +
+        ") " +
+        (
+          condition === "Defect"
+            ? yesText
+            : noText
+        )
       );
 
 
-      if(item[2]){
+      output.push(
+        numberLabel +
+        ":"
+      );
+
+
+      items.forEach((item,index) => {
 
         output.push(
-          "\t   Note: " +
-          item[2]
+          "\t" +
+          (index + 1) +
+          ". " +
+          item[0]
         );
 
-      }
+
+        if(item[2]){
+
+          output.push(
+            "\t   Note: " +
+            item[2]
+          );
+
+        }
+
+      });
+
+
+      output.push("");
 
     });
-
-
-    output.push("");
-
-  });
 
 }
 
@@ -1293,15 +1762,6 @@ function resetForNextDay(){
 
 
   document
-    .querySelectorAll(".entry-list")
-    .forEach(list => {
-
-      list.innerHTML = "";
-
-    });
-
-
-  document
     .getElementById("reportDate")
     .textContent =
       "Harrisburg — " +
@@ -1532,6 +1992,7 @@ updateProgress();
 
 
 })();
+
 </script>
 
 
