@@ -440,17 +440,14 @@ function resetForNextDay(){
 
 function emailEOD(){
 
-  const body =
-    encodeURIComponent(buildEOD());
+  const body = buildEOD();
 
   const reportDate =
     document.getElementById("reportDate")
     .textContent.split("—")[1].trim();
 
   const subject =
-    encodeURIComponent(
-      "End of Day Report - Harrisburg - " + reportDate
-    );
+    "End of Day Report - Harrisburg - " + reportDate;
 
   const outlookUrl =
     'ms-outlook://compose?to=' +
