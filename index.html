@@ -40,7 +40,6 @@
 
   <title>EOD Inspection — Harrisburg</title>
 
-
 <style>
 
 /* =========================================================
@@ -64,12 +63,8 @@
   --accent:#17202a;
   --accent-text:#ffffff;
   --secondary:#e5e8ec;
-
+  --secondary-text:#17202a;
   --progress-bg:#d9dee5;
-  --progress-track:#d9dee5;
-  --progress-fill-1:#343a40;
-  --progress-fill-2:#111111;
-
   --overlay:rgba(0,0,0,.45);
   --shadow:0 4px 18px rgba(15,23,42,.08);
 }
@@ -94,11 +89,6 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
 header{
   background:linear-gradient(
     180deg,
@@ -118,11 +108,6 @@ header{
 
   box-shadow:0 2px 10px rgba(0,0,0,.18);
 }
-
-
-/* =========================================================
-   APP / CARDS
-   ========================================================= */
 
 .app{
   width:min(760px,100%);
@@ -173,11 +158,6 @@ header{
   background:var(--accent);
 }
 
-
-/* =========================================================
-   DATE
-   ========================================================= */
-
 .date{
   text-align:center;
 
@@ -188,11 +168,6 @@ header{
 
   margin-bottom:12px;
 }
-
-
-/* =========================================================
-   PROGRESS COUNTER
-   ========================================================= */
 
 .progress{
   display:flex;
@@ -214,41 +189,20 @@ header{
   color:var(--text);
 
   transition:
-    transform .22s ease;
-}
-
-.progress.bump span{
-  animation:
-    progressNumberPop .32s ease-out;
-}
-
-@keyframes progressNumberPop{
-
-  0%{
-    transform:scale(1);
-  }
-
-  45%{
-    transform:scale(1.18);
-  }
-
-  100%{
-    transform:scale(1);
-  }
-
+    transform .2s ease;
 }
 
 
 /* =========================================================
-   PROGRESS BAR
+   ANIMATED PROGRESS BAR
    ========================================================= */
 
 .progressbar{
   position:relative;
 
-  height:16px;
+  height:18px;
 
-  background:var(--progress-track);
+  background:var(--progress-bg);
 
   border-radius:999px;
 
@@ -258,14 +212,7 @@ header{
 
   box-shadow:
     inset 0 1px 3px rgba(0,0,0,.14);
-
-  isolation:isolate;
 }
-
-
-/*
-  The actual progress fill.
-*/
 
 .fill{
   position:relative;
@@ -273,11 +220,18 @@ header{
   height:100%;
   width:0%;
 
-  background:linear-gradient(
-    90deg,
-    var(--progress-fill-1),
-    var(--progress-fill-2)
-  );
+  min-width:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      #343a40 0%,
+      #111 45%,
+      #343a40 70%,
+      #111 100%
+    );
+
+  background-size:220% 100%;
 
   border-radius:999px;
 
@@ -285,18 +239,17 @@ header{
     width .45s cubic-bezier(.22,.61,.36,1);
 
   box-shadow:
-    0 1px 5px rgba(0,0,0,.22);
+    0 1px 5px rgba(0,0,0,.25);
 
-  overflow:hidden;
+  animation:
+    progressShimmer 2.8s linear infinite;
 }
 
 
 /*
-  Continuous subtle shimmer.
-
-  This is intentionally slow and low-key,
-  similar to the "alive" feeling of a
-  modern progress tracker.
+  The moving highlight is intentionally subtle.
+  The bar looks alive even when the percentage
+  isn't changing.
 */
 
 .fill::after{
@@ -307,108 +260,47 @@ header{
   top:0;
   bottom:0;
 
-  width:90px;
+  width:80px;
 
-  left:-110px;
+  left:-90px;
 
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.08),
-    rgba(255,255,255,.22),
-    rgba(255,255,255,.08),
-    transparent
-  );
-
-  transform:skewX(-18deg);
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.20),
+      transparent
+    );
 
   animation:
-    progressShimmer 3.2s ease-in-out infinite;
-
-  pointer-events:none;
+    progressSweep 2.6s ease-in-out infinite;
 }
 
 @keyframes progressShimmer{
 
   0%{
-    left:-110px;
-    opacity:0;
-  }
-
-  15%{
-    opacity:1;
-  }
-
-  55%{
-    opacity:1;
-  }
-
-  75%{
-    left:calc(100% + 110px);
-    opacity:0;
+    background-position:100% 0;
   }
 
   100%{
-    left:calc(100% + 110px);
-    opacity:0;
+    background-position:-120% 0;
   }
 
 }
 
-
-/*
-  Small moving highlight across the
-  entire track so the bar still feels
-  alive even at 0%.
-*/
-
-.progressbar::after{
-  content:"";
-
-  position:absolute;
-
-  top:2px;
-  bottom:2px;
-
-  width:75px;
-
-  left:-90px;
-
-  border-radius:999px;
-
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.16),
-    transparent
-  );
-
-  animation:
-    trackShimmer 4.2s ease-in-out infinite;
-
-  pointer-events:none;
-
-  z-index:3;
-}
-
-@keyframes trackShimmer{
+@keyframes progressSweep{
 
   0%{
     left:-90px;
     opacity:0;
   }
 
-  15%{
-    opacity:.7;
+  20%{
+    opacity:1;
   }
 
-  50%{
-    opacity:.7;
-  }
-
-  72%{
-    left:calc(100% + 90px);
-    opacity:0;
+  65%{
+    opacity:1;
   }
 
   100%{
@@ -416,6 +308,92 @@ header{
     opacity:0;
   }
 
+}
+
+
+/* =========================================================
+   INSPECTION ADDED TOAST
+   ========================================================= */
+
+.toast{
+  position:fixed;
+
+  left:50%;
+
+  bottom:
+    calc(
+      24px +
+      env(safe-area-inset-bottom)
+    );
+
+  z-index:10000;
+
+  width:max-content;
+  max-width:calc(100% - 32px);
+
+  padding:
+    13px
+    18px;
+
+  border-radius:999px;
+
+  background:#17202a;
+
+  color:#fff;
+
+  font-size:15px;
+  font-weight:750;
+
+  letter-spacing:.01em;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.22);
+
+  opacity:0;
+
+  transform:
+    translate(-50%,18px)
+    scale(.96);
+
+  pointer-events:none;
+
+  transition:
+    opacity .2s ease,
+    transform .2s ease;
+}
+
+.toast.show{
+  opacity:1;
+
+  transform:
+    translate(-50%,0)
+    scale(1);
+}
+
+.toast::before{
+  content:"✓";
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  width:21px;
+  height:21px;
+
+  margin-right:8px;
+
+  border-radius:50%;
+
+  background:#fff;
+
+  color:#17202a;
+
+  font-size:13px;
+  font-weight:900;
+
+  vertical-align:-2px;
 }
 
 
@@ -571,82 +549,6 @@ button.secondary{
   color:var(--secondary-text);
 
   box-shadow:none;
-}
-
-
-/* =========================================================
-   ADDED CONFIRMATION
-   ========================================================= */
-
-.added-message{
-  margin-top:12px;
-
-  padding:
-    11px
-    14px;
-
-  border-radius:10px;
-
-  background:#e8f5e9;
-  color:#1b5e20;
-
-  border:
-    1px
-    solid
-    #b7dfb9;
-
-  font-size:15px;
-  font-weight:750;
-
-  text-align:center;
-
-  opacity:0;
-
-  transform:
-    translateY(-5px)
-    scale(.98);
-
-  max-height:0;
-
-  overflow:hidden;
-
-  padding-top:0;
-  padding-bottom:0;
-
-  margin-top:0;
-
-  transition:
-    opacity .2s ease,
-    transform .2s ease,
-    max-height .25s ease,
-    margin-top .25s ease,
-    padding .25s ease;
-}
-
-.added-message.show{
-  opacity:1;
-
-  transform:
-    translateY(0)
-    scale(1);
-
-  max-height:60px;
-
-  margin-top:12px;
-
-  padding:
-    11px
-    14px;
-}
-
-@media(prefers-color-scheme:dark){
-
-  .added-message{
-    background:#17351e;
-    color:#b8e6bd;
-    border-color:#285b31;
-  }
-
 }
 
 
@@ -907,10 +809,6 @@ button.secondary{
     --secondary-text:#f4f6f8;
 
     --progress-bg:#303943;
-    --progress-track:#303943;
-
-    --progress-fill-1:#f4f6f8;
-    --progress-fill-2:#f4f6f8;
 
     --overlay:rgba(0,0,0,.65);
 
@@ -946,7 +844,16 @@ button.secondary{
   }
 
   .fill{
-    background:#f4f6f8;
+    background:
+      linear-gradient(
+        90deg,
+        #f4f6f8 0%,
+        #cfd5db 45%,
+        #f4f6f8 70%,
+        #cfd5db 100%
+      );
+
+    background-size:220% 100%;
   }
 
   input,
@@ -996,6 +903,16 @@ button.secondary{
     color:#f4f6f8;
   }
 
+  .toast{
+    background:#f4f6f8;
+    color:#11161c;
+  }
+
+  .toast::before{
+    background:#11161c;
+    color:#f4f6f8;
+  }
+
 }
 
 
@@ -1019,9 +936,7 @@ button.secondary{
 </style>
 </head>
 
-
 <body>
-
 
 <header>
   EOD Inspection
@@ -1042,10 +957,7 @@ button.secondary{
     id="reportDate"
   ></div>
 
-  <div
-    class="progress"
-    id="progressCounter"
-  >
+  <div class="progress">
 
     <span id="count">0</span>
     / 28
@@ -1185,13 +1097,6 @@ button.secondary{
   ADD INSPECTION
 </button>
 
-
-<div
-  class="added-message"
-  id="chassisAddedMessage"
-  aria-live="polite"
-></div>
-
 </section>
 
 
@@ -1306,13 +1211,6 @@ button.secondary{
   ADD INSPECTION
 </button>
 
-
-<div
-  class="added-message"
-  id="containerAddedMessage"
-  aria-live="polite"
-></div>
-
 </section>
 
 
@@ -1412,13 +1310,6 @@ button.secondary{
   ADD INSPECTION
 </button>
 
-
-<div
-  class="added-message"
-  id="rackAddedMessage"
-  aria-live="polite"
-></div>
-
 </section>
 
 
@@ -1468,6 +1359,20 @@ button.secondary{
 
 
 </main>
+
+
+<!-- =======================================================
+     INSPECTION ADDED TOAST
+     ======================================================= -->
+
+<div
+  class="toast"
+  id="inspectionToast"
+  role="status"
+  aria-live="polite"
+>
+  Inspection Added
+</div>
 
 
 <!-- =======================================================
@@ -1621,36 +1526,60 @@ const duplicateNo =
     "duplicateNo"
   );
 
-const progressCounter =
+const inspectionToast =
   document.getElementById(
-    "progressCounter"
+    "inspectionToast"
   );
 
-const countElement =
-  document.getElementById(
-    "count"
-  );
-
-const fillElement =
-  document.getElementById(
-    "fill"
-  );
-
-
-/*
-  Holds the function that should run if
-  the user chooses YES.
-*/
 
 let duplicateYesAction = null;
 
-
-/*
-  Holds the element that should receive
-  focus if the user chooses NO.
-*/
-
 let duplicateCancelFocus = null;
+
+let toastTimer = null;
+
+
+/* =========================================================
+   INSPECTION ADDED MESSAGE
+   ========================================================= */
+
+function showInspectionAdded(){
+
+  clearTimeout(toastTimer);
+
+  inspectionToast
+    .classList
+    .remove("show");
+
+
+  /*
+    Force the browser to recognize the
+    removal before showing it again.
+    This makes repeated inspections
+    reliably animate.
+  */
+
+  void inspectionToast.offsetWidth;
+
+
+  inspectionToast
+    .classList
+    .add("show");
+
+
+  toastTimer =
+    setTimeout(
+      () => {
+
+        inspectionToast
+          .classList
+          .remove("show");
+
+      },
+      1800
+    );
+
+}
 
 
 /* =========================================================
@@ -1693,104 +1622,43 @@ function updateProgress(){
     totalInspections();
 
 
-  const percentage =
-    Math.min(
-      100,
-      (count / 28) * 100
-    );
+  const countElement =
+    document.getElementById("count");
+
+
+  const fillElement =
+    document.getElementById("fill");
 
 
   countElement.textContent =
     count;
 
 
-  /*
-    Force the browser to see the
-    progress-counter animation each
-    time the number changes.
-  */
-
-  progressCounter.classList.remove(
-    "bump"
-  );
-
-
-  void progressCounter.offsetWidth;
-
-
-  progressCounter.classList.add(
-    "bump"
-  );
-
-
-  /*
-    Animate the actual width.
-  */
-
   fillElement.style.width =
-    percentage + "%";
-
-}
-
-
-/* =========================================================
-   ADDED CONFIRMATION
-   ========================================================= */
-
-function showAddedMessage(
-  elementId,
-  message
-){
-
-  const messageElement =
-    document.getElementById(
-      elementId
-    );
-
-
-  if(!messageElement){
-    return;
-  }
-
-
-  messageElement.textContent =
-    "✓ " + message;
-
-
-  messageElement.classList.remove(
-    "show"
-  );
+    Math.min(
+      100,
+      (count / 28) * 100
+    ) + "%";
 
 
   /*
-    Restart the animation even when
-    another inspection is added quickly.
+    Small count movement when an inspection
+    is successfully added.
   */
 
-  void messageElement.offsetWidth;
+  countElement.style.transform =
+    "scale(1.08)";
 
 
-  messageElement.classList.add(
-    "show"
+  setTimeout(
+    () => {
+
+      countElement.style.transform =
+        "scale(1)";
+
+    },
+    180
   );
-
-
-  clearTimeout(
-    messageElement._hideTimer
-  );
-
-
-  messageElement._hideTimer =
-    setTimeout(
-      () => {
-
-        messageElement.classList.remove(
-          "show"
-        );
-
-      },
-      2200
-    );
 
 }
 
@@ -1893,9 +1761,9 @@ function closeDuplicateModal(){
 }
 
 
-/*
-  YES
-*/
+/* =========================================================
+   DUPLICATE YES
+   ========================================================= */
 
 duplicateYes
   .addEventListener(
@@ -1921,9 +1789,9 @@ duplicateYes
   );
 
 
-/*
-  NO
-*/
+/* =========================================================
+   DUPLICATE NO
+   ========================================================= */
 
 duplicateNo
   .addEventListener(
@@ -1936,10 +1804,9 @@ duplicateNo
   );
 
 
-/*
-  Tapping outside the dialog
-  behaves like NO.
-*/
+/* =========================================================
+   OUTSIDE MODAL = NO
+   ========================================================= */
 
 duplicateModal
   .addEventListener(
@@ -1958,9 +1825,9 @@ duplicateModal
   );
 
 
-/*
-  Escape behaves like NO.
-*/
+/* =========================================================
+   ESCAPE = NO
+   ========================================================= */
 
 document
   .addEventListener(
@@ -2078,14 +1945,6 @@ function addInspection(){
     number;
 
 
-  /*
-    Same equipment + same inspection
-    type = possible duplicate.
-
-    Different inspection types remain
-    completely valid.
-  */
-
   if(
     hasDuplicate(
       data.chassis,
@@ -2170,11 +2029,7 @@ function addChassisRecord(
 
   updateProgress();
 
-
-  showAddedMessage(
-    "chassisAddedMessage",
-    equipmentNumber + " added"
-  );
+  showInspectionAdded();
 
 
   document
@@ -2370,11 +2225,7 @@ function addContainerRecord(
 
   updateProgress();
 
-
-  showAddedMessage(
-    "containerAddedMessage",
-    equipmentNumber + " added"
-  );
+  showInspectionAdded();
 
 
   document
@@ -2517,11 +2368,7 @@ function addRackRecord(
 
   updateProgress();
 
-
-  showAddedMessage(
-    "rackAddedMessage",
-    equipmentNumber + " added"
-  );
+  showInspectionAdded();
 
 
   document
@@ -2905,32 +2752,6 @@ function resetForNextDay(){
       formatDate();
 
 
-  /*
-    Clear any lingering confirmation
-    messages when starting the next day.
-  */
-
-  [
-    "chassisAddedMessage",
-    "containerAddedMessage",
-    "rackAddedMessage"
-  ]
-  .forEach(id => {
-
-    const element =
-      document.getElementById(id);
-
-    if(element){
-
-      element.classList.remove(
-        "show"
-      );
-
-    }
-
-  });
-
-
   updateProgress();
 
 
@@ -3191,7 +3012,6 @@ if(
 }
 
 </script>
-
 
 </body>
 </html>
