@@ -135,6 +135,7 @@ header{
 }
 
 @keyframes countBump{
+
   0%{
     transform:scale(1);
   }
@@ -146,6 +147,7 @@ header{
   100%{
     transform:scale(1);
   }
+
 }
 
 .progressbar{
@@ -163,7 +165,6 @@ header{
   background:linear-gradient(90deg,#343a40,#111);
   border-radius:999px;
 
-  /* RESTORED NORMAL PROGRESS ANIMATION */
   transition:
     width .45s cubic-bezier(.22,.8,.25,1),
     transform .25s ease;
@@ -223,7 +224,7 @@ header{
 }
 
 
-/* MILESTONE — SUBTLE */
+/* MILESTONE — ENHANCED */
 
 .progressbar.milestone{
   position:relative;
@@ -235,35 +236,51 @@ header{
   position:absolute;
   left:50%;
   top:50%;
-  width:6px;
-  height:6px;
+  width:10px;
+  height:10px;
   border-radius:50%;
   background:var(--text);
   transform:translate(-50%,-50%) scale(0);
   opacity:0;
   pointer-events:none;
   z-index:5;
+  box-shadow:0 0 0 0 var(--text);
 }
 
 .progressbar.milestone.hit::after{
-  animation:milestonePop .5s ease-out;
+  animation:milestonePop .8s cubic-bezier(.2,.8,.2,1);
 }
 
 @keyframes milestonePop{
 
   0%{
-    opacity:.45;
+    opacity:0;
     transform:translate(-50%,-50%) scale(0);
+    box-shadow:0 0 0 0 var(--text);
+  }
+
+  15%{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1);
+    box-shadow:0 0 0 3px var(--text);
   }
 
   45%{
-    opacity:.20;
-    transform:translate(-50%,-50%) scale(3);
+    opacity:.8;
+    transform:translate(-50%,-50%) scale(4);
+    box-shadow:0 0 0 8px transparent;
+  }
+
+  75%{
+    opacity:.4;
+    transform:translate(-50%,-50%) scale(7);
+    box-shadow:0 0 0 12px transparent;
   }
 
   100%{
     opacity:0;
-    transform:translate(-50%,-50%) scale(6);
+    transform:translate(-50%,-50%) scale(10);
+    box-shadow:0 0 0 16px transparent;
   }
 
 }
@@ -1121,7 +1138,7 @@ function updateProgress(){
   }
 
 
-  /* RESTORED NORMAL BAR ANIMATION */
+  /* NORMAL BAR ANIMATION */
 
   if(count > previousProgress){
 
@@ -1138,7 +1155,7 @@ function updateProgress(){
   }
 
 
-  /* SUBTLE MILESTONES */
+  /* ENHANCED MILESTONES */
 
   const milestones =
     [7,14,21,28];
@@ -1172,7 +1189,7 @@ function updateProgress(){
         "hit"
       );
 
-    },550);
+    },850);
 
   }
 
