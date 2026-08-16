@@ -40,6 +40,7 @@
 
   <title>EOD Inspection — Harrisburg</title>
 
+
 <style>
 
 /* =========================================================
@@ -192,15 +193,35 @@ header{
     transform .2s ease;
 }
 
+.progress-count-bump{
+  animation:countBump .28s ease-out;
+}
+
+@keyframes countBump{
+
+  0%{
+    transform:scale(1);
+  }
+
+  45%{
+    transform:scale(1.16);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
+}
+
 
 /* =========================================================
-   ANIMATED PROGRESS BAR
+   PROGRESS BAR
    ========================================================= */
 
 .progressbar{
   position:relative;
 
-  height:18px;
+  height:16px;
 
   background:var(--progress-bg);
 
@@ -211,7 +232,7 @@ header{
   padding:2px;
 
   box-shadow:
-    inset 0 1px 3px rgba(0,0,0,.14);
+    inset 0 1px 3px rgba(0,0,0,.12);
 }
 
 .fill{
@@ -220,18 +241,11 @@ header{
   height:100%;
   width:0%;
 
-  min-width:0;
-
-  background:
-    linear-gradient(
-      90deg,
-      #343a40 0%,
-      #111 45%,
-      #343a40 70%,
-      #111 100%
-    );
-
-  background-size:220% 100%;
+  background:linear-gradient(
+    90deg,
+    #343a40,
+    #111
+  );
 
   border-radius:999px;
 
@@ -239,17 +253,15 @@ header{
     width .45s cubic-bezier(.22,.61,.36,1);
 
   box-shadow:
-    0 1px 5px rgba(0,0,0,.25);
+    0 1px 4px rgba(0,0,0,.2);
 
-  animation:
-    progressShimmer 2.8s linear infinite;
+  overflow:hidden;
 }
 
-
 /*
-  The moving highlight is intentionally subtle.
-  The bar looks alive even when the percentage
-  isn't changing.
+  Subtle "pizza tracker" style movement.
+  The bar continues to have a very gentle
+  moving highlight even while sitting still.
 */
 
 .fill::after{
@@ -260,140 +272,31 @@ header{
   top:0;
   bottom:0;
 
-  width:80px;
+  width:90px;
 
-  left:-90px;
+  left:-100px;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.20),
-      transparent
-    );
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.20),
+    transparent
+  );
 
   animation:
-    progressSweep 2.6s ease-in-out infinite;
+    progressShimmer 2.4s linear infinite;
 }
 
 @keyframes progressShimmer{
 
   0%{
-    background-position:100% 0;
+    left:-100px;
   }
 
   100%{
-    background-position:-120% 0;
+    left:calc(100% + 100px);
   }
 
-}
-
-@keyframes progressSweep{
-
-  0%{
-    left:-90px;
-    opacity:0;
-  }
-
-  20%{
-    opacity:1;
-  }
-
-  65%{
-    opacity:1;
-  }
-
-  100%{
-    left:calc(100% + 90px);
-    opacity:0;
-  }
-
-}
-
-
-/* =========================================================
-   INSPECTION ADDED TOAST
-   ========================================================= */
-
-.toast{
-  position:fixed;
-
-  left:50%;
-
-  bottom:
-    calc(
-      24px +
-      env(safe-area-inset-bottom)
-    );
-
-  z-index:10000;
-
-  width:max-content;
-  max-width:calc(100% - 32px);
-
-  padding:
-    13px
-    18px;
-
-  border-radius:999px;
-
-  background:#17202a;
-
-  color:#fff;
-
-  font-size:15px;
-  font-weight:750;
-
-  letter-spacing:.01em;
-
-  box-shadow:
-    0 8px 25px
-    rgba(0,0,0,.22);
-
-  opacity:0;
-
-  transform:
-    translate(-50%,18px)
-    scale(.96);
-
-  pointer-events:none;
-
-  transition:
-    opacity .2s ease,
-    transform .2s ease;
-}
-
-.toast.show{
-  opacity:1;
-
-  transform:
-    translate(-50%,0)
-    scale(1);
-}
-
-.toast::before{
-  content:"✓";
-
-  display:inline-flex;
-
-  align-items:center;
-  justify-content:center;
-
-  width:21px;
-  height:21px;
-
-  margin-right:8px;
-
-  border-radius:50%;
-
-  background:#fff;
-
-  color:#17202a;
-
-  font-size:13px;
-  font-weight:900;
-
-  vertical-align:-2px;
 }
 
 
@@ -549,6 +452,72 @@ button.secondary{
   color:var(--secondary-text);
 
   box-shadow:none;
+}
+
+
+/* =========================================================
+   INSPECTION ADDED MESSAGE
+   ========================================================= */
+
+.inspection-added{
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-height:24px;
+
+  margin-top:10px;
+
+  color:#2f6b3b;
+
+  font-size:14px;
+  font-weight:750;
+
+  opacity:0;
+
+  transform:
+    translateY(-4px)
+    scale(.98);
+
+  pointer-events:none;
+
+  transition:
+    opacity .2s ease,
+    transform .2s ease;
+}
+
+.inspection-added.show{
+  opacity:1;
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  animation:
+    addedPulse .32s ease-out;
+}
+
+@keyframes addedPulse{
+
+  0%{
+    transform:
+      translateY(-4px)
+      scale(.96);
+  }
+
+  55%{
+    transform:
+      translateY(0)
+      scale(1.04);
+  }
+
+  100%{
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
 }
 
 
@@ -844,16 +813,16 @@ button.secondary{
   }
 
   .fill{
-    background:
-      linear-gradient(
-        90deg,
-        #f4f6f8 0%,
-        #cfd5db 45%,
-        #f4f6f8 70%,
-        #cfd5db 100%
-      );
+    background:#f4f6f8;
+  }
 
-    background-size:220% 100%;
+  .fill::after{
+    background:linear-gradient(
+      90deg,
+      transparent,
+      rgba(0,0,0,.16),
+      transparent
+    );
   }
 
   input,
@@ -903,14 +872,8 @@ button.secondary{
     color:#f4f6f8;
   }
 
-  .toast{
-    background:#f4f6f8;
-    color:#11161c;
-  }
-
-  .toast::before{
-    background:#11161c;
-    color:#f4f6f8;
+  .inspection-added{
+    color:#7dcc8a;
   }
 
 }
@@ -935,6 +898,7 @@ button.secondary{
 
 </style>
 </head>
+
 
 <body>
 
@@ -1097,6 +1061,15 @@ button.secondary{
   ADD INSPECTION
 </button>
 
+
+<div
+  class="inspection-added"
+  id="chassisAdded"
+  aria-live="polite"
+>
+  ✓ Inspection Added
+</div>
+
 </section>
 
 
@@ -1211,6 +1184,15 @@ button.secondary{
   ADD INSPECTION
 </button>
 
+
+<div
+  class="inspection-added"
+  id="containerAdded"
+  aria-live="polite"
+>
+  ✓ Inspection Added
+</div>
+
 </section>
 
 
@@ -1310,6 +1292,15 @@ button.secondary{
   ADD INSPECTION
 </button>
 
+
+<div
+  class="inspection-added"
+  id="rackAdded"
+  aria-live="polite"
+>
+  ✓ Inspection Added
+</div>
+
 </section>
 
 
@@ -1359,20 +1350,6 @@ button.secondary{
 
 
 </main>
-
-
-<!-- =======================================================
-     INSPECTION ADDED TOAST
-     ======================================================= -->
-
-<div
-  class="toast"
-  id="inspectionToast"
-  role="status"
-  aria-live="polite"
->
-  Inspection Added
-</div>
 
 
 <!-- =======================================================
@@ -1526,57 +1503,67 @@ const duplicateNo =
     "duplicateNo"
   );
 
-const inspectionToast =
-  document.getElementById(
-    "inspectionToast"
-  );
-
 
 let duplicateYesAction = null;
 
 let duplicateCancelFocus = null;
-
-let toastTimer = null;
 
 
 /* =========================================================
    INSPECTION ADDED MESSAGE
    ========================================================= */
 
-function showInspectionAdded(){
+let addedMessageTimer = null;
 
-  clearTimeout(toastTimer);
 
-  inspectionToast
-    .classList
-    .remove("show");
+function showInspectionAdded(
+  elementId
+){
+
+  const message =
+    document.getElementById(
+      elementId
+    );
+
+
+  if(!message){
+    return;
+  }
 
 
   /*
-    Force the browser to recognize the
-    removal before showing it again.
-    This makes repeated inspections
-    reliably animate.
+    Clear an existing timer so repeated
+    quick entries don't fight each other.
   */
 
-  void inspectionToast.offsetWidth;
+  if(addedMessageTimer){
+    clearTimeout(addedMessageTimer);
+  }
 
 
-  inspectionToast
-    .classList
-    .add("show");
+  /*
+    Restart the animation cleanly.
+  */
+
+  message.classList.remove("show");
 
 
-  toastTimer =
+  void message.offsetWidth;
+
+
+  message.classList.add("show");
+
+
+  addedMessageTimer =
     setTimeout(
       () => {
 
-        inspectionToast
-          .classList
-          .remove("show");
+        message.classList.remove(
+          "show"
+        );
 
       },
-      1800
+      2200
     );
 
 }
@@ -1589,6 +1576,7 @@ function showInspectionAdded(){
 function totalInspections(){
 
   let total = 0;
+
 
   Object.values(data)
     .forEach(equipment => {
@@ -1607,6 +1595,7 @@ function totalInspections(){
 
     });
 
+
   return total;
 
 }
@@ -1623,42 +1612,54 @@ function updateProgress(){
 
 
   const countElement =
-    document.getElementById("count");
+    document.getElementById(
+      "count"
+    );
 
 
-  const fillElement =
-    document.getElementById("fill");
+  const fill =
+    document.getElementById(
+      "fill"
+    );
+
+
+  const oldCount =
+    Number(
+      countElement.textContent
+    );
 
 
   countElement.textContent =
     count;
 
 
-  fillElement.style.width =
+  /*
+    Give the number a tiny bump whenever
+    a new inspection is actually added.
+  */
+
+  if(count > oldCount){
+
+    countElement.classList.remove(
+      "progress-count-bump"
+    );
+
+
+    void countElement.offsetWidth;
+
+
+    countElement.classList.add(
+      "progress-count-bump"
+    );
+
+  }
+
+
+  fill.style.width =
     Math.min(
       100,
       (count / 28) * 100
     ) + "%";
-
-
-  /*
-    Small count movement when an inspection
-    is successfully added.
-  */
-
-  countElement.style.transform =
-    "scale(1.08)";
-
-
-  setTimeout(
-    () => {
-
-      countElement.style.transform =
-        "scale(1)";
-
-    },
-    180
-  );
 
 }
 
@@ -1805,7 +1806,7 @@ duplicateNo
 
 
 /* =========================================================
-   OUTSIDE MODAL = NO
+   MODAL OUTSIDE TAP
    ========================================================= */
 
 duplicateModal
@@ -1826,7 +1827,7 @@ duplicateModal
 
 
 /* =========================================================
-   ESCAPE = NO
+   ESCAPE
    ========================================================= */
 
 document
@@ -1945,6 +1946,13 @@ function addInspection(){
     number;
 
 
+  /*
+    Same chassis + same inspection type
+    = possible duplicate.
+
+    Different inspection types are allowed.
+  */
+
   if(
     hasDuplicate(
       data.chassis,
@@ -2029,7 +2037,15 @@ function addChassisRecord(
 
   updateProgress();
 
-  showInspectionAdded();
+
+  /*
+    Chassis message appears directly
+    under the Chassis button.
+  */
+
+  showInspectionAdded(
+    "chassisAdded"
+  );
 
 
   document
@@ -2225,7 +2241,15 @@ function addContainerRecord(
 
   updateProgress();
 
-  showInspectionAdded();
+
+  /*
+    Container message appears directly
+    under the Containers button.
+  */
+
+  showInspectionAdded(
+    "containerAdded"
+  );
 
 
   document
@@ -2368,7 +2392,15 @@ function addRackRecord(
 
   updateProgress();
 
-  showInspectionAdded();
+
+  /*
+    Rack message appears directly
+    under the Chassis Racks button.
+  */
+
+  showInspectionAdded(
+    "rackAdded"
+  );
 
 
   document
@@ -2743,6 +2775,32 @@ function resetForNextDay(){
     .getElementById("previewCard")
     .classList
     .add("hidden");
+
+
+  /*
+    Make sure all three confirmation
+    messages are hidden for the next day.
+  */
+
+  [
+    "chassisAdded",
+    "containerAdded",
+    "rackAdded"
+  ]
+  .forEach(id => {
+
+    const element =
+      document.getElementById(id);
+
+    if(element){
+
+      element.classList.remove(
+        "show"
+      );
+
+    }
+
+  });
 
 
   document
