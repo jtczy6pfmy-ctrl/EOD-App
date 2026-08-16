@@ -189,15 +189,8 @@ header{
   color:var(--text);
 }
 
-
-/* =========================================================
-   ANIMATED PROGRESS BAR
-   ========================================================= */
-
 .progressbar{
-  position:relative;
-
-  height:18px;
+  height:16px;
 
   background:var(--progress-bg);
 
@@ -208,38 +201,41 @@ header{
   padding:2px;
 
   box-shadow:
-    inset 0 1px 3px rgba(0,0,0,.14),
-    0 1px 2px rgba(0,0,0,.05);
+    inset 0 1px 3px rgba(0,0,0,.12);
 }
 
-.fill{
-  position:relative;
+/* =========================================================
+   ANIMATED PROGRESS FILL
+   ========================================================= */
 
+.fill{
   height:100%;
   width:0%;
 
+  position:relative;
+  overflow:hidden;
+
   background:linear-gradient(
     90deg,
-    #343a40 0%,
-    #111 45%,
-    #343a40 100%
+    #343a40,
+    #111
   );
-
-  background-size:200% 100%;
 
   border-radius:999px;
 
   transition:
-    width .5s cubic-bezier(.22,1,.36,1);
+    width .5s ease;
 
   box-shadow:
-    0 1px 5px rgba(0,0,0,.25);
-
-  animation:
-    progressShimmer 2s linear infinite;
-
-  overflow:hidden;
+    0 1px 4px rgba(0,0,0,.2);
 }
+
+/*
+  Subtle moving highlight.
+  The inspection percentage stays fixed while
+  this soft highlight continuously travels
+  across the filled portion.
+*/
 
 .fill::after{
   content:"";
@@ -247,49 +243,34 @@ header{
   position:absolute;
 
   top:0;
-  bottom:0;
+  left:-35%;
 
-  left:-45%;
-
-  width:45%;
+  width:35%;
+  height:100%;
 
   background:linear-gradient(
     90deg,
     transparent,
-    rgba(255,255,255,.32),
+    rgba(255,255,255,.22),
     transparent
   );
 
-  transform:skewX(-18deg);
-
   animation:
-    progressSweep 2.2s ease-in-out infinite;
+    progressShimmer 3.5s ease-in-out infinite;
 }
 
 @keyframes progressShimmer{
 
   0%{
-    background-position:200% 0;
+    left:-35%;
+  }
+
+  60%{
+    left:100%;
   }
 
   100%{
-    background-position:-200% 0;
-  }
-
-}
-
-@keyframes progressSweep{
-
-  0%{
-    left:-45%;
-  }
-
-  55%{
-    left:110%;
-  }
-
-  100%{
-    left:110%;
+    left:100%;
   }
 
 }
@@ -742,20 +723,21 @@ button.secondary{
   }
 
   .fill{
+    background:#f4f6f8;
+  }
+
+  /*
+    Dark-mode shimmer remains subtle,
+    but is visible against the light fill.
+  */
+
+  .fill::after{
     background:linear-gradient(
       90deg,
-      #d9dee5 0%,
-      #ffffff 45%,
-      #d9dee5 100%
+      transparent,
+      rgba(0,0,0,.14),
+      transparent
     );
-
-    background-size:200% 100%;
-
-    box-shadow:
-      0 1px 6px rgba(255,255,255,.18);
-
-    animation:
-      progressShimmer 2s linear infinite;
   }
 
   input,
@@ -1565,7 +1547,7 @@ function closeDuplicateModal(){
 
 
 /* =========================================================
-   MODAL BUTTONS
+   DUPLICATE MODAL BUTTONS
    ========================================================= */
 
 duplicateYes
