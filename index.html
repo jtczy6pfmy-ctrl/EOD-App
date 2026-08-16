@@ -2,28 +2,49 @@
 <html lang="en">
 <head>
 
-<link rel="apple-touch-icon" href="./EOD-Inspection-chassis-icon.png">
+  <link rel="apple-touch-icon" href="./EOD-Inspection-chassis-icon.png">
 
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="EOD Inspection">
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
 
-<meta name="theme-color"
-      content="#eef1f5"
-      media="(prefers-color-scheme: light)">
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="default"
+  >
 
-<meta name="theme-color"
-      content="#0b0f14"
-      media="(prefers-color-scheme: dark)">
+  <meta
+    name="apple-mobile-web-app-title"
+    content="EOD Inspection"
+  >
 
-<title>EOD Inspection — Harrisburg</title>
+  <meta
+    name="theme-color"
+    content="#eef1f5"
+    media="(prefers-color-scheme: light)"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0b0f14"
+    media="(prefers-color-scheme: dark)"
+  >
+
+  <title>EOD Inspection — Harrisburg</title>
 
 <style>
+
+/* =========================================================
+   GLOBAL / THEME
+   ========================================================= */
 
 *{
   box-sizing:border-box;
@@ -55,35 +76,60 @@ html{
 body{
   margin:0;
   min-height:100vh;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
   background:var(--bg);
   color:var(--text);
+
   -webkit-font-smoothing:antialiased;
 }
 
 header{
-  background:linear-gradient(180deg,#15191e 0%,#0b0d10 100%);
+  background:linear-gradient(
+    180deg,
+    #15191e 0%,
+    #0b0d10 100%
+  );
+
   color:#fff;
+
   padding:20px;
+
   text-align:center;
+
   font-size:22px;
   font-weight:750;
   letter-spacing:.01em;
+
   box-shadow:0 2px 10px rgba(0,0,0,.18);
 }
 
 .app{
   width:min(760px,100%);
   margin:0 auto;
-  padding:18px 14px 50px;
+
+  padding:
+    18px
+    14px
+    50px;
 }
 
 .card{
   background:var(--card);
+
   border:1px solid var(--card-border);
+
   border-radius:16px;
+
   padding:20px;
+
   margin-bottom:16px;
+
   box-shadow:var(--shadow);
 }
 
@@ -91,7 +137,9 @@ header{
   display:flex;
   align-items:center;
   gap:10px;
+
   margin:0 0 18px;
+
   font-size:20px;
   line-height:1.2;
   font-weight:750;
@@ -99,108 +147,206 @@ header{
 
 .card h2::before{
   content:"";
+
   display:block;
+
   width:4px;
   height:22px;
+
   border-radius:4px;
+
   background:var(--accent);
 }
 
 .date{
   text-align:center;
+
   color:var(--muted);
+
   font-size:15px;
   font-weight:650;
+
   margin-bottom:12px;
 }
-
-/* =========================
-   UPGRADED PROGRESS
-   ========================= */
 
 .progress{
   display:flex;
   align-items:baseline;
   justify-content:center;
-  gap:6px;
+  gap:5px;
+
+  font-size:15px;
+  font-weight:700;
+
   margin-bottom:10px;
-  color:var(--muted);
-  font-size:15px;
-  font-weight:700;
-}
 
-.progress span:first-child{
-  font-size:27px;
-  font-weight:850;
-  color:var(--text);
-}
-
-.progress-total{
-  font-size:15px;
-  font-weight:700;
   color:var(--muted);
 }
 
-.progress-percent{
-  margin-left:6px;
-  padding:3px 8px;
-  border-radius:999px;
-  background:var(--secondary);
-  color:var(--text);
-  font-size:13px;
+.progress span{
+  font-size:26px;
   font-weight:800;
+  color:var(--text);
 }
+
+
+/* =========================================================
+   ANIMATED PROGRESS BAR
+   ========================================================= */
 
 .progressbar{
-  height:16px;
+  position:relative;
+
+  height:18px;
+
   background:var(--progress-bg);
+
   border-radius:999px;
+
   overflow:hidden;
+
   padding:2px;
-  box-shadow:inset 0 1px 3px rgba(0,0,0,.12);
+
+  box-shadow:
+    inset 0 1px 3px rgba(0,0,0,.14),
+    0 1px 2px rgba(0,0,0,.05);
 }
 
 .fill{
+  position:relative;
+
   height:100%;
   width:0%;
-  background:linear-gradient(90deg,#343a40,#111);
+
+  background:linear-gradient(
+    90deg,
+    #343a40 0%,
+    #111 45%,
+    #343a40 100%
+  );
+
+  background-size:200% 100%;
+
   border-radius:999px;
-  transition:width .35s ease;
-  box-shadow:0 1px 4px rgba(0,0,0,.2);
+
+  transition:
+    width .5s cubic-bezier(.22,1,.36,1);
+
+  box-shadow:
+    0 1px 5px rgba(0,0,0,.25);
+
+  animation:
+    progressShimmer 2s linear infinite;
+
+  overflow:hidden;
 }
 
-/* =========================
+.fill::after{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  bottom:0;
+
+  left:-45%;
+
+  width:45%;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.32),
+    transparent
+  );
+
+  transform:skewX(-18deg);
+
+  animation:
+    progressSweep 2.2s ease-in-out infinite;
+}
+
+@keyframes progressShimmer{
+
+  0%{
+    background-position:200% 0;
+  }
+
+  100%{
+    background-position:-200% 0;
+  }
+
+}
+
+@keyframes progressSweep{
+
+  0%{
+    left:-45%;
+  }
+
+  55%{
+    left:110%;
+  }
+
+  100%{
+    left:110%;
+  }
+
+}
+
+
+/* =========================================================
    FORM ELEMENTS
-   ========================= */
+   ========================================================= */
 
 label{
   display:block;
+
   font-weight:700;
   font-size:14px;
+
   color:var(--text);
-  margin:15px 0 7px;
+
+  margin:
+    15px
+    0
+    7px;
 }
 
 input,
 select,
 textarea{
   width:100%;
-  padding:13px 14px;
+
+  padding:
+    13px
+    14px;
+
   border:1px solid var(--input-border);
+
   border-radius:10px;
+
   font-family:inherit;
   font-size:17px;
+
   background:var(--input);
   color:var(--text);
+
   outline:none;
-  transition:border-color .15s ease,box-shadow .15s ease;
+
+  transition:
+    border-color .15s ease,
+    box-shadow .15s ease;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
   border-color:#6b7280;
-  box-shadow:0 0 0 3px rgba(107,114,128,.14);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(107,114,128,.14);
 }
 
 input::placeholder,
@@ -215,44 +361,81 @@ textarea{
 
 .row{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
   gap:14px;
 }
 
 .static-type{
-  padding:13px 14px;
-  border:1px solid var(--input-border);
+  padding:
+    13px
+    14px;
+
+  border:
+    1px
+    solid
+    var(--input-border);
+
   border-radius:10px;
+
   font-size:17px;
+
   background:var(--secondary);
   color:var(--text);
+
   font-weight:700;
+
   min-height:49px;
+
   display:flex;
   align-items:center;
 }
 
 button{
   width:100%;
+
   border:0;
+
   border-radius:10px;
-  padding:14px 16px;
+
+  padding:
+    14px
+    16px;
+
   margin-top:17px;
+
   min-height:50px;
+
   font-family:inherit;
+
   font-size:16px;
   font-weight:750;
+
   letter-spacing:.02em;
+
   cursor:pointer;
+
   background:var(--accent);
   color:var(--accent-text);
+
   -webkit-tap-highlight-color:transparent;
-  box-shadow:0 2px 5px rgba(0,0,0,.12);
-  transition:transform .08s ease,box-shadow .15s ease;
+
+  box-shadow:
+    0 2px 5px
+    rgba(0,0,0,.12);
+
+  transition:
+    transform .08s ease,
+    box-shadow .15s ease;
 }
 
 button:hover{
-  box-shadow:0 4px 10px rgba(0,0,0,.16);
+  box-shadow:
+    0 4px 10px
+    rgba(0,0,0,.16);
 }
 
 button:active{
@@ -262,12 +445,14 @@ button:active{
 button.secondary{
   background:var(--secondary);
   color:var(--secondary-text);
+
   box-shadow:none;
 }
 
-/* =========================
-   REPORT
-   ========================= */
+
+/* =========================================================
+   ENTRIES / REPORT
+   ========================================================= */
 
 .entry-list{
   margin-top:10px;
@@ -275,24 +460,49 @@ button.secondary{
 
 .entry{
   background:var(--secondary);
-  border:1px solid var(--card-border);
+
+  border:
+    1px
+    solid
+    var(--card-border);
+
   border-radius:10px;
-  padding:11px 12px;
+
+  padding:
+    11px
+    12px;
+
   margin-top:7px;
+
   font-size:15px;
   line-height:1.4;
 }
 
 #preview{
   white-space:pre-wrap;
+
   background:var(--secondary);
-  border:1px solid var(--card-border);
+
+  border:
+    1px
+    solid
+    var(--card-border);
+
   border-radius:11px;
+
   padding:15px;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+
   font-size:14px;
   line-height:1.55;
+
   overflow:auto;
+
   color:var(--text);
 }
 
@@ -300,21 +510,32 @@ button.secondary{
   display:none !important;
 }
 
-/* =========================
-   DUPLICATE MODAL
-   ========================= */
+
+/* =========================================================
+   DUPLICATE WARNING MODAL
+   ========================================================= */
 
 .modal-overlay{
   position:fixed;
+
   inset:0;
+
   z-index:9999;
+
   display:none;
+
   align-items:center;
   justify-content:center;
+
   padding:20px;
+
   background:var(--overlay);
-  backdrop-filter:blur(5px);
-  -webkit-backdrop-filter:blur(5px);
+
+  backdrop-filter:
+    blur(5px);
+
+  -webkit-backdrop-filter:
+    blur(5px);
 }
 
 .modal-overlay.show{
@@ -322,72 +543,109 @@ button.secondary{
 }
 
 .modal{
-  width:min(430px,100%);
+  width:min(
+    430px,
+    100%
+  );
+
   background:var(--card);
+
   color:var(--text);
-  border:1px solid var(--card-border);
+
+  border:
+    1px
+    solid
+    var(--card-border);
+
   border-radius:18px;
+
   padding:22px;
-  box-shadow:0 20px 60px rgba(0,0,0,.28);
-  animation:modalIn .16s ease-out;
+
+  box-shadow:
+    0 20px 60px
+    rgba(0,0,0,.28);
+
+  animation:
+    modalIn .16s ease-out;
 }
 
 @keyframes modalIn{
+
   from{
     opacity:0;
     transform:scale(.96) translateY(8px);
   }
+
   to{
     opacity:1;
     transform:scale(1) translateY(0);
   }
+
 }
 
 .modal-title{
   margin:0 0 10px;
+
   font-size:21px;
   font-weight:800;
 }
 
 .modal-message{
   margin:0;
+
   color:var(--muted);
+
   font-size:16px;
+
   line-height:1.5;
+
   white-space:pre-line;
 }
 
 .modal-actions{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
   gap:10px;
+
   margin-top:20px;
 }
 
 .modal-actions button{
   margin-top:0;
+
   min-height:50px;
 }
 
 .modal-no{
   background:var(--secondary);
+
   color:var(--secondary-text);
+
   box-shadow:none;
 }
 
 .modal-yes{
   background:var(--accent);
+
   color:var(--accent-text);
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE
-   ========================= */
+   ========================================================= */
 
 @media(max-width:520px){
 
   .app{
-    padding:12px 10px 40px;
+    padding:
+      12px
+      10px
+      40px;
   }
 
   .card{
@@ -411,37 +669,59 @@ button.secondary{
 
   .modal{
     padding:20px;
+
     border-radius:17px;
   }
 
 }
 
-/* =========================
-   DARK MODE
-   ========================= */
+
+/* =========================================================
+   DARK MODE — FOLLOWS IPAD SYSTEM SETTING
+   ========================================================= */
 
 @media(prefers-color-scheme:dark){
 
   :root{
+
     --bg:#0b0f14;
+
     --card:#171d24;
+
     --card-border:#2b333d;
+
     --text:#f4f6f8;
+
     --muted:#a7b0ba;
+
     --input:#0f141a;
+
     --input-border:#3b4550;
+
     --accent:#f4f6f8;
+
     --accent-text:#11161c;
+
     --secondary:#242c35;
+
     --secondary-text:#f4f6f8;
+
     --progress-bg:#303943;
+
     --overlay:rgba(0,0,0,.65);
-    --shadow:0 4px 18px rgba(0,0,0,.28);
+
+    --shadow:
+      0 4px 18px
+      rgba(0,0,0,.28);
   }
 
-  html,
+  html{
+    background:#0b0f14;
+  }
+
   body{
     background:#0b0f14;
+    color:#f4f6f8;
   }
 
   header{
@@ -462,7 +742,20 @@ button.secondary{
   }
 
   .fill{
-    background:#f4f6f8;
+    background:linear-gradient(
+      90deg,
+      #d9dee5 0%,
+      #ffffff 45%,
+      #d9dee5 100%
+    );
+
+    background-size:200% 100%;
+
+    box-shadow:
+      0 1px 6px rgba(255,255,255,.18);
+
+    animation:
+      progressShimmer 2s linear infinite;
   }
 
   input,
@@ -514,6 +807,11 @@ button.secondary{
 
 }
 
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
 @media(prefers-reduced-motion:reduce){
 
   *,
@@ -536,85 +834,156 @@ button.secondary{
   EOD Inspection
 </header>
 
+
 <main class="app">
+
+
+<!-- =======================================================
+     PROGRESS
+     ======================================================= -->
 
 <section class="card">
 
-  <div class="date" id="reportDate"></div>
+  <div
+    class="date"
+    id="reportDate"
+  ></div>
 
   <div class="progress">
+
     <span id="count">0</span>
-    <span class="progress-total">/ 28</span>
-    <span class="progress-percent" id="progressPercent">0%</span>
+    / 28
+
   </div>
 
   <div class="progressbar">
-    <div class="fill" id="fill"></div>
+
+    <div
+      class="fill"
+      id="fill"
+    ></div>
+
   </div>
 
 </section>
 
-<!-- CHASSIS -->
+
+<!-- =======================================================
+     CHASSIS
+     ======================================================= -->
 
 <section class="card">
 
 <h2>Chassis</h2>
 
-<input type="hidden" id="equipment" value="Chassis">
-
-<div class="row">
-
-<div>
-<label for="prefix">4-Character Prefix</label>
-
-<select id="prefix">
-<option value="NSPZ">NSPZ</option>
-<option value="NSFZ">NSFZ</option>
-</select>
-</div>
-
-<div>
-<label for="number">6-Digit Number</label>
-
 <input
-  id="number"
-  inputmode="numeric"
-  maxlength="6"
-  placeholder="Enter 6 digits"
-  autocomplete="off">
-</div>
-
-</div>
+  type="hidden"
+  id="equipment"
+  value="Chassis"
+>
 
 <div class="row">
 
-<div>
-<label for="type">Inspection Type</label>
+  <div>
 
-<select id="type">
-<option value="5652">5652 — Pre-repair</option>
-<option value="5900">5900 — Post-repair</option>
-<option value="5658">5658 — Add-on</option>
-</select>
+    <label for="prefix">
+      4-Character Prefix
+    </label>
+
+    <select id="prefix">
+
+      <option value="NSPZ">
+        NSPZ
+      </option>
+
+      <option value="NSFZ">
+        NSFZ
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div>
+
+    <label for="number">
+      6-Digit Number
+    </label>
+
+    <input
+      id="number"
+      inputmode="numeric"
+      maxlength="6"
+      placeholder="Enter 6 digits"
+      autocomplete="off"
+    >
+
+  </div>
+
 </div>
 
-<div>
-<label for="condition">Condition</label>
 
-<select id="condition">
-<option value="Defect">Defect</option>
-<option value="No Defect">No Defect</option>
-</select>
+<div class="row">
+
+  <div>
+
+    <label for="type">
+      Inspection Type
+    </label>
+
+    <select id="type">
+
+      <option value="5652">
+        5652 — Pre-repair
+      </option>
+
+      <option value="5900">
+        5900 — Post-repair
+      </option>
+
+      <option value="5658">
+        5658 — Add-on
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div>
+
+    <label for="condition">
+      Condition
+    </label>
+
+    <select id="condition">
+
+      <option value="Defect">
+        Defect
+      </option>
+
+      <option value="No Defect">
+        No Defect
+      </option>
+
+    </select>
+
+  </div>
+
 </div>
 
-</div>
 
-<label for="equipmentNote">Inspection Note</label>
+<label for="equipmentNote">
+  Inspection Note
+</label>
 
 <input
   id="equipmentNote"
   placeholder="Example: 145D dwell"
-  autocomplete="off">
+  autocomplete="off"
+>
+
 
 <button id="addInspection">
   ADD INSPECTION
@@ -622,66 +991,113 @@ button.secondary{
 
 </section>
 
-<!-- CONTAINERS -->
+
+<!-- =======================================================
+     CONTAINERS
+     ======================================================= -->
 
 <section class="card">
 
 <h2>Containers</h2>
 
-<div class="row">
-
-<div>
-<label for="containerPrefix">4-Character Prefix</label>
-
-<input
-  id="containerPrefix"
-  maxlength="4"
-  placeholder="ABCD"
-  autocomplete="off">
-</div>
-
-<div>
-<label for="containerNumber">6-Digit Number</label>
-
-<input
-  id="containerNumber"
-  inputmode="numeric"
-  maxlength="6"
-  placeholder="Enter 6 digits"
-  autocomplete="off">
-</div>
-
-</div>
 
 <div class="row">
 
-<div>
-<label for="containerType">Inspection Type</label>
+  <div>
 
-<select id="containerType">
-<option value="5653">5653 — Pre-repair</option>
-<option value="5900">5900 — Post-repair</option>
-<option value="5658">5658 — Add-on</option>
-</select>
+    <label for="containerPrefix">
+      4-Character Prefix
+    </label>
+
+    <input
+      id="containerPrefix"
+      maxlength="4"
+      placeholder="ABCD"
+      autocomplete="off"
+    >
+
+  </div>
+
+
+  <div>
+
+    <label for="containerNumber">
+      6-Digit Number
+    </label>
+
+    <input
+      id="containerNumber"
+      inputmode="numeric"
+      maxlength="6"
+      placeholder="Enter 6 digits"
+      autocomplete="off"
+    >
+
+  </div>
+
 </div>
 
-<div>
-<label for="containerCondition">Condition</label>
 
-<select id="containerCondition">
-<option value="Defect">Defect</option>
-<option value="No Defect">No Defect</option>
-</select>
+<div class="row">
+
+  <div>
+
+    <label for="containerType">
+      Inspection Type
+    </label>
+
+    <select id="containerType">
+
+      <option value="5653">
+        5653 — Pre-repair
+      </option>
+
+      <option value="5900">
+        5900 — Post-repair
+      </option>
+
+      <option value="5658">
+        5658 — Add-on
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div>
+
+    <label for="containerCondition">
+      Condition
+    </label>
+
+    <select id="containerCondition">
+
+      <option value="Defect">
+        Defect
+      </option>
+
+      <option value="No Defect">
+        No Defect
+      </option>
+
+    </select>
+
+  </div>
+
 </div>
 
-</div>
 
-<label for="containerNote">Inspection Note</label>
+<label for="containerNote">
+  Inspection Note
+</label>
 
 <input
   id="containerNote"
   placeholder="Example: 145D dwell"
-  autocomplete="off">
+  autocomplete="off"
+>
+
 
 <button id="addContainerInspection">
   ADD INSPECTION
@@ -689,70 +1105,98 @@ button.secondary{
 
 </section>
 
-<!-- CHASSIS RACKS -->
+
+<!-- =======================================================
+     CHASSIS RACKS
+     ======================================================= -->
 
 <section class="card">
 
 <h2>Chassis Racks</h2>
 
-<div class="row">
-
-<div>
-
-<label>4-Character Prefix</label>
-
-<div class="static-type">
-ZNSU
-</div>
-
-</div>
-
-<div>
-
-<label for="rackNumber">6-Digit Number</label>
-
-<input
-  id="rackNumber"
-  inputmode="numeric"
-  maxlength="6"
-  placeholder="Enter 6 digits"
-  autocomplete="off">
-
-</div>
-
-</div>
 
 <div class="row">
 
-<div>
+  <div>
 
-<label>Inspection Type</label>
+    <label>
+      4-Character Prefix
+    </label>
 
-<div class="static-type">
-5657 — Pre-repair
+    <div class="static-type">
+      ZNSU
+    </div>
+
+  </div>
+
+
+  <div>
+
+    <label for="rackNumber">
+      6-Digit Number
+    </label>
+
+    <input
+      id="rackNumber"
+      inputmode="numeric"
+      maxlength="6"
+      placeholder="Enter 6 digits"
+      autocomplete="off"
+    >
+
+  </div>
+
 </div>
 
+
+<div class="row">
+
+  <div>
+
+    <label>
+      Inspection Type
+    </label>
+
+    <div class="static-type">
+      5657 — Pre-repair
+    </div>
+
+  </div>
+
+
+  <div>
+
+    <label for="rackCondition">
+      Condition
+    </label>
+
+    <select id="rackCondition">
+
+      <option value="Defect">
+        Defect
+      </option>
+
+      <option value="No Defect">
+        No Defect
+      </option>
+
+    </select>
+
+  </div>
+
 </div>
 
-<div>
 
-<label for="rackCondition">Condition</label>
-
-<select id="rackCondition">
-<option value="Defect">Defect</option>
-<option value="No Defect">No Defect</option>
-</select>
-
-</div>
-
-</div>
-
-<label for="rackNote">Inspection Note</label>
+<label for="rackNote">
+  Inspection Note
+</label>
 
 <input
   id="rackNote"
   placeholder="Example: 145D dwell"
-  autocomplete="off">
+  autocomplete="off"
+>
+
 
 <button id="addRackInspection">
   ADD INSPECTION
@@ -760,7 +1204,10 @@ ZNSU
 
 </section>
 
-<!-- COMMENTS -->
+
+<!-- =======================================================
+     COMMENTS
+     ======================================================= -->
 
 <section class="card">
 
@@ -768,7 +1215,9 @@ ZNSU
 
 <textarea
   id="notes"
-  placeholder="Enter comments or notes of interest..."></textarea>
+  placeholder="Enter comments or notes of interest..."
+></textarea>
+
 
 <button id="generateEod">
   GENERATE EOD
@@ -776,65 +1225,90 @@ ZNSU
 
 </section>
 
-<!-- REPORT -->
 
-<section class="card hidden" id="previewCard">
+<!-- =======================================================
+     REPORT PREVIEW
+     ======================================================= -->
+
+<section
+  class="card hidden"
+  id="previewCard"
+>
 
 <h2>EOD Report Preview</h2>
 
 <div id="preview"></div>
 
-<button id="emailEod" class="secondary">
+
+<button
+  id="emailEod"
+  class="secondary"
+>
   EMAIL EOD
 </button>
 
 </section>
 
+
 </main>
 
-<!-- DUPLICATE WARNING -->
+
+<!-- =======================================================
+     DUPLICATE WARNING MODAL
+     ======================================================= -->
 
 <div
   class="modal-overlay"
   id="duplicateModal"
-  aria-hidden="true">
+  aria-hidden="true"
+>
 
-<div
-  class="modal"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="duplicateModalTitle">
+  <div
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="duplicateModalTitle"
+  >
 
-<h3
-  class="modal-title"
-  id="duplicateModalTitle">
-  Possible Duplicate
-</h3>
+    <h3
+      class="modal-title"
+      id="duplicateModalTitle"
+    >
+      Possible Duplicate
+    </h3>
 
-<p
-  class="modal-message"
-  id="duplicateModalMessage"></p>
 
-<div class="modal-actions">
+    <p
+      class="modal-message"
+      id="duplicateModalMessage"
+    ></p>
 
-<button
-  type="button"
-  class="modal-no"
-  id="duplicateNo">
-  NO
-</button>
 
-<button
-  type="button"
-  class="modal-yes"
-  id="duplicateYes">
-  YES
-</button>
+    <div class="modal-actions">
+
+      <button
+        type="button"
+        class="modal-no"
+        id="duplicateNo"
+      >
+        NO
+      </button>
+
+
+      <button
+        type="button"
+        class="modal-yes"
+        id="duplicateYes"
+      >
+        YES
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
 
-</div>
-</div>
 
 <script>
 
@@ -842,118 +1316,159 @@ ZNSU
 
 "use strict";
 
+
+/* =========================================================
+   DATA
+   ========================================================= */
+
 const data = {
 
-  chassis:{
+  chassis: {
+
     "5652":{
       "Pre-repair":[],
       "Post-repair":[],
       "Add-on":[]
     },
+
     "5900":{
       "Pre-repair":[],
       "Post-repair":[],
       "Add-on":[]
     },
+
     "5658":{
       "Pre-repair":[],
       "Post-repair":[],
       "Add-on":[]
     }
+
   },
 
-  containers:{
+
+  containers: {
+
     "5653":{
       "Pre-repair":[],
       "Post-repair":[],
       "Add-on":[]
     },
+
     "5900":{
       "Pre-repair":[],
       "Post-repair":[],
       "Add-on":[]
     },
+
     "5658":{
       "Pre-repair":[],
       "Post-repair":[],
       "Add-on":[]
     }
+
   },
 
-  racks:{
+
+  racks: {
+
     "5657":{
       "Pre-repair":[]
     }
+
   }
 
 };
 
+
+/* =========================================================
+   DOM REFERENCES
+   ========================================================= */
+
 const duplicateModal =
-  document.getElementById("duplicateModal");
+  document.getElementById(
+    "duplicateModal"
+  );
 
 const duplicateModalMessage =
-  document.getElementById("duplicateModalMessage");
+  document.getElementById(
+    "duplicateModalMessage"
+  );
 
 const duplicateYes =
-  document.getElementById("duplicateYes");
+  document.getElementById(
+    "duplicateYes"
+  );
 
 const duplicateNo =
-  document.getElementById("duplicateNo");
+  document.getElementById(
+    "duplicateNo"
+  );
+
 
 let duplicateYesAction = null;
+
 let duplicateCancelFocus = null;
+
+
+/* =========================================================
+   TOTAL INSPECTIONS
+   ========================================================= */
 
 function totalInspections(){
 
   let total = 0;
 
-  Object.values(data).forEach(equipment => {
+  Object.values(data)
+    .forEach(equipment => {
 
-    Object.values(equipment).forEach(type => {
+      Object.values(equipment)
+        .forEach(type => {
 
-      Object.values(type).forEach(section => {
+          Object.values(type)
+            .forEach(section => {
 
-        total += section.length;
+              total += section.length;
 
-      });
+            });
+
+        });
 
     });
-
-  });
 
   return total;
 
 }
 
-/* =========================
-   UPDATED PROGRESS
-   ========================= */
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
 
 function updateProgress(){
 
-  const count = totalInspections();
+  const count =
+    totalInspections();
 
-  const percent =
-    Math.min(
-      100,
-      (count / 28) * 100
-    );
 
   document
     .getElementById("count")
     .textContent = count;
 
-  document
-    .getElementById("progressPercent")
-    .textContent =
-      Math.round(percent) + "%";
 
   document
     .getElementById("fill")
     .style.width =
-      percent + "%";
+      Math.min(
+        100,
+        (count / 28) * 100
+      ) + "%";
 
 }
+
+
+/* =========================================================
+   CUSTOM YES / NO DUPLICATE MODAL
+   ========================================================= */
 
 function showDuplicateModal(
   equipmentName,
@@ -964,6 +1479,7 @@ function showDuplicateModal(
 ){
 
   duplicateModalMessage.textContent =
+
     equipmentName +
     ": " +
     equipmentNumber +
@@ -974,94 +1490,159 @@ function showDuplicateModal(
     "This inspection has already been entered today.\n\n" +
     "Do you want to add it anyway?";
 
-  duplicateYesAction = yesAction;
-  duplicateCancelFocus = cancelFocus;
 
-  duplicateModal.classList.add("show");
+  duplicateYesAction =
+    yesAction;
 
-  duplicateModal.setAttribute(
-    "aria-hidden",
-    "false"
-  );
 
-  document.body.style.overflow = "hidden";
+  duplicateCancelFocus =
+    cancelFocus;
+
+
+  duplicateModal
+    .classList
+    .add("show");
+
+
+  duplicateModal
+    .setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+
+  document
+    .body
+    .style
+    .overflow = "hidden";
+
 
   duplicateNo.focus();
 
 }
 
+
 function closeDuplicateModal(){
 
-  duplicateModal.classList.remove("show");
+  duplicateModal
+    .classList
+    .remove("show");
 
-  duplicateModal.setAttribute(
-    "aria-hidden",
-    "true"
-  );
 
-  document.body.style.overflow = "";
+  duplicateModal
+    .setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+
+  document
+    .body
+    .style
+    .overflow = "";
+
 
   duplicateYesAction = null;
 
-  const focusTarget = duplicateCancelFocus;
+
+  const focusTarget =
+    duplicateCancelFocus;
+
 
   duplicateCancelFocus = null;
+
 
   if(
     focusTarget &&
     typeof focusTarget.focus === "function"
   ){
+
     focusTarget.focus();
+
   }
 
 }
 
-duplicateYes.addEventListener(
-  "click",
-  () => {
 
-    const action = duplicateYesAction;
+/* =========================================================
+   MODAL BUTTONS
+   ========================================================= */
 
-    closeDuplicateModal();
+duplicateYes
+  .addEventListener(
+    "click",
+    () => {
 
-    if(typeof action === "function"){
-      action();
-    }
+      const action =
+        duplicateYesAction;
 
-  }
-);
 
-duplicateNo.addEventListener(
-  "click",
-  () => {
-    closeDuplicateModal();
-  }
-);
-
-duplicateModal.addEventListener(
-  "click",
-  event => {
-
-    if(event.target === duplicateModal){
       closeDuplicateModal();
+
+
+      if(
+        typeof action === "function"
+      ){
+
+        action();
+
+      }
+
     }
+  );
 
-  }
-);
 
-document.addEventListener(
-  "keydown",
-  event => {
+duplicateNo
+  .addEventListener(
+    "click",
+    () => {
 
-    if(
-      event.key === "Escape" &&
-      duplicateModal.classList.contains("show")
-    ){
       closeDuplicateModal();
-    }
 
-  }
-);
+    }
+  );
+
+
+duplicateModal
+  .addEventListener(
+    "click",
+    event => {
+
+      if(
+        event.target === duplicateModal
+      ){
+
+        closeDuplicateModal();
+
+      }
+
+    }
+  );
+
+
+document
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key === "Escape" &&
+        duplicateModal
+          .classList
+          .contains("show")
+      ){
+
+        closeDuplicateModal();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   DUPLICATE CHECK
+   ========================================================= */
 
 function hasDuplicate(
   equipmentData,
@@ -1072,53 +1653,88 @@ function hasDuplicate(
 
   return equipmentData[type][section]
     .some(
-      item => item[0] === equipmentNumber
+      item =>
+        item[0] === equipmentNumber
     );
 
 }
 
-/* =========================
+
+/* =========================================================
    CHASSIS
-   ========================= */
+   ========================================================= */
 
 function addInspection(){
 
   const prefix =
-    document.getElementById("prefix").value;
+    document
+      .getElementById("prefix")
+      .value;
+
 
   const number =
-    document.getElementById("number").value.trim();
+    document
+      .getElementById("number")
+      .value
+      .trim();
+
 
   const type =
-    document.getElementById("type").value;
+    document
+      .getElementById("type")
+      .value;
+
 
   const condition =
-    document.getElementById("condition").value;
+    document
+      .getElementById("condition")
+      .value;
+
 
   const note =
-    document.getElementById("equipmentNote").value.trim();
+    document
+      .getElementById("equipmentNote")
+      .value
+      .trim();
 
-  if(!/^\d{6}$/.test(number)){
+
+  if(
+    !/^\d{6}$/.test(number)
+  ){
 
     alert(
       "Enter exactly 6 digits for the chassis number."
     );
 
-    document.getElementById("number").focus();
+
+    document
+      .getElementById("number")
+      .focus();
+
 
     return;
 
   }
 
+
   const section =
+
     type === "5652"
+
       ? "Pre-repair"
+
       : type === "5900"
+
         ? "Post-repair"
+
         : "Add-on";
 
+
   const equipmentNumber =
-    prefix + " " + number;
+    prefix +
+    " " +
+    number;
+
 
   if(
     hasDuplicate(
@@ -1130,9 +1746,13 @@ function addInspection(){
   ){
 
     showDuplicateModal(
+
       "Chassis",
+
       equipmentNumber,
+
       type,
+
       () => {
 
         addChassisRecord(
@@ -1144,12 +1764,18 @@ function addInspection(){
         );
 
       },
-      document.getElementById("number")
+
+      document.getElementById(
+        "number"
+      )
+
     );
+
 
     return;
 
   }
+
 
   addChassisRecord(
     equipmentNumber,
@@ -1161,6 +1787,7 @@ function addInspection(){
 
 }
 
+
 function addChassisRecord(
   equipmentNumber,
   type,
@@ -1169,24 +1796,41 @@ function addChassisRecord(
   note
 ){
 
-  data.chassis[type][section].push([
-    equipmentNumber,
-    condition,
-    note
-  ]);
+  data.chassis[type][section]
+    .push([
 
-  document.getElementById("number").value = "";
-  document.getElementById("equipmentNote").value = "";
+      equipmentNumber,
+
+      condition,
+
+      note
+
+    ]);
+
+
+  document
+    .getElementById("number")
+    .value = "";
+
+
+  document
+    .getElementById("equipmentNote")
+    .value = "";
+
 
   updateProgress();
 
-  document.getElementById("number").focus();
+
+  document
+    .getElementById("number")
+    .focus();
 
 }
 
-/* =========================
+
+/* =========================================================
    CONTAINERS
-   ========================= */
+   ========================================================= */
 
 function addContainerInspection(){
 
@@ -1197,17 +1841,25 @@ function addContainerInspection(){
       .trim()
       .toUpperCase();
 
+
   const number =
     document
       .getElementById("containerNumber")
       .value
       .trim();
 
+
   const type =
-    document.getElementById("containerType").value;
+    document
+      .getElementById("containerType")
+      .value;
+
 
   const condition =
-    document.getElementById("containerCondition").value;
+    document
+      .getElementById("containerCondition")
+      .value;
+
 
   const note =
     document
@@ -1215,43 +1867,63 @@ function addContainerInspection(){
       .value
       .trim();
 
-  if(!/^[A-Z]{4}$/.test(prefix)){
+
+  if(
+    !/^[A-Z]{4}$/.test(prefix)
+  ){
 
     alert(
       "Enter exactly 4 letters for the container prefix."
     );
 
+
     document
       .getElementById("containerPrefix")
       .focus();
+
 
     return;
 
   }
 
-  if(!/^\d{6}$/.test(number)){
+
+  if(
+    !/^\d{6}$/.test(number)
+  ){
 
     alert(
       "Enter exactly 6 digits for the container number."
     );
 
+
     document
       .getElementById("containerNumber")
       .focus();
+
 
     return;
 
   }
 
+
   const section =
+
     type === "5653"
+
       ? "Pre-repair"
+
       : type === "5900"
+
         ? "Post-repair"
+
         : "Add-on";
 
+
   const equipmentNumber =
-    prefix + " " + number;
+    prefix +
+    " " +
+    number;
+
 
   if(
     hasDuplicate(
@@ -1263,9 +1935,13 @@ function addContainerInspection(){
   ){
 
     showDuplicateModal(
+
       "Container",
+
       equipmentNumber,
+
       type,
+
       () => {
 
         addContainerRecord(
@@ -1277,12 +1953,18 @@ function addContainerInspection(){
         );
 
       },
-      document.getElementById("containerNumber")
+
+      document.getElementById(
+        "containerNumber"
+      )
+
     );
+
 
     return;
 
   }
+
 
   addContainerRecord(
     equipmentNumber,
@@ -1294,6 +1976,7 @@ function addContainerInspection(){
 
 }
 
+
 function addContainerRecord(
   equipmentNumber,
   type,
@@ -1302,29 +1985,52 @@ function addContainerRecord(
   note
 ){
 
-  data.containers[type][section].push([
-    equipmentNumber,
-    condition,
-    note
-  ]);
+  data.containers[type][section]
+    .push([
 
-  document.getElementById("containerPrefix").value = "";
-  document.getElementById("containerNumber").value = "";
-  document.getElementById("containerNote").value = "";
+      equipmentNumber,
+
+      condition,
+
+      note
+
+    ]);
+
+
+  document
+    .getElementById("containerPrefix")
+    .value = "";
+
+
+  document
+    .getElementById("containerNumber")
+    .value = "";
+
+
+  document
+    .getElementById("containerNote")
+    .value = "";
+
 
   updateProgress();
 
-  document.getElementById("containerPrefix").focus();
+
+  document
+    .getElementById("containerPrefix")
+    .focus();
 
 }
 
-/* =========================
+
+/* =========================================================
    CHASSIS RACKS
-   ========================= */
+   ========================================================= */
 
 function addRackInspection(){
 
-  const prefix = "ZNSU";
+  const prefix =
+    "ZNSU";
+
 
   const number =
     document
@@ -1332,8 +2038,12 @@ function addRackInspection(){
       .value
       .trim();
 
+
   const condition =
-    document.getElementById("rackCondition").value;
+    document
+      .getElementById("rackCondition")
+      .value;
+
 
   const note =
     document
@@ -1341,22 +2051,31 @@ function addRackInspection(){
       .value
       .trim();
 
-  if(!/^\d{6}$/.test(number)){
+
+  if(
+    !/^\d{6}$/.test(number)
+  ){
 
     alert(
       "Enter exactly 6 digits for the chassis rack number."
     );
 
+
     document
       .getElementById("rackNumber")
       .focus();
+
 
     return;
 
   }
 
+
   const equipmentNumber =
-    prefix + " " + number;
+    prefix +
+    " " +
+    number;
+
 
   if(
     hasDuplicate(
@@ -1368,9 +2087,13 @@ function addRackInspection(){
   ){
 
     showDuplicateModal(
+
       "Chassis Rack",
+
       equipmentNumber,
+
       "5657",
+
       () => {
 
         addRackRecord(
@@ -1380,12 +2103,18 @@ function addRackInspection(){
         );
 
       },
-      document.getElementById("rackNumber")
+
+      document.getElementById(
+        "rackNumber"
+      )
+
     );
+
 
     return;
 
   }
+
 
   addRackRecord(
     equipmentNumber,
@@ -1395,30 +2124,48 @@ function addRackInspection(){
 
 }
 
+
 function addRackRecord(
   equipmentNumber,
   condition,
   note
 ){
 
-  data.racks["5657"]["Pre-repair"].push([
-    equipmentNumber,
-    condition,
-    note
-  ]);
+  data.racks["5657"]["Pre-repair"]
+    .push([
 
-  document.getElementById("rackNumber").value = "";
-  document.getElementById("rackNote").value = "";
+      equipmentNumber,
+
+      condition,
+
+      note
+
+    ]);
+
+
+  document
+    .getElementById("rackNumber")
+    .value = "";
+
+
+  document
+    .getElementById("rackNote")
+    .value = "";
+
 
   updateProgress();
 
-  document.getElementById("rackNumber").focus();
+
+  document
+    .getElementById("rackNumber")
+    .focus();
 
 }
 
-/* =========================
+
+/* =========================================================
    REPORT
-   ========================= */
+   ========================================================= */
 
 function addSectionToReport(
   output,
@@ -1430,44 +2177,68 @@ function addSectionToReport(
   numberLabel
 ){
 
-  ["No Defect","Defect"].forEach(condition => {
+  [
+    "No Defect",
+    "Defect"
+  ]
+  .forEach(condition => {
 
     const items =
       equipmentData[type][section]
-        .filter(item => item[1] === condition);
+        .filter(
+          item =>
+            item[1] === condition
+        );
+
 
     output.push(
+
       "(" +
       items.length +
       ") " +
+
       (
         condition === "Defect"
           ? yesText
           : noText
       )
+
     );
 
-    output.push(numberLabel + ":");
 
-    items.forEach((item,index) => {
+    output.push(
+      numberLabel +
+      ":"
+    );
 
-      output.push(
-        "\t" +
-        (index + 1) +
-        ". " +
-        item[0]
-      );
 
-      if(item[2]){
+    items.forEach(
+      (item,index) => {
 
         output.push(
-          "\t   Note: " +
-          item[2]
+
+          "\t" +
+          (index + 1) +
+          ". " +
+          item[0]
+
         );
 
-      }
 
-    });
+        if(item[2]){
+
+          output.push(
+
+            "\t   Note: " +
+            item[2]
+
+          );
+
+        }
+
+      }
+    );
+
 
     output.push("");
 
@@ -1475,25 +2246,46 @@ function addSectionToReport(
 
 }
 
+
 function buildEOD(){
 
   const out = [];
 
-  out.push("End of Day Report");
+
+  out.push(
+    "End of Day Report"
+  );
+
+
   out.push("");
+
 
   out.push(
     "Date: " +
     formatDate()
   );
 
+
   out.push("");
 
-  out.push("End of Day Report for:");
-  out.push("Harrisburg");
+
+  out.push(
+    "End of Day Report for:"
+  );
+
+
+  out.push(
+    "Harrisburg"
+  );
+
+
   out.push("");
 
-  out.push("CHASSIS");
+
+  out.push(
+    "CHASSIS"
+  );
+
 
   addSectionToReport(
     out,
@@ -1505,6 +2297,7 @@ function buildEOD(){
     "Chassis Numbers"
   );
 
+
   addSectionToReport(
     out,
     data.chassis,
@@ -1514,6 +2307,7 @@ function buildEOD(){
     "post repair WITH defects - 5900",
     "Chassis Numbers"
   );
+
 
   addSectionToReport(
     out,
@@ -1525,7 +2319,11 @@ function buildEOD(){
     "Chassis Numbers"
   );
 
-  out.push("CONTAINERS");
+
+  out.push(
+    "CONTAINERS"
+  );
+
 
   addSectionToReport(
     out,
@@ -1537,6 +2335,7 @@ function buildEOD(){
     "Container Numbers"
   );
 
+
   addSectionToReport(
     out,
     data.containers,
@@ -1546,6 +2345,7 @@ function buildEOD(){
     "post repair WITH defects - 5900",
     "Container Numbers"
   );
+
 
   addSectionToReport(
     out,
@@ -1557,7 +2357,11 @@ function buildEOD(){
     "Container Numbers"
   );
 
-  out.push("CHASSIS RACKS");
+
+  out.push(
+    "CHASSIS RACKS"
+  );
+
 
   addSectionToReport(
     out,
@@ -1569,15 +2373,23 @@ function buildEOD(){
     "Chassis Rack Numbers"
   );
 
+
   out.push(
+
     "(" +
     totalInspections() +
     ") TOTAL INSPECTIONS"
+
   );
+
 
   out.push("");
 
-  out.push("Comments or Notes of Interest:");
+
+  out.push(
+    "Comments or Notes of Interest:"
+  );
+
 
   out.push(
     document
@@ -1586,13 +2398,15 @@ function buildEOD(){
       .trim()
   );
 
+
   return out.join("\n");
 
 }
 
-/* =========================
+
+/* =========================================================
    GENERATE EOD
-   ========================= */
+   ========================================================= */
 
 function generateEOD(){
 
@@ -1601,10 +2415,12 @@ function generateEOD(){
     .textContent =
       buildEOD();
 
+
   document
     .getElementById("previewCard")
     .classList
     .remove("hidden");
+
 
   document
     .getElementById("previewCard")
@@ -1615,56 +2431,104 @@ function generateEOD(){
 
 }
 
-/* =========================
-   DATE
-   ========================= */
 
-function formatDate(date = new Date()){
+/* =========================================================
+   DATE
+   ========================================================= */
+
+function formatDate(
+  date = new Date()
+){
 
   return (
+
     (date.getMonth() + 1) +
     "/" +
     date.getDate() +
     "/" +
-    String(date.getFullYear()).slice(-2)
+    String(
+      date.getFullYear()
+    ).slice(-2)
+
   );
 
 }
 
-/* =========================
+
+/* =========================================================
    RESET
-   ========================= */
+   ========================================================= */
 
 function resetForNextDay(){
 
-  Object.values(data).forEach(equipment => {
+  Object.values(data)
+    .forEach(equipment => {
 
-    Object.values(equipment).forEach(type => {
+      Object.values(equipment)
+        .forEach(type => {
 
-      Object.keys(type).forEach(section => {
+          Object.keys(type)
+            .forEach(section => {
 
-        type[section].length = 0;
+              type[section].length = 0;
 
-      });
+            });
+
+        });
 
     });
 
-  });
 
-  document.getElementById("notes").value = "";
-  document.getElementById("number").value = "";
-  document.getElementById("equipmentNote").value = "";
-  document.getElementById("containerPrefix").value = "";
-  document.getElementById("containerNumber").value = "";
-  document.getElementById("containerNote").value = "";
-  document.getElementById("rackNumber").value = "";
-  document.getElementById("rackNote").value = "";
-  document.getElementById("preview").textContent = "";
+  document
+    .getElementById("notes")
+    .value = "";
+
+
+  document
+    .getElementById("number")
+    .value = "";
+
+
+  document
+    .getElementById("equipmentNote")
+    .value = "";
+
+
+  document
+    .getElementById("containerPrefix")
+    .value = "";
+
+
+  document
+    .getElementById("containerNumber")
+    .value = "";
+
+
+  document
+    .getElementById("containerNote")
+    .value = "";
+
+
+  document
+    .getElementById("rackNumber")
+    .value = "";
+
+
+  document
+    .getElementById("rackNote")
+    .value = "";
+
+
+  document
+    .getElementById("preview")
+    .textContent = "";
+
 
   document
     .getElementById("previewCard")
     .classList
     .add("hidden");
+
 
   document
     .getElementById("reportDate")
@@ -1672,7 +2536,9 @@ function resetForNextDay(){
       "Harrisburg — " +
       formatDate();
 
+
   updateProgress();
+
 
   window.scrollTo({
     top:0,
@@ -1681,13 +2547,16 @@ function resetForNextDay(){
 
 }
 
-/* =========================
+
+/* =========================================================
    EMAIL
-   ========================= */
+   ========================================================= */
 
 function emailEOD(){
 
-  const body = buildEOD();
+  const body =
+    buildEOD();
+
 
   const reportDate =
     document
@@ -1696,135 +2565,199 @@ function emailEOD(){
       .split("—")[1]
       .trim();
 
+
   const subject =
     "End of Day Report - Harrisburg - " +
     reportDate;
 
+
   resetForNextDay();
+
 
   window.location.href =
     "mailto:joe@caliberis.com" +
+
     "?cc=dgeist@caliberis.com,jdoan@aspectassociates.com" +
+
     "&subject=" +
     encodeURIComponent(subject) +
+
     "&body=" +
     encodeURIComponent(body);
 
 }
 
-/* =========================
+
+/* =========================================================
    INPUT FILTERS
-   ========================= */
+   ========================================================= */
 
 document
   .getElementById("number")
-  .addEventListener("input",event => {
+  .addEventListener(
+    "input",
+    event => {
 
-    event.target.value =
-      event.target.value
-        .replace(/\D/g,"")
-        .slice(0,6);
+      event.target.value =
+        event.target.value
+          .replace(/\D/g,"")
+          .slice(0,6);
 
-  });
+    }
+  );
+
 
 document
   .getElementById("containerPrefix")
-  .addEventListener("input",event => {
+  .addEventListener(
+    "input",
+    event => {
 
-    event.target.value =
-      event.target.value
-        .replace(/[^a-zA-Z]/g,"")
-        .toUpperCase()
-        .slice(0,4);
+      event.target.value =
+        event.target.value
+          .replace(/[^a-zA-Z]/g,"")
+          .toUpperCase()
+          .slice(0,4);
 
-  });
+    }
+  );
+
 
 document
   .getElementById("containerNumber")
-  .addEventListener("input",event => {
+  .addEventListener(
+    "input",
+    event => {
 
-    event.target.value =
-      event.target.value
-        .replace(/\D/g,"")
-        .slice(0,6);
+      event.target.value =
+        event.target.value
+          .replace(/\D/g,"")
+          .slice(0,6);
 
-  });
+    }
+  );
+
 
 document
   .getElementById("rackNumber")
-  .addEventListener("input",event => {
+  .addEventListener(
+    "input",
+    event => {
 
-    event.target.value =
-      event.target.value
-        .replace(/\D/g,"")
-        .slice(0,6);
+      event.target.value =
+        event.target.value
+          .replace(/\D/g,"")
+          .slice(0,6);
 
-  });
+    }
+  );
 
-/* =========================
+
+/* =========================================================
    ENTER KEY
-   ========================= */
+   ========================================================= */
 
 document
   .getElementById("number")
-  .addEventListener("keydown",event => {
+  .addEventListener(
+    "keydown",
+    event => {
 
-    if(event.key === "Enter"){
-      event.preventDefault();
-      addInspection();
+      if(event.key === "Enter"){
+
+        event.preventDefault();
+
+        addInspection();
+
+      }
+
     }
+  );
 
-  });
 
 document
   .getElementById("containerNumber")
-  .addEventListener("keydown",event => {
+  .addEventListener(
+    "keydown",
+    event => {
 
-    if(event.key === "Enter"){
-      event.preventDefault();
-      addContainerInspection();
+      if(event.key === "Enter"){
+
+        event.preventDefault();
+
+        addContainerInspection();
+
+      }
+
     }
+  );
 
-  });
 
 document
   .getElementById("rackNumber")
-  .addEventListener("keydown",event => {
+  .addEventListener(
+    "keydown",
+    event => {
 
-    if(event.key === "Enter"){
-      event.preventDefault();
-      addRackInspection();
+      if(event.key === "Enter"){
+
+        event.preventDefault();
+
+        addRackInspection();
+
+      }
+
     }
+  );
 
-  });
 
-/* =========================
+/* =========================================================
    BUTTONS
-   ========================= */
+   ========================================================= */
 
 document
   .getElementById("addInspection")
-  .addEventListener("click",addInspection);
+  .addEventListener(
+    "click",
+    addInspection
+  );
+
 
 document
   .getElementById("addContainerInspection")
-  .addEventListener("click",addContainerInspection);
+  .addEventListener(
+    "click",
+    addContainerInspection
+  );
+
 
 document
   .getElementById("addRackInspection")
-  .addEventListener("click",addRackInspection);
+  .addEventListener(
+    "click",
+    addRackInspection
+  );
+
 
 document
   .getElementById("generateEod")
-  .addEventListener("click",generateEOD);
+  .addEventListener(
+    "click",
+    generateEOD
+  );
+
 
 document
   .getElementById("emailEod")
-  .addEventListener("click",emailEOD);
+  .addEventListener(
+    "click",
+    emailEOD
+  );
 
-/* =========================
+
+/* =========================================================
    STARTUP
-   ========================= */
+   ========================================================= */
 
 document
   .getElementById("reportDate")
@@ -1832,23 +2765,34 @@ document
     "Harrisburg — " +
     formatDate();
 
+
 updateProgress();
 
 })();
 
 </script>
 
+
+<!-- =======================================================
+     SERVICE WORKER
+     ======================================================= -->
+
 <script>
 
-if("serviceWorker" in navigator){
+if(
+  "serviceWorker" in navigator
+){
 
-  window.addEventListener("load",() => {
+  window.addEventListener(
+    "load",
+    () => {
 
-    navigator.serviceWorker.register(
-      "./service-worker.js"
-    );
+      navigator.serviceWorker.register(
+        "./service-worker.js"
+      );
 
-  });
+    }
+  );
 
 }
 
