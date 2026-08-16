@@ -452,10 +452,10 @@ function emailEOD(){
   resetForNextDay();
 
   window.location.href =
-    'mailto:?subject=' +
-    encodeURIComponent(subject) +
-    '&body=' +
-    encodeURIComponent(body);
+  'mailto:joe@caliberis.com' +
+  '?cc=dgeist@caliberis.com,jdoan@aspectassociates.com' +
+  '&subject=' + encodeURIComponent(subject) +
+  '&body=' + encodeURIComponent(body);
 }
 
 document.getElementById("number")
