@@ -40,6 +40,7 @@
 
   <title>EOD Inspection — Harrisburg</title>
 
+
 <style>
 
 /* =========================================================
@@ -60,20 +61,17 @@
   --muted:#68727d;
   --input:#ffffff;
   --input-border:#c8ced6;
-
   --accent:#17202a;
   --accent-text:#ffffff;
-
   --secondary:#e5e8ec;
-  --secondary-text:#17202a;
 
   --progress-bg:#d9dee5;
-  --progress-track:#cfd5dd;
+  --progress-track:#d9dee5;
+  --progress-fill-1:#343a40;
+  --progress-fill-2:#111111;
 
   --overlay:rgba(0,0,0,.45);
-
-  --shadow:
-    0 4px 18px rgba(15,23,42,.08);
+  --shadow:0 4px 18px rgba(15,23,42,.08);
 }
 
 html{
@@ -96,13 +94,17 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
 header{
-  background:
-    linear-gradient(
-      180deg,
-      #15191e 0%,
-      #0b0d10 100%
-    );
+  background:linear-gradient(
+    180deg,
+    #15191e 0%,
+    #0b0d10 100%
+  );
 
   color:#fff;
 
@@ -112,12 +114,15 @@ header{
 
   font-size:22px;
   font-weight:750;
-
   letter-spacing:.01em;
 
-  box-shadow:
-    0 2px 10px rgba(0,0,0,.18);
+  box-shadow:0 2px 10px rgba(0,0,0,.18);
 }
+
+
+/* =========================================================
+   APP / CARDS
+   ========================================================= */
 
 .app{
   width:min(760px,100%);
@@ -132,10 +137,7 @@ header{
 .card{
   background:var(--card);
 
-  border:
-    1px
-    solid
-    var(--card-border);
+  border:1px solid var(--card-border);
 
   border-radius:16px;
 
@@ -149,17 +151,12 @@ header{
 .card h2{
   display:flex;
   align-items:center;
-
   gap:10px;
 
-  margin:
-    0
-    0
-    18px;
+  margin:0 0 18px;
 
   font-size:20px;
   line-height:1.2;
-
   font-weight:750;
 }
 
@@ -176,6 +173,11 @@ header{
   background:var(--accent);
 }
 
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
 .date{
   text-align:center;
 
@@ -189,15 +191,13 @@ header{
 
 
 /* =========================================================
-   PROGRESS
+   PROGRESS COUNTER
    ========================================================= */
 
 .progress{
   display:flex;
-
   align-items:baseline;
   justify-content:center;
-
   gap:5px;
 
   font-size:15px;
@@ -210,29 +210,45 @@ header{
 
 .progress span{
   font-size:26px;
-
   font-weight:800;
-
   color:var(--text);
 
   transition:
-    transform .25s ease;
+    transform .22s ease;
+}
+
+.progress.bump span{
+  animation:
+    progressNumberPop .32s ease-out;
+}
+
+@keyframes progressNumberPop{
+
+  0%{
+    transform:scale(1);
+  }
+
+  45%{
+    transform:scale(1.18);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
 }
 
 
-/*
-  Pizza-tracker-style progress track.
-
-  The track itself stays subtly alive even
-  when no new inspection is being added.
-*/
+/* =========================================================
+   PROGRESS BAR
+   ========================================================= */
 
 .progressbar{
   position:relative;
 
-  height:18px;
+  height:16px;
 
-  background:var(--progress-bg);
+  background:var(--progress-track);
 
   border-radius:999px;
 
@@ -241,87 +257,46 @@ header{
   padding:2px;
 
   box-shadow:
-    inset 0 1px 3px rgba(0,0,0,.13);
+    inset 0 1px 3px rgba(0,0,0,.14);
 
   isolation:isolate;
 }
 
 
 /*
-  Very subtle moving sheen across the
-  entire track.
-*/
-
-.progressbar::before{
-  content:"";
-
-  position:absolute;
-
-  top:0;
-  bottom:0;
-
-  left:-35%;
-
-  width:35%;
-
-  z-index:1;
-
-  pointer-events:none;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.16),
-      transparent
-    );
-
-  animation:
-    trackSheen 4.5s linear infinite;
-}
-
-
-/*
-  Actual progress fill.
+  The actual progress fill.
 */
 
 .fill{
   position:relative;
 
   height:100%;
-
   width:0%;
 
-  min-width:0;
+  background:linear-gradient(
+    90deg,
+    var(--progress-fill-1),
+    var(--progress-fill-2)
+  );
 
   border-radius:999px;
 
-  overflow:hidden;
-
-  background:
-    linear-gradient(
-      90deg,
-      #3f464e 0%,
-      #181c20 50%,
-      #343a40 100%
-    );
-
   transition:
-    width .5s cubic-bezier(.22,.61,.36,1);
+    width .45s cubic-bezier(.22,.61,.36,1);
 
   box-shadow:
     0 1px 5px rgba(0,0,0,.22);
 
-  z-index:2;
+  overflow:hidden;
 }
 
 
 /*
-  Animated highlight inside the filled
-  portion.
+  Continuous subtle shimmer.
 
-  This is the "bar is alive while sitting
-  still" effect.
+  This is intentionally slow and low-key,
+  similar to the "alive" feeling of a
+  modern progress tracker.
 */
 
 .fill::after{
@@ -332,71 +307,113 @@ header{
   top:0;
   bottom:0;
 
-  left:-45%;
+  width:90px;
 
-  width:45%;
+  left:-110px;
 
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.18),
-      transparent
-    );
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.08),
+    rgba(255,255,255,.22),
+    rgba(255,255,255,.08),
+    transparent
+  );
+
+  transform:skewX(-18deg);
 
   animation:
-    fillSheen 3.2s linear infinite;
+    progressShimmer 3.2s ease-in-out infinite;
+
+  pointer-events:none;
+}
+
+@keyframes progressShimmer{
+
+  0%{
+    left:-110px;
+    opacity:0;
+  }
+
+  15%{
+    opacity:1;
+  }
+
+  55%{
+    opacity:1;
+  }
+
+  75%{
+    left:calc(100% + 110px);
+    opacity:0;
+  }
+
+  100%{
+    left:calc(100% + 110px);
+    opacity:0;
+  }
+
 }
 
 
 /*
-  Tiny pulse whenever progress changes.
+  Small moving highlight across the
+  entire track so the bar still feels
+  alive even at 0%.
 */
 
-.progress.progress-pulse span{
+.progressbar::after{
+  content:"";
+
+  position:absolute;
+
+  top:2px;
+  bottom:2px;
+
+  width:75px;
+
+  left:-90px;
+
+  border-radius:999px;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.16),
+    transparent
+  );
+
   animation:
-    progressNumberPop .35s ease-out;
+    trackShimmer 4.2s ease-in-out infinite;
+
+  pointer-events:none;
+
+  z-index:3;
 }
 
-
-@keyframes trackSheen{
+@keyframes trackShimmer{
 
   0%{
-    transform:translateX(0);
+    left:-90px;
+    opacity:0;
+  }
+
+  15%{
+    opacity:.7;
+  }
+
+  50%{
+    opacity:.7;
+  }
+
+  72%{
+    left:calc(100% + 90px);
+    opacity:0;
   }
 
   100%{
-    transform:translateX(385%);
-  }
-
-}
-
-
-@keyframes fillSheen{
-
-  0%{
-    transform:translateX(0);
-  }
-
-  100%{
-    transform:translateX(330%);
-  }
-
-}
-
-
-@keyframes progressNumberPop{
-
-  0%{
-    transform:scale(1);
-  }
-
-  45%{
-    transform:scale(1.12);
-  }
-
-  100%{
-    transform:scale(1);
+    left:calc(100% + 90px);
+    opacity:0;
   }
 
 }
@@ -429,15 +446,11 @@ textarea{
     13px
     14px;
 
-  border:
-    1px
-    solid
-    var(--input-border);
+  border:1px solid var(--input-border);
 
   border-radius:10px;
 
   font-family:inherit;
-
   font-size:17px;
 
   background:var(--input);
@@ -467,7 +480,6 @@ textarea::placeholder{
 
 textarea{
   min-height:115px;
-
   resize:vertical;
 }
 
@@ -496,7 +508,6 @@ textarea{
   font-size:17px;
 
   background:var(--secondary);
-
   color:var(--text);
 
   font-weight:700;
@@ -504,7 +515,6 @@ textarea{
   min-height:49px;
 
   display:flex;
-
   align-items:center;
 }
 
@@ -526,7 +536,6 @@ button{
   font-family:inherit;
 
   font-size:16px;
-
   font-weight:750;
 
   letter-spacing:.02em;
@@ -534,7 +543,6 @@ button{
   cursor:pointer;
 
   background:var(--accent);
-
   color:var(--accent-text);
 
   -webkit-tap-highlight-color:transparent;
@@ -560,10 +568,85 @@ button:active{
 
 button.secondary{
   background:var(--secondary);
-
   color:var(--secondary-text);
 
   box-shadow:none;
+}
+
+
+/* =========================================================
+   ADDED CONFIRMATION
+   ========================================================= */
+
+.added-message{
+  margin-top:12px;
+
+  padding:
+    11px
+    14px;
+
+  border-radius:10px;
+
+  background:#e8f5e9;
+  color:#1b5e20;
+
+  border:
+    1px
+    solid
+    #b7dfb9;
+
+  font-size:15px;
+  font-weight:750;
+
+  text-align:center;
+
+  opacity:0;
+
+  transform:
+    translateY(-5px)
+    scale(.98);
+
+  max-height:0;
+
+  overflow:hidden;
+
+  padding-top:0;
+  padding-bottom:0;
+
+  margin-top:0;
+
+  transition:
+    opacity .2s ease,
+    transform .2s ease,
+    max-height .25s ease,
+    margin-top .25s ease,
+    padding .25s ease;
+}
+
+.added-message.show{
+  opacity:1;
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  max-height:60px;
+
+  margin-top:12px;
+
+  padding:
+    11px
+    14px;
+}
+
+@media(prefers-color-scheme:dark){
+
+  .added-message{
+    background:#17351e;
+    color:#b8e6bd;
+    border-color:#285b31;
+  }
+
 }
 
 
@@ -592,7 +675,6 @@ button.secondary{
   margin-top:7px;
 
   font-size:15px;
-
   line-height:1.4;
 }
 
@@ -617,7 +699,6 @@ button.secondary{
     monospace;
 
   font-size:14px;
-
   line-height:1.55;
 
   overflow:auto;
@@ -644,7 +725,6 @@ button.secondary{
   display:none;
 
   align-items:center;
-
   justify-content:center;
 
   padding:20px;
@@ -693,30 +773,20 @@ button.secondary{
 
   from{
     opacity:0;
-
-    transform:
-      scale(.96)
-      translateY(8px);
+    transform:scale(.96) translateY(8px);
   }
 
   to{
     opacity:1;
-
-    transform:
-      scale(1)
-      translateY(0);
+    transform:scale(1) translateY(0);
   }
 
 }
 
 .modal-title{
-  margin:
-    0
-    0
-    10px;
+  margin:0 0 10px;
 
   font-size:21px;
-
   font-weight:800;
 }
 
@@ -780,21 +850,16 @@ button.secondary{
 
   .card{
     padding:17px;
-
     border-radius:15px;
   }
 
   .row{
     grid-template-columns:1fr;
-
     gap:2px;
   }
 
   header{
-    padding:
-      18px
-      16px;
-
+    padding:18px 16px;
     font-size:21px;
   }
 
@@ -842,8 +907,10 @@ button.secondary{
     --secondary-text:#f4f6f8;
 
     --progress-bg:#303943;
-
     --progress-track:#303943;
+
+    --progress-fill-1:#f4f6f8;
+    --progress-fill-2:#f4f6f8;
 
     --overlay:rgba(0,0,0,.65);
 
@@ -858,7 +925,6 @@ button.secondary{
 
   body{
     background:#0b0f14;
-
     color:#f4f6f8;
   }
 
@@ -868,7 +934,6 @@ button.secondary{
 
   .card{
     background:#171d24;
-
     border-color:#2b333d;
   }
 
@@ -881,33 +946,14 @@ button.secondary{
   }
 
   .fill{
-    background:
-      linear-gradient(
-        90deg,
-        #d9dde2 0%,
-        #f4f6f8 50%,
-        #c8cdd2 100%
-      );
-  }
-
-  .progressbar::before,
-  .fill::after{
-    background:
-      linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.22),
-        transparent
-      );
+    background:#f4f6f8;
   }
 
   input,
   select,
   textarea{
     background:#0f141a;
-
     color:#f4f6f8;
-
     border-color:#3b4550;
   }
 
@@ -924,36 +970,29 @@ button.secondary{
 
   .static-type{
     background:#242c35;
-
     border-color:#3b4550;
-
     color:#f4f6f8;
   }
 
   button{
     background:#f4f6f8;
-
     color:#11161c;
   }
 
   button.secondary,
   .modal-no{
     background:#303943;
-
     color:#f4f6f8;
   }
 
   .entry{
     background:#242c35;
-
     border-color:#3b4550;
   }
 
   #preview{
     background:#0f141a;
-
     border-color:#3b4550;
-
     color:#f4f6f8;
   }
 
@@ -966,19 +1005,13 @@ button.secondary{
 
 @media(prefers-reduced-motion:reduce){
 
-  .progressbar::before,
-  .fill::after{
-    animation:none !important;
-  }
-
   *,
   *::before,
   *::after{
-    transition-duration:.01ms !important;
-
     animation-duration:.01ms !important;
-
     animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
   }
 
 }
@@ -986,7 +1019,9 @@ button.secondary{
 </style>
 </head>
 
+
 <body>
+
 
 <header>
   EOD Inspection
@@ -1009,7 +1044,7 @@ button.secondary{
 
   <div
     class="progress"
-    id="progressDisplay"
+    id="progressCounter"
   >
 
     <span id="count">0</span>
@@ -1017,15 +1052,7 @@ button.secondary{
 
   </div>
 
-  <div
-    class="progressbar"
-    id="progressbar"
-    aria-label="Inspection progress"
-    role="progressbar"
-    aria-valuemin="0"
-    aria-valuemax="28"
-    aria-valuenow="0"
-  >
+  <div class="progressbar">
 
     <div
       class="fill"
@@ -1158,6 +1185,13 @@ button.secondary{
   ADD INSPECTION
 </button>
 
+
+<div
+  class="added-message"
+  id="chassisAddedMessage"
+  aria-live="polite"
+></div>
+
 </section>
 
 
@@ -1168,6 +1202,7 @@ button.secondary{
 <section class="card">
 
 <h2>Containers</h2>
+
 
 <div class="row">
 
@@ -1271,6 +1306,13 @@ button.secondary{
   ADD INSPECTION
 </button>
 
+
+<div
+  class="added-message"
+  id="containerAddedMessage"
+  aria-live="polite"
+></div>
+
 </section>
 
 
@@ -1281,6 +1323,7 @@ button.secondary{
 <section class="card">
 
 <h2>Chassis Racks</h2>
+
 
 <div class="row">
 
@@ -1368,6 +1411,13 @@ button.secondary{
 <button id="addRackInspection">
   ADD INSPECTION
 </button>
+
+
+<div
+  class="added-message"
+  id="rackAddedMessage"
+  aria-live="polite"
+></div>
 
 </section>
 
@@ -1571,9 +1621,9 @@ const duplicateNo =
     "duplicateNo"
   );
 
-const progressDisplay =
+const progressCounter =
   document.getElementById(
-    "progressDisplay"
+    "progressCounter"
   );
 
 const countElement =
@@ -1586,13 +1636,19 @@ const fillElement =
     "fill"
   );
 
-const progressbar =
-  document.getElementById(
-    "progressbar"
-  );
 
+/*
+  Holds the function that should run if
+  the user chooses YES.
+*/
 
 let duplicateYesAction = null;
+
+
+/*
+  Holds the element that should receive
+  focus if the user chooses NO.
+*/
 
 let duplicateCancelFocus = null;
 
@@ -1636,6 +1692,7 @@ function updateProgress(){
   const count =
     totalInspections();
 
+
   const percentage =
     Math.min(
       100,
@@ -1647,38 +1704,99 @@ function updateProgress(){
     count;
 
 
-  fillElement.style.width =
-    percentage + "%";
+  /*
+    Force the browser to see the
+    progress-counter animation each
+    time the number changes.
+  */
+
+  progressCounter.classList.remove(
+    "bump"
+  );
 
 
-  progressbar.setAttribute(
-    "aria-valuenow",
-    count
+  void progressCounter.offsetWidth;
+
+
+  progressCounter.classList.add(
+    "bump"
   );
 
 
   /*
-    Restart the tiny number animation
-    each time the count changes.
+    Animate the actual width.
   */
 
-  progressDisplay
-    .classList
-    .remove("progress-pulse");
-
-
-  void progressDisplay.offsetWidth;
-
-
-  progressDisplay
-    .classList
-    .add("progress-pulse");
+  fillElement.style.width =
+    percentage + "%";
 
 }
 
 
 /* =========================================================
-   DUPLICATE MODAL
+   ADDED CONFIRMATION
+   ========================================================= */
+
+function showAddedMessage(
+  elementId,
+  message
+){
+
+  const messageElement =
+    document.getElementById(
+      elementId
+    );
+
+
+  if(!messageElement){
+    return;
+  }
+
+
+  messageElement.textContent =
+    "✓ " + message;
+
+
+  messageElement.classList.remove(
+    "show"
+  );
+
+
+  /*
+    Restart the animation even when
+    another inspection is added quickly.
+  */
+
+  void messageElement.offsetWidth;
+
+
+  messageElement.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    messageElement._hideTimer
+  );
+
+
+  messageElement._hideTimer =
+    setTimeout(
+      () => {
+
+        messageElement.classList.remove(
+          "show"
+        );
+
+      },
+      2200
+    );
+
+}
+
+
+/* =========================================================
+   CUSTOM YES / NO DUPLICATE MODAL
    ========================================================= */
 
 function showDuplicateModal(
@@ -1722,22 +1840,13 @@ function showDuplicateModal(
     );
 
 
-  document.body.style.overflow =
-    "hidden";
+  document
+    .body
+    .style
+    .overflow = "hidden";
 
 
-  /*
-    NO is the safe default.
-  */
-
-  setTimeout(
-    () => {
-
-      duplicateNo.focus();
-
-    },
-    0
-  );
+  duplicateNo.focus();
 
 }
 
@@ -1756,20 +1865,20 @@ function closeDuplicateModal(){
     );
 
 
-  document.body.style.overflow =
-    "";
+  document
+    .body
+    .style
+    .overflow = "";
 
 
-  duplicateYesAction =
-    null;
+  duplicateYesAction = null;
 
 
   const focusTarget =
     duplicateCancelFocus;
 
 
-  duplicateCancelFocus =
-    null;
+  duplicateCancelFocus = null;
 
 
   if(
@@ -1777,128 +1886,105 @@ function closeDuplicateModal(){
     typeof focusTarget.focus === "function"
   ){
 
-    setTimeout(
-      () => {
-
-        focusTarget.focus();
-
-      },
-      0
-    );
+    focusTarget.focus();
 
   }
 
 }
 
 
-/* =========================================================
-   DUPLICATE MODAL BUTTONS
-   ========================================================= */
+/*
+  YES
+*/
 
-duplicateYes.addEventListener(
-  "click",
-  () => {
+duplicateYes
+  .addEventListener(
+    "click",
+    () => {
 
-    const action =
-      duplicateYesAction;
-
-
-    /*
-      Clear the modal first.
-    */
-
-    closeDuplicateModal();
+      const action =
+        duplicateYesAction;
 
 
-    /*
-      Then execute the pending add.
-    */
+      closeDuplicateModal();
 
-    if(
-      typeof action === "function"
-    ){
 
-      action();
+      if(
+        typeof action === "function"
+      ){
+
+        action();
+
+      }
 
     }
-
-  }
-);
+  );
 
 
-duplicateNo.addEventListener(
-  "click",
-  () => {
+/*
+  NO
+*/
 
-    closeDuplicateModal();
-
-  }
-);
-
-
-duplicateModal.addEventListener(
-  "click",
-  event => {
-
-    if(
-      event.target === duplicateModal
-    ){
+duplicateNo
+  .addEventListener(
+    "click",
+    () => {
 
       closeDuplicateModal();
 
     }
-
-  }
-);
+  );
 
 
-document.addEventListener(
-  "keydown",
-  event => {
+/*
+  Tapping outside the dialog
+  behaves like NO.
+*/
 
-    if(
-      event.key === "Escape" &&
-      duplicateModal
-        .classList
-        .contains("show")
-    ){
+duplicateModal
+  .addEventListener(
+    "click",
+    event => {
 
-      closeDuplicateModal();
+      if(
+        event.target === duplicateModal
+      ){
+
+        closeDuplicateModal();
+
+      }
 
     }
+  );
 
-  }
-);
+
+/*
+  Escape behaves like NO.
+*/
+
+document
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.key === "Escape" &&
+        duplicateModal
+          .classList
+          .contains("show")
+      ){
+
+        closeDuplicateModal();
+
+      }
+
+    }
+  );
 
 
 /* =========================================================
    DUPLICATE CHECK
    ========================================================= */
-
-/*
-  IMPORTANT:
-
-  Duplicate means:
-
-  SAME EQUIPMENT NUMBER
-  +
-  SAME INSPECTION TYPE
-
-  A different inspection type is NOT
-  considered a duplicate.
-
-  Example:
-
-  NSPZ 123456 — 5652 Pre-repair
-  NSPZ 123456 — 5658 Add-on
-
-  = ALLOWED
-
-  NSPZ 123456 — 5652 Pre-repair
-  NSPZ 123456 — 5652 Pre-repair
-
-  = DUPLICATE
-*/
 
 function hasDuplicate(
   equipmentData,
@@ -1907,20 +1993,9 @@ function hasDuplicate(
   equipmentNumber
 ){
 
-  if(
-    !equipmentData[type] ||
-    !equipmentData[type][section]
-  ){
-
-    return false;
-
-  }
-
-
   return equipmentData[type][section]
     .some(
       item =>
-        item &&
         item[0] === equipmentNumber
     );
 
@@ -2003,6 +2078,14 @@ function addInspection(){
     number;
 
 
+  /*
+    Same equipment + same inspection
+    type = possible duplicate.
+
+    Different inspection types remain
+    completely valid.
+  */
+
   if(
     hasDuplicate(
       data.chassis,
@@ -2065,9 +2148,13 @@ function addChassisRecord(
 
   data.chassis[type][section]
     .push([
+
       equipmentNumber,
+
       condition,
+
       note
+
     ]);
 
 
@@ -2082,6 +2169,12 @@ function addChassisRecord(
 
 
   updateProgress();
+
+
+  showAddedMessage(
+    "chassisAddedMessage",
+    equipmentNumber + " added"
+  );
 
 
   document
@@ -2250,9 +2343,13 @@ function addContainerRecord(
 
   data.containers[type][section]
     .push([
+
       equipmentNumber,
+
       condition,
+
       note
+
     ]);
 
 
@@ -2272,6 +2369,12 @@ function addContainerRecord(
 
 
   updateProgress();
+
+
+  showAddedMessage(
+    "containerAddedMessage",
+    equipmentNumber + " added"
+  );
 
 
   document
@@ -2392,9 +2495,13 @@ function addRackRecord(
 
   data.racks["5657"]["Pre-repair"]
     .push([
+
       equipmentNumber,
+
       condition,
+
       note
+
     ]);
 
 
@@ -2409,6 +2516,12 @@ function addRackRecord(
 
 
   updateProgress();
+
+
+  showAddedMessage(
+    "rackAddedMessage",
+    equipmentNumber + " added"
+  );
 
 
   document
@@ -2511,24 +2624,31 @@ function buildEOD(){
     "End of Day Report"
   );
 
+
   out.push("");
+
 
   out.push(
     "Date: " +
     formatDate()
   );
 
+
   out.push("");
+
 
   out.push(
     "End of Day Report for:"
   );
 
+
   out.push(
     "Harrisburg"
   );
 
+
   out.push("");
+
 
   out.push(
     "CHASSIS"
@@ -2623,13 +2743,16 @@ function buildEOD(){
 
 
   out.push(
+
     "(" +
     totalInspections() +
     ") TOTAL INSPECTIONS"
+
   );
 
 
   out.push("");
+
 
   out.push(
     "Comments or Notes of Interest:"
@@ -2780,6 +2903,32 @@ function resetForNextDay(){
     .textContent =
       "Harrisburg — " +
       formatDate();
+
+
+  /*
+    Clear any lingering confirmation
+    messages when starting the next day.
+  */
+
+  [
+    "chassisAddedMessage",
+    "containerAddedMessage",
+    "rackAddedMessage"
+  ]
+  .forEach(id => {
+
+    const element =
+      document.getElementById(id);
+
+    if(element){
+
+      element.classList.remove(
+        "show"
+      );
+
+    }
+
+  });
 
 
   updateProgress();
@@ -3042,6 +3191,7 @@ if(
 }
 
 </script>
+
 
 </body>
 </html>
