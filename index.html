@@ -56,11 +56,6 @@ h2{
   font-size:20px;
 }
 
-h3{
-  margin:0 0 10px;
-  font-size:17px;
-}
-
 .date{
   text-align:center;
   font-weight:600;
@@ -138,24 +133,6 @@ button:active{
   transform:scale(.99);
 }
 
-.subsection{
-  border-top:1px solid #ddd;
-  padding-top:18px;
-  margin-top:18px;
-}
-
-.subsection:first-of-type{
-  border-top:0;
-  padding-top:0;
-  margin-top:0;
-}
-
-.section-title{
-  font-size:17px;
-  font-weight:750;
-  margin-bottom:10px;
-}
-
 .entry-list{
   margin-top:10px;
 }
@@ -167,6 +144,15 @@ button:active{
   padding:10px;
   margin-top:7px;
   font-size:15px;
+}
+
+.static-type{
+  padding:13px 14px;
+  border:1px solid #c9cdd3;
+  border-radius:11px;
+  font-size:17px;
+  background:#f5f6f7;
+  font-weight:600;
 }
 
 .hidden{
@@ -231,7 +217,7 @@ button:active{
 
 
 <!-- =========================
-     ORIGINAL CHASSIS INTERFACE
+     CHASSIS
      ========================= -->
 
 <section class="card">
@@ -275,36 +261,36 @@ button:active{
 
 <div class="row">
 
-<div>
+  <div>
 
-<label for="type">Inspection Type</label>
+    <label for="type">Inspection Type</label>
 
-<select id="type">
+    <select id="type">
 
-  <option value="5652">5652 — Pre-repair</option>
+      <option value="5652">5652 — Pre-repair</option>
 
-  <option value="5900">5900 — Post-repair</option>
+      <option value="5900">5900 — Post-repair</option>
 
-  <option value="5658">5658 — Add-on</option>
+      <option value="5658">5658 — Add-on</option>
 
-</select>
+    </select>
 
-</div>
+  </div>
 
 
-<div>
+  <div>
 
-<label for="condition">Condition</label>
+    <label for="condition">Condition</label>
 
-<select id="condition">
+    <select id="condition">
 
-  <option value="Defect">Defect</option>
+      <option value="Defect">Defect</option>
 
-  <option value="No Defect">No Defect</option>
+      <option value="No Defect">No Defect</option>
 
-</select>
+    </select>
 
-</div>
+  </div>
 
 </div>
 
@@ -321,6 +307,8 @@ button:active{
   ADD INSPECTION
 </button>
 
+<div class="entry-list" id="chassisInspectionList"></div>
+
 </section>
 
 
@@ -332,8 +320,6 @@ button:active{
 
 <h2>Containers</h2>
 
-<input type="hidden" id="containerEquipment" value="Container">
-
 
 <div class="row">
 
@@ -343,6 +329,7 @@ button:active{
 
     <input
       id="containerPrefix"
+      class="container-prefix"
       maxlength="4"
       placeholder="ABCD"
       autocomplete="off"
@@ -357,6 +344,7 @@ button:active{
 
     <input
       id="containerNumber"
+      class="container-number"
       inputmode="numeric"
       maxlength="6"
       placeholder="Enter 6 digits"
@@ -425,7 +413,6 @@ button:active{
 </section>
 
 
-
 <!-- =========================
      CHASSIS RACKS
      ========================= -->
@@ -433,8 +420,6 @@ button:active{
 <section class="card">
 
 <h2>Chassis Racks</h2>
-
-<input type="hidden" id="rackEquipment" value="Chassis Rack">
 
 
 <div class="row">
@@ -445,6 +430,7 @@ button:active{
 
     <input
       id="rackPrefix"
+      class="rack-prefix"
       maxlength="4"
       placeholder="ABCD"
       autocomplete="off"
@@ -459,6 +445,7 @@ button:active{
 
     <input
       id="rackNumber"
+      class="rack-number"
       inputmode="numeric"
       maxlength="6"
       placeholder="Enter 6 digits"
@@ -474,13 +461,11 @@ button:active{
 
   <div>
 
-    <label for="rackType">Inspection Type</label>
+    <label>Inspection Type</label>
 
-    <select id="rackType">
-
-      <option value="5657">5657 — Pre-repair</option>
-
-    </select>
+    <div class="static-type">
+      5657 — Pre-repair
+    </div>
 
   </div>
 
@@ -649,7 +634,6 @@ function totalInspections(){
 
   let total = 0;
 
-
   Object.values(data).forEach(equipment => {
 
     Object.values(equipment).forEach(type => {
@@ -664,20 +648,17 @@ function totalInspections(){
 
   });
 
-
   Object.values(containerSections).forEach(section => {
 
     total += section.length;
 
   });
 
-
   Object.values(rackSections).forEach(section => {
 
     total += section.length;
 
   });
-
 
   return total;
 
@@ -688,10 +669,8 @@ function updateProgress(){
 
   const count = totalInspections();
 
-
   document.getElementById("count").textContent =
     count;
-
 
   document.getElementById("fill").style.width =
     Math.min(
@@ -703,84 +682,84 @@ function updateProgress(){
 
 
 /* =========================
-   ORIGINAL EQUIPMENT TYPE
+   CHASSIS DISPLAY
    ========================= */
 
-function updateInspectionTypeOptions(){
+function renderChassis(){
 
-  const equipment =
-    document.getElementById("equipment").value;
+  const list =
+    document.getElementById(
+      "chassisInspectionList"
+    );
 
+  list.innerHTML = "";
 
-  const typeSelect =
-    document.getElementById("type");
+  const type =
+    document.getElementById("type").value;
 
+  const condition =
+    document.getElementById("condition").value;
 
-  if(equipment === "Chassis"){
+  const section =
+    type === "5652"
+      ? "Pre-repair"
+      : type === "5900"
+        ? "Post-repair"
+        : "Add-on";
 
-    typeSelect.innerHTML = `
-      <option value="5652">5652 — Pre-repair</option>
-      <option value="5900">5900 — Post-repair</option>
-      <option value="5658">5658 — Add-on</option>
-    `;
+  data.chassis[type][section]
+    .forEach((item,index) => {
 
-  }
+      const div =
+        document.createElement("div");
 
-  else if(equipment === "Container"){
+      div.className = "entry";
 
-    typeSelect.innerHTML = `
-      <option value="5653">5653 — Pre-repair</option>
-      <option value="5900">5900 — Post-repair</option>
-      <option value="5658">5658 — Add-on</option>
-    `;
+      div.textContent =
+        (index + 1) +
+        ". " +
+        item[0] +
+        " — " +
+        item[1] +
+        (item[2]
+          ? " — " + item[2]
+          : "");
 
-  }
+      list.appendChild(div);
 
-  else if(equipment === "Chassis Rack"){
-
-    typeSelect.innerHTML = `
-      <option value="5657">5657 — Pre-repair</option>
-    `;
-
-  }
+    });
 
 }
 
 
 /* =========================
-   ORIGINAL ADD INSPECTION
+   CHASSIS ADD
    ========================= */
 
 function addInspection(){
 
-  const equipment =
-    document.getElementById("equipment").value;
-
-
   const prefix =
     document.getElementById("prefix").value;
 
-
   const number =
-    document.getElementById("number").value.trim();
-
+    document.getElementById("number")
+      .value.trim();
 
   const type =
     document.getElementById("type").value;
 
-
   const condition =
     document.getElementById("condition").value;
 
-
   const note =
-    document.getElementById("equipmentNote").value.trim();
+    document.getElementById("equipmentNote")
+      .value.trim();
 
 
   if(!/^\d{6}$/.test(number)){
 
     alert(
-      "Enter exactly 6 digits for the equipment number."
+      "Enter exactly 6 digits for the chassis number."
     );
 
     document.getElementById("number").focus();
@@ -790,64 +769,15 @@ function addInspection(){
   }
 
 
-  let equipmentData;
+  const section =
+    type === "5652"
+      ? "Pre-repair"
+      : type === "5900"
+        ? "Post-repair"
+        : "Add-on";
 
 
-  if(equipment === "Chassis"){
-
-    equipmentData =
-      data.chassis;
-
-  }
-
-  else if(equipment === "Container"){
-
-    equipmentData =
-      data.containers;
-
-  }
-
-  else{
-
-    equipmentData =
-      data.racks;
-
-  }
-
-
-  let section;
-
-
-  if(type === "5652" || type === "5653"){
-
-    section =
-      "Pre-repair";
-
-  }
-
-  else if(type === "5900"){
-
-    section =
-      "Post-repair";
-
-  }
-
-  else if(type === "5658"){
-
-    section =
-      "Add-on";
-
-  }
-
-  else if(type === "5657"){
-
-    section =
-      "Pre-repair";
-
-  }
-
-
-  equipmentData[type][section].push([
+  data.chassis[type][section].push([
 
     prefix + " " + number,
 
@@ -858,15 +788,13 @@ function addInspection(){
   ]);
 
 
-  document.getElementById("number").value =
-    "";
+  document.getElementById("number").value = "";
 
-  document.getElementById("equipmentNote").value =
-    "";
+  document.getElementById("equipmentNote").value = "";
 
+  renderChassis();
 
   updateProgress();
-
 
   document.getElementById("number").focus();
 
@@ -874,30 +802,30 @@ function addInspection(){
 
 
 /* =========================
-   NEW CONTAINER ADD
+   CONTAINER ADD
    ========================= */
 
-function addContainer(button){
-
-  const section =
-    button.dataset.section;
-
-
-  const container =
-    button.closest(".subsection");
-
+function addContainerInspection(){
 
   const prefix =
-    container
-      .querySelector(".container-prefix")
+    document.getElementById("containerPrefix")
       .value
       .trim()
       .toUpperCase();
 
-
   const number =
-    container
-      .querySelector(".container-number")
+    document.getElementById("containerNumber")
+      .value
+      .trim();
+
+  const type =
+    document.getElementById("containerType").value;
+
+  const condition =
+    document.getElementById("containerCondition").value;
+
+  const note =
+    document.getElementById("containerNote")
       .value
       .trim();
 
@@ -908,8 +836,8 @@ function addContainer(button){
       "Enter exactly 4 letters for the container prefix."
     );
 
-    container
-      .querySelector(".container-prefix")
+    document
+      .getElementById("containerPrefix")
       .focus();
 
     return;
@@ -923,8 +851,8 @@ function addContainer(button){
       "Enter exactly 6 digits for the container number."
     );
 
-    container
-      .querySelector(".container-number")
+    document
+      .getElementById("containerNumber")
       .focus();
 
     return;
@@ -932,54 +860,113 @@ function addContainer(button){
   }
 
 
-  containerSections[section].push(
-    prefix + " " + number
-  );
+  const section =
+    type === "5653"
+      ? "Pre-repair"
+      : type === "5900"
+        ? "Post-repair"
+        : "Add-on";
 
 
-  container
-    .querySelector(".container-prefix")
-    .value = "";
+  data.containers[type][section].push([
+
+    prefix + " " + number,
+
+    condition,
+
+    note
+
+  ]);
 
 
-  container
-    .querySelector(".container-number")
-    .value = "";
+  document.getElementById("containerPrefix").value = "";
+
+  document.getElementById("containerNumber").value = "";
+
+  document.getElementById("containerNote").value = "";
 
 
-  renderContainerSection(section);
-
+  renderContainers();
 
   updateProgress();
+
+  document
+    .getElementById("containerPrefix")
+    .focus();
 
 }
 
 
 /* =========================
-   NEW RACK ADD
+   CONTAINER RENDER
    ========================= */
 
-function addRack(button){
+function renderContainers(){
 
-  const section =
-    button.dataset.section;
+  const list =
+    document.getElementById(
+      "containerInspectionList"
+    );
+
+  list.innerHTML = "";
 
 
-  const container =
-    button.closest(".subsection");
+  Object.keys(data.containers)
+    .forEach(type => {
 
+      Object.keys(data.containers[type])
+        .forEach(section => {
+
+          data.containers[type][section]
+            .forEach(item => {
+
+              const div =
+                document.createElement("div");
+
+              div.className = "entry";
+
+              div.textContent =
+                item[0] +
+                " — " +
+                item[1] +
+                (item[2]
+                  ? " — " + item[2]
+                  : "");
+
+              list.appendChild(div);
+
+            });
+
+        });
+
+    });
+
+}
+
+
+/* =========================
+   RACK ADD
+   ========================= */
+
+function addRackInspection(){
 
   const prefix =
-    container
-      .querySelector(".rack-prefix")
+    document.getElementById("rackPrefix")
       .value
       .trim()
       .toUpperCase();
 
-
   const number =
-    container
-      .querySelector(".rack-number")
+    document.getElementById("rackNumber")
+      .value
+      .trim();
+
+  const condition =
+    document.getElementById("rackCondition")
+      .value;
+
+  const note =
+    document.getElementById("rackNote")
       .value
       .trim();
 
@@ -990,8 +977,8 @@ function addRack(button){
       "Enter exactly 4 letters for the chassis rack prefix."
     );
 
-    container
-      .querySelector(".rack-prefix")
+    document
+      .getElementById("rackPrefix")
       .focus();
 
     return;
@@ -1005,8 +992,8 @@ function addRack(button){
       "Enter exactly 6 digits for the chassis rack number."
     );
 
-    container
-      .querySelector(".rack-number")
+    document
+      .getElementById("rackNumber")
       .focus();
 
     return;
@@ -1014,101 +1001,64 @@ function addRack(button){
   }
 
 
-  rackSections[section].push(
-    prefix + " " + number
-  );
+  data.racks["5657"]["Pre-repair"].push([
+
+    prefix + " " + number,
+
+    condition,
+
+    note
+
+  ]);
 
 
-  container
-    .querySelector(".rack-prefix")
-    .value = "";
+  document.getElementById("rackPrefix").value = "";
+
+  document.getElementById("rackNumber").value = "";
+
+  document.getElementById("rackNote").value = "";
 
 
-  container
-    .querySelector(".rack-number")
-    .value = "";
-
-
-  renderRackSection(section);
-
+  renderRacks();
 
   updateProgress();
 
-}
-
-
-/* =========================
-   RENDER CONTAINERS
-   ========================= */
-
-function renderContainerSection(section){
-
-  const list =
-    document.getElementById(
-      "container-" +
-      section +
-      "-list"
-    );
-
-
-  list.innerHTML = "";
-
-
-  containerSections[section]
-    .forEach((number,index) => {
-
-      const div =
-        document.createElement("div");
-
-      div.className =
-        "entry";
-
-
-      div.textContent =
-        (index + 1) +
-        ". " +
-        number;
-
-
-      list.appendChild(div);
-
-    });
+  document
+    .getElementById("rackPrefix")
+    .focus();
 
 }
 
 
 /* =========================
-   RENDER RACKS
+   RACK RENDER
    ========================= */
 
-function renderRackSection(section){
+function renderRacks(){
 
   const list =
     document.getElementById(
-      "rack-" +
-      section +
-      "-list"
+      "rackInspectionList"
     );
-
 
   list.innerHTML = "";
 
 
-  rackSections[section]
-    .forEach((number,index) => {
+  data.racks["5657"]["Pre-repair"]
+    .forEach(item => {
 
       const div =
         document.createElement("div");
 
-      div.className =
-        "entry";
-
+      div.className = "entry";
 
       div.textContent =
-        (index + 1) +
-        ". " +
-        number;
-
+        item[0] +
+        " — " +
+        item[1] +
+        (item[2]
+          ? " — " + item[2]
+          : "");
 
       list.appendChild(div);
 
@@ -1184,79 +1134,6 @@ function addSectionToReport(
     output.push("");
 
   });
-
-}
-
-
-/* =========================
-   NEW SIMPLE REPORT SECTION
-   ========================= */
-
-function addNewReportSection(
-  output,
-  noItems,
-  defectItems,
-  noText,
-  defectText,
-  numberLabel
-){
-
-  output.push(
-    "(" +
-    noItems.length +
-    ") " +
-    noText
-  );
-
-
-  output.push(
-    numberLabel +
-    ":"
-  );
-
-
-  noItems.forEach((number,index) => {
-
-    output.push(
-      "\t" +
-      (index + 1) +
-      ". " +
-      number
-    );
-
-  });
-
-
-  output.push("");
-
-
-  output.push(
-    "(" +
-    defectItems.length +
-    ") " +
-    defectText
-  );
-
-
-  output.push(
-    numberLabel +
-    ":"
-  );
-
-
-  defectItems.forEach((number,index) => {
-
-    output.push(
-      "\t" +
-      (index + 1) +
-      ". " +
-      number
-    );
-
-  });
-
-
-  output.push("");
 
 }
 
@@ -1343,30 +1220,33 @@ function buildEOD(){
   );
 
 
-  addNewReportSection(
+  addSectionToReport(
     out,
-    containerSections["pre-no"],
-    containerSections["pre-defect"],
+    data.containers,
+    "Pre-repair",
+    "5653",
     "pre-repair NO defects - 5653",
     "pre-repair WITH defects - 5653",
     "Container Numbers"
   );
 
 
-  addNewReportSection(
+  addSectionToReport(
     out,
-    containerSections["post-no"],
-    containerSections["post-defect"],
+    data.containers,
+    "Post-repair",
+    "5900",
     "post repair NO defects - 5900",
     "post repair WITH defects - 5900",
     "Container Numbers"
   );
 
 
-  addNewReportSection(
+  addSectionToReport(
     out,
-    containerSections["addon-no"],
-    containerSections["addon-defect"],
+    data.containers,
+    "Add-on",
+    "5658",
     "add-on NO defects - 5658",
     "add-on WITH defects - 5658",
     "Container Numbers"
@@ -1380,10 +1260,11 @@ function buildEOD(){
   );
 
 
-  addNewReportSection(
+  addSectionToReport(
     out,
-    rackSections["pre-no"],
-    rackSections["pre-defect"],
+    data.racks,
+    "Pre-repair",
+    "5657",
     "pre-repair NO defects - 5657",
     "pre-repair WITH defects - 5657",
     "Chassis Rack Numbers"
@@ -1527,14 +1408,33 @@ function resetForNextDay(){
 
 
   document
-    .querySelectorAll(
-      ".container-prefix, .container-number, .rack-prefix, .rack-number"
-    )
-    .forEach(input => {
+    .getElementById("containerPrefix")
+    .value = "";
 
-      input.value = "";
 
-    });
+  document
+    .getElementById("containerNumber")
+    .value = "";
+
+
+  document
+    .getElementById("containerNote")
+    .value = "";
+
+
+  document
+    .getElementById("rackPrefix")
+    .value = "";
+
+
+  document
+    .getElementById("rackNumber")
+    .value = "";
+
+
+  document
+    .getElementById("rackNote")
+    .value = "";
 
 
   document
@@ -1613,19 +1513,7 @@ function emailEOD(){
 
 
 /* =========================
-   EQUIPMENT CHANGE
-   ========================= */
-
-document
-  .getElementById("equipment")
-  .addEventListener(
-    "change",
-    updateInspectionTypeOptions
-  );
-
-
-/* =========================
-   ORIGINAL NUMBER INPUT
+   INPUT FILTERS
    ========================= */
 
 document
@@ -1644,6 +1532,72 @@ document
 
 
 document
+  .getElementById("containerPrefix")
+  .addEventListener(
+    "input",
+    event => {
+
+      event.target.value =
+        event.target.value
+          .replace(/[^a-zA-Z]/g,"")
+          .toUpperCase()
+          .slice(0,4);
+
+    }
+  );
+
+
+document
+  .getElementById("containerNumber")
+  .addEventListener(
+    "input",
+    event => {
+
+      event.target.value =
+        event.target.value
+          .replace(/\D/g,"")
+          .slice(0,6);
+
+    }
+  );
+
+
+document
+  .getElementById("rackPrefix")
+  .addEventListener(
+    "input",
+    event => {
+
+      event.target.value =
+        event.target.value
+          .replace(/[^a-zA-Z]/g,"")
+          .toUpperCase()
+          .slice(0,4);
+
+    }
+  );
+
+
+document
+  .getElementById("rackNumber")
+  .addEventListener(
+    "input",
+    event => {
+
+      event.target.value =
+        event.target.value
+          .replace(/\D/g,"")
+          .slice(0,6);
+
+    }
+  );
+
+
+/* =========================
+   ENTER KEY
+   ========================= */
+
+document
   .getElementById("number")
   .addEventListener(
     "keydown",
@@ -1659,83 +1613,40 @@ document
   );
 
 
-/* =========================
-   NEW CONTAINER INPUTS
-   ========================= */
-
 document
-  .querySelectorAll(
-    ".container-prefix, .rack-prefix"
-  )
-  .forEach(input => {
+  .getElementById("containerNumber")
+  .addEventListener(
+    "keydown",
+    event => {
 
-    input.addEventListener(
-      "input",
-      event => {
+      if(event.key === "Enter"){
 
-        event.target.value =
-          event.target.value
-            .replace(/[^a-zA-Z]/g,"")
-            .toUpperCase()
-            .slice(0,4);
+        addContainerInspection();
 
       }
-    );
 
-  });
+    }
+  );
 
 
 document
-  .querySelectorAll(
-    ".container-number, .rack-number"
-  )
-  .forEach(input => {
+  .getElementById("rackNumber")
+  .addEventListener(
+    "keydown",
+    event => {
 
-    input.addEventListener(
-      "input",
-      event => {
+      if(event.key === "Enter"){
 
-        event.target.value =
-          event.target.value
-            .replace(/\D/g,"")
-            .slice(0,6);
+        addRackInspection();
 
       }
-    );
 
-  });
-
-
-/* =========================
-   NEW BUTTONS
-   ========================= */
-
-document
-  .querySelectorAll(".container-add")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => addContainer(button)
-    );
-
-  });
-
-
-document
-  .querySelectorAll(".rack-add")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => addRack(button)
-    );
-
-  });
+    }
+  );
 
 
 /* =========================
-   MAIN BUTTONS
+   BUTTONS
    ========================= */
 
 document
@@ -1743,6 +1654,22 @@ document
   .addEventListener(
     "click",
     addInspection
+  );
+
+
+document
+  .getElementById("addContainerInspection")
+  .addEventListener(
+    "click",
+    addContainerInspection
+  );
+
+
+document
+  .getElementById("addRackInspection")
+  .addEventListener(
+    "click",
+    addRackInspection
   );
 
 
@@ -1772,8 +1699,6 @@ document
     "Harrisburg — " +
     formatDate();
 
-
-updateInspectionTypeOptions();
 
 updateProgress();
 
