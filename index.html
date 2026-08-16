@@ -23,7 +23,7 @@
 
   <meta
     name="apple-mobile-web-app-title"
-    content="EOD Inspection Report"
+    content="EOD Inspection"
   >
 
   <meta
@@ -77,10 +77,6 @@ body{
   min-height:100vh;
 }
 
-/* =========================
-   HEADER
-   ========================= */
-
 header{
   background:linear-gradient(
     180deg,
@@ -89,68 +85,40 @@ header{
   );
 
   color:#fff;
-
-  padding:20px 20px 19px;
-
+  padding:20px;
   text-align:center;
-
   font-size:22px;
-
   font-weight:750;
-
   letter-spacing:.01em;
 
-  box-shadow:
-    0 2px 10px rgba(0,0,0,.18);
+  box-shadow:0 2px 10px rgba(0,0,0,.18);
 }
-
-
-/* =========================
-   MAIN APP
-   ========================= */
 
 .app{
   width:min(760px,100%);
-
   margin:0 auto;
-
   padding:18px 14px 50px;
 }
 
-
-/* =========================
-   CARDS
-   ========================= */
-
 .card{
   background:var(--card);
-
   border:1px solid var(--card-border);
-
   border-radius:16px;
-
   padding:20px;
-
   margin-bottom:16px;
-
   box-shadow:var(--shadow);
 }
 
 .card h2{
   display:flex;
-
   align-items:center;
-
   gap:10px;
 
   margin:0 0 18px;
 
   font-size:20px;
-
   line-height:1.2;
-
   font-weight:750;
-
   letter-spacing:-.01em;
 }
 
@@ -160,7 +128,6 @@ header{
   display:block;
 
   width:4px;
-
   height:22px;
 
   border-radius:4px;
@@ -168,30 +135,18 @@ header{
   background:var(--accent);
 }
 
-
-/* =========================
-   DATE / PROGRESS
-   ========================= */
-
 .date{
   text-align:center;
-
   color:var(--muted);
-
   font-size:15px;
-
   font-weight:650;
-
   margin-bottom:12px;
 }
 
 .progress{
   font-size:17px;
-
   font-weight:750;
-
   text-align:center;
-
   margin-bottom:9px;
 }
 
@@ -201,73 +156,47 @@ header{
 
 .progressbar{
   height:11px;
-
   background:var(--progress-bg);
-
   border-radius:20px;
-
   overflow:hidden;
 }
 
 .fill{
   height:100%;
-
   width:0%;
-
   background:var(--accent);
-
   border-radius:20px;
-
   transition:width .25s ease;
 }
 
-
-/* =========================
-   LABELS
-   ========================= */
-
 label{
   display:block;
-
   font-weight:700;
-
   font-size:14px;
-
   color:var(--text);
-
   margin:15px 0 7px;
 }
-
-
-/* =========================
-   INPUTS
-   ========================= */
 
 input,
 select,
 textarea{
   width:100%;
-
   padding:13px 14px;
 
   border:1px solid var(--input-border);
-
   border-radius:10px;
 
   font-family:inherit;
-
   font-size:17px;
 
   background:var(--input);
-
   color:var(--text);
 
   outline:none;
 
   transition:
     border-color .15s ease,
-    box-shadow .15s ease,
-    background .15s ease;
+    box-shadow .15s ease;
 }
 
 input:focus,
@@ -286,39 +215,24 @@ textarea::placeholder{
 
 textarea{
   min-height:115px;
-
   resize:vertical;
 }
 
-
-/* =========================
-   TWO COLUMN ROWS
-   ========================= */
-
 .row{
   display:grid;
-
   grid-template-columns:1fr 1fr;
-
   gap:14px;
 }
-
-
-/* =========================
-   STATIC FIELDS
-   ========================= */
 
 .static-type{
   padding:13px 14px;
 
   border:1px solid var(--input-border);
-
   border-radius:10px;
 
   font-size:17px;
 
   background:var(--secondary);
-
   color:var(--text);
 
   font-weight:700;
@@ -326,77 +240,52 @@ textarea{
   min-height:49px;
 
   display:flex;
-
   align-items:center;
 }
-
-
-/* =========================
-   BUTTONS
-   ========================= */
 
 button{
   width:100%;
 
   border:0;
-
   border-radius:10px;
 
   padding:14px 16px;
-
   margin-top:17px;
 
   min-height:50px;
 
   font-family:inherit;
-
   font-size:16px;
-
   font-weight:750;
-
   letter-spacing:.02em;
 
   cursor:pointer;
 
   background:var(--accent);
-
   color:var(--accent-text);
 
   -webkit-tap-highlight-color:transparent;
 
-  box-shadow:
-    0 2px 5px rgba(0,0,0,.12);
+  box-shadow:0 2px 5px rgba(0,0,0,.12);
 
   transition:
     transform .08s ease,
-    opacity .15s ease,
     box-shadow .15s ease;
 }
 
 button:hover{
-  box-shadow:
-    0 4px 10px rgba(0,0,0,.16);
+  box-shadow:0 4px 10px rgba(0,0,0,.16);
 }
 
 button:active{
   transform:scale(.985);
-
-  box-shadow:
-    0 1px 3px rgba(0,0,0,.12);
 }
 
 button.secondary{
   background:var(--secondary);
-
   color:var(--secondary-text);
-
   box-shadow:none;
 }
-
-
-/* =========================
-   ENTRIES
-   ========================= */
 
 .entry-list{
   margin-top:10px;
@@ -406,22 +295,14 @@ button.secondary{
   background:var(--secondary);
 
   border:1px solid var(--card-border);
-
   border-radius:10px;
 
   padding:11px 12px;
-
   margin-top:7px;
 
   font-size:15px;
-
   line-height:1.4;
 }
-
-
-/* =========================
-   EOD PREVIEW
-   ========================= */
 
 #preview{
   white-space:pre-wrap;
@@ -429,7 +310,6 @@ button.secondary{
   background:var(--secondary);
 
   border:1px solid var(--card-border);
-
   border-radius:11px;
 
   padding:15px;
@@ -441,7 +321,6 @@ button.secondary{
     monospace;
 
   font-size:14px;
-
   line-height:1.55;
 
   overflow:auto;
@@ -449,19 +328,9 @@ button.secondary{
   color:var(--text);
 }
 
-
-/* =========================
-   HIDDEN
-   ========================= */
-
 .hidden{
   display:none;
 }
-
-
-/* =========================
-   MOBILE / IPAD
-   ========================= */
 
 @media(max-width:520px){
 
@@ -471,19 +340,16 @@ button.secondary{
 
   .card{
     padding:17px;
-
     border-radius:15px;
   }
 
   .row{
     grid-template-columns:1fr;
-
     gap:2px;
   }
 
   header{
     padding:18px 16px;
-
     font-size:21px;
   }
 
@@ -493,36 +359,24 @@ button.secondary{
 
 }
 
-
-/* =========================
-   DARK MODE
-   FOLLOWS IPAD SYSTEM SETTING
-   ========================= */
-
 @media(prefers-color-scheme:dark){
 
   :root{
 
     --bg:#0b0f14;
-
     --card:#171d24;
-
     --card-border:#2b333d;
 
     --text:#f4f6f8;
-
     --muted:#a7b0ba;
 
     --input:#0f141a;
-
     --input-border:#3b4550;
 
     --accent:#f4f6f8;
-
     --accent-text:#11161c;
 
     --secondary:#242c35;
-
     --secondary-text:#f4f6f8;
 
     --progress-bg:#303943;
@@ -537,19 +391,15 @@ button.secondary{
 
   body{
     background:#0b0f14;
-
     color:#f4f6f8;
   }
 
   header{
     background:#000;
-
-    color:#fff;
   }
 
   .card{
     background:#171d24;
-
     border-color:#2b333d;
   }
 
@@ -569,9 +419,7 @@ button.secondary{
   select,
   textarea{
     background:#0f141a;
-
     color:#f4f6f8;
-
     border-color:#3b4550;
   }
 
@@ -579,9 +427,6 @@ button.secondary{
   select:focus,
   textarea:focus{
     border-color:#9aa4af;
-
-    box-shadow:
-      0 0 0 3px rgba(154,164,175,.14);
   }
 
   input::placeholder,
@@ -591,44 +436,35 @@ button.secondary{
 
   .static-type{
     background:#242c35;
-
     border-color:#3b4550;
-
     color:#f4f6f8;
   }
 
   button{
     background:#f4f6f8;
-
     color:#11161c;
   }
 
   button.secondary{
     background:#303943;
-
     color:#f4f6f8;
   }
 
   .entry{
     background:#242c35;
-
     border-color:#3b4550;
-
     color:#f4f6f8;
   }
 
   #preview{
     background:#0f141a;
-
     border-color:#3b4550;
-
     color:#f4f6f8;
   }
 
 }
 
 </style>
-
 </head>
 
 <body>
@@ -636,7 +472,6 @@ button.secondary{
 <header>EOD Inspection</header>
 
 <main class="app">
-
 
 <section class="card">
 
@@ -687,18 +522,13 @@ button.secondary{
 
     <select id="prefix">
 
-      <option value="NSPZ">
-        NSPZ
-      </option>
+      <option value="NSPZ">NSPZ</option>
 
-      <option value="NSFZ">
-        NSFZ
-      </option>
+      <option value="NSFZ">NSFZ</option>
 
     </select>
 
   </div>
-
 
   <div>
 
@@ -716,7 +546,6 @@ button.secondary{
   </div>
 
 </div>
-
 
 <div class="row">
 
@@ -744,7 +573,6 @@ button.secondary{
 
   </div>
 
-
   <div>
 
     <label for="condition">
@@ -767,7 +595,6 @@ button.secondary{
 
 </div>
 
-
 <label for="equipmentNote">
   Inspection Note
 </label>
@@ -776,7 +603,6 @@ button.secondary{
   id="equipmentNote"
   placeholder="Example: 145D dwell"
 >
-
 
 <button id="addInspection">
   ADD INSPECTION
@@ -803,14 +629,12 @@ button.secondary{
 
     <input
       id="containerPrefix"
-      class="container-prefix"
       maxlength="4"
       placeholder="ABCD"
       autocomplete="off"
     >
 
   </div>
-
 
   <div>
 
@@ -820,7 +644,6 @@ button.secondary{
 
     <input
       id="containerNumber"
-      class="container-number"
       inputmode="numeric"
       maxlength="6"
       placeholder="Enter 6 digits"
@@ -830,7 +653,6 @@ button.secondary{
   </div>
 
 </div>
-
 
 <div class="row">
 
@@ -858,7 +680,6 @@ button.secondary{
 
   </div>
 
-
   <div>
 
     <label for="containerCondition">
@@ -881,7 +702,6 @@ button.secondary{
 
 </div>
 
-
 <label for="containerNote">
   Inspection Note
 </label>
@@ -890,7 +710,6 @@ button.secondary{
   id="containerNote"
   placeholder="Example: 145D dwell"
 >
-
 
 <button id="addContainerInspection">
   ADD INSPECTION
@@ -921,7 +740,6 @@ button.secondary{
 
   </div>
 
-
   <div>
 
     <label for="rackNumber">
@@ -930,7 +748,6 @@ button.secondary{
 
     <input
       id="rackNumber"
-      class="rack-number"
       inputmode="numeric"
       maxlength="6"
       placeholder="Enter 6 digits"
@@ -940,7 +757,6 @@ button.secondary{
   </div>
 
 </div>
-
 
 <div class="row">
 
@@ -955,7 +771,6 @@ button.secondary{
     </div>
 
   </div>
-
 
   <div>
 
@@ -979,7 +794,6 @@ button.secondary{
 
 </div>
 
-
 <label for="rackNote">
   Inspection Note
 </label>
@@ -988,7 +802,6 @@ button.secondary{
   id="rackNote"
   placeholder="Example: 145D dwell"
 >
-
 
 <button id="addRackInspection">
   ADD INSPECTION
@@ -1039,7 +852,6 @@ button.secondary{
 
 </section>
 
-
 </main>
 
 
@@ -1051,60 +863,62 @@ const data = {
 
   chassis: {
 
-    "5652": {
-      "Pre-repair": [],
-      "Post-repair": [],
-      "Add-on": []
+    "5652":{
+      "Pre-repair":[],
+      "Post-repair":[],
+      "Add-on":[]
     },
 
-    "5900": {
-      "Pre-repair": [],
-      "Post-repair": [],
-      "Add-on": []
+    "5900":{
+      "Pre-repair":[],
+      "Post-repair":[],
+      "Add-on":[]
     },
 
-    "5658": {
-      "Pre-repair": [],
-      "Post-repair": [],
-      "Add-on": []
+    "5658":{
+      "Pre-repair":[],
+      "Post-repair":[],
+      "Add-on":[]
     }
 
   },
-
 
   containers: {
 
-    "5653": {
-      "Pre-repair": [],
-      "Post-repair": [],
-      "Add-on": []
+    "5653":{
+      "Pre-repair":[],
+      "Post-repair":[],
+      "Add-on":[]
     },
 
-    "5900": {
-      "Pre-repair": [],
-      "Post-repair": [],
-      "Add-on": []
+    "5900":{
+      "Pre-repair":[],
+      "Post-repair":[],
+      "Add-on":[]
     },
 
-    "5658": {
-      "Pre-repair": [],
-      "Post-repair": [],
-      "Add-on": []
+    "5658":{
+      "Pre-repair":[],
+      "Post-repair":[],
+      "Add-on":[]
     }
 
   },
 
-
   racks: {
 
-    "5657": {
-      "Pre-repair": []
+    "5657":{
+      "Pre-repair":[]
     }
 
   }
 
 };
 
+
+/* =========================
+   TOTAL INSPECTIONS
+   ========================= */
 
 function totalInspections(){
 
@@ -1129,6 +943,10 @@ function totalInspections(){
 }
 
 
+/* =========================
+   PROGRESS
+   ========================= */
+
 function updateProgress(){
 
   const count =
@@ -1145,6 +963,69 @@ function updateProgress(){
         100,
         (count / 28) * 100
       ) + "%";
+
+}
+
+
+/* =========================
+   DUPLICATE CHECK
+   ========================= */
+
+/*
+  The same equipment number may be inspected
+  multiple times in one day if the inspection
+  type is different.
+
+  Example:
+
+  NSPZ 123456 — 5652
+  NSPZ 123456 — 5900
+  NSPZ 123456 — 5658
+
+  These are all allowed.
+
+  The warning only appears when the same
+  equipment number AND same inspection type
+  have already been entered.
+*/
+
+function hasDuplicate(
+  equipmentData,
+  type,
+  section,
+  equipmentNumber
+){
+
+  return equipmentData[type][section]
+    .some(item => item[0] === equipmentNumber);
+
+}
+
+
+function confirmDuplicate(
+  equipmentName,
+  equipmentNumber,
+  inspectionCode
+){
+
+  return confirm(
+
+    "Possible duplicate inspection.\n\n" +
+
+    equipmentName +
+    ": " +
+    equipmentNumber +
+    "\n" +
+
+    "Inspection: " +
+    inspectionCode +
+    "\n\n" +
+
+    "This inspection has already been entered today.\n\n" +
+
+    "Do you want to add it again anyway?"
+
+  );
 
 }
 
@@ -1206,9 +1087,47 @@ function addInspection(){
         : "Add-on";
 
 
+  const equipmentNumber =
+    prefix + " " + number;
+
+
+  /*
+    Check for the same chassis AND
+    the same inspection type.
+  */
+
+  if(
+    hasDuplicate(
+      data.chassis,
+      type,
+      section,
+      equipmentNumber
+    )
+  ){
+
+    const shouldAdd =
+      confirmDuplicate(
+        "Chassis",
+        equipmentNumber,
+        type
+      );
+
+    if(!shouldAdd){
+
+      document
+        .getElementById("number")
+        .focus();
+
+      return;
+
+    }
+
+  }
+
+
   data.chassis[type][section].push([
 
-    prefix + " " + number,
+    equipmentNumber,
 
     condition,
 
@@ -1309,9 +1228,46 @@ function addContainerInspection(){
         : "Add-on";
 
 
+  const equipmentNumber =
+    prefix + " " + number;
+
+
+  /*
+    Duplicate check for containers.
+  */
+
+  if(
+    hasDuplicate(
+      data.containers,
+      type,
+      section,
+      equipmentNumber
+    )
+  ){
+
+    const shouldAdd =
+      confirmDuplicate(
+        "Container",
+        equipmentNumber,
+        type
+      );
+
+    if(!shouldAdd){
+
+      document
+        .getElementById("containerNumber")
+        .focus();
+
+      return;
+
+    }
+
+  }
+
+
   data.containers[type][section].push([
 
-    prefix + " " + number,
+    equipmentNumber,
 
     condition,
 
@@ -1383,9 +1339,46 @@ function addRackInspection(){
   }
 
 
+  const equipmentNumber =
+    prefix + " " + number;
+
+
+  /*
+    Duplicate check for chassis racks.
+  */
+
+  if(
+    hasDuplicate(
+      data.racks,
+      "5657",
+      "Pre-repair",
+      equipmentNumber
+    )
+  ){
+
+    const shouldAdd =
+      confirmDuplicate(
+        "Chassis Rack",
+        equipmentNumber,
+        "5657"
+      );
+
+    if(!shouldAdd){
+
+      document
+        .getElementById("rackNumber")
+        .focus();
+
+      return;
+
+    }
+
+  }
+
+
   data.racks["5657"]["Pre-repair"].push([
 
-    prefix + " " + number,
+    equipmentNumber,
 
     condition,
 
@@ -1636,7 +1629,7 @@ function buildEOD(){
 
 
 /* =========================
-   GENERATE
+   GENERATE EOD
    ========================= */
 
 function generateEOD(){
