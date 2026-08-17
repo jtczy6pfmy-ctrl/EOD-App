@@ -61,6 +61,16 @@ body{
  padding: 12px;
 }
 
+/* Hide Spinners on Numeric Inputs */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 /* =========================================================
    HEADER
    ========================================================= */
@@ -670,7 +680,8 @@ button.primary{
 
     <input
      id="number"
-     type="tel"
+     type="number"
+     pattern="[0-9]*"
      inputmode="numeric"
      maxlength="6"
      placeholder="Enter 6 digits"
@@ -786,7 +797,8 @@ button.primary{
 
     <input
      id="containerNumber"
-     type="tel"
+     type="number"
+     pattern="[0-9]*"
      inputmode="numeric"
      maxlength="6"
      placeholder="Enter 6 digits"
@@ -901,7 +913,8 @@ button.primary{
 
     <input
      id="rackNumber"
-     type="tel"
+     type="number"
+     pattern="[0-9]*"
      inputmode="numeric"
      maxlength="6"
      placeholder="Enter 6 digits"
@@ -1633,7 +1646,8 @@ function editRow(row,r){
  const num=
   document.createElement("input");
 
- num.type="tel";
+ num.type="number";
+ num.setAttribute("pattern", "[0-9]*");
  num.inputMode="numeric";
  num.maxLength=6;
  num.value=parts.number;
@@ -1951,6 +1965,19 @@ function generate(){
 }
 
 
+function attemptClose(){
+
+ window.close();
+
+ setTimeout(()=>{
+  if (!window.closed) {
+   alert("Report sent and app reset. You can now close this tab.");
+  }
+ }, 500);
+
+}
+
+
 function email(){
 
  const report=buildEOD();
@@ -1984,7 +2011,8 @@ function email(){
 
  setTimeout(()=>{
   resetForNewDay(false);
- },1500);
+  attemptClose();
+ },1000);
 
 }
 
