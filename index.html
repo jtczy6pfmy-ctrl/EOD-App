@@ -359,21 +359,6 @@ button.primary{
  color: #000000;
 }
 
-.reset-button{
- background:#ffffff;
- color:#c0392b;
- border:1px solid #e5a8a1;
-}
-
-.reset-button:hover{
- background:#fdf2f2;
-}
-
-.reset-button:active{
- background:#c0392b;
- color:#ffffff;
-}
-
 /* =========================================================
    INSPECTION LIST
    ========================================================= */
@@ -476,18 +461,6 @@ button.primary{
 
 .preview-actions button {
  width: auto;
-}
-
-/* =========================================================
-   RESET AREA
-   ========================================================= */
-
-.reset-card{
- border:1px solid #ead8d5;
-}
-
-.reset-card .card-header-styled{
- background: linear-gradient(90deg, #5c1d18 0%, #8b2820 100%);
 }
 
 .hidden{
@@ -1087,7 +1060,21 @@ const STORAGE_KEY="eodInspectionReport_v9";
 
 const TARGET=28;
 
-const TODAY="8/17/26";
+
+function formatDate(d=new Date()){
+
+ return (
+  (d.getMonth()+1)+
+  "/"+
+  d.getDate()+
+  "/"+
+  String(d.getFullYear()).slice(-2)
+ );
+
+}
+
+
+const TODAY=formatDate(new Date());
 
 
 const SPECIAL=[
@@ -1193,19 +1180,6 @@ const fill=
  document.getElementById("fill");
 
 
-function formatDate(d=new Date()){
-
- return (
-  (d.getMonth()+1)+
-  "/"+
-  d.getDate()+
-  "/"+
-  String(d.getFullYear()).slice(-2)
- );
-
-}
-
-
 function save(){
 
  localStorage.setItem(
@@ -1307,7 +1281,7 @@ function progress(){
 
 function sectionFor(type){
 
- return type==="5652"
+ return (type==="5652"||type==="5653")
   ?"Pre-repair"
   :type==="5900"
   ?"Post-repair"
@@ -1441,24 +1415,30 @@ function addRack(){
 }
 
 
-function chassisRecords(){
+function allRecords(){
 
  const r=[];
 
- Object.keys(data.chassis).forEach(type=>{
+ Object.keys(data).forEach(category=>{
 
-  const section=sectionFor(type);
+  Object.keys(data[category]).forEach(type=>{
 
-  data.chassis[type][section]
-  .forEach((item,index)=>{
+   Object.keys(data[category][type]).forEach(section=>{
 
-   r.push({
-    type:type,
-    section:section,
-    index:index,
-    number:item[0],
-    condition:item[1],
-    note:item[2]||""
+    data[category][type][section].forEach((item,index)=>{
+
+     r.push({
+      category:category,
+      type:type,
+      section:section,
+      index:index,
+      number:item[0],
+      condition:item[1],
+      note:item[2]||""
+     });
+
+    });
+
    });
 
   });
@@ -1512,7 +1492,7 @@ function render(){
 
  list.innerHTML="";
 
- const records=chassisRecords();
+ const records=allRecords();
 
  if(!records.length){
 
@@ -1583,167 +1563,125 @@ function editRow(row,r){
 
  area.className="inspection-edit";
 
+ const isChassis = r.category === "chassis";
+ const isContainer = r.category === "containers";
+ const isRack = r.category === "racks";
 
- const type=
-  select(
-   ["5652","5900","5658"],
-   r.type
-  );
+ const availableTypes = isChassis
+  ? ["5652", "5900", "5658"]
+  : isContainer
+  ? ["5653", "5900", "5658"]
+  : ["5657"];
 
+ const type = select(availableTypes, r.type);
 
- const condition=
-  select(
-   ["Defect","No Defect"],
-   r.condition
-  );
+ const condition = select(["Defect", "No Defect"], r.condition);
 
+ const parts = split(r.number);
 
- const parts=split(r.number);
+ let p;
 
+ if (isChassis) {
+  const prefixes = SPECIAL.includes(terminal.value)
+   ? [...BASE, ...EXTRA]
+   : [...BASE, ...(EXTRA.includes(parts.prefix) ? [parts.prefix] : [])];
+  p = select([...new Set(prefixes)], parts.prefix);
+ } else if (isContainer) {
+  p = document.createElement("input");
+  p.type = "text";
+  p.maxLength = 4;
+  p.value = parts.prefix;
+  p.oninput = () => {
+   p.value = p.value.replace(/[^a-zA-Z]/g, "").toUpperCase().slice(0, 4);
+  };
+ } else {
+  p = document.createElement("input");
+  p.type = "text";
+  p.value = "ZNSU";
+  p.disabled = true;
+ }
 
- const prefixes=
-  SPECIAL.includes(terminal.value)
-   ? [...BASE,...EXTRA]
-   : [
-      ...BASE,
-      ...(EXTRA.includes(parts.prefix)
-       ? [parts.prefix]
-       : [])
-     ];
-
-
- const p=
-  select(
-   [...new Set(prefixes)],
-   parts.prefix
-  );
-
-
- const num=
-  document.createElement("input");
-
- num.type="number";
+ const num = document.createElement("input");
+ num.type = "number";
  num.setAttribute("pattern", "[0-9]*");
- num.inputMode="numeric";
- num.maxLength=6;
- num.value=parts.number;
+ num.inputMode = "numeric";
+ num.maxLength = 6;
+ num.value = parts.number;
 
- num.oninput=()=>{
-
-  num.value=
-   num.value
-   .replace(/\D/g,"")
-   .slice(0,6);
-
+ num.oninput = () => {
+  num.value = num.value.replace(/\D/g, "").slice(0, 6);
  };
 
+ const check = document.createElement("button");
+ check.className = "edit-button editing";
+ check.type = "button";
+ check.textContent = "✓";
+ check.title = "Save correction";
 
- const check=
-  document.createElement("button");
+ const del = document.createElement("button");
+ del.className = "edit-button delete-button";
+ del.type = "button";
+ del.textContent = "×";
+ del.title = "Delete inspection";
 
- check.className=
-  "edit-button editing";
-
- check.type="button";
- check.textContent="✓";
- check.title="Save correction";
-
-
- const del=
-  document.createElement("button");
-
- del.className=
-  "edit-button delete-button";
-
- del.type="button";
- del.textContent="×";
- del.title="Delete inspection";
-
-
- area.append(
-  type,
-  condition,
-  p,
-  num,
-  check,
-  del
- );
-
+ area.append(type, condition, p, num, check, del);
  row.appendChild(area);
 
-
- check.onclick=()=>{
-
-  if(!/^\d{6}$/.test(num.value)){
-
-   alert(
-    "Enter exactly 6 digits for the chassis number."
-   );
-
+ check.onclick = () => {
+  if (isContainer && !/^[A-Z]{4}$/.test(p.value)) {
+   alert("Enter exactly 4 letters for the container prefix.");
    return;
-
   }
 
+  if (!/^\d{6}$/.test(num.value)) {
+   alert("Enter exactly 6 digits for the equipment number.");
+   return;
+  }
 
-  const old=
-   data.chassis[r.type][r.section];
+  const targetGroup = data[r.category][r.type][r.section];
+  const oldIndex = targetGroup.findIndex(
+   x => x[0] === r.number && x[1] === r.condition && (x[2] || "") === (r.note || "")
+  );
 
-  const oldIndex=
-   old.findIndex(x=>
-    x[0]===r.number &&
-    x[1]===r.condition &&
-    (x[2]||"")===
-    (r.note||"")
-   );
+  if (oldIndex < 0) return;
 
-  if(oldIndex<0)return;
+  targetGroup.splice(oldIndex, 1);
 
-  old.splice(oldIndex,1);
+  const newType = type.value;
+  const newSection = sectionFor(newType);
+  const newPrefix = isChassis ? p.value : isContainer ? p.value : "ZNSU";
 
-  const newType=type.value;
-  const newSection=sectionFor(newType);
-
-  data.chassis[newType][newSection].push([
-   p.value+" "+num.value,
+  data[r.category][newType][newSection].push([
+   newPrefix + " " + num.value,
    condition.value,
-   r.note||""
+   r.note || ""
   ]);
 
   save();
   progress();
   render();
-
  };
 
+ del.onclick = () => {
+  if (
+   !confirm(
+    "Delete this inspection?\n\n" + r.type + " " + r.condition + " " + r.number
+   )
+  )
+   return;
 
- del.onclick=()=>{
+  const targetGroup = data[r.category][r.type][r.section];
+  const oldIndex = targetGroup.findIndex(
+   x => x[0] === r.number && x[1] === r.condition && (x[2] || "") === (r.note || "")
+  );
 
-  if(!confirm(
-   "Delete this inspection?\n\n"+
-   r.type+" "+
-   r.condition+" "+
-   r.number
-  ))return;
-
-
-  const old=
-   data.chassis[r.type][r.section];
-
-  const oldIndex=
-   old.findIndex(x=>
-    x[0]===r.number &&
-    x[1]===r.condition &&
-    (x[2]||"")===
-    (r.note||"")
-   );
-
-  if(oldIndex>=0)
-   old.splice(oldIndex,1);
+  if (oldIndex >= 0) {
+   targetGroup.splice(oldIndex, 1);
+  }
 
   save();
   progress();
   render();
-
  };
 
  type.focus();
@@ -1816,7 +1754,7 @@ function buildEOD(){
  );
 
  out.push(
-  "Date: "+formatDate(),
+  "Date: "+TODAY,
   ""
  );
 
@@ -1962,7 +1900,7 @@ function email(){
   "End of Day Report - "+
   terminal.value+
   " - "+
-  formatDate();
+  TODAY;
 
  const mailto=
   "mailto:joe@caliberis.com"+
@@ -2096,6 +2034,10 @@ function restore(){
    saved.notes||
    "";
 
+ } else if (saved && saved.date !== TODAY) {
+
+  localStorage.removeItem(STORAGE_KEY);
+
  }
 
 }
@@ -2142,15 +2084,6 @@ document
    .getElementById("previewCard")
    .classList
    .add("hidden");
-
- };
-
-
-document
- .getElementById("resetDay")
- .onclick=()=>{
-
-  resetForNewDay(true);
 
  };
 
