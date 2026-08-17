@@ -1,3971 +1,684 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <link rel="apple-touch-icon" href="./Aspect Associates.png.png">
-
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
-
-  <meta
-    name="apple-mobile-web-app-capable"
-    content="yes"
-  >
-
-  <meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="default"
-  >
-
-  <meta
-    name="apple-mobile-web-app-title"
-    content="EOD Inspection"
-  >
-
-  <meta
-    name="theme-color"
-    content="#eef1f5"
-    media="(prefers-color-scheme: light)"
-  >
-
-  <meta
-    name="theme-color"
-    content="#0b0f14"
-    media="(prefers-color-scheme: dark)"
-  >
-
-  <title>EOD Inspection</title>
+<link rel="apple-touch-icon" href="./Aspect Associates.png.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="EOD Inspection">
+<meta name="theme-color" content="#eef1f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0f14" media="(prefers-color-scheme: dark)">
+<title>EOD Inspection</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 :root{
-  color-scheme:light dark;
-
-  --bg:#eef1f5;
-  --card:#ffffff;
-  --border:#dfe3e8;
-  --text:#17202a;
-  --muted:#68727d;
-  --input:#ffffff;
-  --input-border:#c8ced6;
-
-  --accent:#17202a;
-  --accent-text:#ffffff;
-
-  --secondary:#e5e8ec;
-  --secondary-text:#17202a;
-
-  --progress-bg:#d9dee5;
-
-  --success:#16834b;
-  --success-bg:#e8f6ee;
-  --success-border:#bfe5ce;
-
-  --danger:#c62828;
-  --danger-bg:#fff0f0;
-  --danger-border:#e3aaaa;
-
-  --overlay:rgba(0,0,0,.45);
+ color-scheme:light dark;
+ --bg:#eef1f5;--card:#fff;--border:#dfe3e8;--text:#17202a;
+ --muted:#68727d;--input:#fff;--input-border:#c8ced6;
+ --accent:#17202a;--accent-text:#fff;--secondary:#e5e8ec;
+ --secondary-text:#17202a;--progress-bg:#d9dee5;
+ --success:#16834b;--danger:#c62828;
 }
-
-html{
-  background:var(--bg);
-}
-
-body{
-  margin:0;
-  min-height:100vh;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  -webkit-font-smoothing:antialiased;
-}
-
-header{
-  background:linear-gradient(180deg,#15191e 0%,#0b0d10 100%);
-  color:#fff;
-  padding:20px;
-  text-align:center;
-  font-size:22px;
-  font-weight:750;
-  box-shadow:0 2px 10px rgba(0,0,0,.18);
-}
-
-.app{
-  width:min(760px,100%);
-  margin:0 auto;
-  padding:18px 14px 50px;
-}
-
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 4px 18px rgba(15,23,42,.08);
-}
-
-.card h2{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:0 0 18px;
-  font-size:20px;
-  line-height:1.2;
-  font-weight:750;
-}
-
-.card h2::before{
-  content:"";
-  width:4px;
-  height:22px;
-  border-radius:4px;
-  background:var(--accent);
-}
-
-.terminal-label{
-  display:block;
-  font-weight:700;
-  font-size:14px;
-  color:var(--text);
-  margin:0 0 7px;
-}
-
-.terminal-select{
-  font-size:18px;
-  font-weight:750;
-}
-
-.date{
-  text-align:center;
-  color:var(--muted);
-  font-size:15px;
-  font-weight:650;
-  margin-top:14px;
-  margin-bottom:12px;
-}
-
-.progress{
-  display:flex;
-  align-items:baseline;
-  justify-content:center;
-  gap:5px;
-  font-size:15px;
-  font-weight:700;
-  margin-bottom:10px;
-  color:var(--muted);
-}
-
-.progress span{
-  font-size:26px;
-  font-weight:800;
-  color:var(--text);
-}
-
-.progress.count-bump span{
-  animation:countBump .35s ease;
-}
-
-@keyframes countBump{
-  0%{transform:scale(1)}
-  45%{transform:scale(1.18)}
-  100%{transform:scale(1)}
-}
-
-.progressbar{
-  height:16px;
-  background:var(--progress-bg);
-  border-radius:999px;
-  overflow:hidden;
-  padding:2px;
-  position:relative;
-}
-
-.fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#343a40,#111);
-  border-radius:999px;
-
-  transition:
-    width .45s cubic-bezier(.22,.8,.25,1),
-    transform .25s ease;
-}
-
-.fill.progress-pulse{
-  animation:progressPulse .42s ease;
-}
-
-@keyframes progressPulse{
-  0%{transform:scaleY(1)}
-  45%{transform:scaleY(1.22)}
-  100%{transform:scaleY(1)}
-}
-
-.progress.complete .fill{
-  animation:completedBar .65s ease;
-}
-
-@keyframes completedBar{
-  0%{transform:scaleY(1)}
-  40%{transform:scaleY(1.35)}
-  100%{transform:scaleY(1)}
-}
-
-.progress-complete-message{
-  display:none;
-  margin-top:9px;
-  text-align:center;
-  font-size:13px;
-  font-weight:750;
-  color:var(--success);
-}
-
-.progress-complete-message.show{
-  display:block;
-}
-
-.progressbar.milestone{
-  position:relative;
-  overflow:visible;
-}
-
-.progressbar.milestone::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:var(--text);
-  transform:translate(-50%,-50%) scale(0);
-  opacity:0;
-  pointer-events:none;
-  z-index:5;
-}
-
-.progressbar.milestone.hit::after{
-  animation:milestonePop .8s cubic-bezier(.2,.8,.2,1);
-}
-
-@keyframes milestonePop{
-  0%{
-    opacity:0;
-    transform:translate(-50%,-50%) scale(0);
-  }
-
-  15%{
-    opacity:1;
-    transform:translate(-50%,-50%) scale(1);
-  }
-
-  45%{
-    opacity:.8;
-    transform:translate(-50%,-50%) scale(4);
-  }
-
-  75%{
-    opacity:.4;
-    transform:translate(-50%,-50%) scale(7);
-  }
-
-  100%{
-    opacity:0;
-    transform:translate(-50%,-50%) scale(10);
-  }
-}
-
-label{
-  display:block;
-  font-weight:700;
-  font-size:14px;
-  color:var(--text);
-  margin:15px 0 7px;
-}
-
-input,
-select,
-textarea{
-  width:100%;
-  padding:13px 14px;
-  border:1px solid var(--input-border);
-  border-radius:10px;
-  font-family:inherit;
-  font-size:17px;
-  background:var(--input);
-  color:var(--text);
-  outline:none;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:#6b7280;
-  box-shadow:0 0 0 3px rgba(107,114,128,.14);
-}
-
-input::placeholder,
-textarea::placeholder{
-  color:#8a939e;
-}
-
-.input-ready{
-  border-color:var(--success) !important;
-  box-shadow:0 0 0 3px rgba(22,131,75,.10) !important;
-}
-
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-
-.static-type{
-  padding:13px 14px;
-  border:1px solid var(--input-border);
-  border-radius:10px;
-  font-size:17px;
-  background:var(--secondary);
-  color:var(--text);
-  font-weight:700;
-  min-height:49px;
-  display:flex;
-  align-items:center;
-}
-
-button{
-  width:100%;
-  border:0;
-  border-radius:10px;
-  padding:14px 16px;
-  margin-top:17px;
-  min-height:50px;
-  font-family:inherit;
-  font-size:16px;
-  font-weight:750;
-  letter-spacing:.02em;
-  cursor:pointer;
-  background:var(--accent);
-  color:var(--accent-text);
-  -webkit-tap-highlight-color:transparent;
-  box-shadow:0 2px 5px rgba(0,0,0,.12);
-
-  transition:
-    transform .08s ease,
-    box-shadow .15s ease,
-    opacity .15s ease;
-}
-
-button:active{
-  transform:scale(.985);
-}
-
-button:disabled{
-  cursor:default;
-  opacity:.75;
-}
-
-button.secondary{
-  background:var(--secondary);
-  color:var(--secondary-text);
-  box-shadow:none;
-}
-
-#preview{
-  white-space:pre-wrap;
-  background:var(--secondary);
-  border:1px solid var(--border);
-  border-radius:11px;
-  padding:15px;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:14px;
-  line-height:1.55;
-  overflow:auto;
-  color:var(--text);
-}
-
-.hidden{
-  display:none !important;
-}
-
-.record-added{
-  animation:recordAdded .45s ease;
-}
-
-@keyframes recordAdded{
-  0%{
-    box-shadow:0 4px 18px rgba(15,23,42,.08);
-  }
-
-  40%{
-    box-shadow:0 0 0 4px rgba(22,131,75,.14),
-               0 8px 24px rgba(15,23,42,.12);
-  }
-
-  100%{
-    box-shadow:0 4px 18px rgba(15,23,42,.08);
-  }
-}
-
-.preview-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.preview-actions button{
-  margin-top:17px;
-}
-
+html,body{margin:0;min-height:100vh;background:var(--bg);color:var(--text)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+header{background:linear-gradient(180deg,#15191e,#0b0d10);color:#fff;padding:20px;text-align:center;font-size:22px;font-weight:750}
+.app{width:min(760px,100%);margin:auto;padding:18px 14px 50px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 4px 18px rgba(15,23,42,.08)}
+.card h2{display:flex;align-items:center;gap:10px;margin:0 0 18px;font-size:20px}
+.card h2:before{content:"";width:4px;height:22px;border-radius:4px;background:var(--accent)}
+label{display:block;font-weight:700;font-size:14px;margin:15px 0 7px}
+input,select,textarea{width:100%;padding:13px 14px;border:1px solid var(--input-border);border-radius:10px;font:inherit;font-size:17px;background:var(--input);color:var(--text);outline:none}
+textarea{min-height:100px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.static-type{padding:13px 14px;border:1px solid var(--input-border);border-radius:10px;font-size:17px;background:var(--secondary);font-weight:700;min-height:49px}
+button{width:100%;border:0;border-radius:10px;padding:14px 16px;margin-top:17px;min-height:50px;font:750 16px inherit;cursor:pointer;background:var(--accent);color:var(--accent-text)}
+button:active{transform:scale(.985)}
+button.secondary{background:var(--secondary);color:var(--secondary-text)}
+.date{text-align:center;color:var(--muted);font-size:15px;font-weight:650;margin:14px 0}
+.progress{text-align:center;font-weight:700;color:var(--muted);margin-bottom:10px}
+.progress span{font-size:26px;color:var(--text)}
+.progressbar{height:16px;background:var(--progress-bg);border-radius:999px;overflow:hidden;padding:2px}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#343a40,#111);border-radius:999px;transition:width .4s}
+.progress-complete-message{display:none;text-align:center;color:var(--success);font-weight:750;margin-top:9px}
+.progress-complete-message.show{display:block}
+.hidden{display:none!important}
 
 /* INSPECTION LIST */
+.inspection-list{display:flex;flex-direction:column;gap:8px}
+.inspection-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px 12px;border:1px solid var(--border);border-radius:10px;background:var(--secondary)}
+.inspection-display{font-size:15px;font-weight:750;line-height:1.35}
+.inspection-edit{display:grid;grid-template-columns:90px 115px 95px 1fr auto;gap:7px;align-items:center}
+.inspection-edit select,.inspection-edit input{min-width:0;padding:9px 8px;font-size:14px;border-radius:8px}
+.edit-button{width:45px;min-width:45px;height:45px;min-height:45px;padding:0;margin:0;font-size:22px}
+.edit-button.editing{background:var(--success);color:#fff}
+.delete-button{background:var(--danger)!important;color:#fff!important}
+.empty-list{text-align:center;padding:12px;color:var(--muted);font-size:14px;font-weight:600}
 
-.inspection-list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-.inspection-row{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:10px;
-  align-items:center;
-  padding:11px 12px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  background:var(--secondary);
-}
-
-.inspection-display{
-  font-size:15px;
-  font-weight:750;
-  color:var(--text);
-  line-height:1.35;
-  word-break:break-word;
-}
-
-.inspection-edit{
-  display:grid;
-  grid-template-columns:90px 115px 95px 1fr auto;
-  gap:7px;
-  align-items:center;
-}
-
-.inspection-edit select,
-.inspection-edit input{
-  min-width:0;
-  padding:9px 8px;
-  font-size:14px;
-  border-radius:8px;
-}
-
-.edit-button{
-  width:45px;
-  min-width:45px;
-  height:45px;
-  min-height:45px;
-  padding:0;
-  margin:0;
-  border-radius:9px;
-  font-size:22px;
-  line-height:1;
-}
-
-.edit-button.editing{
-  background:var(--success);
-  color:#fff;
-}
-
-.empty-list{
-  text-align:center;
-  padding:12px;
-  color:var(--muted);
-  font-size:14px;
-  font-weight:600;
-}
-
-
-/* MODAL */
-
-.modal-overlay{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:var(--overlay);
-  backdrop-filter:blur(5px);
-  -webkit-backdrop-filter:blur(5px);
-}
-
-.modal-overlay.show{
-  display:flex;
-}
-
-.modal{
-  width:min(430px,100%);
-  background:var(--card);
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 20px 60px rgba(0,0,0,.28);
-  animation:modalIn .18s ease-out;
-}
-
-@keyframes modalIn{
-  from{
-    opacity:0;
-    transform:translateY(8px) scale(.98);
-  }
-
-  to{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
-}
-
-.modal-title{
-  margin:0 0 10px;
-  font-size:21px;
-  font-weight:800;
-}
-
-.modal-message{
-  margin:0;
-  color:var(--muted);
-  font-size:16px;
-  line-height:1.5;
-  white-space:pre-line;
-}
-
-.modal-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:20px;
-}
-
-.modal-actions button{
-  margin-top:0;
-}
-
-.modal-no{
-  background:var(--secondary);
-  color:var(--secondary-text);
-  box-shadow:none;
-}
-
-
-/* MOBILE */
+.preview-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#preview{white-space:pre-wrap;background:var(--secondary);border:1px solid var(--border);border-radius:11px;padding:15px;font-family:ui-monospace,monospace;font-size:14px;line-height:1.55;overflow:auto}
 
 @media(max-width:650px){
-
-  .app{
-    padding:12px 10px 40px;
-  }
-
-  .card{
-    padding:17px;
-    border-radius:15px;
-  }
-
-  .row{
-    grid-template-columns:1fr;
-    gap:2px;
-  }
-
-  header{
-    padding:18px 16px;
-    font-size:21px;
-  }
-
-  button{
-    min-height:52px;
-  }
-
-  .preview-actions{
-    grid-template-columns:1fr;
-  }
-
-  .inspection-edit{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .inspection-edit select:nth-child(1){
-    grid-column:1;
-  }
-
-  .inspection-edit select:nth-child(2){
-    grid-column:2;
-  }
-
-  .inspection-edit select:nth-child(3){
-    grid-column:1;
-  }
-
-  .inspection-edit input{
-    grid-column:2;
-  }
-
-  .inspection-edit .edit-button{
-    grid-column:1 / -1;
-    width:100%;
-  }
-
+ .app{padding:12px 10px 40px}
+ .card{padding:17px}
+ .row{grid-template-columns:1fr;gap:2px}
+ header{padding:18px 16px;font-size:21px}
+ .preview-actions{grid-template-columns:1fr}
+ .inspection-edit{grid-template-columns:1fr 1fr}
+ .inspection-edit .edit-button,
+ .inspection-edit .delete-button{grid-column:span 1;width:100%}
 }
 
 @media(prefers-color-scheme:dark){
-
-  :root{
-    --bg:#0b0f14;
-    --card:#171d24;
-    --border:#2b333d;
-    --text:#f4f6f8;
-    --muted:#a7b0ba;
-    --input:#0f141a;
-    --input-border:#3b4550;
-    --accent:#f4f6f8;
-    --accent-text:#11161c;
-    --secondary:#242c35;
-    --secondary-text:#f4f6f8;
-    --progress-bg:#303943;
-    --success:#51d98c;
-    --success-bg:#14291f;
-    --success-border:#245b3c;
-    --danger:#ff7474;
-    --danger-bg:#321919;
-    --danger-border:#693434;
-  }
-
-  html,
-  body{
-    background:#0b0f14;
-    color:#f4f6f8;
-  }
-
-  header{
-    background:#000;
-  }
-
-  .fill{
-    background:#f4f6f8;
-  }
-
-  input,
-  select,
-  textarea{
-    background:#0f141a;
-    color:#f4f6f8;
-    border-color:#3b4550;
-  }
-
-  .static-type{
-    background:#242c35;
-    color:#f4f6f8;
-  }
-
-  button{
-    background:#f4f6f8;
-    color:#11161c;
-  }
-
-  button.secondary,
-  .modal-no{
-    background:#303943;
-    color:#f4f6f8;
-  }
-
-  #preview{
-    background:#0f141a;
-    border-color:#3b4550;
-    color:#f4f6f8;
-  }
-
+ :root{--bg:#0b0f14;--card:#171d24;--border:#2b333d;--text:#f4f6f8;--muted:#a7b0ba;--input:#0f141a;--input-border:#3b4550;--accent:#f4f6f8;--accent-text:#11161c;--secondary:#242c35;--secondary-text:#f4f6f8;--progress-bg:#303943;--success:#51d98c;--danger:#ff7474}
+ .fill{background:#f4f6f8}
 }
-
 </style>
 </head>
 
-
 <body>
-
-<header>
-  EOD Inspection
-</header>
-
+<header>EOD Inspection</header>
 
 <main class="app">
 
-
-<!-- PROGRESS / TERMINAL -->
-
 <section class="card">
+<label for="terminal">Terminal</label>
+<select id="terminal">
+<option>APPLIANCE PARK</option><option>ATLANTA</option><option>AUSTELL</option>
+<option>AYER</option><option>BETHLEHEM</option><option>BUFFALO</option>
+<option>CALUMET</option><option>CHARLOTTE</option><option>CHGO 63RD</option>
+<option>CHICAGO 47TH</option><option>CINCINNATI</option><option>CLEVELAND</option>
+<option>CROXTON</option><option>GREENSBORO</option><option selected>HARRISBURG</option>
+<option>JACKSONVILLE</option><option>KANSAS CITY</option><option>LANDERS</option>
+<option>MORRISVILLE</option><option>NORFOLK</option><option>PITTSBURGH</option>
+<option>RICKENBACKER</option><option>ROSSVILLE</option><option>RUTHERFORD</option>
+<option>ST LOUIS</option><option>TAYLOR</option><option>TOLEDO</option>
+</select>
 
-  <label
-    class="terminal-label"
-    for="terminal"
-  >
-    Terminal
-  </label>
-
-  <select
-    id="terminal"
-    class="terminal-select"
-  >
-
-    <option>APPLIANCE PARK</option>
-    <option>ATLANTA</option>
-    <option>AUSTELL</option>
-    <option>AYER</option>
-    <option>BETHLEHEM</option>
-    <option>BUFFALO</option>
-    <option>CALUMET</option>
-    <option>CHARLOTTE</option>
-    <option>CHGO 63RD</option>
-    <option>CHICAGO 47TH</option>
-    <option>CINCINNATI</option>
-    <option>CLEVELAND</option>
-    <option>CROXTON</option>
-    <option>GREENSBORO</option>
-    <option selected>HARRISBURG</option>
-    <option>JACKSONVILLE</option>
-    <option>KANSAS CITY</option>
-    <option>LANDERS</option>
-    <option>MORRISVILLE</option>
-    <option>NORFOLK</option>
-    <option>PITTSBURGH</option>
-    <option>RICKENBACKER</option>
-    <option>ROSSVILLE</option>
-    <option>RUTHERFORD</option>
-    <option>ST LOUIS</option>
-    <option>TAYLOR</option>
-    <option>TOLEDO</option>
-
-  </select>
-
-
-  <div
-    class="date"
-    id="reportDate"
-  ></div>
-
-
-  <div
-    class="progress"
-    id="progressContainer"
-  >
-    <span id="count">0</span> / 28
-  </div>
-
-
-  <div
-    class="progressbar"
-    id="progressBar"
-  >
-    <div
-      class="fill"
-      id="fill"
-    ></div>
-  </div>
-
-
-  <div
-    class="progress-complete-message"
-    id="completeMessage"
-  >
-    ✓ Daily inspection target complete
-  </div>
-
+<div class="date" id="reportDate"></div>
+<div class="progress"><span id="count">0</span> / 28</div>
+<div class="progressbar"><div class="fill" id="fill"></div></div>
+<div class="progress-complete-message" id="completeMessage">✓ Daily inspection target complete</div>
 </section>
 
-
-<!-- CHASSIS -->
-
-<section
-  class="card"
-  id="chassisCard"
->
-
+<section class="card" id="chassisCard">
 <h2>Chassis</h2>
 
-<input
-  type="hidden"
-  id="equipment"
-  value="Chassis"
->
-
-
 <div class="row">
-
-  <div>
-
-    <label for="prefix">
-      4-Character Prefix
-    </label>
-
-    <select id="prefix"></select>
-
-  </div>
-
-
-  <div>
-
-    <label for="number">
-      6-Digit Number
-    </label>
-
-    <input
-      id="number"
-      type="tel"
-      inputmode="numeric"
-      pattern="[0-9]*"
-      maxlength="6"
-      placeholder="Enter 6 digits"
-      autocomplete="off"
-    >
-
-  </div>
-
+<div>
+<label for="prefix">4-Character Prefix</label>
+<select id="prefix"></select>
+</div>
+<div>
+<label for="number">6-Digit Number</label>
+<input id="number" type="tel" inputmode="numeric" maxlength="6" placeholder="Enter 6 digits">
+</div>
 </div>
 
-
 <div class="row">
-
-  <div>
-
-    <label for="type">
-      Inspection Type
-    </label>
-
-    <select id="type">
-
-      <option value="5652">
-        5652 — Pre-repair
-      </option>
-
-      <option value="5900">
-        5900 — Post-repair
-      </option>
-
-      <option value="5658">
-        5658 — Add-on
-      </option>
-
-    </select>
-
-  </div>
-
-
-  <div>
-
-    <label for="condition">
-      Condition
-    </label>
-
-    <select id="condition">
-
-      <option value="Defect">
-        Defect
-      </option>
-
-      <option value="No Defect">
-        No Defect
-      </option>
-
-    </select>
-
-  </div>
-
+<div>
+<label for="type">Inspection Type</label>
+<select id="type">
+<option value="5652">5652 — Pre-repair</option>
+<option value="5900">5900 — Post-repair</option>
+<option value="5658">5658 — Add-on</option>
+</select>
+</div>
+<div>
+<label for="condition">Condition</label>
+<select id="condition">
+<option>Defect</option><option>No Defect</option>
+</select>
+</div>
 </div>
 
+<label for="equipmentNote">Inspection Note</label>
+<input id="equipmentNote" placeholder="Example: 145D dwell">
 
-<label for="equipmentNote">
-  Inspection Note
-</label>
-
-<input
-  id="equipmentNote"
-  placeholder="Example: 145D dwell"
-  autocomplete="off"
->
-
-
-<button id="addInspection">
-  ADD INSPECTION
-</button>
-
+<button id="addInspection">ADD INSPECTION</button>
 </section>
-
-
-<!-- CONTAINERS -->
-
-<section
-  class="card"
-  id="containersCard"
->
-
-<h2>Containers</h2>
-
-
-<div class="row">
-
-  <div>
-
-    <label for="containerPrefix">
-      4-Character Prefix
-    </label>
-
-    <input
-      id="containerPrefix"
-      maxlength="4"
-      placeholder="ABCD"
-      autocomplete="off"
-    >
-
-  </div>
-
-
-  <div>
-
-    <label for="containerNumber">
-      6-Digit Number
-    </label>
-
-    <input
-      id="containerNumber"
-      type="tel"
-      inputmode="numeric"
-      pattern="[0-9]*"
-      maxlength="6"
-      placeholder="Enter 6 digits"
-      autocomplete="off"
-    >
-
-  </div>
-
-</div>
-
-
-<div class="row">
-
-  <div>
-
-    <label for="containerType">
-      Inspection Type
-    </label>
-
-    <select id="containerType">
-
-      <option value="5653">
-        5653 — Pre-repair
-      </option>
-
-      <option value="5900">
-        5900 — Post-repair
-      </option>
-
-      <option value="5658">
-        5658 — Add-on
-      </option>
-
-    </select>
-
-  </div>
-
-
-  <div>
-
-    <label for="containerCondition">
-      Condition
-    </label>
-
-    <select id="containerCondition">
-
-      <option value="Defect">
-        Defect
-      </option>
-
-      <option value="No Defect">
-        No Defect
-      </option>
-
-    </select>
-
-  </div>
-
-</div>
-
-
-<label for="containerNote">
-  Inspection Note
-</label>
-
-<input
-  id="containerNote"
-  placeholder="Example: 145D dwell"
-  autocomplete="off"
->
-
-
-<button id="addContainerInspection">
-  ADD INSPECTION
-</button>
-
-</section>
-
-
-<!-- CHASSIS RACKS -->
-
-<section
-  class="card"
-  id="racksCard"
->
-
-<h2>Chassis Racks</h2>
-
-
-<div class="row">
-
-  <div>
-
-    <label>
-      4-Character Prefix
-    </label>
-
-    <div class="static-type">
-      ZNSU
-    </div>
-
-  </div>
-
-
-  <div>
-
-    <label for="rackNumber">
-      6-Digit Number
-    </label>
-
-    <input
-      id="rackNumber"
-      type="tel"
-      inputmode="numeric"
-      pattern="[0-9]*"
-      maxlength="6"
-      placeholder="Enter 6 digits"
-      autocomplete="off"
-    >
-
-  </div>
-
-</div>
-
-
-<div class="row">
-
-  <div>
-
-    <label>
-      Inspection Type
-    </label>
-
-    <div class="static-type">
-      5657 — Pre-repair
-    </div>
-
-  </div>
-
-
-  <div>
-
-    <label for="rackCondition">
-      Condition
-    </label>
-
-    <select id="rackCondition">
-
-      <option value="Defect">
-        Defect
-      </option>
-
-      <option value="No Defect">
-        No Defect
-      </option>
-
-    </select>
-
-  </div>
-
-</div>
-
-
-<label for="rackNote">
-  Inspection Note
-</label>
-
-<input
-  id="rackNote"
-  placeholder="Example: 145D dwell"
-  autocomplete="off"
->
-
-
-<button id="addRackInspection">
-  ADD INSPECTION
-</button>
-
-</section>
-
-
-<!-- COMMENTS -->
 
 <section class="card">
+<h2>Containers</h2>
 
-<h2>
-  Comments or Notes of Interest
-</h2>
-
-
-<textarea
-  id="notes"
-  placeholder="Enter comments or notes of interest..."
-></textarea>
-
-
-<button id="generateEod">
-  GENERATE EOD
-</button>
-
-</section>
-
-
-<!-- INSPECTION LIST -->
-
-<section
-  class="card"
-  id="inspectionListCard"
->
-
-<h2>
-  Inspection List
-</h2>
-
-<div
-  id="inspectionList"
-  class="inspection-list"
->
-
-  <div class="empty-list">
-    No chassis inspections entered yet.
-  </div>
-
+<div class="row">
+<div><label for="containerPrefix">4-Character Prefix</label><input id="containerPrefix" maxlength="4" placeholder="ABCD"></div>
+<div><label for="containerNumber">6-Digit Number</label><input id="containerNumber" type="tel" inputmode="numeric" maxlength="6" placeholder="Enter 6 digits"></div>
 </div>
 
+<div class="row">
+<div><label for="containerType">Inspection Type</label>
+<select id="containerType">
+<option value="5653">5653 — Pre-repair</option><option value="5900">5900 — Post-repair</option><option value="5658">5658 — Add-on</option>
+</select></div>
+<div><label for="containerCondition">Condition</label>
+<select id="containerCondition"><option>Defect</option><option>No Defect</option></select></div>
+</div>
+
+<label for="containerNote">Inspection Note</label>
+<input id="containerNote" placeholder="Example: 145D dwell">
+<button id="addContainerInspection">ADD INSPECTION</button>
 </section>
 
+<section class="card">
+<h2>Chassis Racks</h2>
 
-<!-- REPORT PREVIEW -->
+<div class="row">
+<div><label>4-Character Prefix</label><div class="static-type">ZNSU</div></div>
+<div><label for="rackNumber">6-Digit Number</label><input id="rackNumber" type="tel" inputmode="numeric" maxlength="6" placeholder="Enter 6 digits"></div>
+</div>
 
-<section
-  class="card hidden"
-  id="previewCard"
->
+<div class="row">
+<div><label>Inspection Type</label><div class="static-type">5657 — Pre-repair</div></div>
+<div><label for="rackCondition">Condition</label><select id="rackCondition"><option>Defect</option><option>No Defect</option></select></div>
+</div>
 
-<h2>
-  EOD Report Preview
-</h2>
+<label for="rackNote">Inspection Note</label>
+<input id="rackNote" placeholder="Example: 145D dwell">
+<button id="addRackInspection">ADD INSPECTION</button>
+</section>
 
+<section class="card">
+<h2>Comments or Notes of Interest</h2>
+<textarea id="notes" placeholder="Enter comments or notes of interest..."></textarea>
+<button id="generateEod">GENERATE EOD</button>
+</section>
 
+<section class="card">
+<h2>Inspection List</h2>
+<div id="inspectionList" class="inspection-list"></div>
+</section>
+
+<section class="card hidden" id="previewCard">
+<h2>EOD Report Preview</h2>
 <div id="preview"></div>
-
-
 <div class="preview-actions">
-
-  <button
-    id="emailEod"
-    class="secondary"
-  >
-    EMAIL EOD
-  </button>
-
-
-  <button
-    id="editReport"
-    class="secondary"
-  >
-    BACK TO EDIT
-  </button>
-
+<button id="emailEod" class="secondary">EMAIL EOD</button>
+<button id="editReport" class="secondary">BACK TO EDIT</button>
 </div>
-
 </section>
 
 </main>
 
-
-<!-- DUPLICATE WARNING -->
-
-<div
-  class="modal-overlay"
-  id="duplicateModal"
-  aria-hidden="true"
->
-
-  <div
-    class="modal"
-    role="dialog"
-    aria-modal="true"
-  >
-
-    <h3 class="modal-title">
-      Possible Duplicate
-    </h3>
-
-
-    <p
-      class="modal-message"
-      id="duplicateModalMessage"
-    ></p>
-
-
-    <div class="modal-actions">
-
-      <button
-        type="button"
-        class="modal-no"
-        id="duplicateNo"
-      >
-        NO
-      </button>
-
-
-      <button
-        type="button"
-        id="duplicateYes"
-      >
-        YES
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- NEW REPORT WARNING -->
-
-<div
-  class="modal-overlay"
-  id="newReportModal"
-  aria-hidden="true"
->
-
-  <div
-    class="modal"
-    role="dialog"
-    aria-modal="true"
-  >
-
-    <h3 class="modal-title">
-      Existing Report Found
-    </h3>
-
-
-    <p
-      class="modal-message"
-      id="newReportModalMessage"
-    >
-      An inspection report is already in progress on this device.
-
-      Do you want to start a new report?
-
-      Choosing YES will clear the existing report.
-    </p>
-
-
-    <div class="modal-actions">
-
-      <button
-        type="button"
-        class="modal-no"
-        id="newReportNo"
-      >
-        NO — KEEP REPORT
-      </button>
-
-
-      <button
-        type="button"
-        id="newReportYes"
-      >
-        YES — START NEW
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
 <script>
-
 (() => {
-
 "use strict";
 
+const STORAGE_KEY="eodInspectionReport_v6";
+const TODAY="8/17/26";
 
-/* STORAGE */
+const SPECIAL=["CALUMET","LANDERS","CHGO 63RD","CHICAGO 47TH"];
+const BASE=["NSPZ","NSFZ"];
+const EXTRA=["TSXZ","LSFZ","TSFZ","TSNZ","PAHZ","PBRZ","UPDZ","UPHZ","DDRZ","DDTZ","DDGZ"];
 
-const STORAGE_KEY =
-  "eodInspectionReport_v5";
-
-
-/* SPECIAL PREFIX LOCATIONS */
-
-const SPECIAL_PREFIX_TERMINALS = [
-  "CALUMET",
-  "LANDERS",
-  "CHGO 63RD",
-  "CHICAGO 47TH"
-];
-
-
-const BASE_PREFIXES = [
-  "NSPZ",
-  "NSFZ"
-];
-
-
-const ADDITIONAL_PREFIXES = [
-  "TSXZ",
-  "LSFZ",
-  "TSFZ",
-  "TSNZ",
-  "PAHZ",
-  "PBRZ",
-  "UPDZ",
-  "UPHZ",
-  "DDRZ",
-  "DDTZ",
-  "DDGZ"
-];
-
-
-/* DATA */
-
-const data = {
-
-  chassis:{
-
-    "5652":{
-      "Pre-repair":[],
-      "Post-repair":[],
-      "Add-on":[]
-    },
-
-    "5900":{
-      "Pre-repair":[],
-      "Post-repair":[],
-      "Add-on":[]
-    },
-
-    "5658":{
-      "Pre-repair":[],
-      "Post-repair":[],
-      "Add-on":[]
-    }
-
+const data={
+ chassis:{
+  "5652":{
+   "Pre-repair":[
+    ["NSPZ 170564","No Defect",""],
+    ["NSPZ 160344","No Defect",""],
+    ["NSPZ 132150","No Defect",""],
+    ["NSPZ 161744","No Defect",""],
+    ["NSPZ 144634","Defect",""],
+    ["NSPZ 130259","Defect",""],
+    ["NSPZ 140111","Defect",""],
+    ["NSPZ 163259","Defect",""],
+    ["NSFZ 137506","Defect",""],
+    ["NSPZ 141045","Defect",""],
+    ["NSPZ 161874","Defect",""],
+    ["NSPZ 148115","Defect",""],
+    ["NSFZ 137815","Defect",""],
+    ["NSPZ 145813","Defect",""],
+    ["NSPZ 136169","Defect",""]
+   ],
+   "Post-repair":[],"Add-on":[]
   },
-
-
-  containers:{
-
-    "5653":{
-      "Pre-repair":[],
-      "Post-repair":[],
-      "Add-on":[]
-    },
-
-    "5900":{
-      "Pre-repair":[],
-      "Post-repair":[],
-      "Add-on":[]
-    },
-
-    "5658":{
-      "Pre-repair":[],
-      "Post-repair":[],
-      "Add-on":[]
-    }
-
+  "5900":{
+   "Pre-repair":[],
+   "Post-repair":[
+    ["NSPZ 132929","No Defect",""],
+    ["NSPZ 136169","No Defect",""]
+   ],
+   "Add-on":[]
   },
-
-
-  racks:{
-
-    "5657":{
-      "Pre-repair":[]
-    }
-
+  "5658":{
+   "Pre-repair":[],
+   "Post-repair":[],
+   "Add-on":[
+    ["NSPZ 166136","Defect",""],
+    ["NSPZ 133019","Defect",""]
+   ]
   }
-
+ },
+ containers:{
+  "5653":{"Pre-repair":[],"Post-repair":[],"Add-on":[]},
+  "5900":{"Pre-repair":[],"Post-repair":[],"Add-on":[]},
+  "5658":{"Pre-repair":[],"Post-repair":[],"Add-on":[]}
+ },
+ racks:{
+  "5657":{"Pre-repair":[]}
+ }
 };
 
+const terminal=document.getElementById("terminal");
+const prefix=document.getElementById("prefix");
+const list=document.getElementById("inspectionList");
+const notes=document.getElementById("notes");
+const count=document.getElementById("count");
+const fill=document.getElementById("fill");
 
-/* DOM */
+function formatDate(d=new Date()){
+ return (d.getMonth()+1)+"/"+d.getDate()+"/"+String(d.getFullYear()).slice(-2);
+}
 
-const terminal =
-  document.getElementById("terminal");
+function emptyData(){
+ return {
+  chassis:{
+   "5652":{"Pre-repair":[],"Post-repair":[],"Add-on":[]},
+   "5900":{"Pre-repair":[],"Post-repair":[],"Add-on":[]},
+   "5658":{"Pre-repair":[],"Post-repair":[],"Add-on":[]}
+  },
+  containers:{
+   "5653":{"Pre-repair":[],"Post-repair":[],"Add-on":[]},
+   "5900":{"Pre-repair":[],"Post-repair":[],"Add-on":[]},
+   "5658":{"Pre-repair":[],"Post-repair":[],"Add-on":[]}
+  },
+  racks:{"5657":{"Pre-repair":[]}}
+ };
+}
 
-const prefixSelect =
-  document.getElementById("prefix");
+function clone(obj){return JSON.parse(JSON.stringify(obj))}
 
-const duplicateModal =
-  document.getElementById("duplicateModal");
+function save(){
+ localStorage.setItem(STORAGE_KEY,JSON.stringify({
+  terminal:terminal.value,date:TODAY,data:data,notes:notes.value
+ }));
+}
 
-const duplicateModalMessage =
-  document.getElementById("duplicateModalMessage");
+function load(){
+ try{return JSON.parse(localStorage.getItem(STORAGE_KEY))}
+ catch(e){return null}
+}
 
-const duplicateYes =
-  document.getElementById("duplicateYes");
+function updatePrefixes(){
+ const current=prefix.value;
+ const values=SPECIAL.includes(terminal.value)?[...BASE,...EXTRA]:BASE;
+ prefix.innerHTML="";
+ values.forEach(p=>{
+  const o=document.createElement("option");
+  o.value=p;o.textContent=p;prefix.appendChild(o);
+ });
+ prefix.value=values.includes(current)?current:"NSPZ";
+}
 
-const duplicateNo =
-  document.getElementById("duplicateNo");
+function total(){
+ let n=0;
+ Object.values(data).forEach(e=>Object.values(e).forEach(t=>Object.values(t).forEach(s=>n+=s.length)));
+ return n;
+}
 
-const newReportModal =
-  document.getElementById("newReportModal");
+function progress(){
+ const n=total();
+ count.textContent=Math.min(n,28);
+ fill.style.width=Math.min(100,n/28*100)+"%";
+ document.getElementById("completeMessage").classList.toggle("show",n>=28);
+}
 
-const newReportYes =
-  document.getElementById("newReportYes");
+function sectionFor(type){
+ return type==="5652"?"Pre-repair":type==="5900"?"Post-repair":"Add-on";
+}
 
-const newReportNo =
-  document.getElementById("newReportNo");
+function addChassis(){
+ const num=document.getElementById("number").value.trim();
+ if(!/^\d{6}$/.test(num)){alert("Enter exactly 6 digits for the chassis number.");return}
+ const t=document.getElementById("type").value;
+ const c=document.getElementById("condition").value;
+ const note=document.getElementById("equipmentNote").value.trim();
+ data.chassis[t][sectionFor(t)].push([prefix.value+" "+num,c,note]);
+ document.getElementById("number").value="";
+ document.getElementById("equipmentNote").value="";
+ save();progress();render();
+}
 
-const progressContainer =
-  document.getElementById("progressContainer");
+function addContainer(){
+ const p=document.getElementById("containerPrefix").value.trim().toUpperCase();
+ const n=document.getElementById("containerNumber").value.trim();
+ if(!/^[A-Z]{4}$/.test(p)){alert("Enter exactly 4 letters for the container prefix.");return}
+ if(!/^\d{6}$/.test(n)){alert("Enter exactly 6 digits for the container number.");return}
+ const t=document.getElementById("containerType").value;
+ data.containers[t][sectionFor(t)].push([
+  p+" "+n,
+  document.getElementById("containerCondition").value,
+  document.getElementById("containerNote").value.trim()
+ ]);
+ document.getElementById("containerPrefix").value="";
+ document.getElementById("containerNumber").value="";
+ document.getElementById("containerNote").value="";
+ save();progress();
+}
 
-const progressBar =
-  document.getElementById("progressBar");
+function addRack(){
+ const n=document.getElementById("rackNumber").value.trim();
+ if(!/^\d{6}$/.test(n)){alert("Enter exactly 6 digits for the chassis rack number.");return}
+ data.racks["5657"]["Pre-repair"].push([
+  "ZNSU "+n,
+  document.getElementById("rackCondition").value,
+  document.getElementById("rackNote").value.trim()
+ ]);
+ document.getElementById("rackNumber").value="";
+ document.getElementById("rackNote").value="";
+ save();progress();
+}
 
-const fill =
-  document.getElementById("fill");
+function chassisRecords(){
+ const r=[];
+ Object.keys(data.chassis).forEach(type=>{
+  const section=sectionFor(type);
+  data.chassis[type][section].forEach((item,index)=>{
+   r.push({type,section,index,number:item[0],condition:item[1],note:item[2]||""});
+  });
+ });
+ return r;
+}
 
-const countElement =
-  document.getElementById("count");
+function select(values,current){
+ const s=document.createElement("select");
+ values.forEach(v=>{
+  const o=document.createElement("option");
+  o.value=v;o.textContent=v;
+  if(v===current)o.selected=true;
+  s.appendChild(o);
+ });
+ return s;
+}
 
-const completeMessage =
-  document.getElementById("completeMessage");
+function split(value){
+ const p=value.trim().split(/\s+/);
+ return {prefix:p[0]||"",number:p.slice(1).join("")};
+}
 
-const inspectionList =
-  document.getElementById("inspectionList");
+function render(){
+ list.innerHTML="";
+ const records=chassisRecords();
 
+ if(!records.length){
+  const e=document.createElement("div");
+  e.className="empty-list";
+  e.textContent="No chassis inspections entered yet.";
+  list.appendChild(e);
+  return;
+ }
 
-let duplicateYesAction = null;
-let duplicateCancelFocus = null;
-let previousProgress = 0;
+ records.forEach(r=>{
+  const row=document.createElement("div");
+  row.className="inspection-row";
 
+  const text=document.createElement("div");
+  text.className="inspection-display";
+  text.textContent=r.type+" "+r.condition+" "+r.number;
 
-/* PREFIX DROPDOWN */
+  const edit=document.createElement("button");
+  edit.className="edit-button";
+  edit.type="button";
+  edit.textContent="✎";
+  edit.onclick=()=>editRow(row,r);
 
-function updatePrefixOptions(){
+  row.appendChild(text);
+  row.appendChild(edit);
+  list.appendChild(row);
+ });
+}
 
-  const currentValue =
-    prefixSelect.value;
+function editRow(row,r){
+ row.innerHTML="";
 
-  const prefixes =
-    SPECIAL_PREFIX_TERMINALS.includes(
-      terminal.value
-    )
-      ? [
-          ...BASE_PREFIXES,
-          ...ADDITIONAL_PREFIXES
-        ]
-      : BASE_PREFIXES;
+ const area=document.createElement("div");
+ area.className="inspection-edit";
 
+ const type=select(["5652","5900","5658"],r.type);
+ const condition=select(["Defect","No Defect"],r.condition);
+ const parts=split(r.number);
 
-  prefixSelect.innerHTML = "";
+ const prefixes=SPECIAL.includes(terminal.value)
+  ? [...BASE,...EXTRA]
+  : [...BASE,...(EXTRA.includes(parts.prefix)?[parts.prefix]:[])];
 
+ const p=select([...new Set(prefixes)],parts.prefix);
 
-  prefixes.forEach(
-    prefix => {
+ const num=document.createElement("input");
+ num.type="tel";
+ num.inputMode="numeric";
+ num.maxLength=6;
+ num.value=parts.number;
 
-      const option =
-        document.createElement("option");
+ num.oninput=()=>num.value=num.value.replace(/\D/g,"").slice(0,6);
 
-      option.value =
-        prefix;
+ const check=document.createElement("button");
+ check.className="edit-button editing";
+ check.type="button";
+ check.textContent="✓";
+ check.title="Save correction";
 
-      option.textContent =
-        prefix;
+ const del=document.createElement("button");
+ del.className="edit-button delete-button";
+ del.type="button";
+ del.textContent="×";
+ del.title="Delete inspection";
 
-      prefixSelect.appendChild(
-        option
-      );
+ area.append(type,condition,p,num,check,del);
+ row.appendChild(area);
 
-    }
+ check.onclick=()=>{
+  if(!/^\d{6}$/.test(num.value)){
+   alert("Enter exactly 6 digits for the chassis number.");
+   return;
+  }
+
+  const old=data.chassis[r.type][r.section];
+  const oldIndex=old.findIndex(x=>
+   x[0]===r.number &&
+   x[1]===r.condition &&
+   (x[2]||"")===(r.note||"")
   );
 
+  if(oldIndex<0)return;
 
-  if(
-    prefixes.includes(currentValue)
-  ){
+  old.splice(oldIndex,1);
 
-    prefixSelect.value =
-      currentValue;
+  const newType=type.value;
+  const newSection=sectionFor(newType);
 
-  }else{
-
-    prefixSelect.value =
-      "NSPZ";
-
-  }
-
-}
-
-
-/* EMPTY DATA */
-
-function createEmptyData(){
-
-  return {
-
-    chassis:{
-      "5652":{
-        "Pre-repair":[],
-        "Post-repair":[],
-        "Add-on":[]
-      },
-
-      "5900":{
-        "Pre-repair":[],
-        "Post-repair":[],
-        "Add-on":[]
-      },
-
-      "5658":{
-        "Pre-repair":[],
-        "Post-repair":[],
-        "Add-on":[]
-      }
-    },
-
-    containers:{
-      "5653":{
-        "Pre-repair":[],
-        "Post-repair":[],
-        "Add-on":[]
-      },
-
-      "5900":{
-        "Pre-repair":[],
-        "Post-repair":[],
-        "Add-on":[]
-      },
-
-      "5658":{
-        "Pre-repair":[],
-        "Post-repair":[],
-        "Add-on":[]
-      }
-    },
-
-    racks:{
-      "5657":{
-        "Pre-repair":[]
-      }
-    }
-
-  };
-
-}
-
-
-/* SAVE */
-
-function saveReport(){
-
-  const payload = {
-
-    terminal:
-      terminal.value,
-
-    date:
-      formatDate(),
-
-    data:
-      data,
-
-    notes:
-      document.getElementById("notes").value
-
-  };
-
-
-  try{
-
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(payload)
-    );
-
-  }catch(error){
-
-    console.error(
-      "Unable to save report:",
-      error
-    );
-
-  }
-
-}
-
-
-/* LOAD */
-
-function loadSavedReport(){
-
-  try{
-
-    const saved =
-      localStorage.getItem(
-        STORAGE_KEY
-      );
-
-
-    if(!saved){
-      return null;
-    }
-
-
-    return JSON.parse(saved);
-
-  }catch(error){
-
-    console.error(
-      "Unable to load report:",
-      error
-    );
-
-    return null;
-
-  }
-
-}
-
-
-/* RESTORE */
-
-function restoreReport(saved){
-
-  if(!saved){
-    return;
-  }
-
-
-  if(saved.terminal){
-
-    terminal.value =
-      saved.terminal;
-
-  }
-
-
-  if(saved.data){
-
-    Object.keys(data).forEach(
-      equipment => {
-
-        if(saved.data[equipment]){
-
-          Object.keys(
-            data[equipment]
-          ).forEach(
-            type => {
-
-              if(
-                saved.data[equipment][type]
-              ){
-
-                Object.keys(
-                  data[equipment][type]
-                ).forEach(
-                  section => {
-
-                    const savedItems =
-                      saved.data[equipment][type][section];
-
-                    if(
-                      Array.isArray(savedItems)
-                    ){
-
-                      data[equipment][type][section].push(
-                        ...savedItems
-                      );
-
-                    }
-
-                  }
-                );
-
-              }
-
-            }
-          );
-
-        }
-
-      }
-    );
-
-  }
-
-
-  if(typeof saved.notes === "string"){
-
-    document.getElementById(
-      "notes"
-    ).value =
-      saved.notes;
-
-  }
-
-}
-
-
-/* TOTAL */
-
-function totalInspections(){
-
-  let total = 0;
-
-
-  Object.values(data).forEach(
-    equipment => {
-
-      Object.values(equipment).forEach(
-        type => {
-
-          Object.values(type).forEach(
-            section => {
-
-              total +=
-                section.length;
-
-            }
-
-          );
-
-        }
-
-      );
-
-    }
-
-  );
-
-
-  return total;
-
-}
-
-
-/* PROGRESS */
-
-function updateProgress(){
-
-  const count =
-    totalInspections();
-
-
-  const displayCount =
-    Math.min(count,28);
-
-
-  countElement.textContent =
-    displayCount;
-
-
-  fill.style.width =
-    Math.min(
-      100,
-      (count / 28) * 100
-    ) + "%";
-
-
-  if(count !== previousProgress){
-
-    progressContainer.classList.remove(
-      "count-bump"
-    );
-
-    void progressContainer.offsetWidth;
-
-    progressContainer.classList.add(
-      "count-bump"
-    );
-
-  }
-
-
-  if(count > previousProgress){
-
-    fill.classList.remove(
-      "progress-pulse"
-    );
-
-    void fill.offsetWidth;
-
-    fill.classList.add(
-      "progress-pulse"
-    );
-
-  }
-
-
-  const milestones =
-    [7,14,21,28];
-
-
-  if(
-    count > previousProgress &&
-    milestones.includes(count)
-  ){
-
-    progressBar.classList.remove(
-      "milestone",
-      "hit"
-    );
-
-    void progressBar.offsetWidth;
-
-    progressBar.classList.add(
-      "milestone",
-      "hit"
-    );
-
-
-    setTimeout(
-      () => {
-
-        progressBar.classList.remove(
-          "hit"
-        );
-
-      },
-      850
-    );
-
-  }
-
-
-  if(count >= 28){
-
-    progressContainer.classList.add(
-      "complete"
-    );
-
-    completeMessage.classList.add(
-      "show"
-    );
-
-  }else{
-
-    progressContainer.classList.remove(
-      "complete"
-    );
-
-    completeMessage.classList.remove(
-      "show"
-    );
-
-  }
-
-
-  previousProgress =
-    count;
-
-}
-
-
-/* BUTTON FEEDBACK */
-
-const addedButtonTimers = {};
-
-
-function showButtonAdded(
-  buttonId,
-  cardId
-){
-
-  const button =
-    document.getElementById(buttonId);
-
-  const card =
-    document.getElementById(cardId);
-
-
-  if(!button){
-    return;
-  }
-
-
-  clearTimeout(
-    addedButtonTimers[buttonId]
-  );
-
-
-  button.textContent =
-    "✓ ADDED";
-
-
-  button.disabled =
-    true;
-
-
-  if(card){
-
-    card.classList.remove(
-      "record-added"
-    );
-
-    void card.offsetWidth;
-
-    card.classList.add(
-      "record-added"
-    );
-
-  }
-
-
-  addedButtonTimers[buttonId] =
-    setTimeout(
-      () => {
-
-        button.textContent =
-          "ADD INSPECTION";
-
-        button.disabled =
-          false;
-
-
-        if(card){
-
-          card.classList.remove(
-            "record-added"
-          );
-
-        }
-
-      },
-      900
-    );
-
-}
-
-
-/* DUPLICATE MODAL */
-
-function showDuplicateModal(
-  equipmentName,
-  equipmentNumber,
-  inspectionCode,
-  yesAction,
-  cancelFocus
-){
-
-  duplicateModalMessage.textContent =
-    equipmentName +
-    ": " +
-    equipmentNumber +
-    "\n" +
-    "Inspection: " +
-    inspectionCode +
-    "\n\n" +
-    "This inspection has already been entered today.\n\n" +
-    "Do you want to add it anyway?";
-
-
-  duplicateYesAction =
-    yesAction;
-
-
-  duplicateCancelFocus =
-    cancelFocus;
-
-
-  duplicateModal.classList.add(
-    "show"
-  );
-
-
-  duplicateModal.setAttribute(
-    "aria-hidden",
-    "false"
-  );
-
-
-  document.body.style.overflow =
-    "hidden";
-
-
-  duplicateNo.focus();
-
-}
-
-
-function closeDuplicateModal(){
-
-  duplicateModal.classList.remove(
-    "show"
-  );
-
-
-  duplicateModal.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-
-  document.body.style.overflow =
-    "";
-
-
-  duplicateYesAction =
-    null;
-
-
-  const focusTarget =
-    duplicateCancelFocus;
-
-
-  duplicateCancelFocus =
-    null;
-
-
-  if(
-    focusTarget &&
-    typeof focusTarget.focus === "function"
-  ){
-
-    focusTarget.focus();
-
-  }
-
-}
-
-
-duplicateYes.addEventListener(
-  "click",
-  () => {
-
-    const action =
-      duplicateYesAction;
-
-
-    closeDuplicateModal();
-
-
-    if(typeof action === "function"){
-
-      action();
-
-    }
-
-  }
-);
-
-
-duplicateNo.addEventListener(
-  "click",
-  closeDuplicateModal
-);
-
-
-duplicateModal.addEventListener(
-  "click",
-  event => {
-
-    if(event.target === duplicateModal){
-
-      closeDuplicateModal();
-
-    }
-
-  }
-);
-
-
-/* NEW REPORT MODAL */
-
-function showNewReportModal(){
-
-  newReportModal.classList.add(
-    "show"
-  );
-
-
-  newReportModal.setAttribute(
-    "aria-hidden",
-    "false"
-  );
-
-
-  document.body.style.overflow =
-    "hidden";
-
-
-  newReportNo.focus();
-
-}
-
-
-function closeNewReportModal(){
-
-  newReportModal.classList.remove(
-    "show"
-  );
-
-
-  newReportModal.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-
-  document.body.style.overflow =
-    "";
-
-}
-
-
-newReportNo.addEventListener(
-  "click",
-  closeNewReportModal
-);
-
-
-newReportYes.addEventListener(
-  "click",
-  () => {
-
-    closeNewReportModal();
-
-    resetForNextDay();
-
-  }
-);
-
-
-newReportModal.addEventListener(
-  "click",
-  event => {
-
-    if(event.target === newReportModal){
-
-      closeNewReportModal();
-
-    }
-
-  }
-);
-
-
-/* DUPLICATE CHECK */
-
-function hasDuplicate(
-  equipmentData,
-  type,
-  section,
-  equipmentNumber
-){
-
-  return equipmentData[type][section]
-    .some(
-      item =>
-        item[0] === equipmentNumber
-    );
-
-}
-
-
-/* CHASSIS */
-
-function addInspection(){
-
-  const prefix =
-    prefixSelect.value;
-
-
-  const numberInput =
-    document.getElementById("number");
-
-
-  const number =
-    numberInput.value.trim();
-
-
-  const type =
-    document.getElementById("type").value;
-
-
-  const condition =
-    document.getElementById("condition").value;
-
-
-  const note =
-    document.getElementById(
-      "equipmentNote"
-    ).value.trim();
-
-
-  if(!/^\d{6}$/.test(number)){
-
-    alert(
-      "Enter exactly 6 digits for the chassis number."
-    );
-
-    numberInput.focus();
-
-    return;
-
-  }
-
-
-  const section =
-    type === "5652"
-      ? "Pre-repair"
-      : type === "5900"
-        ? "Post-repair"
-        : "Add-on";
-
-
-  const equipmentNumber =
-    prefix + " " + number;
-
-
-  if(
-    hasDuplicate(
-      data.chassis,
-      type,
-      section,
-      equipmentNumber
-    )
-  ){
-
-    showDuplicateModal(
-      "Chassis",
-      equipmentNumber,
-      type,
-      () =>
-        addChassisRecord(
-          equipmentNumber,
-          type,
-          section,
-          condition,
-          note
-        ),
-      numberInput
-    );
-
-    return;
-
-  }
-
-
-  addChassisRecord(
-    equipmentNumber,
-    type,
-    section,
-    condition,
-    note
-  );
-
-}
-
-
-/* ADD CHASSIS RECORD */
-
-function addChassisRecord(
-  equipmentNumber,
-  type,
-  section,
-  condition,
-  note
-){
-
-  data.chassis[type][section].push([
-    equipmentNumber,
-    condition,
-    note
+  data.chassis[newType][newSection].push([
+   p.value+" "+num.value,
+   condition.value,
+   r.note||""
   ]);
 
+  save();progress();render();
+ };
 
-  document.getElementById(
-    "number"
-  ).value = "";
+ del.onclick=()=>{
+  if(!confirm("Delete this inspection?\n\n"+r.type+" "+r.condition+" "+r.number))return;
 
-
-  document.getElementById(
-    "equipmentNote"
-  ).value = "";
-
-
-  document.getElementById(
-    "number"
-  ).classList.remove(
-    "input-ready"
+  const old=data.chassis[r.type][r.section];
+  const oldIndex=old.findIndex(x=>
+   x[0]===r.number &&
+   x[1]===r.condition &&
+   (x[2]||"")===(r.note||"")
   );
 
+  if(oldIndex>=0)old.splice(oldIndex,1);
 
-  /* RESET CHASSIS DEFAULTS */
+  save();progress();render();
+ };
 
-  prefixSelect.value =
-    "NSPZ";
-
-
-  document.getElementById(
-    "type"
-  ).value =
-    "5652";
-
-
-  document.getElementById(
-    "condition"
-  ).value =
-    "Defect";
-
-
-  saveReport();
-
-  updateProgress();
-
-  renderInspectionList();
-
-  showButtonAdded(
-    "addInspection",
-    "chassisCard"
-  );
-
-
-  document.getElementById(
-    "number"
-  ).focus();
-
+ type.focus();
 }
 
-
-/* CONTAINERS */
-
-function addContainerInspection(){
-
-  const prefix =
-    document.getElementById(
-      "containerPrefix"
-    ).value
-    .trim()
-    .toUpperCase();
-
-
-  const numberInput =
-    document.getElementById(
-      "containerNumber"
-    );
-
-
-  const number =
-    numberInput.value.trim();
-
-
-  const type =
-    document.getElementById(
-      "containerType"
-    ).value;
-
-
-  const condition =
-    document.getElementById(
-      "containerCondition"
-    ).value;
-
-
-  const note =
-    document.getElementById(
-      "containerNote"
-    ).value.trim();
-
-
-  if(!/^[A-Z]{4}$/.test(prefix)){
-
-    alert(
-      "Enter exactly 4 letters for the container prefix."
-    );
-
-    document.getElementById(
-      "containerPrefix"
-    ).focus();
-
-    return;
-
-  }
-
-
-  if(!/^\d{6}$/.test(number)){
-
-    alert(
-      "Enter exactly 6 digits for the container number."
-    );
-
-    numberInput.focus();
-
-    return;
-
-  }
-
-
-  const section =
-    type === "5653"
-      ? "Pre-repair"
-      : type === "5900"
-        ? "Post-repair"
-        : "Add-on";
-
-
-  const equipmentNumber =
-    prefix + " " + number;
-
-
-  if(
-    hasDuplicate(
-      data.containers,
-      type,
-      section,
-      equipmentNumber
-    )
-  ){
-
-    showDuplicateModal(
-      "Container",
-      equipmentNumber,
-      type,
-      () =>
-        addContainerRecord(
-          equipmentNumber,
-          type,
-          section,
-          condition,
-          note
-        ),
-      numberInput
-    );
-
-    return;
-
-  }
-
-
-  addContainerRecord(
-    equipmentNumber,
-    type,
-    section,
-    condition,
-    note
-  );
-
+function reportSection(out,equipment,section,type,noText,yesText,label){
+ ["No Defect","Defect"].forEach(condition=>{
+  const items=equipment[type][section].filter(x=>x[1]===condition);
+  out.push("("+items.length+") "+(condition==="Defect"?yesText:noText));
+  out.push(label+":");
+  items.forEach((x,i)=>{
+   out.push("\t"+(i+1)+". "+x[0]);
+   if(x[2])out.push("\t   Note: "+x[2]);
+  });
+  out.push("");
+ });
 }
-
-
-function addContainerRecord(
-  equipmentNumber,
-  type,
-  section,
-  condition,
-  note
-){
-
-  data.containers[type][section].push([
-    equipmentNumber,
-    condition,
-    note
-  ]);
-
-
-  document.getElementById(
-    "containerPrefix"
-  ).value = "";
-
-
-  document.getElementById(
-    "containerNumber"
-  ).value = "";
-
-
-  document.getElementById(
-    "containerNote"
-  ).value = "";
-
-
-  document.getElementById(
-    "containerNumber"
-  ).classList.remove(
-    "input-ready"
-  );
-
-
-  saveReport();
-
-  updateProgress();
-
-  showButtonAdded(
-    "addContainerInspection",
-    "containersCard"
-  );
-
-
-  document.getElementById(
-    "containerPrefix"
-  ).focus();
-
-}
-
-
-/* CHASSIS RACKS */
-
-function addRackInspection(){
-
-  const numberInput =
-    document.getElementById(
-      "rackNumber"
-    );
-
-
-  const number =
-    numberInput.value.trim();
-
-
-  const condition =
-    document.getElementById(
-      "rackCondition"
-    ).value;
-
-
-  const note =
-    document.getElementById(
-      "rackNote"
-    ).value.trim();
-
-
-  if(!/^\d{6}$/.test(number)){
-
-    alert(
-      "Enter exactly 6 digits for the chassis rack number."
-    );
-
-    numberInput.focus();
-
-    return;
-
-  }
-
-
-  const equipmentNumber =
-    "ZNSU " + number;
-
-
-  if(
-    hasDuplicate(
-      data.racks,
-      "5657",
-      "Pre-repair",
-      equipmentNumber
-    )
-  ){
-
-    showDuplicateModal(
-      "Chassis Rack",
-      equipmentNumber,
-      "5657",
-      () =>
-        addRackRecord(
-          equipmentNumber,
-          condition,
-          note
-        ),
-      numberInput
-    );
-
-    return;
-
-  }
-
-
-  addRackRecord(
-    equipmentNumber,
-    condition,
-    note
-  );
-
-}
-
-
-function addRackRecord(
-  equipmentNumber,
-  condition,
-  note
-){
-
-  data.racks["5657"]["Pre-repair"].push([
-    equipmentNumber,
-    condition,
-    note
-  ]);
-
-
-  document.getElementById(
-    "rackNumber"
-  ).value = "";
-
-
-  document.getElementById(
-    "rackNote"
-  ).value = "";
-
-
-  document.getElementById(
-    "rackNumber"
-  ).classList.remove(
-    "input-ready"
-  );
-
-
-  saveReport();
-
-  updateProgress();
-
-  showButtonAdded(
-    "addRackInspection",
-    "racksCard"
-  );
-
-
-  document.getElementById(
-    "rackNumber"
-  ).focus();
-
-}
-
-
-/* CHASSIS INSPECTION LIST */
-
-function getAllChassisRecords(){
-
-  const records = [];
-
-
-  Object.keys(data.chassis).forEach(
-    type => {
-
-      const section =
-        type === "5652"
-          ? "Pre-repair"
-          : type === "5900"
-            ? "Post-repair"
-            : "Add-on";
-
-
-      data.chassis[type][section]
-        .forEach(
-          (item,index) => {
-
-            records.push({
-              type,
-              section,
-              index,
-              number:item[0],
-              condition:item[1],
-              note:item[2] || ""
-            });
-
-          }
-        );
-
-    }
-  );
-
-
-  return records;
-
-}
-
-
-/* PREFIX PARSER */
-
-function splitChassisNumber(value){
-
-  const parts =
-    value.trim().split(/\s+/);
-
-
-  if(parts.length >= 2){
-
-    return {
-      prefix:parts[0].toUpperCase(),
-      number:parts.slice(1).join("")
-    };
-
-  }
-
-
-  return {
-    prefix:"",
-    number:value.replace(/\D/g,"")
-  };
-
-}
-
-
-/* CREATE EDIT SELECT */
-
-function createEditSelect(
-  values,
-  currentValue
-){
-
-  const select =
-    document.createElement("select");
-
-
-  values.forEach(
-    value => {
-
-      const option =
-        document.createElement("option");
-
-      option.value =
-        value;
-
-      option.textContent =
-        value;
-
-      if(value === currentValue){
-
-        option.selected =
-          true;
-
-      }
-
-      select.appendChild(
-        option
-      );
-
-    }
-  );
-
-
-  return select;
-
-}
-
-
-/* RENDER INSPECTION LIST */
-
-function renderInspectionList(){
-
-  inspectionList.innerHTML = "";
-
-
-  const records =
-    getAllChassisRecords();
-
-
-  if(!records.length){
-
-    const empty =
-      document.createElement("div");
-
-    empty.className =
-      "empty-list";
-
-    empty.textContent =
-      "No chassis inspections entered yet.";
-
-    inspectionList.appendChild(
-      empty
-    );
-
-    return;
-
-  }
-
-
-  records.forEach(
-    record => {
-
-      renderInspectionRow(
-        record
-      );
-
-    }
-  );
-
-}
-
-
-/* RENDER ROW */
-
-function renderInspectionRow(
-  record
-){
-
-  const row =
-    document.createElement("div");
-
-  row.className =
-    "inspection-row";
-
-
-  const display =
-    document.createElement("div");
-
-  display.className =
-    "inspection-display";
-
-
-  display.textContent =
-    record.type +
-    " " +
-    record.condition +
-    " " +
-    record.number;
-
-
-  const editButton =
-    document.createElement("button");
-
-  editButton.type =
-    "button";
-
-  editButton.className =
-    "edit-button";
-
-  editButton.textContent =
-    "✎";
-
-  editButton.setAttribute(
-    "aria-label",
-    "Edit inspection"
-  );
-
-
-  editButton.addEventListener(
-    "click",
-    () => {
-
-      startEditingInspection(
-        row,
-        record,
-        editButton
-      );
-
-    }
-  );
-
-
-  row.appendChild(
-    display
-  );
-
-  row.appendChild(
-    editButton
-  );
-
-
-  inspectionList.appendChild(
-    row
-  );
-
-}
-
-
-/* EDIT INSPECTION */
-
-function startEditingInspection(
-  row,
-  record,
-  editButton
-){
-
-  if(
-    row.dataset.editing === "true"
-  ){
-
-    return;
-
-  }
-
-
-  row.dataset.editing =
-    "true";
-
-
-  row.innerHTML = "";
-
-
-  const editArea =
-    document.createElement("div");
-
-  editArea.className =
-    "inspection-edit";
-
-
-  const typeSelect =
-    createEditSelect(
-      ["5652","5900","5658"],
-      record.type
-    );
-
-
-  const conditionSelect =
-    createEditSelect(
-      ["Defect","No Defect"],
-      record.condition
-    );
-
-
-  const currentParts =
-    splitChassisNumber(
-      record.number
-    );
-
-
-  const prefixOptions =
-    SPECIAL_PREFIX_TERMINALS.includes(
-      terminal.value
-    )
-      ? [
-          ...BASE_PREFIXES,
-          ...ADDITIONAL_PREFIXES
-        ]
-      : [
-          ...BASE_PREFIXES,
-          ...(ADDITIONAL_PREFIXES.includes(
-            currentParts.prefix
-          )
-            ? [currentParts.prefix]
-            : [])
-        ];
-
-
-  const prefixEdit =
-    createEditSelect(
-      [...new Set(prefixOptions)],
-      currentParts.prefix
-    );
-
-
-  const numberEdit =
-    document.createElement("input");
-
-  numberEdit.type =
-    "tel";
-
-  numberEdit.inputMode =
-    "numeric";
-
-  numberEdit.maxLength =
-    6;
-
-  numberEdit.value =
-    currentParts.number;
-
-  numberEdit.placeholder =
-    "6 digits";
-
-
-  numberEdit.addEventListener(
-    "input",
-    () => {
-
-      numberEdit.value =
-        numberEdit.value
-          .replace(/\D/g,"")
-          .slice(0,6);
-
-    }
-  );
-
-
-  const checkButton =
-    document.createElement("button");
-
-  checkButton.type =
-    "button";
-
-  checkButton.className =
-    "edit-button editing";
-
-  checkButton.textContent =
-    "✓";
-
-  checkButton.setAttribute(
-    "aria-label",
-    "Save inspection"
-  );
-
-
-  editArea.appendChild(
-    typeSelect
-  );
-
-  editArea.appendChild(
-    conditionSelect
-  );
-
-  editArea.appendChild(
-    prefixEdit
-  );
-
-  editArea.appendChild(
-    numberEdit
-  );
-
-  editArea.appendChild(
-    checkButton
-  );
-
-
-  row.appendChild(
-    editArea
-  );
-
-
-  checkButton.addEventListener(
-    "click",
-    () => {
-
-      saveEditedInspection(
-        record,
-        typeSelect.value,
-        conditionSelect.value,
-        prefixEdit.value,
-        numberEdit.value.trim()
-      );
-
-    }
-  );
-
-
-  typeSelect.focus();
-
-}
-
-
-/* SAVE EDIT */
-
-function saveEditedInspection(
-  record,
-  newType,
-  newCondition,
-  newPrefix,
-  newNumber
-){
-
-  if(!/^\d{6}$/.test(newNumber)){
-
-    alert(
-      "Enter exactly 6 digits for the chassis number."
-    );
-
-    return;
-
-  }
-
-
-  const newEquipmentNumber =
-    newPrefix +
-    " " +
-    newNumber;
-
-
-  const oldArray =
-    data.chassis[
-      record.type
-    ][
-      record.section
-    ];
-
-
-  const originalItem =
-    oldArray[
-      record.index
-    ];
-
-
-  /*
-    Remove the original entry.
-    The index can shift only within
-    this same section.
-  */
-
-  const foundIndex =
-    oldArray.indexOf(
-      originalItem
-    );
-
-
-  if(foundIndex !== -1){
-
-    oldArray.splice(
-      foundIndex,
-      1
-    );
-
-  }
-
-
-  const newSection =
-    newType === "5652"
-      ? "Pre-repair"
-      : newType === "5900"
-        ? "Post-repair"
-        : "Add-on";
-
-
-  data.chassis[
-    newType
-  ][
-    newSection
-  ].push([
-    newEquipmentNumber,
-    newCondition,
-    record.note || ""
-  ]);
-
-
-  saveReport();
-
-  updateProgress();
-
-  renderInspectionList();
-
-}
-
-
-/* REPORT */
-
-function addSectionToReport(
-  output,
-  equipmentData,
-  section,
-  type,
-  noText,
-  yesText,
-  numberLabel
-){
-
-  [
-    "No Defect",
-    "Defect"
-  ].forEach(
-    condition => {
-
-      const items =
-        equipmentData[type][section]
-          .filter(
-            item =>
-              item[1] === condition
-          );
-
-
-      output.push(
-        "(" +
-        items.length +
-        ") " +
-        (
-          condition === "Defect"
-            ? yesText
-            : noText
-        )
-      );
-
-
-      output.push(
-        numberLabel + ":"
-      );
-
-
-      items.forEach(
-        (item,index) => {
-
-          output.push(
-            "\t" +
-            (index + 1) +
-            ". " +
-            item[0]
-          );
-
-
-          if(item[2]){
-
-            output.push(
-              "\t   Note: " +
-              item[2]
-            );
-
-          }
-
-        }
-      );
-
-
-      output.push("");
-
-    }
-  );
-
-}
-
-
-/* BUILD EOD */
 
 function buildEOD(){
+ const out=[];
+ out.push("End of Day Report","");
+ out.push("Date: "+formatDate(),"");
+ out.push("End of Day Report for:",terminal.value,"");
+ out.push("CHASSIS");
 
-  const out = [];
+ reportSection(out,data.chassis,"Pre-repair","5652",
+  "pre-repair NO defects - 5652","pre-repair WITH defects - 5652","Chassis Numbers");
 
+ reportSection(out,data.chassis,"Post-repair","5900",
+  "post repair NO defects - 5900","post repair WITH defects - 5900","Chassis Numbers");
 
-  const selectedTerminal =
-    terminal.value;
+ reportSection(out,data.chassis,"Add-on","5658",
+  "add-on NO defects - 5658","add-on WITH defects - 5658","Chassis Numbers");
 
+ out.push("CONTAINERS");
 
-  out.push(
-    "End of Day Report"
-  );
+ reportSection(out,data.containers,"Pre-repair","5653",
+  "pre-repair NO defects - 5653","pre-repair WITH defects - 5653","Container Numbers");
 
+ reportSection(out,data.containers,"Post-repair","5900",
+  "post repair NO defects - 5900","post repair WITH defects - 5900","Container Numbers");
 
-  out.push("");
+ reportSection(out,data.containers,"Add-on","5658",
+  "add-on NO defects - 5658","add-on WITH defects - 5658","Container Numbers");
 
+ out.push("CHASSIS RACKS");
 
-  out.push(
-    "Date: " +
-    formatDate()
-  );
+ reportSection(out,data.racks,"Pre-repair","5657",
+  "pre-repair NO defects - 5657","pre-repair WITH defects - 5657","Chassis Rack Numbers");
 
+ out.push("("+total()+") TOTAL INSPECTIONS","");
+ out.push("Comments or Notes of Interest:");
+ out.push(notes.value.trim());
 
-  out.push("");
-
-
-  out.push(
-    "End of Day Report for:"
-  );
-
-
-  out.push(
-    selectedTerminal
-  );
-
-
-  out.push("");
-
-
-  out.push(
-    "CHASSIS"
-  );
-
-
-  addSectionToReport(
-    out,
-    data.chassis,
-    "Pre-repair",
-    "5652",
-    "pre-repair NO defects - 5652",
-    "pre-repair WITH defects - 5652",
-    "Chassis Numbers"
-  );
-
-
-  addSectionToReport(
-    out,
-    data.chassis,
-    "Post-repair",
-    "5900",
-    "post repair NO defects - 5900",
-    "post repair WITH defects - 5900",
-    "Chassis Numbers"
-  );
-
-
-  addSectionToReport(
-    out,
-    data.chassis,
-    "Add-on",
-    "5658",
-    "add-on NO defects - 5658",
-    "add-on WITH defects - 5658",
-    "Chassis Numbers"
-  );
-
-
-  out.push(
-    "CONTAINERS"
-  );
-
-
-  addSectionToReport(
-    out,
-    data.containers,
-    "Pre-repair",
-    "5653",
-    "pre-repair NO defects - 5653",
-    "pre-repair WITH defects - 5653",
-    "Container Numbers"
-  );
-
-
-  addSectionToReport(
-    out,
-    data.containers,
-    "Post-repair",
-    "5900",
-    "post repair NO defects - 5900",
-    "post repair WITH defects - 5900",
-    "Container Numbers"
-  );
-
-
-  addSectionToReport(
-    out,
-    data.containers,
-    "Add-on",
-    "5658",
-    "add-on NO defects - 5658",
-    "add-on WITH defects - 5658",
-    "Container Numbers"
-  );
-
-
-  out.push(
-    "CHASSIS RACKS"
-  );
-
-
-  addSectionToReport(
-    out,
-    data.racks,
-    "Pre-repair",
-    "5657",
-    "pre-repair NO defects - 5657",
-    "pre-repair WITH defects - 5657",
-    "Chassis Rack Numbers"
-  );
-
-
-  out.push(
-    "(" +
-    totalInspections() +
-    ") TOTAL INSPECTIONS"
-  );
-
-
-  out.push("");
-
-
-  out.push(
-    "Comments or Notes of Interest:"
-  );
-
-
-  out.push(
-    document.getElementById(
-      "notes"
-    ).value.trim()
-  );
-
-
-  return out.join("\n");
-
+ return out.join("\n");
 }
 
+function generate(){
+ save();
+ document.getElementById("preview").textContent=buildEOD();
+ document.getElementById("previewCard").classList.remove("hidden");
+ document.getElementById("previewCard").scrollIntoView({behavior:"smooth"});
+}
 
-/* GENERATE */
+function email(){
+ const subject="End of Day Report - "+terminal.value+" - "+formatDate();
+ window.location.href=
+ "mailto:joe@caliberis.com"+
+ "?cc=dgeist@caliberis.com,jdoan@aspectassociates.com"+
+ "&subject="+encodeURIComponent(subject)+
+ "&body="+encodeURIComponent(buildEOD());
+}
 
-function generateEOD(){
+/*
+ IMPORTANT:
+ If there is already a saved report for TODAY,
+ use that saved report.
+ If Safari has lost localStorage, the 20 inspections
+ embedded above become the recovery copy.
+*/
+function restore(){
+ const saved=load();
 
-  saveReport();
-
-
-  document.getElementById(
-    "preview"
-  ).textContent =
-    buildEOD();
-
-
-  document.getElementById(
-    "previewCard"
-  ).classList.remove(
-    "hidden"
-  );
-
-
-  document.getElementById(
-    "previewCard"
-  ).scrollIntoView({
-    behavior:"smooth",
-    block:"start"
+ if(saved && saved.date===TODAY && saved.data){
+  Object.keys(data).forEach(k=>{
+   Object.keys(data[k]).forEach(t=>{
+    Object.keys(data[k][t]).forEach(s=>{
+     data[k][t][s].length=0;
+     if(saved.data[k] &&
+        saved.data[k][t] &&
+        Array.isArray(saved.data[k][t][s])){
+      data[k][t][s].push(...saved.data[k][t][s]);
+     }
+    });
+   });
   });
 
+  terminal.value=saved.terminal||"HARRISBURG";
+  notes.value=saved.notes||"";
+ }
+ else if(!saved){
+  save();
+ }
 }
 
-
-/* BACK TO EDIT */
-
-function editReport(){
-
-  document.getElementById(
-    "previewCard"
-  ).classList.add(
-    "hidden"
-  );
-
-
-  document.getElementById(
-    "notes"
-  ).focus();
-
-}
-
-
-/* DATE */
-
-function formatDate(
-  date = new Date()
-){
-
-  return (
-    (date.getMonth() + 1) +
-    "/" +
-    date.getDate() +
-    "/" +
-    String(
-      date.getFullYear()
-    ).slice(-2)
-  );
-
-}
-
-
-/* TERMINAL DISPLAY */
-
-function updateTerminalDisplay(){
-
-  /*
-    TOP OF APP NOW SHOWS DATE ONLY.
-    TERMINAL IS STILL INCLUDED IN THE
-    ACTUAL EOD REPORT.
-  */
-
-  document.getElementById(
-    "reportDate"
-  ).textContent =
-    formatDate();
-
-
-  document.title =
-    "EOD Inspection — " +
-    terminal.value;
-
-
-  updatePrefixOptions();
-
-  saveReport();
-
-}
-
-
-/* RESET */
-
-function resetForNextDay(){
-
-  Object.keys(data).forEach(
-    equipment => {
-
-      Object.keys(data[equipment]).forEach(
-        type => {
-
-          Object.keys(
-            data[equipment][type]
-          ).forEach(
-            section => {
-
-              data[equipment][type][section].length = 0;
-
-            }
-
-          );
-
-        }
-
-      );
-
-    }
-  );
-
-
-  [
-    "notes",
-    "number",
-    "equipmentNote",
-    "containerPrefix",
-    "containerNumber",
-    "containerNote",
-    "rackNumber",
-    "rackNote"
-  ].forEach(
-    id => {
-
-      document.getElementById(
-        id
-      ).value = "";
-
-    }
-  );
-
-
-  [
-    "number",
-    "containerNumber",
-    "rackNumber"
-  ].forEach(
-    id => {
-
-      document.getElementById(
-        id
-      ).classList.remove(
-        "input-ready"
-      );
-
-    }
-  );
-
-
-  /* RESET CHASSIS DEFAULTS */
-
-  updatePrefixOptions();
-
-  prefixSelect.value =
-    "NSPZ";
-
-  document.getElementById(
-    "type"
-  ).value =
-    "5652";
-
-  document.getElementById(
-    "condition"
-  ).value =
-    "Defect";
-
-
-  document.getElementById(
-    "preview"
-  ).textContent = "";
-
-
-  document.getElementById(
-    "previewCard"
-  ).classList.add(
-    "hidden"
-  );
-
-
-  localStorage.removeItem(
-    STORAGE_KEY
-  );
-
-
-  previousProgress = 0;
-
-
-  updateTerminalDisplay();
-
-  updateProgress();
-
-  renderInspectionList();
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-/* EMAIL */
-
-function emailEOD(){
-
-  const body =
-    buildEOD();
-
-
-  const selectedTerminal =
-    terminal.value;
-
-
-  const reportDate =
-    formatDate();
-
-
-  const subject =
-    "End of Day Report - " +
-    selectedTerminal +
-    " - " +
-    reportDate;
-
-
-  window.location.href =
-    "mailto:joe@caliberis.com" +
-    "?cc=dgeist@caliberis.com,jdoan@aspectassociates.com" +
-    "&subject=" +
-    encodeURIComponent(subject) +
-    "&body=" +
-    encodeURIComponent(body);
-
-}
-
-
-/* INPUT FILTERS */
-
-document.getElementById(
-  "number"
-).addEventListener(
-  "input",
-  event => {
-
-    event.target.value =
-      event.target.value
-        .replace(/\D/g,"")
-        .slice(0,6);
-
-
-    event.target.classList.toggle(
-      "input-ready",
-      event.target.value.length === 6
-    );
-
-
-    saveReport();
-
-  }
-);
-
-
-document.getElementById(
-  "containerPrefix"
-).addEventListener(
-  "input",
-  event => {
-
-    event.target.value =
-      event.target.value
-        .replace(/[^a-zA-Z]/g,"")
-        .toUpperCase()
-        .slice(0,4);
-
-
-    saveReport();
-
-  }
-);
-
-
-document.getElementById(
-  "containerNumber"
-).addEventListener(
-  "input",
-  event => {
-
-    event.target.value =
-      event.target.value
-        .replace(/\D/g,"")
-        .slice(0,6);
-
-
-    event.target.classList.toggle(
-      "input-ready",
-      event.target.value.length === 6
-    );
-
-
-    saveReport();
-
-  }
-);
-
-
-document.getElementById(
-  "rackNumber"
-).addEventListener(
-  "input",
-  event => {
-
-    event.target.value =
-      event.target.value
-        .replace(/\D/g,"")
-        .slice(0,6);
-
-
-    event.target.classList.toggle(
-      "input-ready",
-      event.target.value.length === 6
-    );
-
-
-    saveReport();
-
-  }
-);
-
-
-/* NOTES SAVE */
-
-document.getElementById(
-  "notes"
-).addEventListener(
-  "input",
-  saveReport
-);
-
-
-/* TERMINAL */
-
-terminal.addEventListener(
-  "change",
-  () => {
-
-    updateTerminalDisplay();
-
-  }
-);
-
-
-/* ENTER KEY */
-
-document.getElementById(
-  "number"
-).addEventListener(
-  "keydown",
-  event => {
-
-    if(event.key === "Enter"){
-
-      event.preventDefault();
-
-      addInspection();
-
-    }
-
-  }
-);
-
-
-document.getElementById(
-  "containerNumber"
-).addEventListener(
-  "keydown",
-  event => {
-
-    if(event.key === "Enter"){
-
-      event.preventDefault();
-
-      addContainerInspection();
-
-    }
-
-  }
-);
-
-
-document.getElementById(
-  "rackNumber"
-).addEventListener(
-  "keydown",
-  event => {
-
-    if(event.key === "Enter"){
-
-      event.preventDefault();
-
-      addRackInspection();
-
-    }
-
-  }
-);
-
-
-/* BUTTONS */
-
-document.getElementById(
-  "addInspection"
-).addEventListener(
-  "click",
-  addInspection
-);
-
-
-document.getElementById(
-  "addContainerInspection"
-).addEventListener(
-  "click",
-  addContainerInspection
-);
-
-
-document.getElementById(
-  "addRackInspection"
-).addEventListener(
-  "click",
-  addRackInspection
-);
-
-
-document.getElementById(
-  "generateEod"
-).addEventListener(
-  "click",
-  generateEOD
-);
-
-
-document.getElementById(
-  "editReport"
-).addEventListener(
-  "click",
-  editReport
-);
-
-
-document.getElementById(
-  "emailEod"
-).addEventListener(
-  "click",
-  emailEOD
-);
-
-
-/* STARTUP */
-
-const savedReport =
-  loadSavedReport();
-
-
-if(savedReport){
-
-  restoreReport(
-    savedReport
-  );
-
-}
-
-
-updateTerminalDisplay();
-
-updateProgress();
-
-renderInspectionList();
-
-
-/* EXISTING REPORT WARNING */
-
-if(
-  savedReport &&
-  savedReport.data
-){
-
-  const savedCount =
-    Object.values(
-      savedReport.data
-    ).reduce(
-      (total,equipment) => {
-
-        return total +
-          Object.values(equipment)
-            .reduce(
-              (typeTotal,type) => {
-
-                return typeTotal +
-                  Object.values(type)
-                    .reduce(
-                      (sectionTotal,section) =>
-                        sectionTotal +
-                        section.length,
-                      0
-                    );
-
-              },
-              0
-            );
-
-      },
-      0
-    );
-
-
-  if(savedCount > 0){
-
-    setTimeout(
-      () => {
-
-        showNewReportModal();
-
-      },
-      350
-    );
-
-  }
-
-}
+terminal.onchange=()=>{
+ updatePrefixes();
+ save();
+};
+
+document.getElementById("addInspection").onclick=addChassis;
+document.getElementById("addContainerInspection").onclick=addContainer;
+document.getElementById("addRackInspection").onclick=addRack;
+document.getElementById("generateEod").onclick=generate;
+document.getElementById("emailEod").onclick=email;
+
+document.getElementById("editReport").onclick=()=>{
+ document.getElementById("previewCard").classList.add("hidden");
+};
+
+notes.oninput=save;
+
+document.getElementById("number").oninput=e=>{
+ e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);
+ save();
+};
+
+document.getElementById("containerPrefix").oninput=e=>{
+ e.target.value=e.target.value.replace(/[^a-zA-Z]/g,"").toUpperCase().slice(0,4);
+ save();
+};
+
+document.getElementById("containerNumber").oninput=e=>{
+ e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);
+ save();
+};
+
+document.getElementById("rackNumber").oninput=e=>{
+ e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);
+ save();
+};
+
+["number","containerNumber","rackNumber"].forEach(id=>{
+ document.getElementById(id).onkeydown=e=>{
+  if(e.key!=="Enter")return;
+  e.preventDefault();
+  if(id==="number")addChassis();
+  if(id==="containerNumber")addContainer();
+  if(id==="rackNumber")addRack();
+ };
+});
+
+restore();
+document.getElementById("reportDate").textContent=TODAY;
+document.title="EOD Inspection — "+terminal.value;
+updatePrefixes();
+progress();
+render();
 
 })();
-
 </script>
 
-
-<!-- SERVICE WORKER -->
-
 <script>
-
 if("serviceWorker" in navigator){
-
-  window.addEventListener(
-    "load",
-    () => {
-
-      navigator.serviceWorker.register(
-        "./service-worker.js"
-      );
-
-    }
-  );
-
+ window.addEventListener("load",()=>{
+  navigator.serviceWorker.register("./service-worker.js");
+ });
 }
-
 </script>
 
 </body>
