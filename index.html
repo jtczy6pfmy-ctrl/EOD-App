@@ -406,76 +406,59 @@ button.secondary{
 
 <!-- CHASSIS -->
 
-<section class="card" id="chassisCard">
+<section class="card">
 
 <h2>Chassis</h2>
 
 <div class="row">
 
 <div>
-
 <label for="prefix">4-Character Prefix</label>
-
 <select id="prefix"></select>
-
 </div>
 
 <div>
-
 <label for="number">6-Digit Number</label>
-
 <input
  id="number"
  type="tel"
  inputmode="numeric"
  maxlength="6"
- placeholder="Enter 6 digits"
->
-
+ placeholder="Enter 6 digits">
 </div>
 
 </div>
-
 
 <div class="row">
 
 <div>
-
 <label for="type">Inspection Type</label>
 
 <select id="type">
-
 <option value="5652">5652 — Pre-repair</option>
 <option value="5900">5900 — Post-repair</option>
 <option value="5658">5658 — Add-on</option>
-
 </select>
 
 </div>
 
-
 <div>
-
 <label for="condition">Condition</label>
 
 <select id="condition">
-
 <option>Defect</option>
 <option>No Defect</option>
-
 </select>
 
 </div>
 
 </div>
-
 
 <label for="equipmentNote">Inspection Note</label>
 
 <input
  id="equipmentNote"
- placeholder="Example: 145D dwell"
->
+ placeholder="Example: 145D dwell">
 
 <button id="addInspection">
 ADD INSPECTION
@@ -493,19 +476,15 @@ ADD INSPECTION
 <div class="row">
 
 <div>
-
 <label for="containerPrefix">4-Character Prefix</label>
 
 <input
  id="containerPrefix"
  maxlength="4"
- placeholder="ABCD"
->
-
+ placeholder="ABCD">
 </div>
 
 <div>
-
 <label for="containerNumber">6-Digit Number</label>
 
 <input
@@ -513,53 +492,41 @@ ADD INSPECTION
  type="tel"
  inputmode="numeric"
  maxlength="6"
- placeholder="Enter 6 digits"
->
-
+ placeholder="Enter 6 digits">
 </div>
 
 </div>
-
 
 <div class="row">
 
 <div>
-
 <label for="containerType">Inspection Type</label>
 
 <select id="containerType">
-
 <option value="5653">5653 — Pre-repair</option>
 <option value="5900">5900 — Post-repair</option>
 <option value="5658">5658 — Add-on</option>
-
 </select>
 
 </div>
 
-
 <div>
-
 <label for="containerCondition">Condition</label>
 
 <select id="containerCondition">
-
 <option>Defect</option>
 <option>No Defect</option>
-
 </select>
 
 </div>
 
 </div>
-
 
 <label for="containerNote">Inspection Note</label>
 
 <input
  id="containerNote"
- placeholder="Example: 145D dwell"
->
+ placeholder="Example: 145D dwell">
 
 <button id="addContainerInspection">
 ADD INSPECTION
@@ -577,18 +544,11 @@ ADD INSPECTION
 <div class="row">
 
 <div>
-
 <label>4-Character Prefix</label>
-
-<div class="static-type">
-ZNSU
+<div class="static-type">ZNSU</div>
 </div>
-
-</div>
-
 
 <div>
-
 <label for="rackNumber">6-Digit Number</label>
 
 <input
@@ -596,49 +556,35 @@ ZNSU
  type="tel"
  inputmode="numeric"
  maxlength="6"
- placeholder="Enter 6 digits"
->
-
+ placeholder="Enter 6 digits">
 </div>
 
 </div>
-
 
 <div class="row">
 
 <div>
-
 <label>Inspection Type</label>
-
-<div class="static-type">
-5657 — Pre-repair
+<div class="static-type">5657 — Pre-repair</div>
 </div>
-
-</div>
-
 
 <div>
-
 <label for="rackCondition">Condition</label>
 
 <select id="rackCondition">
-
 <option>Defect</option>
 <option>No Defect</option>
-
 </select>
 
 </div>
 
 </div>
 
-
 <label for="rackNote">Inspection Note</label>
 
 <input
  id="rackNote"
- placeholder="Example: 145D dwell"
->
+ placeholder="Example: 145D dwell">
 
 <button id="addRackInspection">
 ADD INSPECTION
@@ -708,7 +654,9 @@ BACK TO EDIT
 "use strict";
 
 
-const STORAGE_KEY="eodInspectionReport_v6";
+const STORAGE_KEY="eodInspectionReport_v7";
+
+const TARGET=28;
 
 const TODAY="8/17/26";
 
@@ -740,71 +688,40 @@ const EXTRA=[
 ];
 
 
+/*
+ IMPORTANT:
+
+ TODAY'S INSPECTIONS HAVE BEEN REMOVED.
+
+ The app now starts at ZERO.
+
+ New inspections are saved to localStorage
+ as you enter them.
+*/
+
 const data={
 
  chassis:{
 
   "5652":{
-
-   "Pre-repair":[
-
-    ["NSPZ 170564","No Defect",""],
-    ["NSPZ 160344","No Defect",""],
-    ["NSPZ 132150","No Defect",""],
-    ["NSPZ 161744","No Defect",""],
-
-    ["NSPZ 144634","Defect",""],
-    ["NSPZ 130259","Defect",""],
-    ["NSPZ 140111","Defect",""],
-    ["NSPZ 163259","Defect",""],
-    ["NSFZ 137506","Defect",""],
-    ["NSPZ 141045","Defect",""],
-    ["NSPZ 161874","Defect",""],
-    ["NSPZ 148115","Defect",""],
-    ["NSFZ 137815","Defect",""],
-    ["NSPZ 145813","Defect",""],
-    ["NSPZ 136169","Defect",""]
-
-   ],
-
+   "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
-
   },
-
 
   "5900":{
-
-   "Pre-repair":[],
-
-   "Post-repair":[
-
-    ["NSPZ 132929","No Defect",""],
-    ["NSPZ 136169","No Defect",""]
-
-   ],
-
-   "Add-on":[]
-
-  },
-
-
-  "5658":{
-
    "Pre-repair":[],
    "Post-repair":[],
+   "Add-on":[]
+  },
 
-   "Add-on":[
-
-    ["NSPZ 166136","Defect",""],
-    ["NSPZ 133019","Defect",""]
-
-   ]
-
+  "5658":{
+   "Pre-repair":[],
+   "Post-repair":[],
+   "Add-on":[]
   }
 
  },
-
 
  containers:{
 
@@ -828,7 +745,6 @@ const data={
 
  },
 
-
  racks:{
 
   "5657":{
@@ -840,17 +756,23 @@ const data={
 };
 
 
-const terminal=document.getElementById("terminal");
+const terminal=
+ document.getElementById("terminal");
 
-const prefix=document.getElementById("prefix");
+const prefix=
+ document.getElementById("prefix");
 
-const list=document.getElementById("inspectionList");
+const list=
+ document.getElementById("inspectionList");
 
-const notes=document.getElementById("notes");
+const notes=
+ document.getElementById("notes");
 
-const count=document.getElementById("count");
+const count=
+ document.getElementById("count");
 
-const fill=document.getElementById("fill");
+const fill=
+ document.getElementById("fill");
 
 
 function formatDate(d=new Date()){
@@ -866,15 +788,79 @@ function formatDate(d=new Date()){
 }
 
 
+function emptyData(){
+
+ return {
+
+  chassis:{
+
+   "5652":{
+    "Pre-repair":[],
+    "Post-repair":[],
+    "Add-on":[]
+   },
+
+   "5900":{
+    "Pre-repair":[],
+    "Post-repair":[],
+    "Add-on":[]
+   },
+
+   "5658":{
+    "Pre-repair":[],
+    "Post-repair":[],
+    "Add-on":[]
+   }
+
+  },
+
+  containers:{
+
+   "5653":{
+    "Pre-repair":[],
+    "Post-repair":[],
+    "Add-on":[]
+   },
+
+   "5900":{
+    "Pre-repair":[],
+    "Post-repair":[],
+    "Add-on":[]
+   },
+
+   "5658":{
+    "Pre-repair":[],
+    "Post-repair":[],
+    "Add-on":[]
+   }
+
+  },
+
+  racks:{
+   "5657":{
+    "Pre-repair":[]
+   }
+  }
+
+ };
+
+}
+
+
 function save(){
 
  localStorage.setItem(
   STORAGE_KEY,
   JSON.stringify({
+
    terminal:terminal.value,
+
    date:TODAY,
+
    data:data,
+
    notes:notes.value
+
   })
  );
 
@@ -914,6 +900,7 @@ function updatePrefixes(){
   const o=document.createElement("option");
 
   o.value=p;
+
   o.textContent=p;
 
   prefix.appendChild(o);
@@ -922,8 +909,8 @@ function updatePrefixes(){
 
  prefix.value=
   values.includes(current)
-   ? current
-   : "NSPZ";
+   ?current
+   :"NSPZ";
 
 }
 
@@ -952,37 +939,37 @@ function total(){
 
 
 /*
- IMPORTANT PROGRESS LOGIC
-
- The target is 28.
-
- The NUMBER continues increasing:
+ PROGRESS:
 
  28 / 28
  29 / 28
  30 / 28
  31 / 28
 
- But the BAR itself stops at 100%.
+ The number NEVER stops.
+
+ Only the visual bar stops at 100%.
 */
 
 function progress(){
 
  const n=total();
 
- // Keep the actual inspection count.
  count.textContent=n;
 
- // Cap only the visual progress bar at 100%.
- const percentage=Math.min(100,(n/28)*100);
+ const percentage=
+  Math.min(100,(n/TARGET)*100);
 
- fill.style.width=percentage+"%";
+ fill.style.width=
+  percentage+"%";
 
- // Show completion message once 28 or more are completed.
  document
   .getElementById("completeMessage")
   .classList
-  .toggle("show",n>=28);
+  .toggle(
+   "show",
+   n>=TARGET
+  );
 
 }
 
@@ -1033,9 +1020,13 @@ function addChassis(){
    .trim();
 
  data.chassis[t][sectionFor(t)].push([
+
   prefix.value+" "+num,
+
   c,
+
   note
+
  ]);
 
  document.getElementById("number").value="";
@@ -1173,27 +1164,29 @@ function chassisRecords(){
 
  Object.keys(data.chassis).forEach(type=>{
 
-  const section=sectionFor(type);
+  const section=
+   sectionFor(type);
 
-  data.chassis[type][section].forEach((item,index)=>{
+  data.chassis[type][section]
+   .forEach((item,index)=>{
 
-   r.push({
+    r.push({
 
-    type:type,
+     type:type,
 
-    section:section,
+     section:section,
 
-    index:index,
+     index:index,
 
-    number:item[0],
+     number:item[0],
 
-    condition:item[1],
+     condition:item[1],
 
-    note:item[2]||""
+     note:item[2]||""
+
+    });
 
    });
-
-  });
 
  });
 
@@ -1204,11 +1197,13 @@ function chassisRecords(){
 
 function select(values,current){
 
- const s=document.createElement("select");
+ const s=
+  document.createElement("select");
 
  values.forEach(v=>{
 
-  const o=document.createElement("option");
+  const o=
+   document.createElement("option");
 
   o.value=v;
 
@@ -1238,9 +1233,7 @@ function split(value){
 
   prefix:p[0]||"",
 
-  number:p
-   .slice(1)
-   .join("")
+  number:p.slice(1).join("")
 
  };
 
@@ -1251,12 +1244,14 @@ function render(){
 
  list.innerHTML="";
 
- const records=chassisRecords();
+ const records=
+  chassisRecords();
 
 
  if(!records.length){
 
-  const e=document.createElement("div");
+  const e=
+   document.createElement("div");
 
   e.className="empty-list";
 
@@ -1275,13 +1270,15 @@ function render(){
   const row=
    document.createElement("div");
 
-  row.className="inspection-row";
+  row.className=
+   "inspection-row";
 
 
   const text=
    document.createElement("div");
 
-  text.className="inspection-display";
+  text.className=
+   "inspection-display";
 
   text.textContent=
    r.type+
@@ -1294,15 +1291,18 @@ function render(){
   const edit=
    document.createElement("button");
 
-  edit.className="edit-button";
+  edit.className=
+   "edit-button";
 
   edit.type="button";
 
   edit.textContent="✎";
 
-  edit.title="Edit inspection";
+  edit.title=
+   "Edit inspection";
 
-  edit.onclick=()=>editRow(row,r);
+  edit.onclick=
+   ()=>editRow(row,r);
 
 
   row.appendChild(text);
@@ -1324,7 +1324,8 @@ function editRow(row,r){
  const area=
   document.createElement("div");
 
- area.className="inspection-edit";
+ area.className=
+  "inspection-edit";
 
 
  const type=
@@ -1341,20 +1342,21 @@ function editRow(row,r){
   );
 
 
- const parts=split(r.number);
+ const parts=
+  split(r.number);
 
 
  const prefixes=
   SPECIAL.includes(terminal.value)
 
-   ? [...BASE,...EXTRA]
+   ?[...BASE,...EXTRA]
 
-   : [
-      ...BASE,
-      ...(EXTRA.includes(parts.prefix)
-       ? [parts.prefix]
-       : [])
-     ];
+   :[
+     ...BASE,
+     ...(EXTRA.includes(parts.prefix)
+      ?[parts.prefix]
+      :[])
+    ];
 
 
  const p=
@@ -1373,7 +1375,8 @@ function editRow(row,r){
 
  num.maxLength=6;
 
- num.value=parts.number;
+ num.value=
+  parts.number;
 
 
  num.oninput=()=>{
@@ -1386,10 +1389,6 @@ function editRow(row,r){
  };
 
 
- /*
- SAVE / CHECK BUTTON
- */
-
  const check=
   document.createElement("button");
 
@@ -1400,12 +1399,9 @@ function editRow(row,r){
 
  check.textContent="✓";
 
- check.title="Save correction";
+ check.title=
+  "Save correction";
 
-
- /*
- DELETE / X BUTTON
- */
 
  const del=
   document.createElement("button");
@@ -1417,7 +1413,8 @@ function editRow(row,r){
 
  del.textContent="×";
 
- del.title="Delete inspection";
+ del.title=
+  "Delete inspection";
 
 
  area.append(
@@ -1431,10 +1428,6 @@ function editRow(row,r){
 
  row.appendChild(area);
 
-
- /*
- SAVE EDIT
- */
 
  check.onclick=()=>{
 
@@ -1474,7 +1467,8 @@ function editRow(row,r){
   old.splice(oldIndex,1);
 
 
-  const newType=type.value;
+  const newType=
+   type.value;
 
   const newSection=
    sectionFor(newType);
@@ -1503,10 +1497,6 @@ function editRow(row,r){
  };
 
 
- /*
- DELETE INSPECTION
- */
-
  del.onclick=()=>{
 
   if(
@@ -1519,9 +1509,7 @@ function editRow(row,r){
     r.number
    )
   ){
-
    return;
-
   }
 
 
@@ -1584,13 +1572,17 @@ function reportSection(
 
   out.push(
    "("+items.length+") "+
-   (condition==="Defect"
-    ?yesText
-    :noText)
+   (
+    condition==="Defect"
+     ?yesText
+     :noText
+   )
   );
 
 
-  out.push(label+":");
+  out.push(
+   label+":"
+  );
 
 
   items.forEach((x,i)=>{
@@ -1754,12 +1746,94 @@ function buildEOD(){
 }
 
 
+/*
+ RESET EVERYTHING FOR A NEW DAY
+
+ This clears:
+
+ • chassis
+ • containers
+ • chassis racks
+ • notes
+ • saved localStorage data
+
+ It does NOT happen until EMAIL EOD
+ has already created the email body.
+*/
+
+function resetForNewDay(){
+
+ const fresh=
+  emptyData();
+
+
+ Object.keys(data).forEach(k=>{
+
+  Object.keys(data[k]).forEach(t=>{
+
+   Object.keys(data[k][t]).forEach(s=>{
+
+    data[k][t][s].length=0;
+
+   });
+
+  });
+
+ });
+
+
+ terminal.value=
+  "HARRISBURG";
+
+
+ notes.value="";
+
+
+ document.getElementById("number").value="";
+
+ document.getElementById("equipmentNote").value="";
+
+ document.getElementById("containerPrefix").value="";
+
+ document.getElementById("containerNumber").value="";
+
+ document.getElementById("containerNote").value="";
+
+ document.getElementById("rackNumber").value="";
+
+ document.getElementById("rackNote").value="";
+
+
+ localStorage.removeItem(STORAGE_KEY);
+
+
+ updatePrefixes();
+
+ progress();
+
+ render();
+
+
+ document
+  .getElementById("previewCard")
+  .classList
+  .add("hidden");
+
+}
+
+
+/*
+ GENERATE PREVIEW
+*/
+
 function generate(){
 
  save();
 
- document.getElementById("preview").textContent=
-  buildEOD();
+ document
+  .getElementById("preview")
+  .textContent=
+   buildEOD();
 
  document
   .getElementById("previewCard")
@@ -1775,7 +1849,24 @@ function generate(){
 }
 
 
+/*
+ EMAIL EOD
+
+ VERY IMPORTANT:
+
+ 1. Build the report FIRST.
+ 2. Build the mailto using that report.
+ 3. Open the email.
+ 4. THEN reset the app.
+
+ This prevents the email from opening blank.
+*/
+
 function email(){
+
+ const report=
+  buildEOD();
+
 
  const subject=
   "End of Day Report - "+
@@ -1784,31 +1875,55 @@ function email(){
   formatDate();
 
 
- window.location.href=
+ const mailto=
   "mailto:joe@caliberis.com"+
   "?cc=dgeist@caliberis.com,jdoan@aspectassociates.com"+
   "&subject="+
   encodeURIComponent(subject)+
   "&body="+
-  encodeURIComponent(buildEOD());
+  encodeURIComponent(report);
+
+
+ /*
+ Open the email first.
+ */
+
+ window.location.href=
+  mailto;
+
+
+ /*
+ Give iOS a moment to receive the
+ mailto information, then reset
+ the inspection app.
+
+ The email already has the report
+ in its URL at this point.
+ */
+
+ setTimeout(()=>{
+
+  resetForNewDay();
+
+ },1200);
 
 }
 
 
 /*
- RESTORE TODAY'S DATA
+ RESTORE TODAY'S SAVED WORK
 
- The embedded inspections above act
- as the recovery copy if there is
- no saved localStorage data.
+ The app restores saved inspections
+ only if they were saved for TODAY.
 
- If today's saved report exists,
- that saved report is used.
+ There are NO hard-coded inspections
+ anymore.
 */
 
 function restore(){
 
- const saved=load();
+ const saved=
+  load();
 
 
  if(
@@ -1858,12 +1973,6 @@ function restore(){
 
  }
 
- else if(!saved){
-
-  save();
-
- }
-
 }
 
 
@@ -1878,27 +1987,32 @@ terminal.onchange=()=>{
 
 document
  .getElementById("addInspection")
- .onclick=addChassis;
+ .onclick=
+  addChassis;
 
 
 document
  .getElementById("addContainerInspection")
- .onclick=addContainer;
+ .onclick=
+  addContainer;
 
 
 document
  .getElementById("addRackInspection")
- .onclick=addRack;
+ .onclick=
+  addRack;
 
 
 document
  .getElementById("generateEod")
- .onclick=generate;
+ .onclick=
+  generate;
 
 
 document
  .getElementById("emailEod")
- .onclick=email;
+ .onclick=
+  email;
 
 
 document
@@ -1913,7 +2027,8 @@ document
  };
 
 
-notes.oninput=save;
+notes.oninput=
+ save;
 
 
 document
@@ -1924,8 +2039,6 @@ document
    e.target.value
     .replace(/\D/g,"")
     .slice(0,6);
-
-  save();
 
  };
 
@@ -1940,8 +2053,6 @@ document
     .toUpperCase()
     .slice(0,4);
 
-  save();
-
  };
 
 
@@ -1954,8 +2065,6 @@ document
     .replace(/\D/g,"")
     .slice(0,6);
 
-  save();
-
  };
 
 
@@ -1967,8 +2076,6 @@ document
    e.target.value
     .replace(/\D/g,"")
     .slice(0,6);
-
-  save();
 
  };
 
@@ -2006,7 +2113,8 @@ restore();
 
 document
  .getElementById("reportDate")
- .textContent=TODAY;
+ .textContent=
+  TODAY;
 
 
 document.title=
@@ -2019,7 +2127,6 @@ updatePrefixes();
 progress();
 
 render();
-
 
 })();
 
