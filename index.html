@@ -17,26 +17,22 @@
 
 <style>
 
-/* =========================================================
-   EOD INSPECTION — CUSTOM ACCENT DESIGN
-   ========================================================= */
-
 *{
  box-sizing:border-box;
  -webkit-tap-highlight-color:transparent;
 }
 
-:root {
- --navy-dark: #001338;
- --navy-header: #001f54;
- --yellow-primary: #ffc107;
- --yellow-hover: #e0a800;
- --bg-light: #eef2f7;
- --card-bg: #ffffff;
- --border-color: #d1d9e6;
- --text-dark: #1e293b;
- --text-muted: #64748b;
- --input-bg: #f8fafc;
+:root{
+ --navy-dark:#001338;
+ --navy-header:#001f54;
+ --yellow-primary:#ffc107;
+ --yellow-hover:#e0a800;
+ --bg-light:#eef2f7;
+ --card-bg:#ffffff;
+ --border-color:#d1d9e6;
+ --text-dark:#1e293b;
+ --text-muted:#64748b;
+ --input-bg:#f8fafc;
 }
 
 html{
@@ -47,162 +43,158 @@ html{
 body{
  margin:0;
  min-height:100vh;
- background-color: var(--bg-light);
- color: var(--text-dark);
- font-family:
-   -apple-system,
-   BlinkMacSystemFont,
-   "Segoe UI",
-   Roboto,
-   Helvetica,
-   Arial,
-   sans-serif;
+ background-color:var(--bg-light);
+ color:var(--text-dark);
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
  -webkit-font-smoothing:antialiased;
- padding: 12px;
+ padding:12px;
 }
 
-/* Hide Spinners on Numeric Inputs */
 input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input[type="number"] {
-  -moz-appearance: textfield;
+input[type="number"]::-webkit-inner-spin-button{
+ -webkit-appearance:none;
+ margin:0;
 }
 
-/* =========================================================
-   HEADER
-   ========================================================= */
+input[type="number"]{
+ -moz-appearance:textfield;
+}
+
+/* HEADER */
 
 header{
- background: linear-gradient(90deg, #001338 0%, #002b6d 70%, #001338 100%);
- color: #ffffff;
- display: flex;
- justify-content: space-between;
- align-items: center;
- padding: 14px 20px;
- border-radius: 8px;
- margin-bottom: 16px;
- position: relative;
- overflow: hidden;
- border-bottom: 3px solid var(--yellow-primary);
- box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+ background:linear-gradient(90deg,#001338 0%,#002b6d 70%,#001338 100%);
+ color:#fff;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:14px 20px;
+ border-radius:8px;
+ margin-bottom:16px;
+ position:relative;
+ overflow:hidden;
+ border-bottom:3px solid var(--yellow-primary);
+ box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
 .header-inner{
- display: flex;
- align-items: center;
- gap: 12px;
+ display:flex;
+ align-items:center;
+ gap:12px;
 }
 
 .header-icon{
- font-size: 24px;
- background: rgba(255, 255, 255, 0.1);
- padding: 4px 8px;
- border-radius: 6px;
- border: 1px solid rgba(255, 255, 255, 0.2);
+ font-size:24px;
+ background:rgba(255,255,255,.1);
+ padding:4px 8px;
+ border-radius:6px;
+ border:1px solid rgba(255,255,255,.2);
+}
+
+.header-icon-img{
+ width:44px;
+ height:44px;
+ object-fit:cover;
+ border-radius:10px;
+ flex-shrink:0;
+ display:block;
+ border:1px solid rgba(255,255,255,.25);
+ box-shadow:0 2px 6px rgba(0,0,0,.25);
 }
 
 .header-title{
- font-size: 1.5rem;
- font-weight: 800;
- letter-spacing: 0.5px;
+ font-size:1.5rem;
+ font-weight:800;
+ letter-spacing:.5px;
 }
 
-.header-logo {
- display: flex;
- align-items: center;
- gap: 8px;
+.header-logo{
+ display:flex;
+ align-items:center;
+ gap:8px;
 }
 
-.logo-text {
- display: flex;
- flex-direction: column;
- line-height: 1;
- text-align: right;
+.logo-text{
+ display:flex;
+ flex-direction:column;
+ line-height:1;
+ text-align:right;
 }
 
-.brand-name {
- font-weight: 900;
- font-size: 1.2rem;
- letter-spacing: 1px;
+.brand-name{
+ font-weight:900;
+ font-size:1.2rem;
+ letter-spacing:1px;
 }
 
-.brand-sub {
- font-size: 0.65rem;
- letter-spacing: 2px;
- color: #94a3b8;
+.brand-sub{
+ font-size:.65rem;
+ letter-spacing:2px;
+ color:#94a3b8;
 }
 
-/* =========================================================
-   APP GRID CONTAINER
-   ========================================================= */
+/* APP */
 
 .app{
- width: min(1000px, 100%);
- margin: auto;
- display: grid;
- grid-template-columns: repeat(2, 1fr);
- gap: 16px;
- padding-bottom: 40px;
+ width:min(1000px,100%);
+ margin:auto;
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:16px;
+ padding-bottom:40px;
 }
 
-.card-full-width {
- grid-column: span 2;
+.card-full-width{
+ grid-column:span 2;
 }
 
-/* =========================================================
-   CARDS & ANGLED HEADERS
-   ========================================================= */
+/* CARDS */
 
 .card{
- background: var(--card-bg);
- border-radius: 12px;
- border: 1px solid var(--border-color);
- box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
- overflow: hidden;
- display: flex;
- flex-direction: column;
+ background:var(--card-bg);
+ border-radius:12px;
+ border:1px solid var(--border-color);
+ box-shadow:0 4px 12px rgba(0,0,0,.05);
+ overflow:hidden;
+ display:flex;
+ flex-direction:column;
 }
 
-.card-header-styled {
- background: linear-gradient(90deg, #001c4d 0%, #002b6d 100%);
- color: #ffffff;
- padding: 10px 16px;
- position: relative;
+.card-header-styled{
+ background:linear-gradient(90deg,#001c4d 0%,#002b6d 100%);
+ color:#fff;
+ padding:10px 16px;
+ position:relative;
 }
 
-.card-header-styled::after {
- content: "";
- position: absolute;
- top: 0;
- right: 0;
- width: 0;
- height: 0;
- border-style: solid;
- border-width: 0 32px 38px 0;
- border-color: transparent var(--yellow-primary) transparent transparent;
+.card-header-styled::after{
+ content:"";
+ position:absolute;
+ top:0;
+ right:0;
+ width:0;
+ height:0;
+ border-style:solid;
+ border-width:0 32px 38px 0;
+ border-color:transparent var(--yellow-primary) transparent transparent;
 }
 
 .card h2{
- margin: 0;
- font-size: 1.1rem;
- font-weight: 700;
- color: #ffffff;
+ margin:0;
+ font-size:1.1rem;
+ font-weight:700;
+ color:#fff;
 }
 
-.card-body {
- padding: 16px;
- display: flex;
- flex-direction: column;
- gap: 12px;
- flex-grow: 1;
+.card-body{
+ padding:16px;
+ display:flex;
+ flex-direction:column;
+ gap:12px;
+ flex-grow:1;
 }
 
-/* =========================================================
-   STATUS / TERMINAL CARD
-   ========================================================= */
+/* STATUS */
 
 .status-top{
  display:flex;
@@ -223,43 +215,41 @@ header{
  color:#64748b;
  font-size:13px;
  font-weight:600;
- margin-bottom: 4px;
+ margin-bottom:4px;
 }
 
-/* =========================================================
-   LABELS / INPUTS
-   ========================================================= */
+/* INPUTS */
 
 label{
  display:block;
- font-size: 0.75rem;
- font-weight: 700;
- color: #001f54;
- margin-bottom: 4px;
- text-transform: uppercase;
- letter-spacing: 0.3px;
+ font-size:.75rem;
+ font-weight:700;
+ color:#001f54;
+ margin-bottom:4px;
+ text-transform:uppercase;
+ letter-spacing:.3px;
 }
 
 input,
 select,
 textarea{
- width: 100%;
- padding: 10px 12px;
- border: 1px solid var(--border-color);
- border-radius: 8px;
- background-color: var(--input-bg);
- font-size: 0.95rem;
- color: var(--text-dark);
- outline: none;
- box-shadow: none;
+ width:100%;
+ padding:10px 12px;
+ border:1px solid var(--border-color);
+ border-radius:8px;
+ background-color:var(--input-bg);
+ font-size:.95rem;
+ color:var(--text-dark);
+ outline:none;
+ box-shadow:none;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
- border-color: #002b6d;
- background: #ffffff;
- box-shadow: 0 0 0 2px rgba(0, 43, 109, 0.15);
+ border-color:#002b6d;
+ background:#fff;
+ box-shadow:0 0 0 2px rgba(0,43,109,.15);
 }
 
 textarea{
@@ -274,18 +264,16 @@ textarea{
 }
 
 .static-type{
- padding: 10px 12px;
- border: 1px solid var(--border-color);
- border-radius: 8px;
- background-color: #e2e8f0;
- color: #334155;
- font-size: 0.95rem;
- font-weight: 700;
+ padding:10px 12px;
+ border:1px solid var(--border-color);
+ border-radius:8px;
+ background-color:#e2e8f0;
+ color:#334155;
+ font-size:.95rem;
+ font-weight:700;
 }
 
-/* =========================================================
-   PROGRESS BAR
-   ========================================================= */
+/* PROGRESS */
 
 .progressbar{
  height:12px;
@@ -298,70 +286,66 @@ textarea{
  height:100%;
  width:0;
  border-radius:12px;
- background-color: var(--yellow-primary);
+ background-color:var(--yellow-primary);
  transition:width .4s ease;
 }
 
 .progress-complete-message{
  display:none;
- background-color: var(--yellow-primary);
- color: #000000;
- padding: 10px;
- border-radius: 6px;
- font-weight: 700;
- font-size: 0.85rem;
- text-align: center;
- margin-top: 8px;
+ background-color:var(--yellow-primary);
+ color:#000;
+ padding:10px;
+ border-radius:6px;
+ font-weight:700;
+ font-size:.85rem;
+ text-align:center;
+ margin-top:8px;
 }
 
 .progress-complete-message.show{
  display:block;
 }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
+/* BUTTONS */
 
 button{
- width: 100%;
- padding: 11px 18px;
- border: none;
- border-radius: 6px;
- font-weight: 800;
- font-size: 0.85rem;
- letter-spacing: 0.5px;
- cursor: pointer;
- display: inline-flex;
- align-items: center;
- justify-content: center;
- gap: 8px;
- transition: opacity 0.15s ease;
- background-color: var(--yellow-primary);
- color: #000000;
- margin-top: auto;
+ width:100%;
+ padding:11px 18px;
+ border:none;
+ border-radius:6px;
+ font-weight:800;
+ font-size:.85rem;
+ letter-spacing:.5px;
+ cursor:pointer;
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ gap:8px;
+ transition:opacity .15s ease;
+ background-color:var(--yellow-primary);
+ color:#000;
+ margin-top:auto;
 }
 
 button:hover{
- opacity: 0.9;
+ opacity:.9;
 }
 
 button:active{
- transform: scale(.985);
+ transform:scale(.985);
 }
 
 button.secondary{
- background-color: #001845;
- color: #ffffff;
+ background-color:#001845;
+ color:#fff;
 }
 
 button.primary{
- background-color: var(--yellow-primary);
- color: #000000;
+ background-color:var(--yellow-primary);
+ color:#000;
 }
 
-/* =========================================================
-   INSPECTION LIST
-   ========================================================= */
+/* INSPECTION LIST */
 
 .inspection-list{
  display:flex;
@@ -396,8 +380,8 @@ button.primary{
  padding:0;
  border-radius:6px;
  font-size:16px;
- background-color: #e2e8f0;
- color: #1e293b;
+ background-color:#e2e8f0;
+ color:#1e293b;
 }
 
 .edit-button.editing{
@@ -434,9 +418,7 @@ button.primary{
  font-weight:600;
 }
 
-/* =========================================================
-   PREVIEW
-   ========================================================= */
+/* PREVIEW */
 
 #preview{
  white-space:pre-wrap;
@@ -447,60 +429,58 @@ button.primary{
  border-radius:8px;
  background:#f8fafc;
  color:#26364b;
- font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+ font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
  font-size:13px;
  line-height:1.55;
- margin-bottom: 12px;
+ margin-bottom:12px;
 }
 
 .preview-actions{
  display:flex;
- justify-content: flex-end;
+ justify-content:flex-end;
  gap:10px;
 }
 
-.preview-actions button {
- width: auto;
+.preview-actions button{
+ width:auto;
 }
 
 .hidden{
  display:none!important;
 }
 
-/* =========================================================
-   MOBILE RESPONSIVENESS
-   ========================================================= */
+/* MOBILE */
 
 @media(max-width:768px){
 
  .app{
-  grid-template-columns: 1fr;
-  padding-bottom: 30px;
+  grid-template-columns:1fr;
+  padding-bottom:30px;
  }
 
- .card-full-width {
-  grid-column: span 1;
+ .card-full-width{
+  grid-column:span 1;
  }
 
  header{
-  padding: 12px 14px;
+  padding:12px 14px;
  }
 
  .header-title{
-  font-size: 1.2rem;
+  font-size:1.2rem;
  }
 
  .row{
-  grid-template-columns: 1fr;
-  gap: 8px;
+  grid-template-columns:1fr;
+  gap:8px;
  }
 
  .preview-actions{
-  flex-direction: column;
+  flex-direction:column;
  }
 
- .preview-actions button {
-  width: 100%;
+ .preview-actions button{
+  width:100%;
  }
 
  .inspection-edit{
@@ -523,29 +503,26 @@ button.primary{
 
  <div class="header-inner">
 
-<img src="./eod-icon.PNG" class="header-icon-img" alt="EOD Icon">
+  <img src="./eod-icon.png" class="header-icon-img" alt="EOD Icon">
 
   <div>
    <div class="header-title">EOD Inspection</div>
   </div>
+
  </div>
 
  <div class="header-logo">
+
   <div class="logo-text">
    <span class="brand-name">ASPECT</span>
    <span class="brand-sub">ASSOCIATES</span>
   </div>
+
  </div>
 
 </header>
 
-
 <main class="app">
-
-
-<!-- =====================================================
-     TERMINAL / PROGRESS
-     ===================================================== -->
 
 <section class="card">
 
@@ -559,7 +536,7 @@ button.primary{
 
    <div class="status-terminal">
 
-    <select id="terminal" style="font-weight: 700;">
+    <select id="terminal" style="font-weight:700;">
 
      <option>APPLIANCE PARK</option>
      <option>ATLANTA</option>
@@ -605,27 +582,17 @@ button.primary{
 
   </div>
 
-
   <div class="progressbar">
    <div class="fill" id="fill"></div>
   </div>
 
-
-  <div
-   class="progress-complete-message"
-   id="completeMessage"
-  >
+  <div class="progress-complete-message" id="completeMessage">
    ✓ Daily inspection target complete
   </div>
 
  </div>
 
 </section>
-
-
-<!-- =====================================================
-     CHASSIS
-     ===================================================== -->
 
 <section class="card">
 
@@ -639,9 +606,7 @@ button.primary{
 
    <div>
 
-    <label for="prefix">
-     4-Character Prefix
-    </label>
+    <label for="prefix">4-Character Prefix</label>
 
     <select id="prefix"></select>
 
@@ -649,9 +614,7 @@ button.primary{
 
    <div>
 
-    <label for="number">
-     6-Digit Number
-    </label>
+    <label for="number">6-Digit Number</label>
 
     <input
      id="number"
@@ -666,79 +629,53 @@ button.primary{
 
   </div>
 
-
   <div class="row">
 
    <div>
 
-    <label for="type">
-     Inspection Type
-    </label>
+    <label for="type">Inspection Type</label>
 
     <select id="type">
 
-     <option value="5652">
-      5652 — Pre-repair
-     </option>
-
-     <option value="5900">
-      5900 — Post-repair
-     </option>
-
-     <option value="5658">
-      5658 — Add-on
-     </option>
+     <option value="5652">5652 — Pre-repair</option>
+     <option value="5900">5900 — Post-repair</option>
+     <option value="5658">5658 — Add-on</option>
 
     </select>
 
    </div>
 
-
    <div>
 
-    <label for="condition">
-     Condition
-    </label>
+    <label for="condition">Condition</label>
 
     <select id="condition">
-
      <option>Defect</option>
      <option>No Defect</option>
-
     </select>
 
    </div>
 
   </div>
 
-
   <div>
-   <label for="equipmentNote">
-    Inspection Note
-   </label>
+
+   <label for="equipmentNote">Inspection Note</label>
 
    <input
     id="equipmentNote"
     placeholder="Example: 145D dwell"
    >
+
   </div>
 
-
-  <button
-   id="addInspection"
-   class="primary"
-  >
+  <button id="addInspection" class="primary">
    ADD INSPECTION
   </button>
 
  </div>
 
 </section>
-
-
-<!-- =====================================================
-     CONTAINERS
-     ===================================================== -->
 
 <section class="card">
 
@@ -752,9 +689,7 @@ button.primary{
 
    <div>
 
-    <label for="containerPrefix">
-     4-Character Prefix
-    </label>
+    <label for="containerPrefix">4-Character Prefix</label>
 
     <input
      id="containerPrefix"
@@ -766,9 +701,7 @@ button.primary{
 
    <div>
 
-    <label for="containerNumber">
-     6-Digit Number
-    </label>
+    <label for="containerNumber">6-Digit Number</label>
 
     <input
      id="containerNumber"
@@ -783,79 +716,53 @@ button.primary{
 
   </div>
 
-
   <div class="row">
 
    <div>
 
-    <label for="containerType">
-     Inspection Type
-    </label>
+    <label for="containerType">Inspection Type</label>
 
     <select id="containerType">
 
-     <option value="5653">
-      5653 — Pre-repair
-     </option>
-
-     <option value="5900">
-      5900 — Post-repair
-     </option>
-
-     <option value="5658">
-      5658 — Add-on
-     </option>
+     <option value="5653">5653 — Pre-repair</option>
+     <option value="5900">5900 — Post-repair</option>
+     <option value="5658">5658 — Add-on</option>
 
     </select>
 
    </div>
 
-
    <div>
 
-    <label for="containerCondition">
-     Condition
-    </label>
+    <label for="containerCondition">Condition</label>
 
     <select id="containerCondition">
-
      <option>Defect</option>
      <option>No Defect</option>
-
     </select>
 
    </div>
 
   </div>
 
-
   <div>
-   <label for="containerNote">
-    Inspection Note
-   </label>
+
+   <label for="containerNote">Inspection Note</label>
 
    <input
     id="containerNote"
     placeholder="Example: 145D dwell"
    >
+
   </div>
 
-
-  <button
-   id="addContainerInspection"
-   class="primary"
-  >
+  <button id="addContainerInspection" class="primary">
    ADD INSPECTION
   </button>
 
  </div>
 
 </section>
-
-
-<!-- =====================================================
-     CHASSIS RACKS
-     ===================================================== -->
 
 <section class="card">
 
@@ -869,22 +776,15 @@ button.primary{
 
    <div>
 
-    <label>
-     4-Character Prefix
-    </label>
+    <label>4-Character Prefix</label>
 
-    <div class="static-type">
-     ZNSU
-    </div>
+    <div class="static-type">ZNSU</div>
 
    </div>
 
-
    <div>
 
-    <label for="rackNumber">
-     6-Digit Number
-    </label>
+    <label for="rackNumber">6-Digit Number</label>
 
     <input
      id="rackNumber"
@@ -899,67 +799,47 @@ button.primary{
 
   </div>
 
-
   <div class="row">
 
    <div>
 
-    <label>
-     Inspection Type
-    </label>
+    <label>Inspection Type</label>
 
-    <div class="static-type">
-     5657 — Pre-repair
-    </div>
+    <div class="static-type">5657 — Pre-repair</div>
 
    </div>
 
-
    <div>
 
-    <label for="rackCondition">
-     Condition
-    </label>
+    <label for="rackCondition">Condition</label>
 
     <select id="rackCondition">
-
      <option>Defect</option>
      <option>No Defect</option>
-
     </select>
 
    </div>
 
   </div>
 
-
   <div>
-   <label for="rackNote">
-    Inspection Note
-   </label>
+
+   <label for="rackNote">Inspection Note</label>
 
    <input
     id="rackNote"
     placeholder="Example: 145D dwell"
    >
+
   </div>
 
-
-  <button
-   id="addRackInspection"
-   class="primary"
-  >
+  <button id="addRackInspection" class="primary">
    ADD INSPECTION
   </button>
 
  </div>
 
 </section>
-
-
-<!-- =====================================================
-     NOTES
-     ===================================================== -->
 
 <section class="card">
 
@@ -974,22 +854,13 @@ button.primary{
    placeholder="Enter comments or notes of interest..."
   ></textarea>
 
-
-  <button
-   id="generateEod"
-   class="primary"
-  >
+  <button id="generateEod" class="primary">
    GENERATE EOD
   </button>
 
  </div>
 
 </section>
-
-
-<!-- =====================================================
-     INSPECTION LIST
-     ===================================================== -->
 
 <section class="card">
 
@@ -999,24 +870,13 @@ button.primary{
 
  <div class="card-body">
 
-  <div
-   id="inspectionList"
-   class="inspection-list"
-  ></div>
+  <div id="inspectionList" class="inspection-list"></div>
 
  </div>
 
 </section>
 
-
-<!-- =====================================================
-     PREVIEW
-     ===================================================== -->
-
-<section
- class="card card-full-width hidden"
- id="previewCard"
->
+<section class="card card-full-width hidden" id="previewCard">
 
  <div class="card-header-styled">
   <h2>EOD Report Preview</h2>
@@ -1028,17 +888,11 @@ button.primary{
 
   <div class="preview-actions">
 
-   <button
-    id="emailEod"
-    class="primary"
-   >
+   <button id="emailEod" class="primary">
     ✉ EMAIL EOD
    </button>
 
-   <button
-    id="editReport"
-    class="secondary"
-   >
+   <button id="editReport" class="secondary">
     ✏ BACK TO EDIT
    </button>
 
@@ -1050,34 +904,24 @@ button.primary{
 
 </main>
 
-
 <script>
 
 (() => {
 
 "use strict";
 
-
 const STORAGE_KEY="eodInspectionReport_v9";
-
 const TARGET=28;
 
-
 function formatDate(d=new Date()){
-
  return (
-  (d.getMonth()+1)+
-  "/"+
-  d.getDate()+
-  "/"+
+  (d.getMonth()+1)+"/"+
+  d.getDate()+"/"+
   String(d.getFullYear()).slice(-2)
  );
-
 }
 
-
 const TODAY=formatDate(new Date());
-
 
 const SPECIAL=[
  "CALUMET",
@@ -1105,82 +949,58 @@ const EXTRA=[
  "DDGZ"
 ];
 
-
 const data={
 
  chassis:{
-
   "5652":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
-
   "5900":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
-
   "5658":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   }
-
  },
 
  containers:{
-
   "5653":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
-
   "5900":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
-
   "5658":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   }
-
  },
 
  racks:{
-
   "5657":{
    "Pre-repair":[]
   }
-
  }
 
 };
 
-
-const terminal=
- document.getElementById("terminal");
-
-const prefix=
- document.getElementById("prefix");
-
-const list=
- document.getElementById("inspectionList");
-
-const notes=
- document.getElementById("notes");
-
-const count=
- document.getElementById("count");
-
-const fill=
- document.getElementById("fill");
-
+const terminal=document.getElementById("terminal");
+const prefix=document.getElementById("prefix");
+const list=document.getElementById("inspectionList");
+const notes=document.getElementById("notes");
+const count=document.getElementById("count");
+const fill=document.getElementById("fill");
 
 function save(){
 
@@ -1196,19 +1016,15 @@ function save(){
 
 }
 
-
 function load(){
 
  try{
-  return JSON.parse(
-   localStorage.getItem(STORAGE_KEY)
-  );
+  return JSON.parse(localStorage.getItem(STORAGE_KEY));
  }catch(e){
   return null;
  }
 
 }
-
 
 function updatePrefixes(){
 
@@ -1223,8 +1039,7 @@ function updatePrefixes(){
 
  values.forEach(p=>{
 
-  const o=
-   document.createElement("option");
+  const o=document.createElement("option");
 
   o.value=p;
   o.textContent=p;
@@ -1240,7 +1055,6 @@ function updatePrefixes(){
 
 }
 
-
 function total(){
 
  let n=0;
@@ -1250,9 +1064,7 @@ function total(){
   Object.values(equipment).forEach(types=>{
 
    Object.values(types).forEach(section=>{
-
     n+=section.length;
-
    });
 
   });
@@ -1262,7 +1074,6 @@ function total(){
  return n;
 
 }
-
 
 function progress(){
 
@@ -1280,7 +1091,6 @@ function progress(){
 
 }
 
-
 function sectionFor(type){
 
  return (type==="5652"||type==="5653")
@@ -1291,32 +1101,24 @@ function sectionFor(type){
 
 }
 
-
 function addChassis(){
 
  const num=
-  document.getElementById("number")
-  .value.trim();
+  document.getElementById("number").value.trim();
 
  if(!/^\d{6}$/.test(num)){
 
-  alert(
-   "Enter exactly 6 digits for the chassis number."
-  );
+  alert("Enter exactly 6 digits for the chassis number.");
 
   return;
 
  }
 
- const t=
-  document.getElementById("type").value;
-
- const c=
-  document.getElementById("condition").value;
+ const t=document.getElementById("type").value;
+ const c=document.getElementById("condition").value;
 
  const note=
-  document.getElementById("equipmentNote")
-  .value.trim();
+  document.getElementById("equipmentNote").value.trim();
 
  data.chassis[t][sectionFor(t)].push([
   prefix.value+" "+num,
@@ -1333,7 +1135,6 @@ function addChassis(){
 
 }
 
-
 function addContainer(){
 
  const p=
@@ -1347,9 +1148,7 @@ function addContainer(){
 
  if(!/^[A-Z]{4}$/.test(p)){
 
-  alert(
-   "Enter exactly 4 letters for the container prefix."
-  );
+  alert("Enter exactly 4 letters for the container prefix.");
 
   return;
 
@@ -1357,16 +1156,13 @@ function addContainer(){
 
  if(!/^\d{6}$/.test(n)){
 
-  alert(
-   "Enter exactly 6 digits for the container number."
-  );
+  alert("Enter exactly 6 digits for the container number.");
 
   return;
 
  }
 
- const t=
-  document.getElementById("containerType").value;
+ const t=document.getElementById("containerType").value;
 
  data.containers[t][sectionFor(t)].push([
   p+" "+n,
@@ -1384,7 +1180,6 @@ function addContainer(){
 
 }
 
-
 function addRack(){
 
  const n=
@@ -1393,9 +1188,7 @@ function addRack(){
 
  if(!/^\d{6}$/.test(n)){
 
-  alert(
-   "Enter exactly 6 digits for the chassis rack number."
-  );
+  alert("Enter exactly 6 digits for the chassis rack number.");
 
   return;
 
@@ -1415,7 +1208,6 @@ function addRack(){
  render();
 
 }
-
 
 function allRecords(){
 
@@ -1451,16 +1243,13 @@ function allRecords(){
 
 }
 
-
 function select(values,current){
 
- const s=
-  document.createElement("select");
+ const s=document.createElement("select");
 
  values.forEach(v=>{
 
-  const o=
-   document.createElement("option");
+  const o=document.createElement("option");
 
   o.value=v;
   o.textContent=v;
@@ -1476,11 +1265,9 @@ function select(values,current){
 
 }
 
-
 function split(value){
 
- const p=
-  value.trim().split(/\s+/);
+ const p=value.trim().split(/\s+/);
 
  return {
   prefix:p[0]||"",
@@ -1488,7 +1275,6 @@ function split(value){
  };
 
 }
-
 
 function render(){
 
@@ -1498,13 +1284,10 @@ function render(){
 
  if(!records.length){
 
-  const e=
-   document.createElement("div");
+  const e=document.createElement("div");
 
   e.className="empty-list";
-
-  e.textContent=
-   "No inspections entered yet.";
+  e.textContent="No inspections entered yet.";
 
   list.appendChild(e);
 
@@ -1512,39 +1295,29 @@ function render(){
 
  }
 
-
  records.forEach(r=>{
 
-  const row=
-   document.createElement("div");
+  const row=document.createElement("div");
 
   row.className="inspection-row";
 
-
-  const text=
-   document.createElement("div");
+  const text=document.createElement("div");
 
   text.className="inspection-display";
 
   text.textContent=
-   r.type+
-   " • "+
-   r.condition+
-   " • "+
+   r.type+" • "+
+   r.condition+" • "+
    r.number;
 
-
-  const edit=
-   document.createElement("button");
+  const edit=document.createElement("button");
 
   edit.className="edit-button";
   edit.type="button";
   edit.textContent="✎";
   edit.title="Edit inspection";
 
-  edit.onclick=
-   ()=>editRow(row,r);
-
+  edit.onclick=()=>editRow(row,r);
 
   row.appendChild(text);
   row.appendChild(edit);
@@ -1555,141 +1328,206 @@ function render(){
 
 }
 
-
 function editRow(row,r){
 
  row.innerHTML="";
 
- const area=
-  document.createElement("div");
+ const area=document.createElement("div");
 
  area.className="inspection-edit";
 
- const isChassis = r.category === "chassis";
- const isContainer = r.category === "containers";
- const isRack = r.category === "racks";
+ const isChassis=r.category==="chassis";
+ const isContainer=r.category==="containers";
+ const isRack=r.category==="racks";
 
- const availableTypes = isChassis
-  ? ["5652", "5900", "5658"]
-  : isContainer
-  ? ["5653", "5900", "5658"]
-  : ["5657"];
+ const availableTypes=isChassis
+  ?["5652","5900","5658"]
+  :isContainer
+  ?["5653","5900","5658"]
+  :["5657"];
 
- const type = select(availableTypes, r.type);
+ const type=select(availableTypes,r.type);
+ const condition=select(["Defect","No Defect"],r.condition);
 
- const condition = select(["Defect", "No Defect"], r.condition);
-
- const parts = split(r.number);
+ const parts=split(r.number);
 
  let p;
 
- if (isChassis) {
-  const prefixes = SPECIAL.includes(terminal.value)
-   ? [...BASE, ...EXTRA]
-   : [...BASE, ...(EXTRA.includes(parts.prefix) ? [parts.prefix] : [])];
-  p = select([...new Set(prefixes)], parts.prefix);
- } else if (isContainer) {
-  p = document.createElement("input");
-  p.type = "text";
-  p.maxLength = 4;
-  p.value = parts.prefix;
-  p.oninput = () => {
-   p.value = p.value.replace(/[^a-zA-Z]/g, "").toUpperCase().slice(0, 4);
-  };
- } else {
-  p = document.createElement("input");
-  p.type = "text";
-  p.value = "ZNSU";
-  p.disabled = true;
- }
+ if(isChassis){
 
- const num = document.createElement("input");
- num.type = "number";
- num.setAttribute("pattern", "[0-9]*");
- num.inputMode = "numeric";
- num.maxLength = 6;
- num.value = parts.number;
+  const prefixes=
+   SPECIAL.includes(terminal.value)
+    ?[...BASE,...EXTRA]
+    :[
+       ...BASE,
+       ...(EXTRA.includes(parts.prefix)
+        ?[parts.prefix]
+        :[])
+     ];
 
- num.oninput = () => {
-  num.value = num.value.replace(/\D/g, "").slice(0, 6);
- };
-
- const check = document.createElement("button");
- check.className = "edit-button editing";
- check.type = "button";
- check.textContent = "✓";
- check.title = "Save correction";
-
- const del = document.createElement("button");
- del.className = "edit-button delete-button";
- del.type = "button";
- del.textContent = "×";
- del.title = "Delete inspection";
-
- area.append(type, condition, p, num, check, del);
- row.appendChild(area);
-
- check.onclick = () => {
-  if (isContainer && !/^[A-Z]{4}$/.test(p.value)) {
-   alert("Enter exactly 4 letters for the container prefix.");
-   return;
-  }
-
-  if (!/^\d{6}$/.test(num.value)) {
-   alert("Enter exactly 6 digits for the equipment number.");
-   return;
-  }
-
-  const targetGroup = data[r.category][r.type][r.section];
-  const oldIndex = targetGroup.findIndex(
-   x => x[0] === r.number && x[1] === r.condition && (x[2] || "") === (r.note || "")
+  p=select(
+   [...new Set(prefixes)],
+   parts.prefix
   );
 
-  if (oldIndex < 0) return;
+ }else if(isContainer){
 
-  targetGroup.splice(oldIndex, 1);
+  p=document.createElement("input");
+  p.type="text";
+  p.maxLength=4;
+  p.value=parts.prefix;
 
-  const newType = type.value;
-  const newSection = sectionFor(newType);
-  const newPrefix = isChassis ? p.value : isContainer ? p.value : "ZNSU";
+  p.oninput=()=>{
+   p.value=
+    p.value
+     .replace(/[^a-zA-Z]/g,"")
+     .toUpperCase()
+     .slice(0,4);
+  };
+
+ }else{
+
+  p=document.createElement("input");
+  p.type="text";
+  p.value="ZNSU";
+  p.disabled=true;
+
+ }
+
+ const num=document.createElement("input");
+
+ num.type="number";
+ num.setAttribute("pattern","[0-9]*");
+ num.inputMode="numeric";
+ num.maxLength=6;
+ num.value=parts.number;
+
+ num.oninput=()=>{
+  num.value=
+   num.value.replace(/\D/g,"").slice(0,6);
+ };
+
+ const check=document.createElement("button");
+
+ check.className="edit-button editing";
+ check.type="button";
+ check.textContent="✓";
+ check.title="Save correction";
+
+ const del=document.createElement("button");
+
+ del.className="edit-button delete-button";
+ del.type="button";
+ del.textContent="×";
+ del.title="Delete inspection";
+
+ area.append(
+  type,
+  condition,
+  p,
+  num,
+  check,
+  del
+ );
+
+ row.appendChild(area);
+
+ check.onclick=()=>{
+
+  if(
+   isContainer &&
+   !/^[A-Z]{4}$/.test(p.value)
+  ){
+
+   alert(
+    "Enter exactly 4 letters for the container prefix."
+   );
+
+   return;
+
+  }
+
+  if(!/^\d{6}$/.test(num.value)){
+
+   alert(
+    "Enter exactly 6 digits for the equipment number."
+   );
+
+   return;
+
+  }
+
+  const targetGroup=
+   data[r.category][r.type][r.section];
+
+  const oldIndex=
+   targetGroup.findIndex(
+    x=>
+     x[0]===r.number &&
+     x[1]===r.condition &&
+     (x[2]||"")===(r.note||"")
+   );
+
+  if(oldIndex<0)return;
+
+  targetGroup.splice(oldIndex,1);
+
+  const newType=type.value;
+  const newSection=sectionFor(newType);
+
+  const newPrefix=
+   isChassis
+    ?p.value
+    :isContainer
+    ?p.value
+    :"ZNSU";
 
   data[r.category][newType][newSection].push([
-   newPrefix + " " + num.value,
+   newPrefix+" "+num.value,
    condition.value,
-   r.note || ""
+   r.note||""
   ]);
 
   save();
   progress();
   render();
+
  };
 
- del.onclick = () => {
-  if (
+ del.onclick=()=>{
+
+  if(
    !confirm(
-    "Delete this inspection?\n\n" + r.type + " " + r.condition + " " + r.number
+    "Delete this inspection?\n\n"+
+    r.type+" "+
+    r.condition+" "+
+    r.number
    )
-  )
-   return;
+  )return;
 
-  const targetGroup = data[r.category][r.type][r.section];
-  const oldIndex = targetGroup.findIndex(
-   x => x[0] === r.number && x[1] === r.condition && (x[2] || "") === (r.note || "")
-  );
+  const targetGroup=
+   data[r.category][r.type][r.section];
 
-  if (oldIndex >= 0) {
-   targetGroup.splice(oldIndex, 1);
-  }
+  const oldIndex=
+   targetGroup.findIndex(
+    x=>
+     x[0]===r.number &&
+     x[1]===r.condition &&
+     (x[2]||"")===(r.note||"")
+   );
+
+  if(oldIndex>=0)
+   targetGroup.splice(oldIndex,1);
 
   save();
   progress();
   render();
+
  };
 
  type.focus();
 
 }
-
 
 function reportSection(
  out,
@@ -1701,12 +1539,11 @@ function reportSection(
  label
 ){
 
- ["No Defect","Defect"]
- .forEach(condition=>{
+ ["No Defect","Defect"].forEach(condition=>{
 
   const items=
    equipment[type][section]
-   .filter(x=>x[1]===condition);
+    .filter(x=>x[1]===condition);
 
   out.push(
    "("+items.length+") "+
@@ -1744,7 +1581,6 @@ function reportSection(
  });
 
 }
-
 
 function buildEOD(){
 
@@ -1859,7 +1695,6 @@ function buildEOD(){
 
 }
 
-
 function generate(){
 
  save();
@@ -1880,19 +1715,23 @@ function generate(){
 
 }
 
-
 function attemptClose(){
 
  window.close();
 
  setTimeout(()=>{
-  if (!window.closed) {
-   alert("Report sent and app reset. You can now close this tab.");
+
+  if(!window.closed){
+
+   alert(
+    "Report sent and app reset. You can now close this tab."
+   );
+
   }
- }, 500);
+
+ },500);
 
 }
-
 
 function email(){
 
@@ -1912,7 +1751,6 @@ function email(){
   "&body="+
   encodeURIComponent(report);
 
-
  localStorage.setItem(
   "eodLastSentReport",
   JSON.stringify({
@@ -1921,7 +1759,6 @@ function email(){
    report:report
   })
  );
-
 
  window.location.href=mailto;
 
@@ -1932,22 +1769,19 @@ function email(){
 
 }
 
-
 function resetForNewDay(confirmReset=true){
 
  if(confirmReset){
 
-  const ok=
-   confirm(
-    "Reset the EOD Inspection app?\n\n"+
-    "This will remove all inspections "+
-    "and notes currently saved for today."
-   );
+  const ok=confirm(
+   "Reset the EOD Inspection app?\n\n"+
+   "This will remove all inspections "+
+   "and notes currently saved for today."
+  );
 
   if(!ok)return;
 
  }
-
 
  Object.keys(data).forEach(k=>{
 
@@ -1962,7 +1796,6 @@ function resetForNewDay(confirmReset=true){
   });
 
  });
-
 
  localStorage.removeItem(STORAGE_KEY);
 
@@ -1989,7 +1822,6 @@ function resetForNewDay(confirmReset=true){
 
 }
 
-
 function restore(){
 
  const saved=load();
@@ -2011,9 +1843,7 @@ function restore(){
      if(
       saved.data[k] &&
       saved.data[k][t] &&
-      Array.isArray(
-       saved.data[k][t][s]
-      )
+      Array.isArray(saved.data[k][t][s])
      ){
 
       data[k][t][s].push(
@@ -2036,14 +1866,13 @@ function restore(){
    saved.notes||
    "";
 
- } else if (saved && saved.date !== TODAY) {
+ }else if(saved && saved.date!==TODAY){
 
   localStorage.removeItem(STORAGE_KEY);
 
  }
 
 }
-
 
 terminal.onchange=()=>{
 
@@ -2052,31 +1881,25 @@ terminal.onchange=()=>{
 
 };
 
-
 document
  .getElementById("addInspection")
  .onclick=addChassis;
-
 
 document
  .getElementById("addContainerInspection")
  .onclick=addContainer;
 
-
 document
  .getElementById("addRackInspection")
  .onclick=addRack;
-
 
 document
  .getElementById("generateEod")
  .onclick=generate;
 
-
 document
  .getElementById("emailEod")
  .onclick=email;
-
 
 document
  .getElementById("editReport")
@@ -2089,9 +1912,7 @@ document
 
  };
 
-
 notes.oninput=save;
-
 
 document
  .getElementById("number")
@@ -2105,7 +1926,6 @@ document
   save();
 
  };
-
 
 document
  .getElementById("containerPrefix")
@@ -2121,7 +1941,6 @@ document
 
  };
 
-
 document
  .getElementById("containerNumber")
  .oninput=e=>{
@@ -2135,7 +1954,6 @@ document
 
  };
 
-
 document
  .getElementById("rackNumber")
  .oninput=e=>{
@@ -2148,7 +1966,6 @@ document
   save();
 
  };
-
 
 ["number","containerNumber","rackNumber"]
 .forEach(id=>{
@@ -2174,7 +1991,6 @@ document
 
 });
 
-
 restore();
 
 document
@@ -2193,10 +2009,7 @@ render();
 
 </script>
 
-
 <script>
-
-/* Service Worker */
 
 if("serviceWorker" in navigator){
 
