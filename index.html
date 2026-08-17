@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <link rel="apple-touch-icon" href="./Aspect Associates.png.png">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -9,217 +10,749 @@
 <meta name="apple-mobile-web-app-title" content="EOD Inspection">
 <meta name="theme-color" content="#eef1f5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b0f14" media="(prefers-color-scheme: dark)">
+
 <title>EOD Inspection</title>
 
 <style>
 *{box-sizing:border-box}
+
 :root{
  color-scheme:light dark;
- --bg:#eef1f5;--card:#fff;--border:#dfe3e8;--text:#17202a;
- --muted:#68727d;--input:#fff;--input-border:#c8ced6;
- --accent:#17202a;--accent-text:#fff;--secondary:#e5e8ec;
- --secondary-text:#17202a;--progress-bg:#d9dee5;
- --success:#16834b;--danger:#c62828;
+ --bg:#eef1f5;
+ --card:#fff;
+ --border:#dfe3e8;
+ --text:#17202a;
+ --muted:#68727d;
+ --input:#fff;
+ --input-border:#c8ced6;
+ --accent:#17202a;
+ --accent-text:#fff;
+ --secondary:#e5e8ec;
+ --secondary-text:#17202a;
+ --progress-bg:#d9dee5;
+ --success:#16834b;
+ --danger:#c62828;
 }
-html,body{margin:0;min-height:100vh;background:var(--bg);color:var(--text)}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
-header{background:linear-gradient(180deg,#15191e,#0b0d10);color:#fff;padding:20px;text-align:center;font-size:22px;font-weight:750}
-.app{width:min(760px,100%);margin:auto;padding:18px 14px 50px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 4px 18px rgba(15,23,42,.08)}
-.card h2{display:flex;align-items:center;gap:10px;margin:0 0 18px;font-size:20px}
-.card h2:before{content:"";width:4px;height:22px;border-radius:4px;background:var(--accent)}
-label{display:block;font-weight:700;font-size:14px;margin:15px 0 7px}
-input,select,textarea{width:100%;padding:13px 14px;border:1px solid var(--input-border);border-radius:10px;font:inherit;font-size:17px;background:var(--input);color:var(--text);outline:none}
-textarea{min-height:100px;resize:vertical}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.static-type{padding:13px 14px;border:1px solid var(--input-border);border-radius:10px;font-size:17px;background:var(--secondary);font-weight:700;min-height:49px}
-button{width:100%;border:0;border-radius:10px;padding:14px 16px;margin-top:17px;min-height:50px;font:750 16px inherit;cursor:pointer;background:var(--accent);color:var(--accent-text)}
-button:active{transform:scale(.985)}
-button.secondary{background:var(--secondary);color:var(--secondary-text)}
-.date{text-align:center;color:var(--muted);font-size:15px;font-weight:650;margin:14px 0}
-.progress{text-align:center;font-weight:700;color:var(--muted);margin-bottom:10px}
-.progress span{font-size:26px;color:var(--text)}
-.progressbar{height:16px;background:var(--progress-bg);border-radius:999px;overflow:hidden;padding:2px}
-.fill{height:100%;width:0;background:linear-gradient(90deg,#343a40,#111);border-radius:999px;transition:width .4s}
-.progress-complete-message{display:none;text-align:center;color:var(--success);font-weight:750;margin-top:9px}
-.progress-complete-message.show{display:block}
-.hidden{display:none!important}
+
+html,body{
+ margin:0;
+ min-height:100vh;
+ background:var(--bg);
+ color:var(--text)
+}
+
+body{
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ -webkit-font-smoothing:antialiased
+}
+
+header{
+ background:linear-gradient(180deg,#15191e,#0b0d10);
+ color:#fff;
+ padding:20px;
+ text-align:center;
+ font-size:22px;
+ font-weight:750
+}
+
+.app{
+ width:min(760px,100%);
+ margin:auto;
+ padding:18px 14px 50px
+}
+
+.card{
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:20px;
+ margin-bottom:16px;
+ box-shadow:0 4px 18px rgba(15,23,42,.08)
+}
+
+.card h2{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ margin:0 0 18px;
+ font-size:20px
+}
+
+.card h2:before{
+ content:"";
+ width:4px;
+ height:22px;
+ border-radius:4px;
+ background:var(--accent)
+}
+
+label{
+ display:block;
+ font-weight:700;
+ font-size:14px;
+ margin:15px 0 7px
+}
+
+input,select,textarea{
+ width:100%;
+ padding:13px 14px;
+ border:1px solid var(--input-border);
+ border-radius:10px;
+ font:inherit;
+ font-size:17px;
+ background:var(--input);
+ color:var(--text);
+ outline:none
+}
+
+textarea{
+ min-height:100px;
+ resize:vertical
+}
+
+.row{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:14px
+}
+
+.static-type{
+ padding:13px 14px;
+ border:1px solid var(--input-border);
+ border-radius:10px;
+ font-size:17px;
+ background:var(--secondary);
+ font-weight:700;
+ min-height:49px
+}
+
+button{
+ width:100%;
+ border:0;
+ border-radius:10px;
+ padding:14px 16px;
+ margin-top:17px;
+ min-height:50px;
+ font:750 16px inherit;
+ cursor:pointer;
+ background:var(--accent);
+ color:var(--accent-text)
+}
+
+button:active{
+ transform:scale(.985)
+}
+
+button.secondary{
+ background:var(--secondary);
+ color:var(--secondary-text)
+}
+
+.date{
+ text-align:center;
+ color:var(--muted);
+ font-size:15px;
+ font-weight:650;
+ margin:14px 0
+}
+
+.progress{
+ text-align:center;
+ font-weight:700;
+ color:var(--muted);
+ margin-bottom:10px
+}
+
+.progress span{
+ font-size:26px;
+ color:var(--text)
+}
+
+.progressbar{
+ height:16px;
+ background:var(--progress-bg);
+ border-radius:999px;
+ overflow:hidden;
+ padding:2px
+}
+
+.fill{
+ height:100%;
+ width:0;
+ background:linear-gradient(90deg,#343a40,#111);
+ border-radius:999px;
+ transition:width .4s
+}
+
+.progress-complete-message{
+ display:none;
+ text-align:center;
+ color:var(--success);
+ font-weight:750;
+ margin-top:9px
+}
+
+.progress-complete-message.show{
+ display:block
+}
+
+.hidden{
+ display:none!important
+}
 
 /* INSPECTION LIST */
-.inspection-list{display:flex;flex-direction:column;gap:8px}
-.inspection-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px 12px;border:1px solid var(--border);border-radius:10px;background:var(--secondary)}
-.inspection-display{font-size:15px;font-weight:750;line-height:1.35}
-.inspection-edit{display:grid;grid-template-columns:90px 115px 95px 1fr auto;gap:7px;align-items:center}
-.inspection-edit select,.inspection-edit input{min-width:0;padding:9px 8px;font-size:14px;border-radius:8px}
-.edit-button{width:45px;min-width:45px;height:45px;min-height:45px;padding:0;margin:0;font-size:22px}
-.edit-button.editing{background:var(--success);color:#fff}
-.delete-button{background:var(--danger)!important;color:#fff!important}
-.empty-list{text-align:center;padding:12px;color:var(--muted);font-size:14px;font-weight:600}
 
-.preview-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-#preview{white-space:pre-wrap;background:var(--secondary);border:1px solid var(--border);border-radius:11px;padding:15px;font-family:ui-monospace,monospace;font-size:14px;line-height:1.55;overflow:auto}
+.inspection-list{
+ display:flex;
+ flex-direction:column;
+ gap:8px
+}
+
+.inspection-row{
+ display:grid;
+ grid-template-columns:1fr auto;
+ gap:10px;
+ align-items:center;
+ padding:11px 12px;
+ border:1px solid var(--border);
+ border-radius:10px;
+ background:var(--secondary)
+}
+
+.inspection-display{
+ font-size:15px;
+ font-weight:750;
+ line-height:1.35
+}
+
+.inspection-edit{
+ display:grid;
+ grid-template-columns:90px 115px 95px 1fr auto auto;
+ gap:7px;
+ align-items:center
+}
+
+.inspection-edit select,
+.inspection-edit input{
+ min-width:0;
+ padding:9px 8px;
+ font-size:14px;
+ border-radius:8px
+}
+
+.edit-button{
+ width:45px;
+ min-width:45px;
+ height:45px;
+ min-height:45px;
+ padding:0;
+ margin:0;
+ font-size:22px
+}
+
+.edit-button.editing{
+ background:var(--success);
+ color:#fff
+}
+
+.delete-button{
+ background:var(--danger)!important;
+ color:#fff!important
+}
+
+.empty-list{
+ text-align:center;
+ padding:12px;
+ color:var(--muted);
+ font-size:14px;
+ font-weight:600
+}
+
+.preview-actions{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px
+}
+
+#preview{
+ white-space:pre-wrap;
+ background:var(--secondary);
+ border:1px solid var(--border);
+ border-radius:11px;
+ padding:15px;
+ font-family:ui-monospace,monospace;
+ font-size:14px;
+ line-height:1.55;
+ overflow:auto
+}
 
 @media(max-width:650px){
- .app{padding:12px 10px 40px}
- .card{padding:17px}
- .row{grid-template-columns:1fr;gap:2px}
- header{padding:18px 16px;font-size:21px}
- .preview-actions{grid-template-columns:1fr}
- .inspection-edit{grid-template-columns:1fr 1fr}
+
+ .app{
+  padding:12px 10px 40px
+ }
+
+ .card{
+  padding:17px
+ }
+
+ .row{
+  grid-template-columns:1fr;
+  gap:2px
+ }
+
+ header{
+  padding:18px 16px;
+  font-size:21px
+ }
+
+ .preview-actions{
+  grid-template-columns:1fr
+ }
+
+ .inspection-edit{
+  grid-template-columns:1fr 1fr
+ }
+
  .inspection-edit .edit-button,
- .inspection-edit .delete-button{grid-column:span 1;width:100%}
+ .inspection-edit .delete-button{
+  grid-column:span 1;
+  width:100%
+ }
 }
 
 @media(prefers-color-scheme:dark){
- :root{--bg:#0b0f14;--card:#171d24;--border:#2b333d;--text:#f4f6f8;--muted:#a7b0ba;--input:#0f141a;--input-border:#3b4550;--accent:#f4f6f8;--accent-text:#11161c;--secondary:#242c35;--secondary-text:#f4f6f8;--progress-bg:#303943;--success:#51d98c;--danger:#ff7474}
- .fill{background:#f4f6f8}
+
+ :root{
+  --bg:#0b0f14;
+  --card:#171d24;
+  --border:#2b333d;
+  --text:#f4f6f8;
+  --muted:#a7b0ba;
+  --input:#0f141a;
+  --input-border:#3b4550;
+  --accent:#f4f6f8;
+  --accent-text:#11161c;
+  --secondary:#242c35;
+  --secondary-text:#f4f6f8;
+  --progress-bg:#303943;
+  --success:#51d98c;
+  --danger:#ff7474
+ }
+
+ .fill{
+  background:#f4f6f8
+ }
 }
 </style>
 </head>
 
 <body>
+
 <header>EOD Inspection</header>
 
 <main class="app">
 
 <section class="card">
+
 <label for="terminal">Terminal</label>
+
 <select id="terminal">
-<option>APPLIANCE PARK</option><option>ATLANTA</option><option>AUSTELL</option>
-<option>AYER</option><option>BETHLEHEM</option><option>BUFFALO</option>
-<option>CALUMET</option><option>CHARLOTTE</option><option>CHGO 63RD</option>
-<option>CHICAGO 47TH</option><option>CINCINNATI</option><option>CLEVELAND</option>
-<option>CROXTON</option><option>GREENSBORO</option><option selected>HARRISBURG</option>
-<option>JACKSONVILLE</option><option>KANSAS CITY</option><option>LANDERS</option>
-<option>MORRISVILLE</option><option>NORFOLK</option><option>PITTSBURGH</option>
-<option>RICKENBACKER</option><option>ROSSVILLE</option><option>RUTHERFORD</option>
-<option>ST LOUIS</option><option>TAYLOR</option><option>TOLEDO</option>
+<option>APPLIANCE PARK</option>
+<option>ATLANTA</option>
+<option>AUSTELL</option>
+<option>AYER</option>
+<option>BETHLEHEM</option>
+<option>BUFFALO</option>
+<option>CALUMET</option>
+<option>CHARLOTTE</option>
+<option>CHGO 63RD</option>
+<option>CHICAGO 47TH</option>
+<option>CINCINNATI</option>
+<option>CLEVELAND</option>
+<option>CROXTON</option>
+<option>GREENSBORO</option>
+<option selected>HARRISBURG</option>
+<option>JACKSONVILLE</option>
+<option>KANSAS CITY</option>
+<option>LANDERS</option>
+<option>MORRISVILLE</option>
+<option>NORFOLK</option>
+<option>PITTSBURGH</option>
+<option>RICKENBACKER</option>
+<option>ROSSVILLE</option>
+<option>RUTHERFORD</option>
+<option>ST LOUIS</option>
+<option>TAYLOR</option>
+<option>TOLEDO</option>
 </select>
 
 <div class="date" id="reportDate"></div>
-<div class="progress"><span id="count">0</span> / 28</div>
-<div class="progressbar"><div class="fill" id="fill"></div></div>
-<div class="progress-complete-message" id="completeMessage">✓ Daily inspection target complete</div>
+
+<div class="progress">
+ <span id="count">0</span> / 28
+</div>
+
+<div class="progressbar">
+ <div class="fill" id="fill"></div>
+</div>
+
+<div class="progress-complete-message" id="completeMessage">
+ ✓ Daily inspection target complete
+</div>
+
 </section>
 
+
+<!-- CHASSIS -->
+
 <section class="card" id="chassisCard">
+
 <h2>Chassis</h2>
 
 <div class="row">
+
 <div>
+
 <label for="prefix">4-Character Prefix</label>
+
 <select id="prefix"></select>
-</div>
-<div>
-<label for="number">6-Digit Number</label>
-<input id="number" type="tel" inputmode="numeric" maxlength="6" placeholder="Enter 6 digits">
-</div>
+
 </div>
 
-<div class="row">
 <div>
+
+<label for="number">6-Digit Number</label>
+
+<input
+ id="number"
+ type="tel"
+ inputmode="numeric"
+ maxlength="6"
+ placeholder="Enter 6 digits"
+>
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div>
+
 <label for="type">Inspection Type</label>
+
 <select id="type">
+
 <option value="5652">5652 — Pre-repair</option>
 <option value="5900">5900 — Post-repair</option>
 <option value="5658">5658 — Add-on</option>
+
 </select>
+
 </div>
+
+
 <div>
+
 <label for="condition">Condition</label>
+
 <select id="condition">
-<option>Defect</option><option>No Defect</option>
+
+<option>Defect</option>
+<option>No Defect</option>
+
 </select>
+
 </div>
+
 </div>
+
 
 <label for="equipmentNote">Inspection Note</label>
-<input id="equipmentNote" placeholder="Example: 145D dwell">
 
-<button id="addInspection">ADD INSPECTION</button>
+<input
+ id="equipmentNote"
+ placeholder="Example: 145D dwell"
+>
+
+<button id="addInspection">
+ADD INSPECTION
+</button>
+
 </section>
 
+
+<!-- CONTAINERS -->
+
 <section class="card">
+
 <h2>Containers</h2>
 
 <div class="row">
-<div><label for="containerPrefix">4-Character Prefix</label><input id="containerPrefix" maxlength="4" placeholder="ABCD"></div>
-<div><label for="containerNumber">6-Digit Number</label><input id="containerNumber" type="tel" inputmode="numeric" maxlength="6" placeholder="Enter 6 digits"></div>
+
+<div>
+
+<label for="containerPrefix">4-Character Prefix</label>
+
+<input
+ id="containerPrefix"
+ maxlength="4"
+ placeholder="ABCD"
+>
+
 </div>
+
+<div>
+
+<label for="containerNumber">6-Digit Number</label>
+
+<input
+ id="containerNumber"
+ type="tel"
+ inputmode="numeric"
+ maxlength="6"
+ placeholder="Enter 6 digits"
+>
+
+</div>
+
+</div>
+
 
 <div class="row">
-<div><label for="containerType">Inspection Type</label>
+
+<div>
+
+<label for="containerType">Inspection Type</label>
+
 <select id="containerType">
-<option value="5653">5653 — Pre-repair</option><option value="5900">5900 — Post-repair</option><option value="5658">5658 — Add-on</option>
-</select></div>
-<div><label for="containerCondition">Condition</label>
-<select id="containerCondition"><option>Defect</option><option>No Defect</option></select></div>
+
+<option value="5653">5653 — Pre-repair</option>
+<option value="5900">5900 — Post-repair</option>
+<option value="5658">5658 — Add-on</option>
+
+</select>
+
 </div>
 
+
+<div>
+
+<label for="containerCondition">Condition</label>
+
+<select id="containerCondition">
+
+<option>Defect</option>
+<option>No Defect</option>
+
+</select>
+
+</div>
+
+</div>
+
+
 <label for="containerNote">Inspection Note</label>
-<input id="containerNote" placeholder="Example: 145D dwell">
-<button id="addContainerInspection">ADD INSPECTION</button>
+
+<input
+ id="containerNote"
+ placeholder="Example: 145D dwell"
+>
+
+<button id="addContainerInspection">
+ADD INSPECTION
+</button>
+
 </section>
 
+
+<!-- CHASSIS RACKS -->
+
 <section class="card">
+
 <h2>Chassis Racks</h2>
 
 <div class="row">
-<div><label>4-Character Prefix</label><div class="static-type">ZNSU</div></div>
-<div><label for="rackNumber">6-Digit Number</label><input id="rackNumber" type="tel" inputmode="numeric" maxlength="6" placeholder="Enter 6 digits"></div>
+
+<div>
+
+<label>4-Character Prefix</label>
+
+<div class="static-type">
+ZNSU
 </div>
+
+</div>
+
+
+<div>
+
+<label for="rackNumber">6-Digit Number</label>
+
+<input
+ id="rackNumber"
+ type="tel"
+ inputmode="numeric"
+ maxlength="6"
+ placeholder="Enter 6 digits"
+>
+
+</div>
+
+</div>
+
 
 <div class="row">
-<div><label>Inspection Type</label><div class="static-type">5657 — Pre-repair</div></div>
-<div><label for="rackCondition">Condition</label><select id="rackCondition"><option>Defect</option><option>No Defect</option></select></div>
+
+<div>
+
+<label>Inspection Type</label>
+
+<div class="static-type">
+5657 — Pre-repair
 </div>
+
+</div>
+
+
+<div>
+
+<label for="rackCondition">Condition</label>
+
+<select id="rackCondition">
+
+<option>Defect</option>
+<option>No Defect</option>
+
+</select>
+
+</div>
+
+</div>
+
 
 <label for="rackNote">Inspection Note</label>
-<input id="rackNote" placeholder="Example: 145D dwell">
-<button id="addRackInspection">ADD INSPECTION</button>
+
+<input
+ id="rackNote"
+ placeholder="Example: 145D dwell"
+>
+
+<button id="addRackInspection">
+ADD INSPECTION
+</button>
+
 </section>
 
+
+<!-- NOTES -->
+
 <section class="card">
+
 <h2>Comments or Notes of Interest</h2>
-<textarea id="notes" placeholder="Enter comments or notes of interest..."></textarea>
-<button id="generateEod">GENERATE EOD</button>
+
+<textarea
+ id="notes"
+ placeholder="Enter comments or notes of interest..."
+></textarea>
+
+<button id="generateEod">
+GENERATE EOD
+</button>
+
 </section>
 
+
+<!-- INSPECTION LIST -->
+
 <section class="card">
+
 <h2>Inspection List</h2>
+
 <div id="inspectionList" class="inspection-list"></div>
+
 </section>
+
+
+<!-- PREVIEW -->
 
 <section class="card hidden" id="previewCard">
+
 <h2>EOD Report Preview</h2>
+
 <div id="preview"></div>
+
 <div class="preview-actions">
-<button id="emailEod" class="secondary">EMAIL EOD</button>
-<button id="editReport" class="secondary">BACK TO EDIT</button>
+
+<button id="emailEod" class="secondary">
+EMAIL EOD
+</button>
+
+<button id="editReport" class="secondary">
+BACK TO EDIT
+</button>
+
 </div>
+
 </section>
 
 </main>
 
+
 <script>
+
 (() => {
+
 "use strict";
 
+
 const STORAGE_KEY="eodInspectionReport_v6";
+
 const TODAY="8/17/26";
 
-const SPECIAL=["CALUMET","LANDERS","CHGO 63RD","CHICAGO 47TH"];
-const BASE=["NSPZ","NSFZ"];
-const EXTRA=["TSXZ","LSFZ","TSFZ","TSNZ","PAHZ","PBRZ","UPDZ","UPHZ","DDRZ","DDTZ","DDGZ"];
+
+const SPECIAL=[
+ "CALUMET",
+ "LANDERS",
+ "CHGO 63RD",
+ "CHICAGO 47TH"
+];
+
+const BASE=[
+ "NSPZ",
+ "NSFZ"
+];
+
+const EXTRA=[
+ "TSXZ",
+ "LSFZ",
+ "TSFZ",
+ "TSNZ",
+ "PAHZ",
+ "PBRZ",
+ "UPDZ",
+ "UPHZ",
+ "DDRZ",
+ "DDTZ",
+ "DDGZ"
+];
+
 
 const data={
+
  chassis:{
+
   "5652":{
+
    "Pre-repair":[
+
     ["NSPZ 170564","No Defect",""],
     ["NSPZ 160344","No Defect",""],
     ["NSPZ 132150","No Defect",""],
     ["NSPZ 161744","No Defect",""],
+
     ["NSPZ 144634","Defect",""],
     ["NSPZ 130259","Defect",""],
     ["NSPZ 140111","Defect",""],
@@ -231,454 +764,1282 @@ const data={
     ["NSFZ 137815","Defect",""],
     ["NSPZ 145813","Defect",""],
     ["NSPZ 136169","Defect",""]
+
    ],
-   "Post-repair":[],"Add-on":[]
+
+   "Post-repair":[],
+   "Add-on":[]
+
   },
+
+
   "5900":{
+
    "Pre-repair":[],
+
    "Post-repair":[
+
     ["NSPZ 132929","No Defect",""],
     ["NSPZ 136169","No Defect",""]
+
    ],
+
+   "Add-on":[]
+
+  },
+
+
+  "5658":{
+
+   "Pre-repair":[],
+   "Post-repair":[],
+
+   "Add-on":[
+
+    ["NSPZ 166136","Defect",""],
+    ["NSPZ 133019","Defect",""]
+
+   ]
+
+  }
+
+ },
+
+
+ containers:{
+
+  "5653":{
+   "Pre-repair":[],
+   "Post-repair":[],
    "Add-on":[]
   },
+
+  "5900":{
+   "Pre-repair":[],
+   "Post-repair":[],
+   "Add-on":[]
+  },
+
   "5658":{
    "Pre-repair":[],
    "Post-repair":[],
-   "Add-on":[
-    ["NSPZ 166136","Defect",""],
-    ["NSPZ 133019","Defect",""]
-   ]
+   "Add-on":[]
   }
+
  },
- containers:{
-  "5653":{"Pre-repair":[],"Post-repair":[],"Add-on":[]},
-  "5900":{"Pre-repair":[],"Post-repair":[],"Add-on":[]},
-  "5658":{"Pre-repair":[],"Post-repair":[],"Add-on":[]}
- },
+
+
  racks:{
-  "5657":{"Pre-repair":[]}
+
+  "5657":{
+   "Pre-repair":[]
+  }
+
  }
+
 };
 
+
 const terminal=document.getElementById("terminal");
+
 const prefix=document.getElementById("prefix");
+
 const list=document.getElementById("inspectionList");
+
 const notes=document.getElementById("notes");
+
 const count=document.getElementById("count");
+
 const fill=document.getElementById("fill");
 
+
 function formatDate(d=new Date()){
- return (d.getMonth()+1)+"/"+d.getDate()+"/"+String(d.getFullYear()).slice(-2);
+
+ return (
+  (d.getMonth()+1)+
+  "/"+
+  d.getDate()+
+  "/"+
+  String(d.getFullYear()).slice(-2)
+ );
+
 }
 
-function emptyData(){
- return {
-  chassis:{
-   "5652":{"Pre-repair":[],"Post-repair":[],"Add-on":[]},
-   "5900":{"Pre-repair":[],"Post-repair":[],"Add-on":[]},
-   "5658":{"Pre-repair":[],"Post-repair":[],"Add-on":[]}
-  },
-  containers:{
-   "5653":{"Pre-repair":[],"Post-repair":[],"Add-on":[]},
-   "5900":{"Pre-repair":[],"Post-repair":[],"Add-on":[]},
-   "5658":{"Pre-repair":[],"Post-repair":[],"Add-on":[]}
-  },
-  racks:{"5657":{"Pre-repair":[]}}
- };
-}
-
-function clone(obj){return JSON.parse(JSON.stringify(obj))}
 
 function save(){
- localStorage.setItem(STORAGE_KEY,JSON.stringify({
-  terminal:terminal.value,date:TODAY,data:data,notes:notes.value
- }));
+
+ localStorage.setItem(
+  STORAGE_KEY,
+  JSON.stringify({
+   terminal:terminal.value,
+   date:TODAY,
+   data:data,
+   notes:notes.value
+  })
+ );
+
 }
+
 
 function load(){
- try{return JSON.parse(localStorage.getItem(STORAGE_KEY))}
- catch(e){return null}
-}
 
-function updatePrefixes(){
- const current=prefix.value;
- const values=SPECIAL.includes(terminal.value)?[...BASE,...EXTRA]:BASE;
- prefix.innerHTML="";
- values.forEach(p=>{
-  const o=document.createElement("option");
-  o.value=p;o.textContent=p;prefix.appendChild(o);
- });
- prefix.value=values.includes(current)?current:"NSPZ";
-}
+ try{
 
-function total(){
- let n=0;
- Object.values(data).forEach(e=>Object.values(e).forEach(t=>Object.values(t).forEach(s=>n+=s.length)));
- return n;
-}
+  return JSON.parse(
+   localStorage.getItem(STORAGE_KEY)
+  );
 
-function progress(){
- const n=total();
- count.textContent=Math.min(n,28);
- fill.style.width=Math.min(100,n/28*100)+"%";
- document.getElementById("completeMessage").classList.toggle("show",n>=28);
-}
+ }catch(e){
 
-function sectionFor(type){
- return type==="5652"?"Pre-repair":type==="5900"?"Post-repair":"Add-on";
-}
+  return null;
 
-function addChassis(){
- const num=document.getElementById("number").value.trim();
- if(!/^\d{6}$/.test(num)){alert("Enter exactly 6 digits for the chassis number.");return}
- const t=document.getElementById("type").value;
- const c=document.getElementById("condition").value;
- const note=document.getElementById("equipmentNote").value.trim();
- data.chassis[t][sectionFor(t)].push([prefix.value+" "+num,c,note]);
- document.getElementById("number").value="";
- document.getElementById("equipmentNote").value="";
- save();progress();render();
-}
-
-function addContainer(){
- const p=document.getElementById("containerPrefix").value.trim().toUpperCase();
- const n=document.getElementById("containerNumber").value.trim();
- if(!/^[A-Z]{4}$/.test(p)){alert("Enter exactly 4 letters for the container prefix.");return}
- if(!/^\d{6}$/.test(n)){alert("Enter exactly 6 digits for the container number.");return}
- const t=document.getElementById("containerType").value;
- data.containers[t][sectionFor(t)].push([
-  p+" "+n,
-  document.getElementById("containerCondition").value,
-  document.getElementById("containerNote").value.trim()
- ]);
- document.getElementById("containerPrefix").value="";
- document.getElementById("containerNumber").value="";
- document.getElementById("containerNote").value="";
- save();progress();
-}
-
-function addRack(){
- const n=document.getElementById("rackNumber").value.trim();
- if(!/^\d{6}$/.test(n)){alert("Enter exactly 6 digits for the chassis rack number.");return}
- data.racks["5657"]["Pre-repair"].push([
-  "ZNSU "+n,
-  document.getElementById("rackCondition").value,
-  document.getElementById("rackNote").value.trim()
- ]);
- document.getElementById("rackNumber").value="";
- document.getElementById("rackNote").value="";
- save();progress();
-}
-
-function chassisRecords(){
- const r=[];
- Object.keys(data.chassis).forEach(type=>{
-  const section=sectionFor(type);
-  data.chassis[type][section].forEach((item,index)=>{
-   r.push({type,section,index,number:item[0],condition:item[1],note:item[2]||""});
-  });
- });
- return r;
-}
-
-function select(values,current){
- const s=document.createElement("select");
- values.forEach(v=>{
-  const o=document.createElement("option");
-  o.value=v;o.textContent=v;
-  if(v===current)o.selected=true;
-  s.appendChild(o);
- });
- return s;
-}
-
-function split(value){
- const p=value.trim().split(/\s+/);
- return {prefix:p[0]||"",number:p.slice(1).join("")};
-}
-
-function render(){
- list.innerHTML="";
- const records=chassisRecords();
-
- if(!records.length){
-  const e=document.createElement("div");
-  e.className="empty-list";
-  e.textContent="No chassis inspections entered yet.";
-  list.appendChild(e);
-  return;
  }
 
- records.forEach(r=>{
-  const row=document.createElement("div");
-  row.className="inspection-row";
-
-  const text=document.createElement("div");
-  text.className="inspection-display";
-  text.textContent=r.type+" "+r.condition+" "+r.number;
-
-  const edit=document.createElement("button");
-  edit.className="edit-button";
-  edit.type="button";
-  edit.textContent="✎";
-  edit.onclick=()=>editRow(row,r);
-
-  row.appendChild(text);
-  row.appendChild(edit);
-  list.appendChild(row);
- });
 }
 
-function editRow(row,r){
- row.innerHTML="";
 
- const area=document.createElement("div");
- area.className="inspection-edit";
+function updatePrefixes(){
 
- const type=select(["5652","5900","5658"],r.type);
- const condition=select(["Defect","No Defect"],r.condition);
- const parts=split(r.number);
+ const current=prefix.value;
 
- const prefixes=SPECIAL.includes(terminal.value)
-  ? [...BASE,...EXTRA]
-  : [...BASE,...(EXTRA.includes(parts.prefix)?[parts.prefix]:[])];
+ const values=
+  SPECIAL.includes(terminal.value)
+   ? [...BASE,...EXTRA]
+   : BASE;
 
- const p=select([...new Set(prefixes)],parts.prefix);
+ prefix.innerHTML="";
 
- const num=document.createElement("input");
- num.type="tel";
- num.inputMode="numeric";
- num.maxLength=6;
- num.value=parts.number;
+ values.forEach(p=>{
 
- num.oninput=()=>num.value=num.value.replace(/\D/g,"").slice(0,6);
+  const o=document.createElement("option");
 
- const check=document.createElement("button");
- check.className="edit-button editing";
- check.type="button";
- check.textContent="✓";
- check.title="Save correction";
+  o.value=p;
+  o.textContent=p;
 
- const del=document.createElement("button");
- del.className="edit-button delete-button";
- del.type="button";
- del.textContent="×";
- del.title="Delete inspection";
+  prefix.appendChild(o);
 
- area.append(type,condition,p,num,check,del);
- row.appendChild(area);
+ });
 
- check.onclick=()=>{
-  if(!/^\d{6}$/.test(num.value)){
-   alert("Enter exactly 6 digits for the chassis number.");
-   return;
+ prefix.value=
+  values.includes(current)
+   ? current
+   : "NSPZ";
+
+}
+
+
+function total(){
+
+ let n=0;
+
+ Object.values(data).forEach(equipment=>{
+
+  Object.values(equipment).forEach(types=>{
+
+   Object.values(types).forEach(section=>{
+
+    n+=section.length;
+
+   });
+
+  });
+
+ });
+
+ return n;
+
+}
+
+
+/*
+ IMPORTANT PROGRESS LOGIC
+
+ The target is 28.
+
+ The NUMBER continues increasing:
+
+ 28 / 28
+ 29 / 28
+ 30 / 28
+ 31 / 28
+
+ But the BAR itself stops at 100%.
+*/
+
+function progress(){
+
+ const n=total();
+
+ // Keep the actual inspection count.
+ count.textContent=n;
+
+ // Cap only the visual progress bar at 100%.
+ const percentage=Math.min(100,(n/28)*100);
+
+ fill.style.width=percentage+"%";
+
+ // Show completion message once 28 or more are completed.
+ document
+  .getElementById("completeMessage")
+  .classList
+  .toggle("show",n>=28);
+
+}
+
+
+function sectionFor(type){
+
+ return type==="5652"
+  ?"Pre-repair"
+  :type==="5900"
+  ?"Post-repair"
+  :"Add-on";
+
+}
+
+
+function addChassis(){
+
+ const num=
+  document
+   .getElementById("number")
+   .value
+   .trim();
+
+ if(!/^\d{6}$/.test(num)){
+
+  alert(
+   "Enter exactly 6 digits for the chassis number."
+  );
+
+  return;
+
+ }
+
+ const t=
+  document
+   .getElementById("type")
+   .value;
+
+ const c=
+  document
+   .getElementById("condition")
+   .value;
+
+ const note=
+  document
+   .getElementById("equipmentNote")
+   .value
+   .trim();
+
+ data.chassis[t][sectionFor(t)].push([
+  prefix.value+" "+num,
+  c,
+  note
+ ]);
+
+ document.getElementById("number").value="";
+
+ document.getElementById("equipmentNote").value="";
+
+ save();
+
+ progress();
+
+ render();
+
+}
+
+
+function addContainer(){
+
+ const p=
+  document
+   .getElementById("containerPrefix")
+   .value
+   .trim()
+   .toUpperCase();
+
+ const n=
+  document
+   .getElementById("containerNumber")
+   .value
+   .trim();
+
+ if(!/^[A-Z]{4}$/.test(p)){
+
+  alert(
+   "Enter exactly 4 letters for the container prefix."
+  );
+
+  return;
+
+ }
+
+ if(!/^\d{6}$/.test(n)){
+
+  alert(
+   "Enter exactly 6 digits for the container number."
+  );
+
+  return;
+
+ }
+
+ const t=
+  document
+   .getElementById("containerType")
+   .value;
+
+ data.containers[t][sectionFor(t)].push([
+
+  p+" "+n,
+
+  document
+   .getElementById("containerCondition")
+   .value,
+
+  document
+   .getElementById("containerNote")
+   .value
+   .trim()
+
+ ]);
+
+ document.getElementById("containerPrefix").value="";
+
+ document.getElementById("containerNumber").value="";
+
+ document.getElementById("containerNote").value="";
+
+ save();
+
+ progress();
+
+ render();
+
+}
+
+
+function addRack(){
+
+ const n=
+  document
+   .getElementById("rackNumber")
+   .value
+   .trim();
+
+ if(!/^\d{6}$/.test(n)){
+
+  alert(
+   "Enter exactly 6 digits for the chassis rack number."
+  );
+
+  return;
+
+ }
+
+ data.racks["5657"]["Pre-repair"].push([
+
+  "ZNSU "+n,
+
+  document
+   .getElementById("rackCondition")
+   .value,
+
+  document
+   .getElementById("rackNote")
+   .value
+   .trim()
+
+ ]);
+
+ document.getElementById("rackNumber").value="";
+
+ document.getElementById("rackNote").value="";
+
+ save();
+
+ progress();
+
+ render();
+
+}
+
+
+function chassisRecords(){
+
+ const r=[];
+
+ Object.keys(data.chassis).forEach(type=>{
+
+  const section=sectionFor(type);
+
+  data.chassis[type][section].forEach((item,index)=>{
+
+   r.push({
+
+    type:type,
+
+    section:section,
+
+    index:index,
+
+    number:item[0],
+
+    condition:item[1],
+
+    note:item[2]||""
+
+   });
+
+  });
+
+ });
+
+ return r;
+
+}
+
+
+function select(values,current){
+
+ const s=document.createElement("select");
+
+ values.forEach(v=>{
+
+  const o=document.createElement("option");
+
+  o.value=v;
+
+  o.textContent=v;
+
+  if(v===current){
+   o.selected=true;
   }
 
-  const old=data.chassis[r.type][r.section];
-  const oldIndex=old.findIndex(x=>
-   x[0]===r.number &&
-   x[1]===r.condition &&
-   (x[2]||"")===(r.note||"")
+  s.appendChild(o);
+
+ });
+
+ return s;
+
+}
+
+
+function split(value){
+
+ const p=
+  value
+   .trim()
+   .split(/\s+/);
+
+ return {
+
+  prefix:p[0]||"",
+
+  number:p
+   .slice(1)
+   .join("")
+
+ };
+
+}
+
+
+function render(){
+
+ list.innerHTML="";
+
+ const records=chassisRecords();
+
+
+ if(!records.length){
+
+  const e=document.createElement("div");
+
+  e.className="empty-list";
+
+  e.textContent=
+   "No chassis inspections entered yet.";
+
+  list.appendChild(e);
+
+  return;
+
+ }
+
+
+ records.forEach(r=>{
+
+  const row=
+   document.createElement("div");
+
+  row.className="inspection-row";
+
+
+  const text=
+   document.createElement("div");
+
+  text.className="inspection-display";
+
+  text.textContent=
+   r.type+
+   " "+
+   r.condition+
+   " "+
+   r.number;
+
+
+  const edit=
+   document.createElement("button");
+
+  edit.className="edit-button";
+
+  edit.type="button";
+
+  edit.textContent="✎";
+
+  edit.title="Edit inspection";
+
+  edit.onclick=()=>editRow(row,r);
+
+
+  row.appendChild(text);
+
+  row.appendChild(edit);
+
+  list.appendChild(row);
+
+ });
+
+}
+
+
+function editRow(row,r){
+
+ row.innerHTML="";
+
+
+ const area=
+  document.createElement("div");
+
+ area.className="inspection-edit";
+
+
+ const type=
+  select(
+   ["5652","5900","5658"],
+   r.type
   );
+
+
+ const condition=
+  select(
+   ["Defect","No Defect"],
+   r.condition
+  );
+
+
+ const parts=split(r.number);
+
+
+ const prefixes=
+  SPECIAL.includes(terminal.value)
+
+   ? [...BASE,...EXTRA]
+
+   : [
+      ...BASE,
+      ...(EXTRA.includes(parts.prefix)
+       ? [parts.prefix]
+       : [])
+     ];
+
+
+ const p=
+  select(
+   [...new Set(prefixes)],
+   parts.prefix
+  );
+
+
+ const num=
+  document.createElement("input");
+
+ num.type="tel";
+
+ num.inputMode="numeric";
+
+ num.maxLength=6;
+
+ num.value=parts.number;
+
+
+ num.oninput=()=>{
+
+  num.value=
+   num.value
+    .replace(/\D/g,"")
+    .slice(0,6);
+
+ };
+
+
+ /*
+ SAVE / CHECK BUTTON
+ */
+
+ const check=
+  document.createElement("button");
+
+ check.className=
+  "edit-button editing";
+
+ check.type="button";
+
+ check.textContent="✓";
+
+ check.title="Save correction";
+
+
+ /*
+ DELETE / X BUTTON
+ */
+
+ const del=
+  document.createElement("button");
+
+ del.className=
+  "edit-button delete-button";
+
+ del.type="button";
+
+ del.textContent="×";
+
+ del.title="Delete inspection";
+
+
+ area.append(
+  type,
+  condition,
+  p,
+  num,
+  check,
+  del
+ );
+
+ row.appendChild(area);
+
+
+ /*
+ SAVE EDIT
+ */
+
+ check.onclick=()=>{
+
+  if(!/^\d{6}$/.test(num.value)){
+
+   alert(
+    "Enter exactly 6 digits for the chassis number."
+   );
+
+   return;
+
+  }
+
+
+  const old=
+   data
+    .chassis[r.type]
+    [r.section];
+
+
+  const oldIndex=
+   old.findIndex(x=>
+
+    x[0]===r.number &&
+
+    x[1]===r.condition &&
+
+    (x[2]||"")===
+     (r.note||"")
+
+   );
+
 
   if(oldIndex<0)return;
 
+
   old.splice(oldIndex,1);
 
+
   const newType=type.value;
-  const newSection=sectionFor(newType);
 
-  data.chassis[newType][newSection].push([
-   p.value+" "+num.value,
-   condition.value,
-   r.note||""
-  ]);
+  const newSection=
+   sectionFor(newType);
 
-  save();progress();render();
+
+  data
+   .chassis[newType]
+   [newSection]
+   .push([
+
+    p.value+" "+num.value,
+
+    condition.value,
+
+    r.note||""
+
+   ]);
+
+
+  save();
+
+  progress();
+
+  render();
+
  };
+
+
+ /*
+ DELETE INSPECTION
+ */
 
  del.onclick=()=>{
-  if(!confirm("Delete this inspection?\n\n"+r.type+" "+r.condition+" "+r.number))return;
 
-  const old=data.chassis[r.type][r.section];
-  const oldIndex=old.findIndex(x=>
-   x[0]===r.number &&
-   x[1]===r.condition &&
-   (x[2]||"")===(r.note||"")
-  );
+  if(
+   !confirm(
+    "Delete this inspection?\n\n"+
+    r.type+
+    " "+
+    r.condition+
+    " "+
+    r.number
+   )
+  ){
 
-  if(oldIndex>=0)old.splice(oldIndex,1);
+   return;
 
-  save();progress();render();
+  }
+
+
+  const old=
+   data
+    .chassis[r.type]
+    [r.section];
+
+
+  const oldIndex=
+   old.findIndex(x=>
+
+    x[0]===r.number &&
+
+    x[1]===r.condition &&
+
+    (x[2]||"")===
+     (r.note||"")
+
+   );
+
+
+  if(oldIndex>=0){
+
+   old.splice(oldIndex,1);
+
+  }
+
+
+  save();
+
+  progress();
+
+  render();
+
  };
 
+
  type.focus();
+
 }
 
-function reportSection(out,equipment,section,type,noText,yesText,label){
+
+function reportSection(
+ out,
+ equipment,
+ section,
+ type,
+ noText,
+ yesText,
+ label
+){
+
  ["No Defect","Defect"].forEach(condition=>{
-  const items=equipment[type][section].filter(x=>x[1]===condition);
-  out.push("("+items.length+") "+(condition==="Defect"?yesText:noText));
+
+  const items=
+   equipment[type][section]
+    .filter(x=>x[1]===condition);
+
+
+  out.push(
+   "("+items.length+") "+
+   (condition==="Defect"
+    ?yesText
+    :noText)
+  );
+
+
   out.push(label+":");
+
+
   items.forEach((x,i)=>{
-   out.push("\t"+(i+1)+". "+x[0]);
-   if(x[2])out.push("\t   Note: "+x[2]);
+
+   out.push(
+    "\t"+
+    (i+1)+
+    ". "+
+    x[0]
+   );
+
+
+   if(x[2]){
+
+    out.push(
+     "\t   Note: "+
+     x[2]
+    );
+
+   }
+
   });
+
+
   out.push("");
+
  });
+
 }
+
 
 function buildEOD(){
+
  const out=[];
- out.push("End of Day Report","");
- out.push("Date: "+formatDate(),"");
- out.push("End of Day Report for:",terminal.value,"");
+
+
+ out.push(
+  "End of Day Report",
+  ""
+ );
+
+
+ out.push(
+  "Date: "+
+  formatDate(),
+  ""
+ );
+
+
+ out.push(
+  "End of Day Report for:",
+  terminal.value,
+  ""
+ );
+
+
  out.push("CHASSIS");
 
- reportSection(out,data.chassis,"Pre-repair","5652",
-  "pre-repair NO defects - 5652","pre-repair WITH defects - 5652","Chassis Numbers");
 
- reportSection(out,data.chassis,"Post-repair","5900",
-  "post repair NO defects - 5900","post repair WITH defects - 5900","Chassis Numbers");
+ reportSection(
+  out,
+  data.chassis,
+  "Pre-repair",
+  "5652",
+  "pre-repair NO defects - 5652",
+  "pre-repair WITH defects - 5652",
+  "Chassis Numbers"
+ );
 
- reportSection(out,data.chassis,"Add-on","5658",
-  "add-on NO defects - 5658","add-on WITH defects - 5658","Chassis Numbers");
+
+ reportSection(
+  out,
+  data.chassis,
+  "Post-repair",
+  "5900",
+  "post repair NO defects - 5900",
+  "post repair WITH defects - 5900",
+  "Chassis Numbers"
+ );
+
+
+ reportSection(
+  out,
+  data.chassis,
+  "Add-on",
+  "5658",
+  "add-on NO defects - 5658",
+  "add-on WITH defects - 5658",
+  "Chassis Numbers"
+ );
+
 
  out.push("CONTAINERS");
 
- reportSection(out,data.containers,"Pre-repair","5653",
-  "pre-repair NO defects - 5653","pre-repair WITH defects - 5653","Container Numbers");
 
- reportSection(out,data.containers,"Post-repair","5900",
-  "post repair NO defects - 5900","post repair WITH defects - 5900","Container Numbers");
+ reportSection(
+  out,
+  data.containers,
+  "Pre-repair",
+  "5653",
+  "pre-repair NO defects - 5653",
+  "pre-repair WITH defects - 5653",
+  "Container Numbers"
+ );
 
- reportSection(out,data.containers,"Add-on","5658",
-  "add-on NO defects - 5658","add-on WITH defects - 5658","Container Numbers");
+
+ reportSection(
+  out,
+  data.containers,
+  "Post-repair",
+  "5900",
+  "post repair NO defects - 5900",
+  "post repair WITH defects - 5900",
+  "Container Numbers"
+ );
+
+
+ reportSection(
+  out,
+  data.containers,
+  "Add-on",
+  "5658",
+  "add-on NO defects - 5658",
+  "add-on WITH defects - 5658",
+  "Container Numbers"
+ );
+
 
  out.push("CHASSIS RACKS");
 
- reportSection(out,data.racks,"Pre-repair","5657",
-  "pre-repair NO defects - 5657","pre-repair WITH defects - 5657","Chassis Rack Numbers");
 
- out.push("("+total()+") TOTAL INSPECTIONS","");
- out.push("Comments or Notes of Interest:");
- out.push(notes.value.trim());
+ reportSection(
+  out,
+  data.racks,
+  "Pre-repair",
+  "5657",
+  "pre-repair NO defects - 5657",
+  "pre-repair WITH defects - 5657",
+  "Chassis Rack Numbers"
+ );
+
+
+ out.push(
+  "("+total()+") TOTAL INSPECTIONS",
+  ""
+ );
+
+
+ out.push(
+  "Comments or Notes of Interest:"
+ );
+
+
+ out.push(
+  notes.value.trim()
+ );
+
 
  return out.join("\n");
+
 }
+
 
 function generate(){
+
  save();
- document.getElementById("preview").textContent=buildEOD();
- document.getElementById("previewCard").classList.remove("hidden");
- document.getElementById("previewCard").scrollIntoView({behavior:"smooth"});
-}
 
-function email(){
- const subject="End of Day Report - "+terminal.value+" - "+formatDate();
- window.location.href=
- "mailto:joe@caliberis.com"+
- "?cc=dgeist@caliberis.com,jdoan@aspectassociates.com"+
- "&subject="+encodeURIComponent(subject)+
- "&body="+encodeURIComponent(buildEOD());
-}
+ document.getElementById("preview").textContent=
+  buildEOD();
 
-/*
- IMPORTANT:
- If there is already a saved report for TODAY,
- use that saved report.
- If Safari has lost localStorage, the 20 inspections
- embedded above become the recovery copy.
-*/
-function restore(){
- const saved=load();
+ document
+  .getElementById("previewCard")
+  .classList
+  .remove("hidden");
 
- if(saved && saved.date===TODAY && saved.data){
-  Object.keys(data).forEach(k=>{
-   Object.keys(data[k]).forEach(t=>{
-    Object.keys(data[k][t]).forEach(s=>{
-     data[k][t][s].length=0;
-     if(saved.data[k] &&
-        saved.data[k][t] &&
-        Array.isArray(saved.data[k][t][s])){
-      data[k][t][s].push(...saved.data[k][t][s]);
-     }
-    });
-   });
+ document
+  .getElementById("previewCard")
+  .scrollIntoView({
+   behavior:"smooth"
   });
 
-  terminal.value=saved.terminal||"HARRISBURG";
-  notes.value=saved.notes||"";
- }
- else if(!saved){
-  save();
- }
 }
 
+
+function email(){
+
+ const subject=
+  "End of Day Report - "+
+  terminal.value+
+  " - "+
+  formatDate();
+
+
+ window.location.href=
+  "mailto:joe@caliberis.com"+
+  "?cc=dgeist@caliberis.com,jdoan@aspectassociates.com"+
+  "&subject="+
+  encodeURIComponent(subject)+
+  "&body="+
+  encodeURIComponent(buildEOD());
+
+}
+
+
+/*
+ RESTORE TODAY'S DATA
+
+ The embedded inspections above act
+ as the recovery copy if there is
+ no saved localStorage data.
+
+ If today's saved report exists,
+ that saved report is used.
+*/
+
+function restore(){
+
+ const saved=load();
+
+
+ if(
+  saved &&
+  saved.date===TODAY &&
+  saved.data
+ ){
+
+  Object.keys(data).forEach(k=>{
+
+   Object.keys(data[k]).forEach(t=>{
+
+    Object.keys(data[k][t]).forEach(s=>{
+
+     data[k][t][s].length=0;
+
+
+     if(
+      saved.data[k] &&
+      saved.data[k][t] &&
+      Array.isArray(
+       saved.data[k][t][s]
+      )
+     ){
+
+      data[k][t][s].push(
+       ...saved.data[k][t][s]
+      );
+
+     }
+
+    });
+
+   });
+
+  });
+
+
+  terminal.value=
+   saved.terminal||
+   "HARRISBURG";
+
+
+  notes.value=
+   saved.notes||
+   "";
+
+ }
+
+ else if(!saved){
+
+  save();
+
+ }
+
+}
+
+
 terminal.onchange=()=>{
+
  updatePrefixes();
+
  save();
+
 };
 
-document.getElementById("addInspection").onclick=addChassis;
-document.getElementById("addContainerInspection").onclick=addContainer;
-document.getElementById("addRackInspection").onclick=addRack;
-document.getElementById("generateEod").onclick=generate;
-document.getElementById("emailEod").onclick=email;
 
-document.getElementById("editReport").onclick=()=>{
- document.getElementById("previewCard").classList.add("hidden");
-};
+document
+ .getElementById("addInspection")
+ .onclick=addChassis;
+
+
+document
+ .getElementById("addContainerInspection")
+ .onclick=addContainer;
+
+
+document
+ .getElementById("addRackInspection")
+ .onclick=addRack;
+
+
+document
+ .getElementById("generateEod")
+ .onclick=generate;
+
+
+document
+ .getElementById("emailEod")
+ .onclick=email;
+
+
+document
+ .getElementById("editReport")
+ .onclick=()=>{
+
+  document
+   .getElementById("previewCard")
+   .classList
+   .add("hidden");
+
+ };
+
 
 notes.oninput=save;
 
-document.getElementById("number").oninput=e=>{
- e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);
- save();
-};
 
-document.getElementById("containerPrefix").oninput=e=>{
- e.target.value=e.target.value.replace(/[^a-zA-Z]/g,"").toUpperCase().slice(0,4);
- save();
-};
+document
+ .getElementById("number")
+ .oninput=e=>{
 
-document.getElementById("containerNumber").oninput=e=>{
- e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);
- save();
-};
+  e.target.value=
+   e.target.value
+    .replace(/\D/g,"")
+    .slice(0,6);
 
-document.getElementById("rackNumber").oninput=e=>{
- e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);
- save();
-};
+  save();
 
-["number","containerNumber","rackNumber"].forEach(id=>{
- document.getElementById(id).onkeydown=e=>{
-  if(e.key!=="Enter")return;
-  e.preventDefault();
-  if(id==="number")addChassis();
-  if(id==="containerNumber")addContainer();
-  if(id==="rackNumber")addRack();
  };
+
+
+document
+ .getElementById("containerPrefix")
+ .oninput=e=>{
+
+  e.target.value=
+   e.target.value
+    .replace(/[^a-zA-Z]/g,"")
+    .toUpperCase()
+    .slice(0,4);
+
+  save();
+
+ };
+
+
+document
+ .getElementById("containerNumber")
+ .oninput=e=>{
+
+  e.target.value=
+   e.target.value
+    .replace(/\D/g,"")
+    .slice(0,6);
+
+  save();
+
+ };
+
+
+document
+ .getElementById("rackNumber")
+ .oninput=e=>{
+
+  e.target.value=
+   e.target.value
+    .replace(/\D/g,"")
+    .slice(0,6);
+
+  save();
+
+ };
+
+
+["number","containerNumber","rackNumber"]
+.forEach(id=>{
+
+ document
+  .getElementById(id)
+  .onkeydown=e=>{
+
+   if(e.key!=="Enter")return;
+
+   e.preventDefault();
+
+
+   if(id==="number"){
+    addChassis();
+   }
+
+   if(id==="containerNumber"){
+    addContainer();
+   }
+
+   if(id==="rackNumber"){
+    addRack();
+   }
+
+  };
+
 });
 
+
 restore();
-document.getElementById("reportDate").textContent=TODAY;
-document.title="EOD Inspection — "+terminal.value;
+
+document
+ .getElementById("reportDate")
+ .textContent=TODAY;
+
+
+document.title=
+ "EOD Inspection — "+
+ terminal.value;
+
+
 updatePrefixes();
+
 progress();
+
 render();
 
+
 })();
+
 </script>
 
+
 <script>
+
 if("serviceWorker" in navigator){
+
  window.addEventListener("load",()=>{
-  navigator.serviceWorker.register("./service-worker.js");
+
+  navigator.serviceWorker.register(
+   "./service-worker.js"
+  );
+
  });
+
 }
+
 </script>
 
 </body>
