@@ -8,12 +8,12 @@
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="EOD Inspection Report">
+  <meta name="apple-mobile-web-app-title" content="EOD Inspection">
 
   <meta name="theme-color" content="#eef1f5" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0b0f14" media="(prefers-color-scheme: dark)">
 
-  <title>EOD Inspection — Harrisburg</title>
+  <title>EOD Inspection</title>
 
 <style>
 
@@ -108,6 +108,22 @@ header{
 }
 
 
+/* TERMINAL */
+
+.terminal-label{
+  display:block;
+  font-weight:700;
+  font-size:14px;
+  color:var(--text);
+  margin:0 0 7px;
+}
+
+.terminal-select{
+  font-size:18px;
+  font-weight:750;
+}
+
+
 /* PROGRESS */
 
 .date{
@@ -115,6 +131,7 @@ header{
   color:var(--muted);
   font-size:15px;
   font-weight:650;
+  margin-top:14px;
   margin-bottom:12px;
 }
 
@@ -287,11 +304,6 @@ textarea:focus{
 input::placeholder,
 textarea::placeholder{
   color:#8a939e;
-}
-
-textarea{
-  min-height:115px;
-  resize:vertical;
 }
 
 .input-ready{
@@ -601,19 +613,77 @@ button.secondary{
 <main class="app">
 
 
-<!-- PROGRESS -->
+<!-- PROGRESS / TERMINAL -->
 
 <section class="card">
 
-  <div class="date" id="reportDate"></div>
+  <label
+    class="terminal-label"
+    for="terminal"
+  >
+    Terminal
+  </label>
 
-  <div class="progress" id="progressContainer">
+  <select
+    id="terminal"
+    class="terminal-select"
+  >
+
+    <option>APPLIANCE PARK</option>
+    <option>ATLANTA</option>
+    <option>AUSTELL</option>
+    <option>AYER</option>
+    <option>BETHLEHEM</option>
+    <option>BUFFALO</option>
+    <option>CALUMET</option>
+    <option>CHARLOTTE</option>
+    <option>CHGO 63RD</option>
+    <option>CHICAGO 47TH</option>
+    <option>CINCINNATI</option>
+    <option>CLEVELAND</option>
+    <option>CROXTON</option>
+    <option>GREENSBORO</option>
+    <option selected>HARRISBURG</option>
+    <option>JACKSONVILLE</option>
+    <option>KANSAS CITY</option>
+    <option>LANDERS</option>
+    <option>MORRISVILLE</option>
+    <option>NORFOLK</option>
+    <option>PITTSBURGH</option>
+    <option>RICKENBACKER</option>
+    <option>ROSSVILLE</option>
+    <option>RUTHERFORD</option>
+    <option>ST LOUIS</option>
+    <option>TAYLOR</option>
+    <option>TOLEDO</option>
+
+  </select>
+
+
+  <div
+    class="date"
+    id="reportDate"
+  ></div>
+
+
+  <div
+    class="progress"
+    id="progressContainer"
+  >
     <span id="count">0</span> / 28
   </div>
 
-  <div class="progressbar" id="progressBar">
-    <div class="fill" id="fill"></div>
+
+  <div
+    class="progressbar"
+    id="progressBar"
+  >
+    <div
+      class="fill"
+      id="fill"
+    ></div>
   </div>
+
 
   <div
     class="progress-complete-message"
@@ -627,7 +697,10 @@ button.secondary{
 
 <!-- CHASSIS -->
 
-<section class="card" id="chassisCard">
+<section
+  class="card"
+  id="chassisCard"
+>
 
 <h2>Chassis</h2>
 
@@ -636,6 +709,7 @@ button.secondary{
   id="equipment"
   value="Chassis"
 >
+
 
 <div class="row">
 
@@ -652,6 +726,7 @@ button.secondary{
 
   </div>
 
+
   <div>
 
     <label for="number">
@@ -662,7 +737,7 @@ button.secondary{
       id="number"
       type="tel"
       inputmode="numeric"
-      pattern="0-9"
+      pattern="[0-9]*"
       maxlength="6"
       placeholder="Enter 6 digits"
       autocomplete="off"
@@ -743,9 +818,13 @@ button.secondary{
 
 <!-- CONTAINERS -->
 
-<section class="card" id="containersCard">
+<section
+  class="card"
+  id="containersCard"
+>
 
 <h2>Containers</h2>
+
 
 <div class="row">
 
@@ -775,7 +854,7 @@ button.secondary{
       id="containerNumber"
       type="tel"
       inputmode="numeric"
-      pattern="0-9"
+      pattern="[0-9]*"
       maxlength="6"
       placeholder="Enter 6 digits"
       autocomplete="off"
@@ -856,9 +935,13 @@ button.secondary{
 
 <!-- CHASSIS RACKS -->
 
-<section class="card" id="racksCard">
+<section
+  class="card"
+  id="racksCard"
+>
 
 <h2>Chassis Racks</h2>
+
 
 <div class="row">
 
@@ -885,7 +968,7 @@ button.secondary{
       id="rackNumber"
       type="tel"
       inputmode="numeric"
-      pattern="0-9"
+      pattern="[0-9]*"
       maxlength="6"
       placeholder="Enter 6 digits"
       autocomplete="off"
@@ -960,6 +1043,7 @@ button.secondary{
   Comments or Notes of Interest
 </h2>
 
+
 <textarea
   id="notes"
   placeholder="Enter comments or notes of interest..."
@@ -997,6 +1081,7 @@ button.secondary{
     EMAIL EOD
   </button>
 
+
   <button
     id="editReport"
     class="secondary"
@@ -1029,6 +1114,7 @@ button.secondary{
       Possible Duplicate
     </h3>
 
+
     <p
       class="modal-message"
       id="duplicateModalMessage"
@@ -1045,6 +1131,7 @@ button.secondary{
         NO
       </button>
 
+
       <button
         type="button"
         id="duplicateYes"
@@ -1059,11 +1146,73 @@ button.secondary{
 </div>
 
 
+<!-- NEW REPORT WARNING -->
+
+<div
+  class="modal-overlay"
+  id="newReportModal"
+  aria-hidden="true"
+>
+
+  <div
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+  >
+
+    <h3 class="modal-title">
+      Existing Report Found
+    </h3>
+
+
+    <p
+      class="modal-message"
+      id="newReportModalMessage"
+    >
+      An inspection report is already in progress on this device.
+
+      Do you want to start a new report?
+
+      Choosing YES will clear the existing report.
+    </p>
+
+
+    <div class="modal-actions">
+
+      <button
+        type="button"
+        class="modal-no"
+        id="newReportNo"
+      >
+        NO — KEEP REPORT
+      </button>
+
+
+      <button
+        type="button"
+        id="newReportYes"
+      >
+        YES — START NEW
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <script>
 
 (() => {
 
 "use strict";
+
+
+/* STORAGE */
+
+const STORAGE_KEY =
+  "eodInspectionReport_v4";
 
 
 /* DATA */
@@ -1129,54 +1278,307 @@ const data = {
 
 /* DOM */
 
+const terminal =
+  document.getElementById(
+    "terminal"
+  );
+
+
 const duplicateModal =
   document.getElementById(
     "duplicateModal"
   );
+
 
 const duplicateModalMessage =
   document.getElementById(
     "duplicateModalMessage"
   );
 
+
 const duplicateYes =
   document.getElementById(
     "duplicateYes"
   );
+
 
 const duplicateNo =
   document.getElementById(
     "duplicateNo"
   );
 
+
+const newReportModal =
+  document.getElementById(
+    "newReportModal"
+  );
+
+
+const newReportYes =
+  document.getElementById(
+    "newReportYes"
+  );
+
+
+const newReportNo =
+  document.getElementById(
+    "newReportNo"
+  );
+
+
 const progressContainer =
   document.getElementById(
     "progressContainer"
   );
+
 
 const progressBar =
   document.getElementById(
     "progressBar"
   );
 
+
 const fill =
   document.getElementById(
     "fill"
   );
+
 
 const countElement =
   document.getElementById(
     "count"
   );
 
+
 const completeMessage =
   document.getElementById(
     "completeMessage"
   );
 
+
 let duplicateYesAction = null;
 let duplicateCancelFocus = null;
 let previousProgress = 0;
+
+
+/* CLONE EMPTY DATA */
+
+function createEmptyData(){
+
+  return {
+
+    chassis:{
+      "5652":{
+        "Pre-repair":[],
+        "Post-repair":[],
+        "Add-on":[]
+      },
+
+      "5900":{
+        "Pre-repair":[],
+        "Post-repair":[],
+        "Add-on":[]
+      },
+
+      "5658":{
+        "Pre-repair":[],
+        "Post-repair":[],
+        "Add-on":[]
+      }
+    },
+
+
+    containers:{
+      "5653":{
+        "Pre-repair":[],
+        "Post-repair":[],
+        "Add-on":[]
+      },
+
+      "5900":{
+        "Pre-repair":[],
+        "Post-repair":[],
+        "Add-on":[]
+      },
+
+      "5658":{
+        "Pre-repair":[],
+        "Post-repair":[],
+        "Add-on":[]
+      }
+    },
+
+
+    racks:{
+      "5657":{
+        "Pre-repair":[]
+      }
+    }
+
+  };
+
+}
+
+
+/* SAVE */
+
+function saveReport(){
+
+  const payload = {
+
+    terminal:
+      terminal.value,
+
+    date:
+      formatDate(),
+
+    data:
+      data,
+
+    notes:
+      document.getElementById(
+        "notes"
+      ).value
+
+  };
+
+
+  try{
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(payload)
+    );
+
+  }catch(error){
+
+    console.error(
+      "Unable to save report:",
+      error
+    );
+
+  }
+
+}
+
+
+/* LOAD */
+
+function loadSavedReport(){
+
+  try{
+
+    const saved =
+      localStorage.getItem(
+        STORAGE_KEY
+      );
+
+
+    if(!saved){
+      return null;
+    }
+
+
+    return JSON.parse(saved);
+
+  }catch(error){
+
+    console.error(
+      "Unable to load saved report:",
+      error
+    );
+
+    return null;
+
+  }
+
+}
+
+
+/* RESTORE */
+
+function restoreReport(saved){
+
+  if(!saved){
+    return;
+  }
+
+
+  if(saved.terminal){
+
+    terminal.value =
+      saved.terminal;
+
+  }
+
+
+  if(saved.data){
+
+    Object.keys(data).forEach(
+      equipment => {
+
+        if(
+          saved.data[equipment]
+        ){
+
+          Object.keys(
+            data[equipment]
+          ).forEach(
+            type => {
+
+              if(
+                saved.data[equipment][type]
+              ){
+
+                Object.keys(
+                  data[equipment][type]
+                ).forEach(
+                  section => {
+
+                    const savedItems =
+                      saved.data[equipment][type][section];
+
+                    if(
+                      Array.isArray(
+                        savedItems
+                      )
+                    ){
+
+                      data[equipment][type][section].push(
+                        ...savedItems
+                      );
+
+                    }
+
+                  }
+                );
+
+              }
+
+            }
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  if(
+    typeof saved.notes ===
+    "string"
+  ){
+
+    document.getElementById(
+      "notes"
+    ).value =
+      saved.notes;
+
+  }
+
+}
 
 
 /* TOTAL */
@@ -1184,6 +1586,7 @@ let previousProgress = 0;
 function totalInspections(){
 
   let total = 0;
+
 
   Object.values(data).forEach(
     equipment => {
@@ -1194,16 +1597,21 @@ function totalInspections(){
           Object.values(type).forEach(
             section => {
 
-              total += section.length;
+              total +=
+                section.length;
 
             }
+
           );
 
         }
+
       );
 
     }
+
   );
+
 
   return total;
 
@@ -1217,11 +1625,14 @@ function updateProgress(){
   const count =
     totalInspections();
 
+
   const displayCount =
     Math.min(count,28);
 
+
   countElement.textContent =
     displayCount;
+
 
   fill.style.width =
     Math.min(
@@ -1285,6 +1696,7 @@ function updateProgress(){
       "hit"
     );
 
+
     setTimeout(
       () => {
 
@@ -1345,6 +1757,7 @@ function showButtonAdded(
       buttonId
     );
 
+
   const card =
     document.getElementById(
       cardId
@@ -1363,6 +1776,7 @@ function showButtonAdded(
 
   button.textContent =
     "✓ ADDED";
+
 
   button.disabled =
     true;
@@ -1392,6 +1806,7 @@ function showButtonAdded(
 
         button.disabled =
           false;
+
 
         if(card){
 
@@ -1432,6 +1847,7 @@ function showDuplicateModal(
 
   duplicateYesAction =
     yesAction;
+
 
   duplicateCancelFocus =
     cancelFocus;
@@ -1506,6 +1922,7 @@ duplicateYes.addEventListener(
     const action =
       duplicateYesAction;
 
+
     closeDuplicateModal();
 
 
@@ -1545,18 +1962,118 @@ duplicateModal.addEventListener(
 );
 
 
+/* NEW REPORT MODAL */
+
+function showNewReportModal(){
+
+  newReportModal.classList.add(
+    "show"
+  );
+
+
+  newReportModal.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  newReportNo.focus();
+
+}
+
+
+function closeNewReportModal(){
+
+  newReportModal.classList.remove(
+    "show"
+  );
+
+
+  newReportModal.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+newReportNo.addEventListener(
+  "click",
+  () => {
+
+    closeNewReportModal();
+
+  }
+);
+
+
+newReportYes.addEventListener(
+  "click",
+  () => {
+
+    closeNewReportModal();
+
+    resetForNextDay();
+
+  }
+);
+
+
+newReportModal.addEventListener(
+  "click",
+  event => {
+
+    if(
+      event.target ===
+      newReportModal
+    ){
+
+      closeNewReportModal();
+
+    }
+
+  }
+);
+
+
+/* KEYBOARD */
+
 document.addEventListener(
   "keydown",
   event => {
 
     if(
-      event.key === "Escape" &&
-      duplicateModal.classList.contains(
-        "show"
-      )
+      event.key === "Escape"
     ){
 
-      closeDuplicateModal();
+      if(
+        duplicateModal.classList.contains(
+          "show"
+        )
+      ){
+
+        closeDuplicateModal();
+
+      }
+
+
+      if(
+        newReportModal.classList.contains(
+          "show"
+        )
+      ){
+
+        closeNewReportModal();
+
+      }
 
     }
 
@@ -1627,6 +2144,7 @@ function addInspection(){
     alert(
       "Enter exactly 6 digits for the chassis number."
     );
+
 
     numberInput.focus();
 
@@ -1719,6 +2237,9 @@ function addChassisRecord(
   );
 
 
+  saveReport();
+
+
   updateProgress();
 
 
@@ -1783,6 +2304,7 @@ function addContainerInspection(){
       "Enter exactly 4 letters for the container prefix."
     );
 
+
     document.getElementById(
       "containerPrefix"
     ).focus();
@@ -1799,6 +2321,7 @@ function addContainerInspection(){
     alert(
       "Enter exactly 6 digits for the container number."
     );
+
 
     numberInput.focus();
 
@@ -1896,6 +2419,9 @@ function addContainerRecord(
   );
 
 
+  saveReport();
+
+
   updateProgress();
 
 
@@ -1945,6 +2471,7 @@ function addRackInspection(){
     alert(
       "Enter exactly 6 digits for the chassis rack number."
     );
+
 
     numberInput.focus();
 
@@ -2021,6 +2548,9 @@ function addRackRecord(
   ).classList.remove(
     "input-ready"
   );
+
+
+  saveReport();
 
 
   updateProgress();
@@ -2119,6 +2649,10 @@ function buildEOD(){
   const out = [];
 
 
+  const selectedTerminal =
+    terminal.value;
+
+
   out.push(
     "End of Day Report"
   );
@@ -2142,7 +2676,7 @@ function buildEOD(){
 
 
   out.push(
-    "Harrisburg"
+    selectedTerminal
   );
 
 
@@ -2272,6 +2806,9 @@ function buildEOD(){
 
 function generateEOD(){
 
+  saveReport();
+
+
   document.getElementById(
     "preview"
   ).textContent =
@@ -2332,25 +2869,51 @@ function formatDate(
 }
 
 
+/* UPDATE TERMINAL */
+
+function updateTerminalDisplay(){
+
+  document.getElementById(
+    "reportDate"
+  ).textContent =
+    terminal.value +
+    " — " +
+    formatDate();
+
+
+  document.title =
+    "EOD Inspection — " +
+    terminal.value;
+
+
+  saveReport();
+
+}
+
+
 /* RESET */
 
 function resetForNextDay(){
 
-  Object.values(data).forEach(
+  Object.keys(data).forEach(
     equipment => {
 
-      Object.values(equipment).forEach(
+      Object.keys(data[equipment]).forEach(
         type => {
 
-          Object.keys(type).forEach(
+          Object.keys(
+            data[equipment][type]
+          ).forEach(
             section => {
 
-              type[section].length = 0;
+              data[equipment][type][section].length = 0;
 
             }
+
           );
 
         }
+
       );
 
     }
@@ -2406,14 +2969,15 @@ function resetForNextDay(){
   );
 
 
-  document.getElementById(
-    "reportDate"
-  ).textContent =
-    "Harrisburg — " +
-    formatDate();
+  localStorage.removeItem(
+    STORAGE_KEY
+  );
 
 
   previousProgress = 0;
+
+
+  updateTerminalDisplay();
 
 
   updateProgress();
@@ -2435,22 +2999,28 @@ function emailEOD(){
     buildEOD();
 
 
+  const selectedTerminal =
+    terminal.value;
+
+
   const reportDate =
-    document.getElementById(
-      "reportDate"
-    )
-    .textContent
-    .split("—")[1]
-    .trim();
+    formatDate();
 
 
   const subject =
-    "End of Day Report - Harrisburg - " +
+    "End of Day Report - " +
+    selectedTerminal +
+    " - " +
     reportDate;
 
 
-  resetForNextDay();
-
+  /*
+    IMPORTANT:
+    Keep the saved report until the mail
+    application has been opened.
+    The report is cleared only after
+    the mailto link is launched.
+  */
 
   window.location.href =
     "mailto:joe@caliberis.com" +
@@ -2482,6 +3052,9 @@ document.getElementById(
       event.target.value.length === 6
     );
 
+
+    saveReport();
+
   }
 );
 
@@ -2500,6 +3073,9 @@ document.getElementById(
         )
         .toUpperCase()
         .slice(0,4);
+
+
+    saveReport();
 
   }
 );
@@ -2522,6 +3098,9 @@ document.getElementById(
       event.target.value.length === 6
     );
 
+
+    saveReport();
+
   }
 );
 
@@ -2542,6 +3121,31 @@ document.getElementById(
       "input-ready",
       event.target.value.length === 6
     );
+
+
+    saveReport();
+
+  }
+);
+
+
+/* NOTES SAVE */
+
+document.getElementById(
+  "notes"
+).addEventListener(
+  "input",
+  saveReport
+);
+
+
+/* TERMINAL */
+
+terminal.addEventListener(
+  "change",
+  () => {
+
+    updateTerminalDisplay();
 
   }
 );
@@ -2655,14 +3259,79 @@ document.getElementById(
 
 /* STARTUP */
 
-document.getElementById(
-  "reportDate"
-).textContent =
-  "Harrisburg — " +
-  formatDate();
+const savedReport =
+  loadSavedReport();
+
+
+if(savedReport){
+
+  restoreReport(
+    savedReport
+  );
+
+}
+
+
+updateTerminalDisplay();
 
 
 updateProgress();
+
+
+/*
+  If an existing report was found,
+  ask whether this is supposed to
+  be a completely new report.
+*/
+
+if(
+  savedReport &&
+  savedReport.data
+){
+
+  const savedCount =
+    Object.values(
+      savedReport.data
+    ).reduce(
+      (total,equipment) => {
+
+        return total +
+          Object.values(equipment)
+            .reduce(
+              (typeTotal,type) => {
+
+                return typeTotal +
+                  Object.values(type)
+                    .reduce(
+                      (sectionTotal,section) =>
+                        sectionTotal +
+                        section.length,
+                      0
+                    );
+
+              },
+              0
+            );
+
+      },
+      0
+    );
+
+
+  if(savedCount > 0){
+
+    setTimeout(
+      () => {
+
+        showNewReportModal();
+
+      },
+      350
+    );
+
+  }
+
+}
 
 })();
 
