@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <link rel="apple-touch-icon" href="./990D4EE6-8261-4BFB-B684-468A93C6844E.png">
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="EOD Inspection">
-<meta name="theme-color" content="#eef1f5" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0b0f14" media="(prefers-color-scheme: dark)">
+
+<meta name="theme-color" content="#eef1f5">
 
 <title>EOD Inspection</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+ box-sizing:border-box;
+}
 
 :root{
- color-scheme:light dark;
+ color-scheme:light;
+
  --bg:#eef1f5;
  --card:#ffffff;
  --border:#dfe3e8;
@@ -25,17 +31,23 @@
  --muted:#68727d;
  --input:#ffffff;
  --input-border:#c8ced6;
+
  --accent:#17202a;
  --accent-text:#ffffff;
+
  --secondary:#e5e8ec;
  --secondary-text:#17202a;
+
  --progress-bg:#d9dee5;
+
  --success:#16834b;
  --danger:#c62828;
+
  --shadow:0 4px 18px rgba(15,23,42,.08);
 }
 
-html,body{
+html,
+body{
  margin:0;
  min-height:100vh;
  background:var(--bg);
@@ -94,7 +106,9 @@ label{
  margin:15px 0 7px;
 }
 
-input,select,textarea{
+input,
+select,
+textarea{
  width:100%;
  padding:13px 14px;
  border:1px solid var(--input-border);
@@ -155,8 +169,6 @@ button.secondary{
  color:var(--secondary-text);
 }
 
-/* TOP STATUS */
-
 .date{
  text-align:center;
  color:var(--muted);
@@ -204,8 +216,6 @@ button.secondary{
 .progress-complete-message.show{
  display:block;
 }
-
-/* INSPECTION LIST */
 
 .inspection-list{
  display:flex;
@@ -273,8 +283,6 @@ button.secondary{
  font-weight:600;
 }
 
-/* PREVIEW */
-
 .preview-actions{
  display:grid;
  grid-template-columns:1fr 1fr;
@@ -292,8 +300,6 @@ button.secondary{
  line-height:1.55;
  overflow:auto;
 }
-
-/* RESET */
 
 .reset-button{
  background:transparent;
@@ -344,31 +350,9 @@ button.secondary{
   grid-column:span 1;
   width:100%;
  }
+
 }
 
-@media(prefers-color-scheme:dark){
-
- :root{
-  --bg:#0b0f14;
-  --card:#171d24;
-  --border:#2b333d;
-  --text:#f4f6f8;
-  --muted:#a7b0ba;
-  --input:#0f141a;
-  --input-border:#3b4550;
-  --accent:#f4f6f8;
-  --accent-text:#11161c;
-  --secondary:#242c35;
-  --secondary-text:#f4f6f8;
-  --progress-bg:#303943;
-  --success:#51d98c;
-  --danger:#ff7474;
- }
-
- .fill{
-  background:#f4f6f8;
- }
-}
 </style>
 </head>
 
@@ -377,8 +361,6 @@ button.secondary{
 <header>EOD Inspection</header>
 
 <main class="app">
-
-<!-- TERMINAL / PROGRESS -->
 
 <section class="card">
 
@@ -430,8 +412,6 @@ button.secondary{
 
 </section>
 
-
-<!-- CHASSIS -->
 
 <section class="card">
 
@@ -501,8 +481,6 @@ ADD INSPECTION
 
 </section>
 
-
-<!-- CONTAINERS -->
 
 <section class="card">
 
@@ -576,8 +554,6 @@ ADD INSPECTION
 </section>
 
 
-<!-- CHASSIS RACKS -->
-
 <section class="card">
 
 <h2>Chassis Racks</h2>
@@ -647,8 +623,6 @@ ADD INSPECTION
 </section>
 
 
-<!-- NOTES -->
-
 <section class="card">
 
 <h2>Comments or Notes of Interest</h2>
@@ -665,8 +639,6 @@ GENERATE EOD
 </section>
 
 
-<!-- INSPECTION LIST -->
-
 <section class="card">
 
 <h2>Inspection List</h2>
@@ -675,8 +647,6 @@ GENERATE EOD
 
 </section>
 
-
-<!-- PREVIEW -->
 
 <section class="card hidden" id="previewCard">
 
@@ -699,8 +669,6 @@ BACK TO EDIT
 </section>
 
 
-<!-- RESET -->
-
 <section class="card">
 
 <h2>Daily Reset</h2>
@@ -720,13 +688,11 @@ RESET FOR NEW DAY
 
 "use strict";
 
-
-const STORAGE_KEY="eodInspectionReport_v8";
+const STORAGE_KEY="eodInspectionReport_v9";
 
 const TARGET=28;
 
 const TODAY="8/17/26";
-
 
 const SPECIAL=[
  "CALUMET",
@@ -754,194 +720,88 @@ const EXTRA=[
  "DDGZ"
 ];
 
-
 const data={
-
  chassis:{
-
   "5652":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
-
   "5900":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
-
   "5658":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   }
-
  },
-
  containers:{
-
   "5653":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
-
   "5900":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
-
   "5658":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   }
-
  },
-
  racks:{
-
   "5657":{
    "Pre-repair":[]
   }
-
  }
-
 };
 
-
-const terminal=
- document.getElementById("terminal");
-
-const prefix=
- document.getElementById("prefix");
-
-const list=
- document.getElementById("inspectionList");
-
-const notes=
- document.getElementById("notes");
-
-const count=
- document.getElementById("count");
-
-const fill=
- document.getElementById("fill");
-
+const terminal=document.getElementById("terminal");
+const prefix=document.getElementById("prefix");
+const list=document.getElementById("inspectionList");
+const notes=document.getElementById("notes");
+const count=document.getElementById("count");
+const fill=document.getElementById("fill");
 
 function formatDate(d=new Date()){
-
  return (
-  (d.getMonth()+1)+
-  "/"+
-  d.getDate()+
-  "/"+
+  (d.getMonth()+1)+"/"+
+  d.getDate()+"/"+
   String(d.getFullYear()).slice(-2)
  );
-
 }
-
-
-function emptyData(){
-
- return {
-
-  chassis:{
-
-   "5652":{
-    "Pre-repair":[],
-    "Post-repair":[],
-    "Add-on":[]
-   },
-
-   "5900":{
-    "Pre-repair":[],
-    "Post-repair":[],
-    "Add-on":[]
-   },
-
-   "5658":{
-    "Pre-repair":[],
-    "Post-repair":[],
-    "Add-on":[]
-   }
-
-  },
-
-  containers:{
-
-   "5653":{
-    "Pre-repair":[],
-    "Post-repair":[],
-    "Add-on":[]
-   },
-
-   "5900":{
-    "Pre-repair":[],
-    "Post-repair":[],
-    "Add-on":[]
-   },
-
-   "5658":{
-    "Pre-repair":[],
-    "Post-repair":[],
-    "Add-on":[]
-   }
-
-  },
-
-  racks:{
-   "5657":{
-    "Pre-repair":[]
-   }
-  }
-
- };
-
-}
-
 
 function save(){
 
  localStorage.setItem(
-
   STORAGE_KEY,
-
   JSON.stringify({
-
    terminal:terminal.value,
-
    date:TODAY,
-
    data:data,
-
    notes:notes.value
-
   })
-
  );
 
 }
 
-
 function load(){
 
  try{
-
   return JSON.parse(
    localStorage.getItem(STORAGE_KEY)
   );
-
  }catch(e){
-
   return null;
-
  }
 
 }
-
 
 function updatePrefixes(){
 
@@ -956,8 +816,7 @@ function updatePrefixes(){
 
  values.forEach(p=>{
 
-  const o=
-   document.createElement("option");
+  const o=document.createElement("option");
 
   o.value=p;
   o.textContent=p;
@@ -972,7 +831,6 @@ function updatePrefixes(){
    : "NSPZ";
 
 }
-
 
 function total(){
 
@@ -996,32 +854,14 @@ function total(){
 
 }
 
-
-/*
- IMPORTANT:
-
- THE TALLY NEVER STOPS.
-
- 27 / 28
- 28 / 28
- 29 / 28
- 30 / 28
- 31 / 28
-
- ONLY THE BAR STOPS AT 100%.
-*/
-
 function progress(){
 
  const n=total();
 
  count.textContent=n;
 
- const percentage=
-  Math.min(100,(n/TARGET)*100);
-
  fill.style.width=
-  percentage+"%";
+  Math.min(100,(n/TARGET)*100)+"%";
 
  document
   .getElementById("completeMessage")
@@ -1029,7 +869,6 @@ function progress(){
   .toggle("show",n>=TARGET);
 
 }
-
 
 function sectionFor(type){
 
@@ -1041,66 +880,39 @@ function sectionFor(type){
 
 }
 
-
 function addChassis(){
 
  const num=
-  document
-   .getElementById("number")
-   .value
-   .trim();
+  document.getElementById("number").value.trim();
 
  if(!/^\d{6}$/.test(num)){
-
-  alert(
-   "Enter exactly 6 digits for the chassis number."
-  );
-
+  alert("Enter exactly 6 digits for the chassis number.");
   return;
-
  }
 
  const t=
-  document
-   .getElementById("type")
-   .value;
+  document.getElementById("type").value;
 
  const c=
-  document
-   .getElementById("condition")
-   .value;
+  document.getElementById("condition").value;
 
  const note=
-  document
-   .getElementById("equipmentNote")
-   .value
-   .trim();
+  document.getElementById("equipmentNote").value.trim();
 
- data
-  .chassis[t]
-  [sectionFor(t)]
-  .push([
-   prefix.value+" "+num,
-   c,
-   note
-  ]);
+ data.chassis[t][sectionFor(t)].push([
+  prefix.value+" "+num,
+  c,
+  note
+ ]);
 
- document
-  .getElementById("number")
-  .value="";
-
- document
-  .getElementById("equipmentNote")
-  .value="";
+ document.getElementById("number").value="";
+ document.getElementById("equipmentNote").value="";
 
  save();
-
  progress();
-
  render();
 
 }
-
 
 function addContainer(){
 
@@ -1118,68 +930,33 @@ function addContainer(){
    .trim();
 
  if(!/^[A-Z]{4}$/.test(p)){
-
-  alert(
-   "Enter exactly 4 letters for the container prefix."
-  );
-
+  alert("Enter exactly 4 letters for the container prefix.");
   return;
-
  }
 
  if(!/^\d{6}$/.test(n)){
-
-  alert(
-   "Enter exactly 6 digits for the container number."
-  );
-
+  alert("Enter exactly 6 digits for the container number.");
   return;
-
  }
 
  const t=
-  document
-   .getElementById("containerType")
-   .value;
+  document.getElementById("containerType").value;
 
- data
-  .containers[t]
-  [sectionFor(t)]
-  .push([
+ data.containers[t][sectionFor(t)].push([
+  p+" "+n,
+  document.getElementById("containerCondition").value,
+  document.getElementById("containerNote").value.trim()
+ ]);
 
-   p+" "+n,
-
-   document
-    .getElementById("containerCondition")
-    .value,
-
-   document
-    .getElementById("containerNote")
-    .value
-    .trim()
-
-  ]);
-
- document
-  .getElementById("containerPrefix")
-  .value="";
-
- document
-  .getElementById("containerNumber")
-  .value="";
-
- document
-  .getElementById("containerNote")
-  .value="";
+ document.getElementById("containerPrefix").value="";
+ document.getElementById("containerNumber").value="";
+ document.getElementById("containerNote").value="";
 
  save();
-
  progress();
-
  render();
 
 }
-
 
 function addRack(){
 
@@ -1190,82 +967,45 @@ function addRack(){
    .trim();
 
  if(!/^\d{6}$/.test(n)){
-
-  alert(
-   "Enter exactly 6 digits for the chassis rack number."
-  );
-
+  alert("Enter exactly 6 digits for the chassis rack number.");
   return;
-
  }
 
- data
-  .racks["5657"]
-  ["Pre-repair"]
-  .push([
+ data.racks["5657"]["Pre-repair"].push([
+  "ZNSU "+n,
+  document.getElementById("rackCondition").value,
+  document.getElementById("rackNote").value.trim()
+ ]);
 
-   "ZNSU "+n,
-
-   document
-    .getElementById("rackCondition")
-    .value,
-
-   document
-    .getElementById("rackNote")
-    .value
-    .trim()
-
-  ]);
-
- document
-  .getElementById("rackNumber")
-  .value="";
-
- document
-  .getElementById("rackNote")
-  .value="";
+ document.getElementById("rackNumber").value="";
+ document.getElementById("rackNote").value="";
 
  save();
-
  progress();
-
  render();
 
 }
-
 
 function chassisRecords(){
 
  const r=[];
 
- Object.keys(data.chassis)
- .forEach(type=>{
+ Object.keys(data.chassis).forEach(type=>{
 
-  const section=
-   sectionFor(type);
+  const section=sectionFor(type);
 
-  data
-   .chassis[type]
-   [section]
-   .forEach((item,index)=>{
+  data.chassis[type][section].forEach((item,index)=>{
 
-    r.push({
-
-     type:type,
-
-     section:section,
-
-     index:index,
-
-     number:item[0],
-
-     condition:item[1],
-
-     note:item[2]||""
-
-    });
-
+   r.push({
+    type:type,
+    section:section,
+    index:index,
+    number:item[0],
+    condition:item[1],
+    note:item[2]||""
    });
+
+  });
 
  });
 
@@ -1273,19 +1013,15 @@ function chassisRecords(){
 
 }
 
-
 function select(values,current){
 
- const s=
-  document.createElement("select");
+ const s=document.createElement("select");
 
  values.forEach(v=>{
 
-  const o=
-   document.createElement("option");
+  const o=document.createElement("option");
 
   o.value=v;
-
   o.textContent=v;
 
   if(v===current){
@@ -1300,37 +1036,27 @@ function select(values,current){
 
 }
 
-
 function split(value){
 
  const p=
-  value
-   .trim()
-   .split(/\s+/);
+  value.trim().split(/\s+/);
 
  return {
-
   prefix:p[0]||"",
-
-  number:
-   p.slice(1).join("")
-
+  number:p.slice(1).join("")
  };
 
 }
-
 
 function render(){
 
  list.innerHTML="";
 
- const records=
-  chassisRecords();
+ const records=chassisRecords();
 
  if(!records.length){
 
-  const e=
-   document.createElement("div");
+  const e=document.createElement("div");
 
   e.className="empty-list";
 
@@ -1343,48 +1069,33 @@ function render(){
 
  }
 
-
  records.forEach(r=>{
 
-  const row=
-   document.createElement("div");
+  const row=document.createElement("div");
 
   row.className="inspection-row";
 
+  const text=document.createElement("div");
 
-  const text=
-   document.createElement("div");
-
-  text.className=
-   "inspection-display";
+  text.className="inspection-display";
 
   text.textContent=
-   r.type+
-   " "+
-   r.condition+
-   " "+
+   r.type+" "+
+   r.condition+" "+
    r.number;
 
+  const edit=document.createElement("button");
 
-  const edit=
-   document.createElement("button");
-
-  edit.className=
-   "edit-button";
-
+  edit.className="edit-button";
   edit.type="button";
-
   edit.textContent="✎";
+  edit.title="Edit inspection";
 
-  edit.title=
-   "Edit inspection";
-
-  edit.onclick=
-   ()=>editRow(row,r);
-
+  edit.onclick=()=>{
+   editRow(row,r);
+  };
 
   row.appendChild(text);
-
   row.appendChild(edit);
 
   list.appendChild(row);
@@ -1393,41 +1104,25 @@ function render(){
 
 }
 
-
 function editRow(row,r){
 
  row.innerHTML="";
 
- const area=
-  document.createElement("div");
+ const area=document.createElement("div");
 
- area.className=
-  "inspection-edit";
-
+ area.className="inspection-edit";
 
  const type=
-  select(
-   ["5652","5900","5658"],
-   r.type
-  );
-
+  select(["5652","5900","5658"],r.type);
 
  const condition=
-  select(
-   ["Defect","No Defect"],
-   r.condition
-  );
+  select(["Defect","No Defect"],r.condition);
 
-
- const parts=
-  split(r.number);
-
+ const parts=split(r.number);
 
  const prefixes=
   SPECIAL.includes(terminal.value)
-
    ? [...BASE,...EXTRA]
-
    : [
       ...BASE,
       ...(EXTRA.includes(parts.prefix)
@@ -1435,64 +1130,37 @@ function editRow(row,r){
        : [])
      ];
 
-
  const p=
   select(
    [...new Set(prefixes)],
    parts.prefix
   );
 
-
- const num=
-  document.createElement("input");
+ const num=document.createElement("input");
 
  num.type="tel";
-
  num.inputMode="numeric";
-
  num.maxLength=6;
-
- num.value=
-  parts.number;
-
+ num.value=parts.number;
 
  num.oninput=()=>{
-
   num.value=
-   num.value
-    .replace(/\D/g,"")
-    .slice(0,6);
-
+   num.value.replace(/\D/g,"").slice(0,6);
  };
 
+ const check=document.createElement("button");
 
- const check=
-  document.createElement("button");
-
- check.className=
-  "edit-button editing";
-
+ check.className="edit-button editing";
  check.type="button";
-
  check.textContent="✓";
+ check.title="Save correction";
 
- check.title=
-  "Save correction";
+ const del=document.createElement("button");
 
-
- const del=
-  document.createElement("button");
-
- del.className=
-  "edit-button delete-button";
-
+ del.className="edit-button delete-button";
  del.type="button";
-
  del.textContent="×";
-
- del.title=
-  "Delete inspection";
-
+ del.title="Delete inspection";
 
  area.append(
   type,
@@ -1505,134 +1173,76 @@ function editRow(row,r){
 
  row.appendChild(area);
 
-
  check.onclick=()=>{
 
   if(!/^\d{6}$/.test(num.value)){
-
-   alert(
-    "Enter exactly 6 digits for the chassis number."
-   );
-
+   alert("Enter exactly 6 digits for the chassis number.");
    return;
-
   }
 
-
   const old=
-   data
-    .chassis[r.type]
-    [r.section];
-
+   data.chassis[r.type][r.section];
 
   const oldIndex=
    old.findIndex(x=>
-
     x[0]===r.number &&
-
     x[1]===r.condition &&
-
-    (x[2]||"")===
-     (r.note||"")
-
+    (x[2]||"")===(r.note||"")
    );
-
 
   if(oldIndex<0)return;
 
-
   old.splice(oldIndex,1);
 
+  const newType=type.value;
+  const newSection=sectionFor(newType);
 
-  const newType=
-   type.value;
-
-  const newSection=
-   sectionFor(newType);
-
-
-  data
-   .chassis[newType]
-   [newSection]
-   .push([
-
-    p.value+
-    " "+
-    num.value,
-
-    condition.value,
-
-    r.note||""
-
-   ]);
-
+  data.chassis[newType][newSection].push([
+   p.value+" "+num.value,
+   condition.value,
+   r.note||""
+  ]);
 
   save();
-
   progress();
-
   render();
 
  };
-
 
  del.onclick=()=>{
 
-  if(
-   !confirm(
-    "Delete this inspection?\n\n"+
-    r.type+
-    " "+
-    r.condition+
-    " "+
-    r.number
-   )
-  ){
-
+  if(!confirm(
+   "Delete this inspection?\n\n"+
+   r.type+" "+
+   r.condition+" "+
+   r.number
+  )){
    return;
-
   }
 
-
   const old=
-   data
-    .chassis[r.type]
-    [r.section];
-
+   data.chassis[r.type][r.section];
 
   const oldIndex=
    old.findIndex(x=>
-
     x[0]===r.number &&
-
     x[1]===r.condition &&
-
-    (x[2]||"")===
-     (r.note||"")
-
+    (x[2]||"")===(r.note||"")
    );
 
-
   if(oldIndex>=0){
-
    old.splice(oldIndex,1);
-
   }
 
-
   save();
-
   progress();
-
   render();
 
  };
-
 
  type.focus();
 
 }
-
 
 function reportSection(
  out,
@@ -1644,55 +1254,40 @@ function reportSection(
  label
 ){
 
- ["No Defect","Defect"]
- .forEach(condition=>{
+ ["No Defect","Defect"].forEach(condition=>{
 
   const items=
    equipment[type][section]
     .filter(x=>x[1]===condition);
 
-
   out.push(
    "("+items.length+") "+
-   (
-    condition==="Defect"
-     ?yesText
-     :noText
-   )
+   (condition==="Defect"
+    ?yesText
+    :noText)
   );
 
-
   out.push(label+":");
-
 
   items.forEach((x,i)=>{
 
    out.push(
-    "\t"+
-    (i+1)+
-    ". "+
-    x[0]
+    "\t"+(i+1)+". "+x[0]
    );
 
-
    if(x[2]){
-
     out.push(
-     "\t   Note: "+
-     x[2]
+     "\t   Note: "+x[2]
     );
-
    }
 
   });
-
 
   out.push("");
 
  });
 
 }
-
 
 function buildEOD(){
 
@@ -1703,13 +1298,10 @@ function buildEOD(){
   ""
  );
 
-
  out.push(
-  "Date: "+
-  formatDate(),
+  "Date: "+formatDate(),
   ""
  );
-
 
  out.push(
   "End of Day Report for:",
@@ -1717,9 +1309,7 @@ function buildEOD(){
   ""
  );
 
-
  out.push("CHASSIS");
-
 
  reportSection(
   out,
@@ -1731,7 +1321,6 @@ function buildEOD(){
   "Chassis Numbers"
  );
 
-
  reportSection(
   out,
   data.chassis,
@@ -1741,7 +1330,6 @@ function buildEOD(){
   "post repair WITH defects - 5900",
   "Chassis Numbers"
  );
-
 
  reportSection(
   out,
@@ -1753,9 +1341,7 @@ function buildEOD(){
   "Chassis Numbers"
  );
 
-
  out.push("CONTAINERS");
-
 
  reportSection(
   out,
@@ -1767,7 +1353,6 @@ function buildEOD(){
   "Container Numbers"
  );
 
-
  reportSection(
   out,
   data.containers,
@@ -1777,7 +1362,6 @@ function buildEOD(){
   "post repair WITH defects - 5900",
   "Container Numbers"
  );
-
 
  reportSection(
   out,
@@ -1789,9 +1373,7 @@ function buildEOD(){
   "Container Numbers"
  );
 
-
  out.push("CHASSIS RACKS");
-
 
  reportSection(
   out,
@@ -1803,36 +1385,29 @@ function buildEOD(){
   "Chassis Rack Numbers"
  );
 
-
  out.push(
   "("+total()+") TOTAL INSPECTIONS",
   ""
  );
 
-
  out.push(
   "Comments or Notes of Interest:"
  );
-
 
  out.push(
   notes.value.trim()
  );
 
-
  return out.join("\n");
 
 }
-
 
 function generate(){
 
  save();
 
- document
-  .getElementById("preview")
-  .textContent=
-   buildEOD();
+ document.getElementById("preview").textContent=
+  buildEOD();
 
  document
   .getElementById("previewCard")
@@ -1849,23 +1424,23 @@ function generate(){
 
 
 /*
- EMAIL
+ EMAIL FLOW
 
- The report is built BEFORE opening
- the email application.
+ The report is created FIRST.
 
- Therefore the email body is already
- populated before anything is reset.
+ The complete report is placed directly
+ inside the mailto URL.
 
- The app data is NOT reset until the
- email action has successfully handed
- the report to the mail application.
+ Only AFTER the mailto URL has been
+ created do we clear the app.
+
+ This means resetting the app cannot
+ remove the contents of the email.
 */
 
 function email(){
 
- const report=
-  buildEOD();
+ const report=buildEOD();
 
  const subject=
   "End of Day Report - "+
@@ -1881,11 +1456,9 @@ function email(){
   "&body="+
   encodeURIComponent(report);
 
-
  /*
- IMPORTANT:
-
- Save a copy of the report first.
+ Store a backup of the exact report
+ before opening Mail.
  */
 
  localStorage.setItem(
@@ -1897,66 +1470,39 @@ function email(){
   })
  );
 
-
  /*
- Open the email app.
-
- The email contains the report
- before the app is reset.
+ The complete email already contains
+ the report before navigation occurs.
  */
 
  window.location.href=mailto;
 
-
  /*
- Reset after giving the mail app
- time to receive the generated
- mailto.
+ Reset immediately after handing the
+ complete mailto URL to the device.
 
- The delay prevents the email body
- from being blank.
+ The email itself is independent of
+ localStorage after this point.
  */
 
  setTimeout(()=>{
-
   resetForNewDay(false);
-
- },1500);
+ },250);
 
 }
-
-
-/*
- RESET
-
- Clears today's inspections,
- notes, preview, and local storage.
-
- This is intentionally separate from
- the email process so you cannot
- accidentally erase the report before
- the email has been generated.
-*/
 
 function resetForNewDay(confirmReset=true){
 
  if(confirmReset){
 
-  const ok=
-   confirm(
-    "Reset the EOD Inspection app?\n\n"+
-    "This will remove all inspections "+
-    "and notes currently saved for today."
-   );
+  const ok=confirm(
+   "Reset the EOD Inspection app?\n\n"+
+   "This will remove all inspections and notes currently saved for today."
+  );
 
   if(!ok)return;
 
  }
-
-
- const fresh=
-  emptyData();
-
 
  Object.keys(data).forEach(k=>{
 
@@ -1972,31 +1518,21 @@ function resetForNewDay(confirmReset=true){
 
  });
 
-
  localStorage.removeItem(STORAGE_KEY);
-
 
  notes.value="";
 
-
- document
-  .getElementById("preview")
-  .textContent="";
-
+ document.getElementById("preview").textContent="";
 
  document
   .getElementById("previewCard")
   .classList
   .add("hidden");
 
-
  terminal.value="HARRISBURG";
 
-
  updatePrefixes();
-
  progress();
-
  render();
 
  save();
@@ -2008,21 +1544,16 @@ function resetForNewDay(confirmReset=true){
 
 }
 
-
-/*
- RESTORE TODAY'S SAVED DATA
-
- If today's data exists, restore it.
-
- If there is no saved data, the app
- starts at zero.
-*/
-
 function restore(){
 
- const saved=
-  load();
+ const saved=load();
 
+ /*
+ If there is saved data from today,
+ restore it.
+
+ Otherwise start completely empty.
+ */
 
  if(
   saved &&
@@ -2038,13 +1569,10 @@ function restore(){
 
      data[k][t][s].length=0;
 
-
      if(
       saved.data[k] &&
       saved.data[k][t] &&
-      Array.isArray(
-       saved.data[k][t][s]
-      )
+      Array.isArray(saved.data[k][t][s])
      ){
 
       data[k][t][s].push(
@@ -2059,11 +1587,9 @@ function restore(){
 
   });
 
-
   terminal.value=
    saved.terminal||
    "HARRISBURG";
-
 
   notes.value=
    saved.notes||
@@ -2073,127 +1599,88 @@ function restore(){
 
 }
 
-
 terminal.onchange=()=>{
-
  updatePrefixes();
-
  save();
-
 };
-
 
 document
  .getElementById("addInspection")
- .onclick=
-  addChassis;
-
+ .onclick=addChassis;
 
 document
  .getElementById("addContainerInspection")
- .onclick=
-  addContainer;
-
+ .onclick=addContainer;
 
 document
  .getElementById("addRackInspection")
- .onclick=
-  addRack;
-
+ .onclick=addRack;
 
 document
  .getElementById("generateEod")
- .onclick=
-  generate;
-
+ .onclick=generate;
 
 document
  .getElementById("emailEod")
- .onclick=
-  email;
-
+ .onclick=email;
 
 document
  .getElementById("editReport")
  .onclick=()=>{
-
   document
    .getElementById("previewCard")
    .classList
    .add("hidden");
-
  };
-
 
 document
  .getElementById("resetDay")
  .onclick=()=>{
-
   resetForNewDay(true);
-
  };
 
-
-notes.oninput=
- save;
-
+notes.oninput=save;
 
 document
  .getElementById("number")
  .oninput=e=>{
-
   e.target.value=
    e.target.value
     .replace(/\D/g,"")
     .slice(0,6);
-
   save();
-
  };
-
 
 document
  .getElementById("containerPrefix")
  .oninput=e=>{
-
   e.target.value=
    e.target.value
     .replace(/[^a-zA-Z]/g,"")
     .toUpperCase()
     .slice(0,4);
-
   save();
-
  };
-
 
 document
  .getElementById("containerNumber")
  .oninput=e=>{
-
   e.target.value=
    e.target.value
     .replace(/\D/g,"")
     .slice(0,6);
-
   save();
-
  };
-
 
 document
  .getElementById("rackNumber")
  .oninput=e=>{
-
   e.target.value=
    e.target.value
     .replace(/\D/g,"")
     .slice(0,6);
-
   save();
-
  };
-
 
 ["number","containerNumber","rackNumber"]
 .forEach(id=>{
@@ -2205,7 +1692,6 @@ document
    if(e.key!=="Enter")return;
 
    e.preventDefault();
-
 
    if(id==="number"){
     addChassis();
@@ -2224,25 +1710,23 @@ document
 });
 
 
+/*
+ STARTUP
+*/
+
 restore();
 
 document
  .getElementById("reportDate")
- .textContent=
-  TODAY;
-
+ .textContent=TODAY;
 
 document.title=
  "EOD Inspection — "+
  terminal.value;
 
-
 updatePrefixes();
-
 progress();
-
 render();
-
 
 })();
 
@@ -2250,6 +1734,10 @@ render();
 
 
 <script>
+
+/*
+ Service worker remains enabled.
+*/
 
 if("serviceWorker" in navigator){
 
