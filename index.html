@@ -18,8 +18,7 @@
 <style>
 
 /* =========================================================
-   EOD INSPECTION — RENDERED APP DESIGN
-   FIXED LIGHT APPEARANCE
+   EOD INSPECTION — CUSTOM ACCENT DESIGN
    ========================================================= */
 
 *{
@@ -27,25 +26,39 @@
  -webkit-tap-highlight-color:transparent;
 }
 
+:root {
+ --navy-dark: #001338;
+ --navy-header: #001f54;
+ --yellow-primary: #ffc107;
+ --yellow-hover: #e0a800;
+ --bg-light: #eef2f7;
+ --card-bg: #ffffff;
+ --border-color: #d1d9e6;
+ --text-dark: #1e293b;
+ --text-muted: #64748b;
+ --input-bg: #f8fafc;
+}
+
 html{
- background:#f4f7fb;
+ background:var(--bg-light);
  color-scheme:light;
 }
 
 body{
  margin:0;
  min-height:100vh;
- background:
-   radial-gradient(circle at top left,#ffffff 0%,#f4f7fb 42%,#e9eef5 100%);
- color:#172033;
+ background-color: var(--bg-light);
+ color: var(--text-dark);
  font-family:
    -apple-system,
    BlinkMacSystemFont,
-   "SF Pro Display",
-   "SF Pro Text",
    "Segoe UI",
+   Roboto,
+   Helvetica,
+   Arial,
    sans-serif;
  -webkit-font-smoothing:antialiased;
+ padding: 12px;
 }
 
 /* =========================================================
@@ -53,164 +66,154 @@ body{
    ========================================================= */
 
 header{
- position:relative;
- overflow:hidden;
- padding:18px 18px 22px;
- color:#ffffff;
- text-align:center;
- background:
-   linear-gradient(135deg,#101b2d 0%,#1b3150 52%,#274b70 100%);
- box-shadow:0 5px 20px rgba(18,35,58,.22);
-}
-
-header:before{
- content:"";
- position:absolute;
- width:210px;
- height:210px;
- border-radius:50%;
- background:rgba(255,255,255,.055);
- top:-120px;
- left:-55px;
-}
-
-header:after{
- content:"";
- position:absolute;
- width:180px;
- height:180px;
- border-radius:50%;
- background:rgba(255,255,255,.045);
- right:-65px;
- bottom:-120px;
+ background: linear-gradient(90deg, #001338 0%, #002b6d 70%, #001338 100%);
+ color: #ffffff;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 14px 20px;
+ border-radius: 8px;
+ margin-bottom: 16px;
+ position: relative;
+ overflow: hidden;
+ border-bottom: 3px solid var(--yellow-primary);
+ box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .header-inner{
- position:relative;
- z-index:2;
- display:flex;
- align-items:center;
- justify-content:center;
- gap:12px;
+ display: flex;
+ align-items: center;
+ gap: 12px;
 }
 
 .header-icon{
- width:48px;
- height:48px;
- object-fit:contain;
- border-radius:12px;
- background:#ffffff;
- padding:3px;
- box-shadow:0 4px 12px rgba(0,0,0,.18);
+ font-size: 24px;
+ background: rgba(255, 255, 255, 0.1);
+ padding: 4px 8px;
+ border-radius: 6px;
+ border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .header-title{
- font-size:25px;
- font-weight:800;
- letter-spacing:-.4px;
+ font-size: 1.5rem;
+ font-weight: 800;
+ letter-spacing: 0.5px;
 }
 
-.header-subtitle{
- margin-top:3px;
- font-size:12px;
- font-weight:600;
- letter-spacing:1.5px;
- opacity:.72;
- text-transform:uppercase;
+.header-logo {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+}
+
+.logo-text {
+ display: flex;
+ flex-direction: column;
+ line-height: 1;
+ text-align: right;
+}
+
+.brand-name {
+ font-weight: 900;
+ font-size: 1.2rem;
+ letter-spacing: 1px;
+}
+
+.brand-sub {
+ font-size: 0.65rem;
+ letter-spacing: 2px;
+ color: #94a3b8;
 }
 
 /* =========================================================
-   APP CONTAINER
+   APP GRID CONTAINER
    ========================================================= */
 
 .app{
- width:min(760px,100%);
- margin:auto;
- padding:16px 12px 45px;
+ width: min(1000px, 100%);
+ margin: auto;
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ gap: 16px;
+ padding-bottom: 40px;
+}
+
+.card-full-width {
+ grid-column: span 2;
 }
 
 /* =========================================================
-   CARDS
+   CARDS & ANGLED HEADERS
    ========================================================= */
 
 .card{
- background:rgba(255,255,255,.94);
- border:1px solid #e0e6ee;
- border-radius:20px;
- padding:18px;
- margin-bottom:14px;
- box-shadow:
-   0 3px 10px rgba(24,39,60,.055),
-   0 12px 30px rgba(24,39,60,.055);
+ background: var(--card-bg);
+ border-radius: 12px;
+ border: 1px solid var(--border-color);
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+ overflow: hidden;
+ display: flex;
+ flex-direction: column;
+}
+
+.card-header-styled {
+ background: linear-gradient(90deg, #001c4d 0%, #002b6d 100%);
+ color: #ffffff;
+ padding: 10px 16px;
+ position: relative;
+}
+
+.card-header-styled::after {
+ content: "";
+ position: absolute;
+ top: 0;
+ right: 0;
+ width: 0;
+ height: 0;
+ border-style: solid;
+ border-width: 0 32px 38px 0;
+ border-color: transparent var(--yellow-primary) transparent transparent;
 }
 
 .card h2{
- display:flex;
- align-items:center;
- gap:10px;
- margin:0 0 17px;
- font-size:19px;
- line-height:1.2;
- font-weight:800;
- letter-spacing:-.2px;
- color:#18263a;
+ margin: 0;
+ font-size: 1.1rem;
+ font-weight: 700;
+ color: #ffffff;
 }
 
-.card h2:before{
- content:"";
- width:5px;
- height:23px;
- border-radius:10px;
- background:linear-gradient(180deg,#315f8e,#1a395b);
- flex:none;
+.card-body {
+ padding: 16px;
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
+ flex-grow: 1;
 }
 
 /* =========================================================
-   TERMINAL / STATUS CARD
+   STATUS / TERMINAL CARD
    ========================================================= */
-
-.status-card{
- padding:19px;
-}
 
 .status-top{
  display:flex;
- align-items:flex-end;
- justify-content:space-between;
- gap:14px;
-}
-
-.status-terminal{
- flex:1;
-}
-
-.status-progress{
- min-width:100px;
- text-align:right;
-}
-
-.status-progress-label{
- font-size:11px;
- font-weight:800;
- letter-spacing:.8px;
- text-transform:uppercase;
- color:#7a8798;
+ flex-direction:column;
+ gap:10px;
 }
 
 .status-progress-number{
- margin-top:2px;
- font-size:27px;
- line-height:1;
- font-weight:850;
- color:#172a43;
+ margin-top:4px;
+ font-size:24px;
+ font-weight:800;
+ text-align:center;
+ color:#0f172a;
 }
 
 .date{
  text-align:center;
- margin:12px 0 14px;
- color:#718096;
+ color:#64748b;
  font-size:13px;
- font-weight:650;
+ font-weight:600;
+ margin-bottom: 4px;
 }
 
 /* =========================================================
@@ -219,91 +222,86 @@ header:after{
 
 label{
  display:block;
- margin:14px 0 6px;
- color:#526176;
- font-size:12px;
- font-weight:800;
- letter-spacing:.35px;
- text-transform:uppercase;
+ font-size: 0.75rem;
+ font-weight: 700;
+ color: #001f54;
+ margin-bottom: 4px;
+ text-transform: uppercase;
+ letter-spacing: 0.3px;
 }
 
 input,
 select,
 textarea{
- width:100%;
- min-height:48px;
- padding:12px 13px;
- border:1px solid #d3dbe6;
- border-radius:12px;
- background:#f9fbfd;
- color:#172033;
- font:inherit;
- font-size:16px;
- outline:none;
- box-shadow:inset 0 1px 2px rgba(20,35,55,.025);
+ width: 100%;
+ padding: 10px 12px;
+ border: 1px solid var(--border-color);
+ border-radius: 8px;
+ background-color: var(--input-bg);
+ font-size: 0.95rem;
+ color: var(--text-dark);
+ outline: none;
+ box-shadow: none;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
- border-color:#426d99;
- background:#ffffff;
- box-shadow:
-   0 0 0 3px rgba(66,109,153,.11);
+ border-color: #002b6d;
+ background: #ffffff;
+ box-shadow: 0 0 0 2px rgba(0, 43, 109, 0.15);
 }
 
 textarea{
- min-height:105px;
+ min-height:80px;
  resize:vertical;
 }
 
 .row{
  display:grid;
  grid-template-columns:1fr 1fr;
- gap:13px;
+ gap:12px;
 }
 
 .static-type{
- min-height:48px;
- display:flex;
- align-items:center;
- padding:12px 13px;
- border:1px solid #d3dbe6;
- border-radius:12px;
- background:#edf2f7;
- color:#26364b;
- font-size:16px;
- font-weight:750;
+ padding: 10px 12px;
+ border: 1px solid var(--border-color);
+ border-radius: 8px;
+ background-color: #e2e8f0;
+ color: #334155;
+ font-size: 0.95rem;
+ font-weight: 700;
 }
 
 /* =========================================================
-   PROGRESS
+   PROGRESS BAR
    ========================================================= */
 
 .progressbar{
  height:12px;
- padding:2px;
- background:#e2e8f0;
- border-radius:999px;
+ background:#cbd5e1;
+ border-radius:12px;
  overflow:hidden;
 }
 
 .fill{
  height:100%;
  width:0;
- border-radius:999px;
- background:
-   linear-gradient(90deg,#294c70,#427aa8);
+ border-radius:12px;
+ background-color: var(--yellow-primary);
  transition:width .4s ease;
 }
 
 .progress-complete-message{
  display:none;
- text-align:center;
- margin-top:9px;
- color:#18794e;
- font-size:13px;
- font-weight:800;
+ background-color: var(--yellow-primary);
+ color: #000000;
+ padding: 10px;
+ border-radius: 6px;
+ font-weight: 700;
+ font-size: 0.85rem;
+ text-align: center;
+ margin-top: 8px;
 }
 
 .progress-complete-message.show{
@@ -315,47 +313,50 @@ textarea{
    ========================================================= */
 
 button{
- width:100%;
- min-height:49px;
- margin-top:16px;
- padding:13px 16px;
- border:0;
- border-radius:12px;
- background:
-   linear-gradient(135deg,#1a3049,#294f73);
- color:#ffffff;
- font:800 15px inherit;
- letter-spacing:.25px;
- cursor:pointer;
- box-shadow:
-   0 4px 10px rgba(25,52,80,.16);
- transition:
-   transform .12s ease,
-   box-shadow .12s ease;
+ width: 100%;
+ padding: 11px 18px;
+ border: none;
+ border-radius: 6px;
+ font-weight: 800;
+ font-size: 0.85rem;
+ letter-spacing: 0.5px;
+ cursor: pointer;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ gap: 8px;
+ transition: opacity 0.15s ease;
+ background-color: var(--yellow-primary);
+ color: #000000;
+ margin-top: auto;
+}
+
+button:hover{
+ opacity: 0.9;
 }
 
 button:active{
- transform:scale(.985);
- box-shadow:none;
+ transform: scale(.985);
 }
 
 button.secondary{
- background:#edf2f7;
- color:#24364d;
- border:1px solid #d7dfe8;
- box-shadow:none;
+ background-color: #001845;
+ color: #ffffff;
 }
 
 button.primary{
- background:
-   linear-gradient(135deg,#19344f,#315f8e);
+ background-color: var(--yellow-primary);
+ color: #000000;
 }
 
 .reset-button{
  background:#ffffff;
  color:#c0392b;
  border:1px solid #e5a8a1;
- box-shadow:none;
+}
+
+.reset-button:hover{
+ background:#fdf2f2;
 }
 
 .reset-button:active{
@@ -378,29 +379,30 @@ button.primary{
  grid-template-columns:1fr auto;
  gap:10px;
  align-items:center;
- padding:12px 13px;
+ padding:10px 12px;
  border:1px solid #dfe5ec;
- border-radius:13px;
- background:#f7f9fb;
+ border-radius:8px;
+ background:#f8fafc;
 }
 
 .inspection-display{
  color:#24344a;
  font-size:14px;
- font-weight:750;
+ font-weight:700;
  line-height:1.4;
 }
 
 .edit-button{
- width:43px;
- min-width:43px;
- height:43px;
- min-height:43px;
+ width:36px;
+ min-width:36px;
+ height:36px;
+ min-height:36px;
  margin:0;
  padding:0;
- border-radius:11px;
- font-size:20px;
- box-shadow:none;
+ border-radius:6px;
+ font-size:16px;
+ background-color: #e2e8f0;
+ color: #1e293b;
 }
 
 .edit-button.editing{
@@ -424,18 +426,17 @@ button.primary{
 .inspection-edit select,
 .inspection-edit input{
  min-width:0;
- min-height:43px;
- padding:8px;
+ padding:6px;
  font-size:13px;
- border-radius:9px;
+ border-radius:6px;
 }
 
 .empty-list{
- padding:18px 10px;
+ padding:24px 10px;
  text-align:center;
  color:#7c8998;
- font-size:13px;
- font-weight:650;
+ font-size:14px;
+ font-weight:600;
 }
 
 /* =========================================================
@@ -444,26 +445,27 @@ button.primary{
 
 #preview{
  white-space:pre-wrap;
- max-height:500px;
+ max-height:400px;
  overflow:auto;
  padding:16px;
  border:1px solid #dce3eb;
- border-radius:13px;
- background:#f7f9fb;
+ border-radius:8px;
+ background:#f8fafc;
  color:#26364b;
- font-family:
-   ui-monospace,
-   SFMono-Regular,
-   Menlo,
-   monospace;
+ font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
  font-size:13px;
  line-height:1.55;
+ margin-bottom: 12px;
 }
 
 .preview-actions{
- display:grid;
- grid-template-columns:1fr 1fr;
+ display:flex;
+ justify-content: flex-end;
  gap:10px;
+}
+
+.preview-actions button {
+ width: auto;
 }
 
 /* =========================================================
@@ -472,11 +474,10 @@ button.primary{
 
 .reset-card{
  border:1px solid #ead8d5;
- background:#fffafa;
 }
 
-.reset-card h2:before{
- background:#c84a43;
+.reset-card .card-header-styled{
+ background: linear-gradient(90deg, #5c1d18 0%, #8b2820 100%);
 }
 
 .hidden{
@@ -484,48 +485,39 @@ button.primary{
 }
 
 /* =========================================================
-   MOBILE
+   MOBILE RESPONSIVENESS
    ========================================================= */
 
-@media(max-width:650px){
+@media(max-width:768px){
 
  .app{
-  padding:12px 10px 35px;
+  grid-template-columns: 1fr;
+  padding-bottom: 30px;
+ }
+
+ .card-full-width {
+  grid-column: span 1;
  }
 
  header{
-  padding:15px 14px 18px;
- }
-
- .header-icon{
-  width:43px;
-  height:43px;
+  padding: 12px 14px;
  }
 
  .header-title{
-  font-size:22px;
- }
-
- .card{
-  padding:16px;
-  border-radius:18px;
- }
-
- .status-top{
-  align-items:flex-start;
- }
-
- .status-progress-number{
-  font-size:25px;
+  font-size: 1.2rem;
  }
 
  .row{
-  grid-template-columns:1fr;
-  gap:1px;
+  grid-template-columns: 1fr;
+  gap: 8px;
  }
 
  .preview-actions{
-  grid-template-columns:1fr;
+  flex-direction: column;
+ }
+
+ .preview-actions button {
+  width: 100%;
  }
 
  .inspection-edit{
@@ -539,70 +531,6 @@ button.primary{
 
 }
 
-/* =========================================================
-   VERY SMALL SCREENS
-   ========================================================= */
-
-@media(max-width:390px){
-
- .header-title{
-  font-size:20px;
- }
-
- .status-progress{
-  min-width:85px;
- }
-
-}
-
-/* =========================================================
-   FORCE LIGHT RENDERING EVEN IN DARK MODE
-   ========================================================= */
-
-@media(prefers-color-scheme:dark){
-
- html,
- body{
-  background:#f4f7fb!important;
-  color:#172033!important;
- }
-
- input,
- select,
- textarea{
-  background:#f9fbfd!important;
-  color:#172033!important;
- }
-
- .card{
-  background:rgba(255,255,255,.94)!important;
-  color:#172033!important;
- }
-
- .card h2{
-  color:#18263a!important;
- }
-
- .inspection-row{
-  background:#f7f9fb!important;
- }
-
- .inspection-display{
-  color:#24344a!important;
- }
-
- #preview{
-  background:#f7f9fb!important;
-  color:#26364b!important;
- }
-
- .static-type{
-  background:#edf2f7!important;
-  color:#26364b!important;
- }
-
-}
-
 </style>
 </head>
 
@@ -611,18 +539,17 @@ button.primary{
 <header>
 
  <div class="header-inner">
-
-  <img
-   class="header-icon"
-   src="./990D4EE6-8261-4BFB-B684-468A93C6844E.png"
-   alt="EOD Inspection"
-  >
-
+  <span class="header-icon">📋</span>
   <div>
    <div class="header-title">EOD Inspection</div>
-   <div class="header-subtitle">End of Day Report</div>
   </div>
+ </div>
 
+ <div class="header-logo">
+  <div class="logo-text">
+   <span class="brand-name">ASPECT</span>
+   <span class="brand-sub">ASSOCIATES</span>
+  </div>
  </div>
 
 </header>
@@ -635,76 +562,77 @@ button.primary{
      TERMINAL / PROGRESS
      ===================================================== -->
 
-<section class="card status-card">
+<section class="card">
 
- <div class="status-top">
+ <div class="card-header-styled">
+  <h2>Terminal</h2>
+ </div>
 
-  <div class="status-terminal">
+ <div class="card-body">
 
-   <label for="terminal">Terminal</label>
+  <div class="status-top">
 
-   <select id="terminal">
+   <div class="status-terminal">
 
-    <option>APPLIANCE PARK</option>
-    <option>ATLANTA</option>
-    <option>AUSTELL</option>
-    <option>AYER</option>
-    <option>BETHLEHEM</option>
-    <option>BUFFALO</option>
-    <option>CALUMET</option>
-    <option>CHARLOTTE</option>
-    <option>CHGO 63RD</option>
-    <option>CHICAGO 47TH</option>
-    <option>CINCINNATI</option>
-    <option>CLEVELAND</option>
-    <option>CROXTON</option>
-    <option>GREENSBORO</option>
-    <option selected>HARRISBURG</option>
-    <option>JACKSONVILLE</option>
-    <option>KANSAS CITY</option>
-    <option>LANDERS</option>
-    <option>MORRISVILLE</option>
-    <option>NORFOLK</option>
-    <option>PITTSBURGH</option>
-    <option>RICKENBACKER</option>
-    <option>ROSSVILLE</option>
-    <option>RUTHERFORD</option>
-    <option>ST LOUIS</option>
-    <option>TAYLOR</option>
-    <option>TOLEDO</option>
+    <select id="terminal" style="font-weight: 700;">
 
-   </select>
+     <option>APPLIANCE PARK</option>
+     <option>ATLANTA</option>
+     <option>AUSTELL</option>
+     <option>AYER</option>
+     <option>BETHLEHEM</option>
+     <option>BUFFALO</option>
+     <option>CALUMET</option>
+     <option>CHARLOTTE</option>
+     <option>CHGO 63RD</option>
+     <option>CHICAGO 47TH</option>
+     <option>CINCINNATI</option>
+     <option>CLEVELAND</option>
+     <option>CROXTON</option>
+     <option>GREENSBORO</option>
+     <option selected>HARRISBURG</option>
+     <option>JACKSONVILLE</option>
+     <option>KANSAS CITY</option>
+     <option>LANDERS</option>
+     <option>MORRISVILLE</option>
+     <option>NORFOLK</option>
+     <option>PITTSBURGH</option>
+     <option>RICKENBACKER</option>
+     <option>ROSSVILLE</option>
+     <option>RUTHERFORD</option>
+     <option>ST LOUIS</option>
+     <option>TAYLOR</option>
+     <option>TOLEDO</option>
+
+    </select>
+
+   </div>
+
+   <div class="date" id="reportDate"></div>
+
+   <div class="status-progress">
+
+    <div class="status-progress-number">
+     <span id="count">0</span> / 28
+    </div>
+
+   </div>
 
   </div>
 
-  <div class="status-progress">
 
-   <div class="status-progress-label">
-    Daily Progress
-   </div>
-
-   <div class="status-progress-number">
-    <span id="count">0</span>/28
-   </div>
-
+  <div class="progressbar">
+   <div class="fill" id="fill"></div>
   </div>
 
- </div>
 
+  <div
+   class="progress-complete-message"
+   id="completeMessage"
+  >
+   ✓ Daily inspection target complete
+  </div>
 
- <div class="date" id="reportDate"></div>
-
-
- <div class="progressbar">
-  <div class="fill" id="fill"></div>
- </div>
-
-
- <div
-  class="progress-complete-message"
-  id="completeMessage"
- >
-  ✓ Daily inspection target complete
  </div>
 
 </section>
@@ -716,100 +644,108 @@ button.primary{
 
 <section class="card">
 
- <h2>Chassis</h2>
+ <div class="card-header-styled">
+  <h2>Chassis</h2>
+ </div>
 
- <div class="row">
+ <div class="card-body">
 
-  <div>
+  <div class="row">
 
-   <label for="prefix">
-    4-Character Prefix
-   </label>
+   <div>
 
-   <select id="prefix"></select>
+    <label for="prefix">
+     4-Character Prefix
+    </label>
+
+    <select id="prefix"></select>
+
+   </div>
+
+   <div>
+
+    <label for="number">
+     6-Digit Number
+    </label>
+
+    <input
+     id="number"
+     type="tel"
+     inputmode="numeric"
+     maxlength="6"
+     placeholder="Enter 6 digits"
+    >
+
+   </div>
 
   </div>
 
-  <div>
 
-   <label for="number">
-    6-Digit Number
+  <div class="row">
+
+   <div>
+
+    <label for="type">
+     Inspection Type
+    </label>
+
+    <select id="type">
+
+     <option value="5652">
+      5652 — Pre-repair
+     </option>
+
+     <option value="5900">
+      5900 — Post-repair
+     </option>
+
+     <option value="5658">
+      5658 — Add-on
+     </option>
+
+    </select>
+
+   </div>
+
+
+   <div>
+
+    <label for="condition">
+     Condition
+    </label>
+
+    <select id="condition">
+
+     <option>Defect</option>
+     <option>No Defect</option>
+
+    </select>
+
+   </div>
+
+  </div>
+
+
+  <div>
+   <label for="equipmentNote">
+    Inspection Note
    </label>
 
    <input
-    id="number"
-    type="tel"
-    inputmode="numeric"
-    maxlength="6"
-    placeholder="Enter 6 digits"
+    id="equipmentNote"
+    placeholder="Example: 145D dwell"
    >
-
   </div>
+
+
+  <button
+   id="addInspection"
+   class="primary"
+  >
+   ADD INSPECTION
+  </button>
 
  </div>
-
-
- <div class="row">
-
-  <div>
-
-   <label for="type">
-    Inspection Type
-   </label>
-
-   <select id="type">
-
-    <option value="5652">
-     5652 — Pre-repair
-    </option>
-
-    <option value="5900">
-     5900 — Post-repair
-    </option>
-
-    <option value="5658">
-     5658 — Add-on
-    </option>
-
-   </select>
-
-  </div>
-
-
-  <div>
-
-   <label for="condition">
-    Condition
-   </label>
-
-   <select id="condition">
-
-    <option>Defect</option>
-    <option>No Defect</option>
-
-   </select>
-
-  </div>
-
- </div>
-
-
- <label for="equipmentNote">
-  Inspection Note
- </label>
-
- <input
-  id="equipmentNote"
-  placeholder="Example: 145D dwell"
- >
-
-
- <button
-  id="addInspection"
-  class="primary"
- >
-  ADD CHASSIS INSPECTION
- </button>
 
 </section>
 
@@ -820,104 +756,112 @@ button.primary{
 
 <section class="card">
 
- <h2>Containers</h2>
+ <div class="card-header-styled">
+  <h2>Containers</h2>
+ </div>
 
- <div class="row">
+ <div class="card-body">
+
+  <div class="row">
+
+   <div>
+
+    <label for="containerPrefix">
+     4-Character Prefix
+    </label>
+
+    <input
+     id="containerPrefix"
+     maxlength="4"
+     placeholder="ABCD"
+    >
+
+   </div>
+
+   <div>
+
+    <label for="containerNumber">
+     6-Digit Number
+    </label>
+
+    <input
+     id="containerNumber"
+     type="tel"
+     inputmode="numeric"
+     maxlength="6"
+     placeholder="Enter 6 digits"
+    >
+
+   </div>
+
+  </div>
+
+
+  <div class="row">
+
+   <div>
+
+    <label for="containerType">
+     Inspection Type
+    </label>
+
+    <select id="containerType">
+
+     <option value="5653">
+      5653 — Pre-repair
+     </option>
+
+     <option value="5900">
+      5900 — Post-repair
+     </option>
+
+     <option value="5658">
+      5658 — Add-on
+     </option>
+
+    </select>
+
+   </div>
+
+
+   <div>
+
+    <label for="containerCondition">
+     Condition
+    </label>
+
+    <select id="containerCondition">
+
+     <option>Defect</option>
+     <option>No Defect</option>
+
+    </select>
+
+   </div>
+
+  </div>
+
 
   <div>
-
-   <label for="containerPrefix">
-    4-Character Prefix
+   <label for="containerNote">
+    Inspection Note
    </label>
 
    <input
-    id="containerPrefix"
-    maxlength="4"
-    placeholder="ABCD"
+    id="containerNote"
+    placeholder="Example: 145D dwell"
    >
-
   </div>
 
-  <div>
 
-   <label for="containerNumber">
-    6-Digit Number
-   </label>
-
-   <input
-    id="containerNumber"
-    type="tel"
-    inputmode="numeric"
-    maxlength="6"
-    placeholder="Enter 6 digits"
-   >
-
-  </div>
+  <button
+   id="addContainerInspection"
+   class="primary"
+  >
+   ADD INSPECTION
+  </button>
 
  </div>
-
-
- <div class="row">
-
-  <div>
-
-   <label for="containerType">
-    Inspection Type
-   </label>
-
-   <select id="containerType">
-
-    <option value="5653">
-     5653 — Pre-repair
-    </option>
-
-    <option value="5900">
-     5900 — Post-repair
-    </option>
-
-    <option value="5658">
-     5658 — Add-on
-    </option>
-
-   </select>
-
-  </div>
-
-
-  <div>
-
-   <label for="containerCondition">
-    Condition
-   </label>
-
-   <select id="containerCondition">
-
-    <option>Defect</option>
-    <option>No Defect</option>
-
-   </select>
-
-  </div>
-
- </div>
-
-
- <label for="containerNote">
-  Inspection Note
- </label>
-
- <input
-  id="containerNote"
-  placeholder="Example: 145D dwell"
- >
-
-
- <button
-  id="addContainerInspection"
-  class="primary"
- >
-  ADD CONTAINER INSPECTION
- </button>
 
 </section>
 
@@ -928,91 +872,99 @@ button.primary{
 
 <section class="card">
 
- <h2>Chassis Racks</h2>
+ <div class="card-header-styled">
+  <h2>Chassis Racks</h2>
+ </div>
 
- <div class="row">
+ <div class="card-body">
 
-  <div>
+  <div class="row">
 
-   <label>
-    4-Character Prefix
-   </label>
+   <div>
 
-   <div class="static-type">
-    ZNSU
+    <label>
+     4-Character Prefix
+    </label>
+
+    <div class="static-type">
+     ZNSU
+    </div>
+
+   </div>
+
+
+   <div>
+
+    <label for="rackNumber">
+     6-Digit Number
+    </label>
+
+    <input
+     id="rackNumber"
+     type="tel"
+     inputmode="numeric"
+     maxlength="6"
+     placeholder="Enter 6 digits"
+    >
+
+   </div>
+
+  </div>
+
+
+  <div class="row">
+
+   <div>
+
+    <label>
+     Inspection Type
+    </label>
+
+    <div class="static-type">
+     5657 — Pre-repair
+    </div>
+
+   </div>
+
+
+   <div>
+
+    <label for="rackCondition">
+     Condition
+    </label>
+
+    <select id="rackCondition">
+
+     <option>Defect</option>
+     <option>No Defect</option>
+
+    </select>
+
    </div>
 
   </div>
 
 
   <div>
-
-   <label for="rackNumber">
-    6-Digit Number
+   <label for="rackNote">
+    Inspection Note
    </label>
 
    <input
-    id="rackNumber"
-    type="tel"
-    inputmode="numeric"
-    maxlength="6"
-    placeholder="Enter 6 digits"
+    id="rackNote"
+    placeholder="Example: 145D dwell"
    >
-
   </div>
+
+
+  <button
+   id="addRackInspection"
+   class="primary"
+  >
+   ADD INSPECTION
+  </button>
 
  </div>
-
-
- <div class="row">
-
-  <div>
-
-   <label>
-    Inspection Type
-   </label>
-
-   <div class="static-type">
-    5657 — Pre-repair
-   </div>
-
-  </div>
-
-
-  <div>
-
-   <label for="rackCondition">
-    Condition
-   </label>
-
-   <select id="rackCondition">
-
-    <option>Defect</option>
-    <option>No Defect</option>
-
-   </select>
-
-  </div>
-
- </div>
-
-
- <label for="rackNote">
-  Inspection Note
- </label>
-
- <input
-  id="rackNote"
-  placeholder="Example: 145D dwell"
- >
-
-
- <button
-  id="addRackInspection"
-  class="primary"
- >
-  ADD RACK INSPECTION
- </button>
 
 </section>
 
@@ -1023,20 +975,26 @@ button.primary{
 
 <section class="card">
 
- <h2>Comments or Notes of Interest</h2>
+ <div class="card-header-styled">
+  <h2>Comments or Notes of Interest</h2>
+ </div>
 
- <textarea
-  id="notes"
-  placeholder="Enter comments or notes of interest..."
- ></textarea>
+ <div class="card-body">
+
+  <textarea
+   id="notes"
+   placeholder="Enter comments or notes of interest..."
+  ></textarea>
 
 
- <button
-  id="generateEod"
-  class="primary"
- >
-  GENERATE EOD
- </button>
+  <button
+   id="generateEod"
+   class="primary"
+  >
+   GENERATE EOD
+  </button>
+
+ </div>
 
 </section>
 
@@ -1047,12 +1005,18 @@ button.primary{
 
 <section class="card">
 
- <h2>Inspection List</h2>
+ <div class="card-header-styled">
+  <h2>Inspection List</h2>
+ </div>
 
- <div
-  id="inspectionList"
-  class="inspection-list"
- ></div>
+ <div class="card-body">
+
+  <div
+   id="inspectionList"
+   class="inspection-list"
+  ></div>
+
+ </div>
 
 </section>
 
@@ -1062,29 +1026,35 @@ button.primary{
      ===================================================== -->
 
 <section
- class="card hidden"
+ class="card card-full-width hidden"
  id="previewCard"
 >
 
- <h2>EOD Report Preview</h2>
+ <div class="card-header-styled">
+  <h2>EOD Report Preview</h2>
+ </div>
 
- <div id="preview"></div>
+ <div class="card-body">
 
- <div class="preview-actions">
+  <div id="preview"></div>
 
-  <button
-   id="emailEod"
-   class="primary"
-  >
-   EMAIL EOD
-  </button>
+  <div class="preview-actions">
 
-  <button
-   id="editReport"
-   class="secondary"
-  >
-   BACK TO EDIT
-  </button>
+   <button
+    id="emailEod"
+    class="primary"
+   >
+    ✉ EMAIL EOD
+   </button>
+
+   <button
+    id="editReport"
+    class="secondary"
+   >
+    ✏ BACK TO EDIT
+   </button>
+
+  </div>
 
  </div>
 
@@ -1095,16 +1065,22 @@ button.primary{
      RESET
      ===================================================== -->
 
-<section class="card reset-card">
+<section class="card card-full-width reset-card">
 
- <h2>Daily Reset</h2>
+ <div class="card-header-styled">
+  <h2>Daily Reset</h2>
+ </div>
 
- <button
-  id="resetDay"
-  class="reset-button"
- >
-  RESET FOR NEW DAY
- </button>
+ <div class="card-body">
+
+  <button
+   id="resetDay"
+   class="reset-button"
+  >
+   RESET FOR NEW DAY
+  </button>
+
+ </div>
 
 </section>
 
@@ -1557,7 +1533,7 @@ function render(){
   e.className="empty-list";
 
   e.textContent=
-   "No chassis inspections entered yet.";
+   "No inspections entered yet.";
 
   list.appendChild(e);
 
@@ -1977,11 +1953,6 @@ function generate(){
 
 function email(){
 
- /*
- IMPORTANT:
- Build the report BEFORE opening Mail.
- */
-
  const report=buildEOD();
 
  const subject=
@@ -2010,12 +1981,6 @@ function email(){
 
 
  window.location.href=mailto;
-
-
- /*
- The report is already inside the
- mailto URL before reset occurs.
- */
 
  setTimeout(()=>{
   resetForNewDay(false);
