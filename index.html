@@ -8,214 +8,364 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="light">
 <meta name="apple-mobile-web-app-title" content="EOD Inspection">
 
-<meta name="theme-color" content="#eef1f5">
+<meta name="theme-color" content="#f4f7fb">
 
 <title>EOD Inspection</title>
 
 <style>
 
+/* =========================================================
+   EOD INSPECTION — RENDERED APP DESIGN
+   FIXED LIGHT APPEARANCE
+   ========================================================= */
+
 *{
  box-sizing:border-box;
+ -webkit-tap-highlight-color:transparent;
 }
 
-:root{
+html{
+ background:#f4f7fb;
  color-scheme:light;
-
- --bg:#eef1f5;
- --card:#ffffff;
- --border:#dfe3e8;
- --text:#17202a;
- --muted:#68727d;
- --input:#ffffff;
- --input-border:#c8ced6;
-
- --accent:#17202a;
- --accent-text:#ffffff;
-
- --secondary:#e5e8ec;
- --secondary-text:#17202a;
-
- --progress-bg:#d9dee5;
-
- --success:#16834b;
- --danger:#c62828;
-
- --shadow:0 4px 18px rgba(15,23,42,.08);
 }
 
-html,
 body{
  margin:0;
  min-height:100vh;
- background:var(--bg);
- color:var(--text);
-}
-
-body{
- font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ background:
+   radial-gradient(circle at top left,#ffffff 0%,#f4f7fb 42%,#e9eef5 100%);
+ color:#172033;
+ font-family:
+   -apple-system,
+   BlinkMacSystemFont,
+   "SF Pro Display",
+   "SF Pro Text",
+   "Segoe UI",
+   sans-serif;
  -webkit-font-smoothing:antialiased;
 }
 
+/* =========================================================
+   HEADER
+   ========================================================= */
+
 header{
- background:linear-gradient(180deg,#15191e,#0b0d10);
- color:#fff;
- padding:20px;
+ position:relative;
+ overflow:hidden;
+ padding:18px 18px 22px;
+ color:#ffffff;
  text-align:center;
- font-size:22px;
- font-weight:750;
+ background:
+   linear-gradient(135deg,#101b2d 0%,#1b3150 52%,#274b70 100%);
+ box-shadow:0 5px 20px rgba(18,35,58,.22);
 }
+
+header:before{
+ content:"";
+ position:absolute;
+ width:210px;
+ height:210px;
+ border-radius:50%;
+ background:rgba(255,255,255,.055);
+ top:-120px;
+ left:-55px;
+}
+
+header:after{
+ content:"";
+ position:absolute;
+ width:180px;
+ height:180px;
+ border-radius:50%;
+ background:rgba(255,255,255,.045);
+ right:-65px;
+ bottom:-120px;
+}
+
+.header-inner{
+ position:relative;
+ z-index:2;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:12px;
+}
+
+.header-icon{
+ width:48px;
+ height:48px;
+ object-fit:contain;
+ border-radius:12px;
+ background:#ffffff;
+ padding:3px;
+ box-shadow:0 4px 12px rgba(0,0,0,.18);
+}
+
+.header-title{
+ font-size:25px;
+ font-weight:800;
+ letter-spacing:-.4px;
+}
+
+.header-subtitle{
+ margin-top:3px;
+ font-size:12px;
+ font-weight:600;
+ letter-spacing:1.5px;
+ opacity:.72;
+ text-transform:uppercase;
+}
+
+/* =========================================================
+   APP CONTAINER
+   ========================================================= */
 
 .app{
  width:min(760px,100%);
  margin:auto;
- padding:18px 14px 50px;
+ padding:16px 12px 45px;
 }
 
+/* =========================================================
+   CARDS
+   ========================================================= */
+
 .card{
- background:var(--card);
- border:1px solid var(--border);
- border-radius:16px;
- padding:20px;
- margin-bottom:16px;
- box-shadow:var(--shadow);
+ background:rgba(255,255,255,.94);
+ border:1px solid #e0e6ee;
+ border-radius:20px;
+ padding:18px;
+ margin-bottom:14px;
+ box-shadow:
+   0 3px 10px rgba(24,39,60,.055),
+   0 12px 30px rgba(24,39,60,.055);
 }
 
 .card h2{
  display:flex;
  align-items:center;
  gap:10px;
- margin:0 0 18px;
- font-size:20px;
+ margin:0 0 17px;
+ font-size:19px;
+ line-height:1.2;
+ font-weight:800;
+ letter-spacing:-.2px;
+ color:#18263a;
 }
 
 .card h2:before{
  content:"";
- width:4px;
- height:22px;
- border-radius:4px;
- background:var(--accent);
+ width:5px;
+ height:23px;
+ border-radius:10px;
+ background:linear-gradient(180deg,#315f8e,#1a395b);
+ flex:none;
 }
+
+/* =========================================================
+   TERMINAL / STATUS CARD
+   ========================================================= */
+
+.status-card{
+ padding:19px;
+}
+
+.status-top{
+ display:flex;
+ align-items:flex-end;
+ justify-content:space-between;
+ gap:14px;
+}
+
+.status-terminal{
+ flex:1;
+}
+
+.status-progress{
+ min-width:100px;
+ text-align:right;
+}
+
+.status-progress-label{
+ font-size:11px;
+ font-weight:800;
+ letter-spacing:.8px;
+ text-transform:uppercase;
+ color:#7a8798;
+}
+
+.status-progress-number{
+ margin-top:2px;
+ font-size:27px;
+ line-height:1;
+ font-weight:850;
+ color:#172a43;
+}
+
+.date{
+ text-align:center;
+ margin:12px 0 14px;
+ color:#718096;
+ font-size:13px;
+ font-weight:650;
+}
+
+/* =========================================================
+   LABELS / INPUTS
+   ========================================================= */
 
 label{
  display:block;
- font-weight:700;
- font-size:14px;
- margin:15px 0 7px;
+ margin:14px 0 6px;
+ color:#526176;
+ font-size:12px;
+ font-weight:800;
+ letter-spacing:.35px;
+ text-transform:uppercase;
 }
 
 input,
 select,
 textarea{
  width:100%;
- padding:13px 14px;
- border:1px solid var(--input-border);
- border-radius:10px;
+ min-height:48px;
+ padding:12px 13px;
+ border:1px solid #d3dbe6;
+ border-radius:12px;
+ background:#f9fbfd;
+ color:#172033;
  font:inherit;
- font-size:17px;
- background:var(--input);
- color:var(--text);
+ font-size:16px;
  outline:none;
+ box-shadow:inset 0 1px 2px rgba(20,35,55,.025);
 }
 
 input:focus,
 select:focus,
 textarea:focus{
- border-color:var(--accent);
+ border-color:#426d99;
+ background:#ffffff;
+ box-shadow:
+   0 0 0 3px rgba(66,109,153,.11);
 }
 
 textarea{
- min-height:100px;
+ min-height:105px;
  resize:vertical;
 }
 
 .row{
  display:grid;
  grid-template-columns:1fr 1fr;
- gap:14px;
+ gap:13px;
 }
 
 .static-type{
- padding:13px 14px;
- border:1px solid var(--input-border);
- border-radius:10px;
- font-size:17px;
- background:var(--secondary);
- font-weight:700;
- min-height:49px;
+ min-height:48px;
+ display:flex;
+ align-items:center;
+ padding:12px 13px;
+ border:1px solid #d3dbe6;
+ border-radius:12px;
+ background:#edf2f7;
+ color:#26364b;
+ font-size:16px;
+ font-weight:750;
 }
 
-button{
- width:100%;
- border:0;
- border-radius:10px;
- padding:14px 16px;
- margin-top:17px;
- min-height:50px;
- font:750 16px inherit;
- cursor:pointer;
- background:var(--accent);
- color:var(--accent-text);
-}
-
-button:active{
- transform:scale(.985);
-}
-
-button.secondary{
- background:var(--secondary);
- color:var(--secondary-text);
-}
-
-.date{
- text-align:center;
- color:var(--muted);
- font-size:15px;
- font-weight:650;
- margin:14px 0;
-}
-
-.progress{
- text-align:center;
- font-weight:700;
- color:var(--muted);
- margin-bottom:10px;
-}
-
-.progress span{
- font-size:26px;
- color:var(--text);
-}
+/* =========================================================
+   PROGRESS
+   ========================================================= */
 
 .progressbar{
- height:16px;
- background:var(--progress-bg);
+ height:12px;
+ padding:2px;
+ background:#e2e8f0;
  border-radius:999px;
  overflow:hidden;
- padding:2px;
 }
 
 .fill{
  height:100%;
  width:0;
- background:linear-gradient(90deg,#343a40,#111);
  border-radius:999px;
- transition:width .4s;
+ background:
+   linear-gradient(90deg,#294c70,#427aa8);
+ transition:width .4s ease;
 }
 
 .progress-complete-message{
  display:none;
  text-align:center;
- color:var(--success);
- font-weight:750;
  margin-top:9px;
+ color:#18794e;
+ font-size:13px;
+ font-weight:800;
 }
 
 .progress-complete-message.show{
  display:block;
 }
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+button{
+ width:100%;
+ min-height:49px;
+ margin-top:16px;
+ padding:13px 16px;
+ border:0;
+ border-radius:12px;
+ background:
+   linear-gradient(135deg,#1a3049,#294f73);
+ color:#ffffff;
+ font:800 15px inherit;
+ letter-spacing:.25px;
+ cursor:pointer;
+ box-shadow:
+   0 4px 10px rgba(25,52,80,.16);
+ transition:
+   transform .12s ease,
+   box-shadow .12s ease;
+}
+
+button:active{
+ transform:scale(.985);
+ box-shadow:none;
+}
+
+button.secondary{
+ background:#edf2f7;
+ color:#24364d;
+ border:1px solid #d7dfe8;
+ box-shadow:none;
+}
+
+button.primary{
+ background:
+   linear-gradient(135deg,#19344f,#315f8e);
+}
+
+.reset-button{
+ background:#ffffff;
+ color:#c0392b;
+ border:1px solid #e5a8a1;
+ box-shadow:none;
+}
+
+.reset-button:active{
+ background:#c0392b;
+ color:#ffffff;
+}
+
+/* =========================================================
+   INSPECTION LIST
+   ========================================================= */
 
 .inspection-list{
  display:flex;
@@ -228,16 +378,39 @@ button.secondary{
  grid-template-columns:1fr auto;
  gap:10px;
  align-items:center;
- padding:11px 12px;
- border:1px solid var(--border);
- border-radius:10px;
- background:var(--secondary);
+ padding:12px 13px;
+ border:1px solid #dfe5ec;
+ border-radius:13px;
+ background:#f7f9fb;
 }
 
 .inspection-display{
- font-size:15px;
+ color:#24344a;
+ font-size:14px;
  font-weight:750;
- line-height:1.35;
+ line-height:1.4;
+}
+
+.edit-button{
+ width:43px;
+ min-width:43px;
+ height:43px;
+ min-height:43px;
+ margin:0;
+ padding:0;
+ border-radius:11px;
+ font-size:20px;
+ box-shadow:none;
+}
+
+.edit-button.editing{
+ background:#218653;
+ color:#fff;
+}
+
+.delete-button{
+ background:#c83c36!important;
+ color:#fff!important;
 }
 
 .inspection-edit{
@@ -245,42 +418,46 @@ button.secondary{
  grid-template-columns:90px 115px 95px 1fr auto auto;
  gap:7px;
  align-items:center;
+ width:100%;
 }
 
 .inspection-edit select,
 .inspection-edit input{
  min-width:0;
- padding:9px 8px;
- font-size:14px;
- border-radius:8px;
-}
-
-.edit-button{
- width:45px;
- min-width:45px;
- height:45px;
- min-height:45px;
- padding:0;
- margin:0;
- font-size:22px;
-}
-
-.edit-button.editing{
- background:var(--success);
- color:#fff;
-}
-
-.delete-button{
- background:var(--danger)!important;
- color:#fff!important;
+ min-height:43px;
+ padding:8px;
+ font-size:13px;
+ border-radius:9px;
 }
 
 .empty-list{
+ padding:18px 10px;
  text-align:center;
- padding:12px;
- color:var(--muted);
- font-size:14px;
- font-weight:600;
+ color:#7c8998;
+ font-size:13px;
+ font-weight:650;
+}
+
+/* =========================================================
+   PREVIEW
+   ========================================================= */
+
+#preview{
+ white-space:pre-wrap;
+ max-height:500px;
+ overflow:auto;
+ padding:16px;
+ border:1px solid #dce3eb;
+ border-radius:13px;
+ background:#f7f9fb;
+ color:#26364b;
+ font-family:
+   ui-monospace,
+   SFMono-Regular,
+   Menlo,
+   monospace;
+ font-size:13px;
+ line-height:1.55;
 }
 
 .preview-actions{
@@ -289,52 +466,62 @@ button.secondary{
  gap:10px;
 }
 
-#preview{
- white-space:pre-wrap;
- background:var(--secondary);
- border:1px solid var(--border);
- border-radius:11px;
- padding:15px;
- font-family:ui-monospace,monospace;
- font-size:14px;
- line-height:1.55;
- overflow:auto;
+/* =========================================================
+   RESET AREA
+   ========================================================= */
+
+.reset-card{
+ border:1px solid #ead8d5;
+ background:#fffafa;
 }
 
-.reset-button{
- background:transparent;
- color:var(--danger);
- border:1px solid var(--danger);
- margin-top:10px;
-}
-
-.reset-button:active{
- background:var(--danger);
- color:#fff;
+.reset-card h2:before{
+ background:#c84a43;
 }
 
 .hidden{
  display:none!important;
 }
 
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media(max-width:650px){
 
  .app{
-  padding:12px 10px 40px;
+  padding:12px 10px 35px;
+ }
+
+ header{
+  padding:15px 14px 18px;
+ }
+
+ .header-icon{
+  width:43px;
+  height:43px;
+ }
+
+ .header-title{
+  font-size:22px;
  }
 
  .card{
-  padding:17px;
+  padding:16px;
+  border-radius:18px;
+ }
+
+ .status-top{
+  align-items:flex-start;
+ }
+
+ .status-progress-number{
+  font-size:25px;
  }
 
  .row{
   grid-template-columns:1fr;
-  gap:2px;
- }
-
- header{
-  padding:18px 16px;
-  font-size:21px;
+  gap:1px;
  }
 
  .preview-actions{
@@ -347,8 +534,71 @@ button.secondary{
 
  .inspection-edit .edit-button,
  .inspection-edit .delete-button{
-  grid-column:span 1;
   width:100%;
+ }
+
+}
+
+/* =========================================================
+   VERY SMALL SCREENS
+   ========================================================= */
+
+@media(max-width:390px){
+
+ .header-title{
+  font-size:20px;
+ }
+
+ .status-progress{
+  min-width:85px;
+ }
+
+}
+
+/* =========================================================
+   FORCE LIGHT RENDERING EVEN IN DARK MODE
+   ========================================================= */
+
+@media(prefers-color-scheme:dark){
+
+ html,
+ body{
+  background:#f4f7fb!important;
+  color:#172033!important;
+ }
+
+ input,
+ select,
+ textarea{
+  background:#f9fbfd!important;
+  color:#172033!important;
+ }
+
+ .card{
+  background:rgba(255,255,255,.94)!important;
+  color:#172033!important;
+ }
+
+ .card h2{
+  color:#18263a!important;
+ }
+
+ .inspection-row{
+  background:#f7f9fb!important;
+ }
+
+ .inspection-display{
+  color:#24344a!important;
+ }
+
+ #preview{
+  background:#f7f9fb!important;
+  color:#26364b!important;
+ }
+
+ .static-type{
+  background:#edf2f7!important;
+  color:#26364b!important;
  }
 
 }
@@ -358,324 +608,503 @@ button.secondary{
 
 <body>
 
-<header>EOD Inspection</header>
+<header>
+
+ <div class="header-inner">
+
+  <img
+   class="header-icon"
+   src="./990D4EE6-8261-4BFB-B684-468A93C6844E.png"
+   alt="EOD Inspection"
+  >
+
+  <div>
+   <div class="header-title">EOD Inspection</div>
+   <div class="header-subtitle">End of Day Report</div>
+  </div>
+
+ </div>
+
+</header>
+
 
 <main class="app">
 
-<section class="card">
 
-<label for="terminal">Terminal</label>
+<!-- =====================================================
+     TERMINAL / PROGRESS
+     ===================================================== -->
 
-<select id="terminal">
-<option>APPLIANCE PARK</option>
-<option>ATLANTA</option>
-<option>AUSTELL</option>
-<option>AYER</option>
-<option>BETHLEHEM</option>
-<option>BUFFALO</option>
-<option>CALUMET</option>
-<option>CHARLOTTE</option>
-<option>CHGO 63RD</option>
-<option>CHICAGO 47TH</option>
-<option>CINCINNATI</option>
-<option>CLEVELAND</option>
-<option>CROXTON</option>
-<option>GREENSBORO</option>
-<option selected>HARRISBURG</option>
-<option>JACKSONVILLE</option>
-<option>KANSAS CITY</option>
-<option>LANDERS</option>
-<option>MORRISVILLE</option>
-<option>NORFOLK</option>
-<option>PITTSBURGH</option>
-<option>RICKENBACKER</option>
-<option>ROSSVILLE</option>
-<option>RUTHERFORD</option>
-<option>ST LOUIS</option>
-<option>TAYLOR</option>
-<option>TOLEDO</option>
-</select>
+<section class="card status-card">
 
-<div class="date" id="reportDate"></div>
+ <div class="status-top">
 
-<div class="progress">
- <span id="count">0</span> / 28
-</div>
+  <div class="status-terminal">
 
-<div class="progressbar">
- <div class="fill" id="fill"></div>
-</div>
+   <label for="terminal">Terminal</label>
 
-<div class="progress-complete-message" id="completeMessage">
- ✓ Daily inspection target complete
-</div>
+   <select id="terminal">
 
-</section>
+    <option>APPLIANCE PARK</option>
+    <option>ATLANTA</option>
+    <option>AUSTELL</option>
+    <option>AYER</option>
+    <option>BETHLEHEM</option>
+    <option>BUFFALO</option>
+    <option>CALUMET</option>
+    <option>CHARLOTTE</option>
+    <option>CHGO 63RD</option>
+    <option>CHICAGO 47TH</option>
+    <option>CINCINNATI</option>
+    <option>CLEVELAND</option>
+    <option>CROXTON</option>
+    <option>GREENSBORO</option>
+    <option selected>HARRISBURG</option>
+    <option>JACKSONVILLE</option>
+    <option>KANSAS CITY</option>
+    <option>LANDERS</option>
+    <option>MORRISVILLE</option>
+    <option>NORFOLK</option>
+    <option>PITTSBURGH</option>
+    <option>RICKENBACKER</option>
+    <option>ROSSVILLE</option>
+    <option>RUTHERFORD</option>
+    <option>ST LOUIS</option>
+    <option>TAYLOR</option>
+    <option>TOLEDO</option>
+
+   </select>
+
+  </div>
+
+  <div class="status-progress">
+
+   <div class="status-progress-label">
+    Daily Progress
+   </div>
+
+   <div class="status-progress-number">
+    <span id="count">0</span>/28
+   </div>
+
+  </div>
+
+ </div>
 
 
-<section class="card">
+ <div class="date" id="reportDate"></div>
 
-<h2>Chassis</h2>
 
-<div class="row">
+ <div class="progressbar">
+  <div class="fill" id="fill"></div>
+ </div>
 
-<div>
 
-<label for="prefix">4-Character Prefix</label>
-
-<select id="prefix"></select>
-
-</div>
-
-<div>
-
-<label for="number">6-Digit Number</label>
-
-<input
- id="number"
- type="tel"
- inputmode="numeric"
- maxlength="6"
- placeholder="Enter 6 digits">
-
-</div>
-
-</div>
-
-<div class="row">
-
-<div>
-
-<label for="type">Inspection Type</label>
-
-<select id="type">
-<option value="5652">5652 — Pre-repair</option>
-<option value="5900">5900 — Post-repair</option>
-<option value="5658">5658 — Add-on</option>
-</select>
-
-</div>
-
-<div>
-
-<label for="condition">Condition</label>
-
-<select id="condition">
-<option>Defect</option>
-<option>No Defect</option>
-</select>
-
-</div>
-
-</div>
-
-<label for="equipmentNote">Inspection Note</label>
-
-<input
- id="equipmentNote"
- placeholder="Example: 145D dwell">
-
-<button id="addInspection">
-ADD INSPECTION
-</button>
+ <div
+  class="progress-complete-message"
+  id="completeMessage"
+ >
+  ✓ Daily inspection target complete
+ </div>
 
 </section>
 
 
+<!-- =====================================================
+     CHASSIS
+     ===================================================== -->
+
 <section class="card">
 
-<h2>Containers</h2>
+ <h2>Chassis</h2>
 
-<div class="row">
+ <div class="row">
 
-<div>
+  <div>
 
-<label for="containerPrefix">4-Character Prefix</label>
+   <label for="prefix">
+    4-Character Prefix
+   </label>
 
-<input
- id="containerPrefix"
- maxlength="4"
- placeholder="ABCD">
+   <select id="prefix"></select>
 
-</div>
+  </div>
 
-<div>
+  <div>
 
-<label for="containerNumber">6-Digit Number</label>
+   <label for="number">
+    6-Digit Number
+   </label>
 
-<input
- id="containerNumber"
- type="tel"
- inputmode="numeric"
- maxlength="6"
- placeholder="Enter 6 digits">
+   <input
+    id="number"
+    type="tel"
+    inputmode="numeric"
+    maxlength="6"
+    placeholder="Enter 6 digits"
+   >
 
-</div>
+  </div>
 
-</div>
+ </div>
 
-<div class="row">
 
-<div>
+ <div class="row">
 
-<label for="containerType">Inspection Type</label>
+  <div>
 
-<select id="containerType">
-<option value="5653">5653 — Pre-repair</option>
-<option value="5900">5900 — Post-repair</option>
-<option value="5658">5658 — Add-on</option>
-</select>
+   <label for="type">
+    Inspection Type
+   </label>
 
-</div>
+   <select id="type">
 
-<div>
+    <option value="5652">
+     5652 — Pre-repair
+    </option>
 
-<label for="containerCondition">Condition</label>
+    <option value="5900">
+     5900 — Post-repair
+    </option>
 
-<select id="containerCondition">
-<option>Defect</option>
-<option>No Defect</option>
-</select>
+    <option value="5658">
+     5658 — Add-on
+    </option>
 
-</div>
+   </select>
 
-</div>
+  </div>
 
-<label for="containerNote">Inspection Note</label>
 
-<input
- id="containerNote"
- placeholder="Example: 145D dwell">
+  <div>
 
-<button id="addContainerInspection">
-ADD INSPECTION
-</button>
+   <label for="condition">
+    Condition
+   </label>
+
+   <select id="condition">
+
+    <option>Defect</option>
+    <option>No Defect</option>
+
+   </select>
+
+  </div>
+
+ </div>
+
+
+ <label for="equipmentNote">
+  Inspection Note
+ </label>
+
+ <input
+  id="equipmentNote"
+  placeholder="Example: 145D dwell"
+ >
+
+
+ <button
+  id="addInspection"
+  class="primary"
+ >
+  ADD CHASSIS INSPECTION
+ </button>
 
 </section>
 
 
+<!-- =====================================================
+     CONTAINERS
+     ===================================================== -->
+
 <section class="card">
 
-<h2>Chassis Racks</h2>
+ <h2>Containers</h2>
 
-<div class="row">
+ <div class="row">
 
-<div>
+  <div>
 
-<label>4-Character Prefix</label>
+   <label for="containerPrefix">
+    4-Character Prefix
+   </label>
 
-<div class="static-type">
-ZNSU
-</div>
+   <input
+    id="containerPrefix"
+    maxlength="4"
+    placeholder="ABCD"
+   >
 
-</div>
+  </div>
 
-<div>
+  <div>
 
-<label for="rackNumber">6-Digit Number</label>
+   <label for="containerNumber">
+    6-Digit Number
+   </label>
 
-<input
- id="rackNumber"
- type="tel"
- inputmode="numeric"
- maxlength="6"
- placeholder="Enter 6 digits">
+   <input
+    id="containerNumber"
+    type="tel"
+    inputmode="numeric"
+    maxlength="6"
+    placeholder="Enter 6 digits"
+   >
 
-</div>
+  </div>
 
-</div>
+ </div>
 
-<div class="row">
 
-<div>
+ <div class="row">
 
-<label>Inspection Type</label>
+  <div>
 
-<div class="static-type">
-5657 — Pre-repair
-</div>
+   <label for="containerType">
+    Inspection Type
+   </label>
 
-</div>
+   <select id="containerType">
 
-<div>
+    <option value="5653">
+     5653 — Pre-repair
+    </option>
 
-<label for="rackCondition">Condition</label>
+    <option value="5900">
+     5900 — Post-repair
+    </option>
 
-<select id="rackCondition">
-<option>Defect</option>
-<option>No Defect</option>
-</select>
+    <option value="5658">
+     5658 — Add-on
+    </option>
 
-</div>
+   </select>
 
-</div>
+  </div>
 
-<label for="rackNote">Inspection Note</label>
 
-<input
- id="rackNote"
- placeholder="Example: 145D dwell">
+  <div>
 
-<button id="addRackInspection">
-ADD INSPECTION
-</button>
+   <label for="containerCondition">
+    Condition
+   </label>
+
+   <select id="containerCondition">
+
+    <option>Defect</option>
+    <option>No Defect</option>
+
+   </select>
+
+  </div>
+
+ </div>
+
+
+ <label for="containerNote">
+  Inspection Note
+ </label>
+
+ <input
+  id="containerNote"
+  placeholder="Example: 145D dwell"
+ >
+
+
+ <button
+  id="addContainerInspection"
+  class="primary"
+ >
+  ADD CONTAINER INSPECTION
+ </button>
 
 </section>
 
 
+<!-- =====================================================
+     CHASSIS RACKS
+     ===================================================== -->
+
 <section class="card">
 
-<h2>Comments or Notes of Interest</h2>
+ <h2>Chassis Racks</h2>
 
-<textarea
- id="notes"
- placeholder="Enter comments or notes of interest..."
-></textarea>
+ <div class="row">
 
-<button id="generateEod">
-GENERATE EOD
-</button>
+  <div>
+
+   <label>
+    4-Character Prefix
+   </label>
+
+   <div class="static-type">
+    ZNSU
+   </div>
+
+  </div>
+
+
+  <div>
+
+   <label for="rackNumber">
+    6-Digit Number
+   </label>
+
+   <input
+    id="rackNumber"
+    type="tel"
+    inputmode="numeric"
+    maxlength="6"
+    placeholder="Enter 6 digits"
+   >
+
+  </div>
+
+ </div>
+
+
+ <div class="row">
+
+  <div>
+
+   <label>
+    Inspection Type
+   </label>
+
+   <div class="static-type">
+    5657 — Pre-repair
+   </div>
+
+  </div>
+
+
+  <div>
+
+   <label for="rackCondition">
+    Condition
+   </label>
+
+   <select id="rackCondition">
+
+    <option>Defect</option>
+    <option>No Defect</option>
+
+   </select>
+
+  </div>
+
+ </div>
+
+
+ <label for="rackNote">
+  Inspection Note
+ </label>
+
+ <input
+  id="rackNote"
+  placeholder="Example: 145D dwell"
+ >
+
+
+ <button
+  id="addRackInspection"
+  class="primary"
+ >
+  ADD RACK INSPECTION
+ </button>
 
 </section>
 
 
+<!-- =====================================================
+     NOTES
+     ===================================================== -->
+
 <section class="card">
 
-<h2>Inspection List</h2>
+ <h2>Comments or Notes of Interest</h2>
 
-<div id="inspectionList" class="inspection-list"></div>
+ <textarea
+  id="notes"
+  placeholder="Enter comments or notes of interest..."
+ ></textarea>
+
+
+ <button
+  id="generateEod"
+  class="primary"
+ >
+  GENERATE EOD
+ </button>
 
 </section>
 
 
-<section class="card hidden" id="previewCard">
+<!-- =====================================================
+     INSPECTION LIST
+     ===================================================== -->
 
-<h2>EOD Report Preview</h2>
+<section class="card">
 
-<div id="preview"></div>
+ <h2>Inspection List</h2>
 
-<div class="preview-actions">
-
-<button id="emailEod" class="secondary">
-EMAIL EOD
-</button>
-
-<button id="editReport" class="secondary">
-BACK TO EDIT
-</button>
-
-</div>
+ <div
+  id="inspectionList"
+  class="inspection-list"
+ ></div>
 
 </section>
 
 
-<section class="card">
+<!-- =====================================================
+     PREVIEW
+     ===================================================== -->
 
-<h2>Daily Reset</h2>
+<section
+ class="card hidden"
+ id="previewCard"
+>
 
-<button id="resetDay" class="reset-button">
-RESET FOR NEW DAY
-</button>
+ <h2>EOD Report Preview</h2>
+
+ <div id="preview"></div>
+
+ <div class="preview-actions">
+
+  <button
+   id="emailEod"
+   class="primary"
+  >
+   EMAIL EOD
+  </button>
+
+  <button
+   id="editReport"
+   class="secondary"
+  >
+   BACK TO EDIT
+  </button>
+
+ </div>
+
+</section>
+
+
+<!-- =====================================================
+     RESET
+     ===================================================== -->
+
+<section class="card reset-card">
+
+ <h2>Daily Reset</h2>
+
+ <button
+  id="resetDay"
+  class="reset-button"
+ >
+  RESET FOR NEW DAY
+ </button>
 
 </section>
 
@@ -688,11 +1117,13 @@ RESET FOR NEW DAY
 
 "use strict";
 
+
 const STORAGE_KEY="eodInspectionReport_v9";
 
 const TARGET=28;
 
 const TODAY="8/17/26";
+
 
 const SPECIAL=[
  "CALUMET",
@@ -720,62 +1151,95 @@ const EXTRA=[
  "DDGZ"
 ];
 
+
 const data={
+
  chassis:{
+
   "5652":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
+
   "5900":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
+
   "5658":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   }
+
  },
+
  containers:{
+
   "5653":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
+
   "5900":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
+
   "5658":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   }
+
  },
+
  racks:{
+
   "5657":{
    "Pre-repair":[]
   }
+
  }
+
 };
 
-const terminal=document.getElementById("terminal");
-const prefix=document.getElementById("prefix");
-const list=document.getElementById("inspectionList");
-const notes=document.getElementById("notes");
-const count=document.getElementById("count");
-const fill=document.getElementById("fill");
+
+const terminal=
+ document.getElementById("terminal");
+
+const prefix=
+ document.getElementById("prefix");
+
+const list=
+ document.getElementById("inspectionList");
+
+const notes=
+ document.getElementById("notes");
+
+const count=
+ document.getElementById("count");
+
+const fill=
+ document.getElementById("fill");
+
 
 function formatDate(d=new Date()){
+
  return (
-  (d.getMonth()+1)+"/"+
-  d.getDate()+"/"+
+  (d.getMonth()+1)+
+  "/"+
+  d.getDate()+
+  "/"+
   String(d.getFullYear()).slice(-2)
  );
+
 }
+
 
 function save(){
 
@@ -791,6 +1255,7 @@ function save(){
 
 }
 
+
 function load(){
 
  try{
@@ -802,6 +1267,7 @@ function load(){
  }
 
 }
+
 
 function updatePrefixes(){
 
@@ -816,7 +1282,8 @@ function updatePrefixes(){
 
  values.forEach(p=>{
 
-  const o=document.createElement("option");
+  const o=
+   document.createElement("option");
 
   o.value=p;
   o.textContent=p;
@@ -831,6 +1298,7 @@ function updatePrefixes(){
    : "NSPZ";
 
 }
+
 
 function total(){
 
@@ -854,6 +1322,7 @@ function total(){
 
 }
 
+
 function progress(){
 
  const n=total();
@@ -870,6 +1339,7 @@ function progress(){
 
 }
 
+
 function sectionFor(type){
 
  return type==="5652"
@@ -880,14 +1350,21 @@ function sectionFor(type){
 
 }
 
+
 function addChassis(){
 
  const num=
-  document.getElementById("number").value.trim();
+  document.getElementById("number")
+  .value.trim();
 
  if(!/^\d{6}$/.test(num)){
-  alert("Enter exactly 6 digits for the chassis number.");
+
+  alert(
+   "Enter exactly 6 digits for the chassis number."
+  );
+
   return;
+
  }
 
  const t=
@@ -897,7 +1374,8 @@ function addChassis(){
   document.getElementById("condition").value;
 
  const note=
-  document.getElementById("equipmentNote").value.trim();
+  document.getElementById("equipmentNote")
+  .value.trim();
 
  data.chassis[t][sectionFor(t)].push([
   prefix.value+" "+num,
@@ -914,29 +1392,36 @@ function addChassis(){
 
 }
 
+
 function addContainer(){
 
  const p=
-  document
-   .getElementById("containerPrefix")
-   .value
-   .trim()
-   .toUpperCase();
+  document.getElementById("containerPrefix")
+  .value.trim()
+  .toUpperCase();
 
  const n=
-  document
-   .getElementById("containerNumber")
-   .value
-   .trim();
+  document.getElementById("containerNumber")
+  .value.trim();
 
  if(!/^[A-Z]{4}$/.test(p)){
-  alert("Enter exactly 4 letters for the container prefix.");
+
+  alert(
+   "Enter exactly 4 letters for the container prefix."
+  );
+
   return;
+
  }
 
  if(!/^\d{6}$/.test(n)){
-  alert("Enter exactly 6 digits for the container number.");
+
+  alert(
+   "Enter exactly 6 digits for the container number."
+  );
+
   return;
+
  }
 
  const t=
@@ -958,17 +1443,21 @@ function addContainer(){
 
 }
 
+
 function addRack(){
 
  const n=
-  document
-   .getElementById("rackNumber")
-   .value
-   .trim();
+  document.getElementById("rackNumber")
+  .value.trim();
 
  if(!/^\d{6}$/.test(n)){
-  alert("Enter exactly 6 digits for the chassis rack number.");
+
+  alert(
+   "Enter exactly 6 digits for the chassis rack number."
+  );
+
   return;
+
  }
 
  data.racks["5657"]["Pre-repair"].push([
@@ -986,6 +1475,7 @@ function addRack(){
 
 }
 
+
 function chassisRecords(){
 
  const r=[];
@@ -994,7 +1484,8 @@ function chassisRecords(){
 
   const section=sectionFor(type);
 
-  data.chassis[type][section].forEach((item,index)=>{
+  data.chassis[type][section]
+  .forEach((item,index)=>{
 
    r.push({
     type:type,
@@ -1013,20 +1504,22 @@ function chassisRecords(){
 
 }
 
+
 function select(values,current){
 
- const s=document.createElement("select");
+ const s=
+  document.createElement("select");
 
  values.forEach(v=>{
 
-  const o=document.createElement("option");
+  const o=
+   document.createElement("option");
 
   o.value=v;
   o.textContent=v;
 
-  if(v===current){
+  if(v===current)
    o.selected=true;
-  }
 
   s.appendChild(o);
 
@@ -1035,6 +1528,7 @@ function select(values,current){
  return s;
 
 }
+
 
 function split(value){
 
@@ -1048,6 +1542,7 @@ function split(value){
 
 }
 
+
 function render(){
 
  list.innerHTML="";
@@ -1056,7 +1551,8 @@ function render(){
 
  if(!records.length){
 
-  const e=document.createElement("div");
+  const e=
+   document.createElement("div");
 
   e.className="empty-list";
 
@@ -1069,31 +1565,39 @@ function render(){
 
  }
 
+
  records.forEach(r=>{
 
-  const row=document.createElement("div");
+  const row=
+   document.createElement("div");
 
   row.className="inspection-row";
 
-  const text=document.createElement("div");
+
+  const text=
+   document.createElement("div");
 
   text.className="inspection-display";
 
   text.textContent=
-   r.type+" "+
-   r.condition+" "+
+   r.type+
+   " • "+
+   r.condition+
+   " • "+
    r.number;
 
-  const edit=document.createElement("button");
+
+  const edit=
+   document.createElement("button");
 
   edit.className="edit-button";
   edit.type="button";
   edit.textContent="✎";
   edit.title="Edit inspection";
 
-  edit.onclick=()=>{
-   editRow(row,r);
-  };
+  edit.onclick=
+   ()=>editRow(row,r);
+
 
   row.appendChild(text);
   row.appendChild(edit);
@@ -1104,21 +1608,33 @@ function render(){
 
 }
 
+
 function editRow(row,r){
 
  row.innerHTML="";
 
- const area=document.createElement("div");
+ const area=
+  document.createElement("div");
 
  area.className="inspection-edit";
 
+
  const type=
-  select(["5652","5900","5658"],r.type);
+  select(
+   ["5652","5900","5658"],
+   r.type
+  );
+
 
  const condition=
-  select(["Defect","No Defect"],r.condition);
+  select(
+   ["Defect","No Defect"],
+   r.condition
+  );
+
 
  const parts=split(r.number);
+
 
  const prefixes=
   SPECIAL.includes(terminal.value)
@@ -1130,13 +1646,16 @@ function editRow(row,r){
        : [])
      ];
 
+
  const p=
   select(
    [...new Set(prefixes)],
    parts.prefix
   );
 
- const num=document.createElement("input");
+
+ const num=
+  document.createElement("input");
 
  num.type="tel";
  num.inputMode="numeric";
@@ -1144,23 +1663,36 @@ function editRow(row,r){
  num.value=parts.number;
 
  num.oninput=()=>{
+
   num.value=
-   num.value.replace(/\D/g,"").slice(0,6);
+   num.value
+   .replace(/\D/g,"")
+   .slice(0,6);
+
  };
 
- const check=document.createElement("button");
 
- check.className="edit-button editing";
+ const check=
+  document.createElement("button");
+
+ check.className=
+  "edit-button editing";
+
  check.type="button";
  check.textContent="✓";
  check.title="Save correction";
 
- const del=document.createElement("button");
 
- del.className="edit-button delete-button";
+ const del=
+  document.createElement("button");
+
+ del.className=
+  "edit-button delete-button";
+
  del.type="button";
  del.textContent="×";
  del.title="Delete inspection";
+
 
  area.append(
   type,
@@ -1173,12 +1705,19 @@ function editRow(row,r){
 
  row.appendChild(area);
 
+
  check.onclick=()=>{
 
   if(!/^\d{6}$/.test(num.value)){
-   alert("Enter exactly 6 digits for the chassis number.");
+
+   alert(
+    "Enter exactly 6 digits for the chassis number."
+   );
+
    return;
+
   }
+
 
   const old=
    data.chassis[r.type][r.section];
@@ -1187,7 +1726,8 @@ function editRow(row,r){
    old.findIndex(x=>
     x[0]===r.number &&
     x[1]===r.condition &&
-    (x[2]||"")===(r.note||"")
+    (x[2]||"")===
+    (r.note||"")
    );
 
   if(oldIndex<0)return;
@@ -1209,6 +1749,7 @@ function editRow(row,r){
 
  };
 
+
  del.onclick=()=>{
 
   if(!confirm(
@@ -1216,9 +1757,8 @@ function editRow(row,r){
    r.type+" "+
    r.condition+" "+
    r.number
-  )){
-   return;
-  }
+  ))return;
+
 
   const old=
    data.chassis[r.type][r.section];
@@ -1227,12 +1767,12 @@ function editRow(row,r){
    old.findIndex(x=>
     x[0]===r.number &&
     x[1]===r.condition &&
-    (x[2]||"")===(r.note||"")
+    (x[2]||"")===
+    (r.note||"")
    );
 
-  if(oldIndex>=0){
+  if(oldIndex>=0)
    old.splice(oldIndex,1);
-  }
 
   save();
   progress();
@@ -1244,6 +1784,7 @@ function editRow(row,r){
 
 }
 
+
 function reportSection(
  out,
  equipment,
@@ -1254,17 +1795,20 @@ function reportSection(
  label
 ){
 
- ["No Defect","Defect"].forEach(condition=>{
+ ["No Defect","Defect"]
+ .forEach(condition=>{
 
   const items=
    equipment[type][section]
-    .filter(x=>x[1]===condition);
+   .filter(x=>x[1]===condition);
 
   out.push(
    "("+items.length+") "+
-   (condition==="Defect"
-    ?yesText
-    :noText)
+   (
+    condition==="Defect"
+     ?yesText
+     :noText
+   )
   );
 
   out.push(label+":");
@@ -1272,13 +1816,19 @@ function reportSection(
   items.forEach((x,i)=>{
 
    out.push(
-    "\t"+(i+1)+". "+x[0]
+    "\t"+
+    (i+1)+
+    ". "+
+    x[0]
    );
 
    if(x[2]){
+
     out.push(
-     "\t   Note: "+x[2]
+     "\t   Note: "+
+     x[2]
     );
+
    }
 
   });
@@ -1288,6 +1838,7 @@ function reportSection(
  });
 
 }
+
 
 function buildEOD(){
 
@@ -1402,6 +1953,7 @@ function buildEOD(){
 
 }
 
+
 function generate(){
 
  save();
@@ -1423,22 +1975,12 @@ function generate(){
 }
 
 
-/*
- EMAIL FLOW
-
- The report is created FIRST.
-
- The complete report is placed directly
- inside the mailto URL.
-
- Only AFTER the mailto URL has been
- created do we clear the app.
-
- This means resetting the app cannot
- remove the contents of the email.
-*/
-
 function email(){
+
+ /*
+ IMPORTANT:
+ Build the report BEFORE opening Mail.
+ */
 
  const report=buildEOD();
 
@@ -1456,10 +1998,6 @@ function email(){
   "&body="+
   encodeURIComponent(report);
 
- /*
- Store a backup of the exact report
- before opening Mail.
- */
 
  localStorage.setItem(
   "eodLastSentReport",
@@ -1470,39 +2008,37 @@ function email(){
   })
  );
 
- /*
- The complete email already contains
- the report before navigation occurs.
- */
 
  window.location.href=mailto;
 
- /*
- Reset immediately after handing the
- complete mailto URL to the device.
 
- The email itself is independent of
- localStorage after this point.
+ /*
+ The report is already inside the
+ mailto URL before reset occurs.
  */
 
  setTimeout(()=>{
   resetForNewDay(false);
- },250);
+ },1500);
 
 }
+
 
 function resetForNewDay(confirmReset=true){
 
  if(confirmReset){
 
-  const ok=confirm(
-   "Reset the EOD Inspection app?\n\n"+
-   "This will remove all inspections and notes currently saved for today."
-  );
+  const ok=
+   confirm(
+    "Reset the EOD Inspection app?\n\n"+
+    "This will remove all inspections "+
+    "and notes currently saved for today."
+   );
 
   if(!ok)return;
 
  }
+
 
  Object.keys(data).forEach(k=>{
 
@@ -1517,6 +2053,7 @@ function resetForNewDay(confirmReset=true){
   });
 
  });
+
 
  localStorage.removeItem(STORAGE_KEY);
 
@@ -1534,7 +2071,6 @@ function resetForNewDay(confirmReset=true){
  updatePrefixes();
  progress();
  render();
-
  save();
 
  window.scrollTo({
@@ -1544,16 +2080,10 @@ function resetForNewDay(confirmReset=true){
 
 }
 
+
 function restore(){
 
  const saved=load();
-
- /*
- If there is saved data from today,
- restore it.
-
- Otherwise start completely empty.
- */
 
  if(
   saved &&
@@ -1572,7 +2102,9 @@ function restore(){
      if(
       saved.data[k] &&
       saved.data[k][t] &&
-      Array.isArray(saved.data[k][t][s])
+      Array.isArray(
+       saved.data[k][t][s]
+      )
      ){
 
       data[k][t][s].push(
@@ -1599,88 +2131,120 @@ function restore(){
 
 }
 
+
 terminal.onchange=()=>{
+
  updatePrefixes();
  save();
+
 };
+
 
 document
  .getElementById("addInspection")
  .onclick=addChassis;
 
+
 document
  .getElementById("addContainerInspection")
  .onclick=addContainer;
+
 
 document
  .getElementById("addRackInspection")
  .onclick=addRack;
 
+
 document
  .getElementById("generateEod")
  .onclick=generate;
+
 
 document
  .getElementById("emailEod")
  .onclick=email;
 
+
 document
  .getElementById("editReport")
  .onclick=()=>{
+
   document
    .getElementById("previewCard")
    .classList
    .add("hidden");
+
  };
+
 
 document
  .getElementById("resetDay")
  .onclick=()=>{
+
   resetForNewDay(true);
+
  };
 
+
 notes.oninput=save;
+
 
 document
  .getElementById("number")
  .oninput=e=>{
+
   e.target.value=
    e.target.value
-    .replace(/\D/g,"")
-    .slice(0,6);
+   .replace(/\D/g,"")
+   .slice(0,6);
+
   save();
+
  };
+
 
 document
  .getElementById("containerPrefix")
  .oninput=e=>{
+
   e.target.value=
    e.target.value
-    .replace(/[^a-zA-Z]/g,"")
-    .toUpperCase()
-    .slice(0,4);
+   .replace(/[^a-zA-Z]/g,"")
+   .toUpperCase()
+   .slice(0,4);
+
   save();
+
  };
+
 
 document
  .getElementById("containerNumber")
  .oninput=e=>{
+
   e.target.value=
    e.target.value
-    .replace(/\D/g,"")
-    .slice(0,6);
+   .replace(/\D/g,"")
+   .slice(0,6);
+
   save();
+
  };
+
 
 document
  .getElementById("rackNumber")
  .oninput=e=>{
+
   e.target.value=
    e.target.value
-    .replace(/\D/g,"")
-    .slice(0,6);
+   .replace(/\D/g,"")
+   .slice(0,6);
+
   save();
+
  };
+
 
 ["number","containerNumber","rackNumber"]
 .forEach(id=>{
@@ -1693,26 +2257,19 @@ document
 
    e.preventDefault();
 
-   if(id==="number"){
+   if(id==="number")
     addChassis();
-   }
 
-   if(id==="containerNumber"){
+   if(id==="containerNumber")
     addContainer();
-   }
 
-   if(id==="rackNumber"){
+   if(id==="rackNumber")
     addRack();
-   }
 
   };
 
 });
 
-
-/*
- STARTUP
-*/
 
 restore();
 
@@ -1735,9 +2292,7 @@ render();
 
 <script>
 
-/*
- Service worker remains enabled.
-*/
+/* Service Worker */
 
 if("serviceWorker" in navigator){
 
