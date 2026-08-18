@@ -77,10 +77,16 @@ header{
  box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
+/* FORCED ICON + TITLE GROUP */
+
 .header-inner{
- display:flex;
- align-items:center;
- gap:12px;
+ display:flex !important;
+ flex-direction:row !important;
+ align-items:center !important;
+ justify-content:flex-start !important;
+ gap:12px !important;
+ flex:1 1 auto !important;
+ min-width:0 !important;
 }
 
 .header-icon{
@@ -92,26 +98,33 @@ header{
 }
 
 .header-icon-img{
- width:44px;
- height:44px;
+ display:block !important;
+ flex:0 0 44px !important;
+ width:44px !important;
+ height:44px !important;
  object-fit:cover;
  border-radius:10px;
- flex-shrink:0;
- display:block;
  border:1px solid rgba(255,255,255,.25);
  box-shadow:0 2px 6px rgba(0,0,0,.25);
 }
 
 .header-title{
- font-size:1.5rem;
- font-weight:800;
+ display:block !important;
+ visibility:visible !important;
+ opacity:1 !important;
+ color:#fff !important;
+ font-size:1.5rem !important;
+ font-weight:800 !important;
  letter-spacing:.5px;
+ line-height:1.2 !important;
+ white-space:nowrap !important;
 }
 
 .header-logo{
  display:flex;
  align-items:center;
  gap:8px;
+ flex-shrink:0;
 }
 
 .logo-text{
@@ -466,8 +479,24 @@ button.primary{
   padding:12px 14px;
  }
 
+ .header-inner{
+  gap:8px !important;
+ }
+
  .header-title{
-  font-size:1.2rem;
+  font-size:1.1rem !important;
+ }
+
+ .header-logo{
+  gap:4px;
+ }
+
+ .brand-name{
+  font-size:1rem;
+ }
+
+ .brand-sub{
+  font-size:.55rem;
  }
 
  .row{
@@ -503,10 +532,14 @@ button.primary{
 
  <div class="header-inner">
 
-  <img src="./eod-icon.PNG" class="header-icon-img" alt="EOD Icon">
+  <img
+   src="./eod-icon.PNG"
+   class="header-icon-img"
+   alt="EOD Icon"
+  >
 
-  <div>
-   <div class="header-title">EOD Inspection Report</div>
+  <div class="header-title">
+   EOD Inspection Report
   </div>
 
  </div>
