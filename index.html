@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-<link rel="apple-touch-icon" href="./990D4EE6-8261-4BFB-B684-468A93C6844E.png">
+<link rel="apple-touch-icon" href="./990D4EE6-8261-4BFF-B684-468A93C6844E.png">
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -66,9 +66,11 @@ header{
  background:linear-gradient(90deg,#001338 0%,#002b6d 70%,#001338 100%);
  color:#fff;
  display:flex;
- justify-content:space-between;
  align-items:center;
- padding:14px 20px;
+ justify-content:space-between;
+ width:100%;
+ min-height:72px;
+ padding:10px 16px;
  border-radius:8px;
  margin-bottom:16px;
  position:relative;
@@ -77,32 +79,33 @@ header{
  box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
-/* FORCED ICON + TITLE GROUP */
+/* LOCK ICON + TITLE TOGETHER */
 
 .header-inner{
  display:flex !important;
  flex-direction:row !important;
  align-items:center !important;
  justify-content:flex-start !important;
- gap:12px !important;
- flex:1 1 auto !important;
+ flex:0 1 auto !important;
+ width:auto !important;
  min-width:0 !important;
-}
-
-.header-icon{
- font-size:24px;
- background:rgba(255,255,255,.1);
- padding:4px 8px;
- border-radius:6px;
- border:1px solid rgba(255,255,255,.2);
+ gap:12px !important;
+ position:relative !important;
+ z-index:10 !important;
 }
 
 .header-icon-img{
  display:block !important;
+ visibility:visible !important;
+ opacity:1 !important;
  flex:0 0 44px !important;
  width:44px !important;
+ min-width:44px !important;
+ max-width:44px !important;
  height:44px !important;
- object-fit:cover;
+ min-height:44px !important;
+ max-height:44px !important;
+ object-fit:cover !important;
  border-radius:10px;
  border:1px solid rgba(255,255,255,.25);
  box-shadow:0 2px 6px rgba(0,0,0,.25);
@@ -112,19 +115,29 @@ header{
  display:block !important;
  visibility:visible !important;
  opacity:1 !important;
+ flex:0 0 auto !important;
+ width:auto !important;
+ min-width:max-content !important;
+ max-width:none !important;
  color:#fff !important;
  font-size:1.5rem !important;
  font-weight:800 !important;
  letter-spacing:.5px;
  line-height:1.2 !important;
  white-space:nowrap !important;
+ overflow:visible !important;
+ position:relative !important;
+ z-index:11 !important;
 }
 
 .header-logo{
- display:flex;
- align-items:center;
+ display:flex !important;
+ align-items:center !important;
  gap:8px;
- flex-shrink:0;
+ flex:0 0 auto !important;
+ flex-shrink:0 !important;
+ position:relative;
+ z-index:5;
 }
 
 .logo-text{
@@ -476,27 +489,35 @@ button.primary{
  }
 
  header{
-  padding:12px 14px;
+  padding:10px 12px;
+  min-height:64px;
  }
 
  .header-inner{
   gap:8px !important;
+  flex:1 1 auto !important;
+  min-width:0 !important;
+ }
+
+ .header-icon-img{
+  flex:0 0 40px !important;
+  width:40px !important;
+  min-width:40px !important;
+  max-width:40px !important;
+  height:40px !important;
+  min-height:40px !important;
+  max-height:40px !important;
  }
 
  .header-title{
-  font-size:1.1rem !important;
+  font-size:1.05rem !important;
+  min-width:0 !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
  }
 
  .header-logo{
-  gap:4px;
- }
-
- .brand-name{
-  font-size:1rem;
- }
-
- .brand-sub{
-  font-size:.55rem;
+  display:none !important;
  }
 
  .row{
@@ -874,7 +895,9 @@ button.primary{
 
 </section>
 
-<section class="card">
+<!-- FULL WIDTH COMMENTS -->
+
+<section class="card card-full-width">
 
  <div class="card-header-styled">
   <h2>Comments or Notes of Interest</h2>
@@ -895,7 +918,9 @@ button.primary{
 
 </section>
 
-<section class="card">
+<!-- FULL WIDTH INSPECTION LIST -->
+
+<section class="card card-full-width">
 
  <div class="card-header-styled">
   <h2>Inspection List</h2>
