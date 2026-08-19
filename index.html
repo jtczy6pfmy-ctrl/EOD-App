@@ -1086,8 +1086,6 @@ function load(){
 
 function updatePrefixes(){
 
- const current=prefix.value;
-
  const values=
   SPECIAL.includes(terminal.value)
    ? [...BASE,...EXTRA]
@@ -1106,10 +1104,7 @@ function updatePrefixes(){
 
  });
 
- prefix.value=
-  values.includes(current)
-   ? current
-   : "NSPZ";
+ prefix.selectedIndex=0;
 
 }
 
@@ -1189,8 +1184,7 @@ function addChassis(){
  document.getElementById("condition").selectedIndex=0;
  document.getElementById("type").selectedIndex=0;
  
- prefix.selectedIndex=0;
- prefix.value=prefix.options[0].value;
+ updatePrefixes();
 
  save();
  progress();
