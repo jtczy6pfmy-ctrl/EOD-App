@@ -1,4 +1,4 @@
-const CACHE_NAME = "eod-inspection-v7";
+const CACHE_NAME = "eod-inspection-v8";
 
 const FILES_TO_CACHE = [
   "./"
@@ -33,34 +33,52 @@ self.addEventListener("fetch", event => {
       fetch(event.request, { cache: "no-store" })
         .then(response => response.text())
         .then(html => {
-          // Fix the inspection-entry reset bug without changing the existing
-          // inspection data, progress count, or report-generation logic.
           const resetFix = `
 <script>
 (() => {
-  const clearInspectionEntry = (buttonId, fieldIds) => {
+  function resetFields(buttonId, fields) {
     const button = document.getElementById(buttonId);
     if (!button) return;
 
     button.addEventListener("click", () => {
-      // Run after the existing add handler so the new inspection is saved first.
       setTimeout(() => {
-        fieldIds.forEach(id => {
+        fields.forEach(({ id, value }) => {
           const field = document.getElementById(id);
-          if (field) field.value = "";
+          if (field) field.value = value;
         });
       }, 0);
     });
-  };
+  }
 
-  clearInspectionEntry("addInspection", ["number", "equipmentNote"]);
-  clearInspectionEntry("addContainerInspection", ["containerPrefix", "containerNumber", "containerNote"]);
-  clearInspectionEntry("addRackInspection", ["rackNumber", "rackNote"]);
+  // Chassis defaults: NSPZ / 5652 / Defect / blank number / blank note.
+  resetFields("addInspection", [
+    { id: "prefix", value: "NSPZ" },
+    { id: "type", value: "5652" },
+    { id: "condition", value: "Defect" },
+    { id: "number", value: "" },
+    { id: "equipmentNote", value: "" }
+  ]);
+
+  // Container defaults: blank prefix / 5653 / Defect / blank number / blank note.
+  resetFields("addContainerInspection", [
+    { id: "containerPrefix", value: "" },
+    { id: "containerType", value: "5653" },
+    { id: "containerCondition", value: "Defect" },
+    { id: "containerNumber", value: "" },
+    { id: "containerNote", value: "" }
+  ]);
+
+  // Rack defaults: ZNSU / 5657 / Defect / blank number / blank note.
+  resetFields("addRackInspection", [
+    { id: "rackCondition", value: "Defect" },
+    { id: "rackNumber", value: "" },
+    { id: "rackNote", value: "" }
+  ]);
 })();
 </script>`;
 
           return new Response(
-            html.replace("</body>", resetFix + "\\n</body>"),
+            html.replace("</body>", resetFix + "\n</body>"),
             {
               status: response.status,
               statusText: response.statusText,
