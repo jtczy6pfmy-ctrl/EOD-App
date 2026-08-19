@@ -1086,8 +1086,6 @@ function load(){
 
 function updatePrefixes(forceReset = false){
 
- const current = prefix.value;
-
  const values=
   SPECIAL.includes(terminal.value)
    ? [...BASE,...EXTRA]
@@ -1106,10 +1104,18 @@ function updatePrefixes(forceReset = false){
 
  });
 
- if (forceReset || !values.includes(current)) {
+ // Completely force the selection back to the first option (NSPZ) 
+ // whenever forced or if values changed.
+ if (forceReset) {
   prefix.selectedIndex = 0;
+  prefix.value = values[0];
  } else {
-  prefix.value = current;
+  const current = prefix.value;
+  if (!values.includes(current)) {
+   prefix.selectedIndex = 0;
+  } else {
+   prefix.value = current;
+  }
  }
 
 }
