@@ -1186,6 +1186,8 @@ function addChassis(){
 
  document.getElementById("number").value="";
  document.getElementById("equipmentNote").value="";
+ document.getElementById("condition").selectedIndex = 0;
+ document.getElementById("type").selectedIndex = 0;
 
  save();
  progress();
@@ -1231,6 +1233,8 @@ function addContainer(){
  document.getElementById("containerPrefix").value="";
  document.getElementById("containerNumber").value="";
  document.getElementById("containerNote").value="";
+ document.getElementById("containerCondition").selectedIndex = 0;
+ document.getElementById("containerType").selectedIndex = 0;
 
  save();
  progress();
@@ -1260,6 +1264,7 @@ function addRack(){
 
  document.getElementById("rackNumber").value="";
  document.getElementById("rackNote").value="";
+ document.getElementById("rackCondition").selectedIndex = 0;
 
  save();
  progress();
@@ -1417,11 +1422,11 @@ function editRow(row,r){
    SPECIAL.includes(terminal.value)
     ?[...BASE,...EXTRA]
     :[
-       ...BASE,
-       ...(EXTRA.includes(parts.prefix)
+        ...BASE,
+        ...(EXTRA.includes(parts.prefix)
         ?[parts.prefix]
         :[])
-     ];
+      ];
 
   p=select(
    [...new Set(prefixes)],
