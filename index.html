@@ -2055,209 +2055,70 @@ function attemptClose(){
 
 function email(){
 
- const report=buildEOD();
+ const report = buildEOD();
 
- const subject=
-  "End of Day Report - "+
-  terminal.value+
-  " - "+
-  TODAY;
+ // Set default recipients or leave blank if none for other locations
+ let recipients = ""; 
 
- let ccList = "dgeist@caliberis.com,jdoan@aspectassociates.com";
+ // Check if the selected terminal is CALUMET
  if (terminal.value === "CALUMET") {
-  ccList += ",pjasinski@aspectassociates.com,tmitchell@aspectassociates.com,bstenson@aspectassociates.com,asanjuan@aspectassociates.com,dneubauer@aspectassociates.com,bkubinski@aspectassociates.com";
+  recipients = "calumet-recipient1@example.com, calumet-recipient2@example.com";
  }
 
- const mailto=
-  "mailto:joe@caliberis.com"+
-  "?cc="+encodeURIComponent(ccList)+
-  "&subject="+
-  encodeURIComponent(subject)+
-  "&body="+
+ const subject =
+  "End of Day Report - " + terminal.value + " - " + TODAY;
+ 
+ const mailtoLink = 
+  "mailto:" + encodeURIComponent(recipients) +
+  "?subject=" + 
+  encodeURIComponent(subject) + 
+  "&body=" + 
   encodeURIComponent(report);
 
- localStorage.setItem(
-  "eodLastSentReport",
-  JSON.stringify({
-   date:TODAY,
-   terminal:terminal.value,
-   report:report
-  })
- );
-
- window.location.href=mailto;
-
- setTimeout(()=>{
-  resetForNewDay(false);
-  attemptClose();
- },1000);
-
-}
-
-function resetForNewDay(confirmReset=true){
-
- if(confirmReset){
-
-  const ok=confirm(
-   "Reset the EOD Inspection app?\n\n"+
-   "This will remove all inspections "+
-   "and notes currently saved for today."
-  );
-
-  if(!ok)return;
-
- }
-
- ["chassis","containers","racks"].forEach(k=>{
-
-  Object.keys(data[k]).forEach(t=>{
-
-   Object.keys(data[k][t]).forEach(section=>{
-
-    data[k][t][section].length=0;
-
-   });
-
-  });
-
- });
-
- data.tireAudits=0;
+ window.location.href = mailtoLink;
 
  localStorage.removeItem(STORAGE_KEY);
-
- notes.value="";
-
- document.getElementById("preview").textContent="";
-
- document
-  .getElementById("previewCard")
-  .classList
-  .add("hidden");
-
- updatePrefixes(true);
- progress();
- render();
+ 
+ setTimeout(()=>{
+  attemptClose();
+ }, 1000);
 
 }
 
-function editReport(){
+document.getElementById("addInspection").onclick=addChassis;
+document.getElementById("addContainerInspection").onclick=addContainer;
+document.getElementById("addRackInspection").onclick=addRack;
+document.getElementById("addTireAudits").onclick=addTireAudits;
+document.getElementById("generateEod").onclick=generate;
+document.getElementById("emailEod").onclick=email;
 
- document
-  .getElementById("previewCard")
-  .classList
-  .add("hidden");
+document.getElementById("editReport").onclick=()=>{
+ document.getElementById("previewCard").classList.add("hidden");
+};
 
- window.scrollTo({
-  top:0,
-  behavior:"smooth"
- });
-
-}
-
-function init(){
-
- const saved=load();
-
- if(saved){
-
-  if(saved.date===TODAY){
-
-   terminal.value=
-    saved.terminal||"HARRISBURG";
-
-   if(saved.data){
-
-    ["chassis","containers","racks"].forEach(k=>{
-
-     if(saved.data[k]){
-
-      Object.keys(saved.data[k]).forEach(t=>{
-
-       if(saved.data[k][t]){
-
-        Object.keys(saved.data[k][t]).forEach(s=>{
-
-         if(Array.isArray(saved.data[k][t][s])){
-
-          data[k][t][s]=
-           saved.data[k][t][s];
-
-         }
-
-        });
-
-       }
-
-      });
-
-     }
-
-    });
-
-    data.tireAudits=
-     Number(saved.data.tireAudits)||0;
-
-   }
-
-   notes.value=
-    saved.notes||"";
-
-  }else{
-
-   localStorage.removeItem(STORAGE_KEY);
-
-  }
-
- }
-
- document.getElementById("reportDate").textContent=TODAY;
-
+terminal.onchange=()=>{
  updatePrefixes();
+ save();
+};
 
- terminal.onchange=()=>{
-  updatePrefixes();
-  save();
- };
+const saved=load();
 
- document
-  .getElementById("addInspection")
-  .onclick=addChassis;
-
- document
-  .getElementById("addContainerInspection")
-  .onclick=addContainer;
-
- document
-  .getElementById("addRackInspection")
-  .onclick=addRack;
-
- document
-  .getElementById("addTireAudits")
-  .onclick=addTireAudits;
-
- document
-  .getElementById("generateEod")
-  .onclick=generate;
-
- document
-  .getElementById("emailEod")
-  .onclick=email;
-
- document
-  .getElementById("editReport")
-  .onclick=editReport;
-
- progress();
- render();
-
+if(saved){
+ terminal.value=saved.terminal||"HARRISBURG";
+ notes.value=saved.notes||"";
+ if(saved.data){
+  Object.assign(data,saved.data);
+ }
 }
 
-init();
+updatePrefixes();
+progress();
+render();
+
+document.getElementById("reportDate").textContent=TODAY;
 
 })();
 
 </script>
-
 </body>
 </html>
