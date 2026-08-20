@@ -15,6 +15,11 @@
 
 <title>EOD Inspection Report</title>
 
+<!-- 
+  Created by Mad Martian Studios 2026
+  Design, Code, Build - Harrisburg, PA
+-->
+
 <style>
 
 *{
@@ -537,6 +542,42 @@ button.primary{
 
 .hidden{
  display:none!important;
+}
+
+/* FOOTER BRANDING */
+footer.app-footer {
+ width: min(1000px, 100%);
+ margin: 0 auto;
+ padding: 20px 10px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ gap: 8px;
+}
+
+.footer-logo-img {
+ width: 64px;
+ height: 64px;
+ object-fit: cover;
+ border-radius: 14px;
+ border: 1px solid var(--border-color);
+ box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+
+.footer-brand-text {
+ font-weight: 900;
+ font-size: 1rem;
+ letter-spacing: 1.5px;
+ color: var(--navy-dark);
+}
+
+.footer-brand-sub {
+ font-size: 0.7rem;
+ letter-spacing: 2px;
+ color: var(--text-muted);
+ font-weight: 700;
 }
 
 /* MOBILE */
@@ -1073,6 +1114,12 @@ button.primary{
 </section>
 
 </main>
+
+<footer class="app-footer">
+ <img src="95F8261B-1561-4991-8D78-41933EF608DF.PNG" class="footer-logo-img" alt="Mad Martian Studios Logo">
+ <div class="footer-brand-text">MAD MARTIAN STUDIOS 2026</div>
+ <div class="footer-brand-sub">DESIGN &bull; CODE &bull; BUILD &bull; HARRISBURG, PA</div>
+</footer>
 
 <script>
 
@@ -2083,12 +2130,18 @@ function resetForNewDay(confirmReset=true){
   .classList
   .add("hidden");
 
- terminal.value="HARRISBURG";
-
  updatePrefixes(true);
  progress();
  render();
- save();
+
+}
+
+function editReport(){
+
+ document
+  .getElementById("previewCard")
+  .classList
+  .add("hidden");
 
  window.scrollTo({
   top:0,
@@ -2097,231 +2150,107 @@ function resetForNewDay(confirmReset=true){
 
 }
 
-function restore(){
+function init(){
 
  const saved=load();
 
- if(
-  saved &&
-  saved.date===TODAY &&
-  saved.data
- ){
+ if(saved){
 
-  ["chassis","containers","racks"].forEach(k=>{
+  if(saved.date===TODAY){
 
-   Object.keys(data[k]).forEach(t=>{
+   terminal.value=
+    saved.terminal||"HARRISBURG";
 
-    Object.keys(data[k][t]).forEach(section=>{
+   if(saved.data){
 
-     data[k][t][section].length=0;
+    ["chassis","containers","racks"].forEach(k=>{
 
-     if(
-      saved.data[k] &&
-      saved.data[k][t] &&
-      Array.isArray(saved.data[k][t][section])
-     ){
+     if(saved.data[k]){
 
-      data[k][t][section].push(
-       ...saved.data[k][t][section]
-      );
+      Object.keys(saved.data[k]).forEach(t=>{
+
+       if(saved.data[k][t]){
+
+        Object.keys(saved.data[k][t]).forEach(s=>{
+
+         if(Array.isArray(saved.data[k][t][s])){
+
+          data[k][t][s]=
+           saved.data[k][t][s];
+
+         }
+
+        });
+
+       }
+
+      });
 
      }
 
     });
 
-   });
+    data.tireAudits=
+     Number(saved.data.tireAudits)||0;
 
-  });
+   }
 
-  data.tireAudits=
-   Number.isInteger(saved.data.tireAudits)
-    ?saved.data.tireAudits
-    :0;
+   notes.value=
+    saved.notes||"";
 
-  terminal.value=
-   saved.terminal||
-   "HARRISBURG";
+  }else{
 
-  notes.value=
-   saved.notes||
-   "";
+   localStorage.removeItem(STORAGE_KEY);
 
- }else if(saved && saved.date!==TODAY){
-
-  localStorage.removeItem(STORAGE_KEY);
+  }
 
  }
 
-}
-
-terminal.onchange=()=>{
+ document.getElementById("reportDate").textContent=TODAY;
 
  updatePrefixes();
- save();
 
-};
-
-document
- .getElementById("addInspection")
- .onclick=addChassis;
-
-document
- .getElementById("addContainerInspection")
- .onclick=addContainer;
-
-document
- .getElementById("addRackInspection")
- .onclick=addRack;
-
-document
- .getElementById("addTireAudits")
- .onclick=addTireAudits;
-
-document
- .getElementById("generateEod")
- .onclick=generate;
-
-document
- .getElementById("emailEod")
- .onclick=email;
-
-document
- .getElementById("editReport")
- .onclick=()=>{
-
-  document
-   .getElementById("previewCard")
-   .classList
-   .add("hidden");
-
- };
-
-notes.oninput=save;
-
-document
- .getElementById("number")
- .oninput=e=>{
-
-  e.target.value=
-   e.target.value
-   .replace(/\D/g,"")
-   .slice(0,6);
-
+ terminal.onchange=()=>{
+  updatePrefixes();
   save();
-
  };
-
-document
- .getElementById("containerPrefix")
- .oninput=e=>{
-
-  e.target.value=
-   e.target.value
-   .replace(/[^a-zA-Z]/g,"")
-   .toUpperCase()
-   .slice(0,4);
-
-  save();
-
- };
-
-document
- .getElementById("containerNumber")
- .oninput=e=>{
-
-  e.target.value=
-   e.target.value
-   .replace(/\D/g,"")
-   .slice(0,6);
-
-  save();
-
- };
-
-document
- .getElementById("rackNumber")
- .oninput=e=>{
-
-  e.target.value=
-   e.target.value
-   .replace(/\D/g,"")
-   .slice(0,6);
-
-  save();
-
- };
-
-
-
-["number","containerNumber","rackNumber"]
-.forEach(id=>{
 
  document
-  .getElementById(id)
-  .onkeydown=e=>{
+  .getElementById("addInspection")
+  .onclick=addChassis;
 
-   if(e.key!=="Enter")return;
+ document
+  .getElementById("addContainerInspection")
+  .onclick=addContainer;
 
-   e.preventDefault();
+ document
+  .getElementById("addRackInspection")
+  .onclick=addRack;
 
-   if(id==="number")
-    addChassis();
+ document
+  .getElementById("addTireAudits")
+  .onclick=addTireAudits;
 
-   if(id==="containerNumber")
-    addContainer();
+ document
+  .getElementById("generateEod")
+  .onclick=generate;
 
-   if(id==="rackNumber")
-    addRack();
+ document
+  .getElementById("emailEod")
+  .onclick=email;
 
+ document
+  .getElementById("editReport")
+  .onclick=editReport;
 
-  };
-
-});
-
-document
- .getElementById("tireAuditTotal")
- .onkeydown=e=>{
-
-  if(e.key!=="Enter")return;
-
-  e.preventDefault();
-  addTireAudits();
-
- };
-
-restore();
-
-document
- .getElementById("reportDate")
- .textContent=TODAY;
-
-document.title=
- "EOD Inspection — "+
- terminal.value;
-
-updatePrefixes();
-progress();
-render();
-
-})();
-
-</script>
-
-<script src="./milestones.js"></script>
-
-<script>
-
-if("serviceWorker" in navigator){
-
- window.addEventListener("load",()=>{
-
-  navigator.serviceWorker.register(
-   "./service-worker.js"
-  );
-
- });
+ progress();
+ render();
 
 }
+
+init();
+
+})();
 
 </script>
 
