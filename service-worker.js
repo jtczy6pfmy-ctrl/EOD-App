@@ -1,7 +1,7 @@
-const CACHE_NAME="eod-inspection-v12";
+const CACHE_NAME="eod-inspection-v13";
 
 self.addEventListener("install",event=>{
- self.skipWaiting();
+ event.waitUntil(self.skipWaiting());
 });
 
 self.addEventListener("activate",event=>{
@@ -12,9 +12,8 @@ self.addEventListener("activate",event=>{
      .filter(key=>key!==CACHE_NAME)
      .map(key=>caches.delete(key))
    )
-  )
+  ).then(()=>self.clients.claim())
  );
- self.clients.claim();
 });
 
 self.addEventListener("fetch",event=>{
@@ -28,25 +27,6 @@ self.addEventListener("fetch",event=>{
  if(isNavigation){
   event.respondWith(
    fetch(event.request,{cache:"no-store"})
-    .then(async response=>{
-     const html=await response.text();
-
-     const resetScript=`<script>
-(() => {
-  // A hard refresh/new app load starts a fresh inspection count.
-  localStorage.removeItem("eodInspectionReport_v9");
-})();
-</script>`;
-
-     return new Response(
-      html.replace("<body>","<body>"+resetScript),
-      {
-       status:response.status,
-       statusText:response.statusText,
-       headers:response.headers
-      }
-     );
-    })
     .catch(()=>caches.match(event.request))
   );
   return;
