@@ -15,7 +15,7 @@
 
 <title>EOD Inspection Report</title>
 
-<!-- 
+<!--
   Created by Mad Martian Studios 2026
   Design, Code, Build - Harrisburg, PA
 -->
@@ -177,8 +177,6 @@ header{
  grid-column:span 2;
 }
 
-/* SIDEBAR STACK FOR TERMINAL & TIRE AUDITS */
-
 .sidebar-stack{
  display:flex;
  flex-direction:column;
@@ -258,12 +256,42 @@ header{
  color:#0f172a;
 }
 
-.date{
+.progressbar{
+ height:12px;
+ background:#cbd5e1;
+ border-radius:12px;
+ overflow:hidden;
+}
+
+.fill{
+ height:100%;
+ width:0;
+ border-radius:12px;
+ background-color:var(--yellow-primary);
+ transition:width .4s ease;
+}
+
+/* MILESTONES */
+
+.progress-milestone{
+ display:none;
+ padding:8px 10px;
+ border-radius:6px;
+ font-weight:800;
+ font-size:.8rem;
  text-align:center;
- color:#64748b;
- font-size:13px;
- font-weight:600;
- margin-bottom:4px;
+ margin-top:8px;
+ background:#e2e8f0;
+ color:#001f54;
+}
+
+.progress-milestone.show{
+ display:block;
+}
+
+.progress-milestone.complete{
+ background:var(--yellow-primary);
+ color:#000;
 }
 
 /* INPUTS */
@@ -321,38 +349,7 @@ textarea{
  font-weight:700;
 }
 
-/* PROGRESS */
-
-.progressbar{
- height:12px;
- background:#cbd5e1;
- border-radius:12px;
- overflow:hidden;
-}
-
-.fill{
- height:100%;
- width:0;
- border-radius:12px;
- background-color:var(--yellow-primary);
- transition:width .4s ease;
-}
-
-.progress-complete-message{
- display:none;
- background-color:var(--yellow-primary);
- color:#000;
- padding:10px;
- border-radius:6px;
- font-weight:700;
- font-size:.85rem;
- text-align:center;
- margin-top:8px;
-}
-
-.progress-complete-message.show{
- display:block;
-}
+/* TIRE AUDITS */
 
 .tire-audit-entry{
  display:grid;
@@ -365,16 +362,6 @@ textarea{
  width:auto;
  margin:0;
  min-width:130px;
-}
-
-@media(max-width:500px){
- .tire-audit-entry{
-  grid-template-columns:1fr;
- }
-
- .tire-audit-entry button{
-  width:100%;
- }
 }
 
 .audit-notification{
@@ -542,41 +529,41 @@ button.primary{
  display:none!important;
 }
 
-/* FOOTER BRANDING */
+/* FOOTER */
 
-footer.app-footer {
- width: min(1000px, 100%);
- margin: 0 auto;
- padding: 20px 10px;
- display: flex;
- flex-direction: column;
- align-items: center;
- justify-content: center;
- text-align: center;
- gap: 8px;
+footer.app-footer{
+ width:min(1000px,100%);
+ margin:0 auto;
+ padding:20px 10px;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ gap:8px;
 }
 
-.footer-logo-img {
- width: 64px;
- height: 64px;
- object-fit: cover;
- border-radius: 14px;
- border: 1px solid var(--border-color);
- box-shadow: 0 4px 10px rgba(0,0,0,.08);
+.footer-logo-img{
+ width:64px;
+ height:64px;
+ object-fit:cover;
+ border-radius:14px;
+ border:1px solid var(--border-color);
+ box-shadow:0 4px 10px rgba(0,0,0,.08);
 }
 
-.footer-brand-text {
- font-weight: 900;
- font-size: 1rem;
- letter-spacing: 1.5px;
- color: var(--navy-dark);
+.footer-brand-text{
+ font-weight:900;
+ font-size:1rem;
+ letter-spacing:1.5px;
+ color:var(--navy-dark);
 }
 
-.footer-brand-sub {
- font-size: 0.7rem;
- letter-spacing: 2px;
- color: var(--text-muted);
- font-weight: 700;
+.footer-brand-sub{
+ font-size:.7rem;
+ letter-spacing:2px;
+ color:var(--text-muted);
+ font-weight:700;
 }
 
 /* MOBILE */
@@ -646,6 +633,14 @@ footer.app-footer {
   width:100%;
  }
 
+ .tire-audit-entry{
+  grid-template-columns:1fr;
+ }
+
+ .tire-audit-entry button{
+  width:100%;
+ }
+
 }
 
 </style>
@@ -684,117 +679,138 @@ footer.app-footer {
 
 <div class="sidebar-stack">
 
- <section class="card">
+<section class="card">
 
-  <div class="card-header-styled" style="display:flex;align-items:center;">
-   <h2>Terminal</h2>
-   <span class="header-date" id="reportDate"></span>
-  </div>
+ <div class="card-header-styled" style="display:flex;align-items:center;">
 
-  <div class="card-body">
+  <h2>Terminal</h2>
 
-   <div class="status-top">
+  <span class="header-date" id="reportDate"></span>
 
-    <div class="status-terminal">
+ </div>
 
-     <select id="terminal" style="font-weight:700;">
+ <div class="card-body">
 
-      <option>APPLIANCE PARK</option>
-      <option>ATLANTA</option>
-      <option>AUSTELL</option>
-      <option>AYER</option>
-      <option>BETHLEHEM</option>
-      <option>BUFFALO</option>
-      <option>CALUMET</option>
-      <option>CHARLOTTE</option>
-      <option>CHGO 63RD</option>
-      <option>CHICAGO 47TH</option>
-      <option>CINCINNATI</option>
-      <option>CLEVELAND</option>
-      <option>CROXTON</option>
-      <option>GREENSBORO</option>
-      <option selected>HARRISBURG</option>
-      <option>JACKSONVILLE</option>
-      <option>KANSAS CITY</option>
-      <option>LANDERS</option>
-      <option>MORRISVILLE</option>
-      <option>NORFOLK</option>
-      <option>PITTSBURGH</option>
-      <option>RICKENBACKER</option>
-      <option>ROSSVILLE</option>
-      <option>RUTHERFORD</option>
-      <option>ST LOUIS</option>
-      <option>TAYLOR</option>
-      <option>TOLEDO</option>
+  <div class="status-top">
 
-     </select>
+   <div class="status-terminal">
 
+    <select id="terminal" style="font-weight:700;">
+
+     <option>APPLIANCE PARK</option>
+     <option>ATLANTA</option>
+     <option>AUSTELL</option>
+     <option>AYER</option>
+     <option>BETHLEHEM</option>
+     <option>BUFFALO</option>
+     <option>CALUMET</option>
+     <option>CHARLOTTE</option>
+     <option>CHGO 63RD</option>
+     <option>CHICAGO 47TH</option>
+     <option>CINCINNATI</option>
+     <option>CLEVELAND</option>
+     <option>CROXTON</option>
+     <option>GREENSBORO</option>
+     <option selected>HARRISBURG</option>
+     <option>JACKSONVILLE</option>
+     <option>KANSAS CITY</option>
+     <option>LANDERS</option>
+     <option>MORRISVILLE</option>
+     <option>NORFOLK</option>
+     <option>PITTSBURGH</option>
+     <option>RICKENBACKER</option>
+     <option>ROSSVILLE</option>
+     <option>RUTHERFORD</option>
+     <option>ST LOUIS</option>
+     <option>TAYLOR</option>
+     <option>TOLEDO</option>
+
+    </select>
+
+   </div>
+
+   <div class="status-progress">
+
+    <div class="status-progress-number">
+     <span id="count">0</span> / 28
     </div>
 
-    <div class="status-progress">
-
-     <div class="status-progress-number">
-      <span id="count">0</span> / 28
-     </div>
-
-    </div>
-
-   </div>
-
-   <div class="progressbar">
-    <div class="fill" id="fill"></div>
-   </div>
-
-   <div class="progress-complete-message" id="completeMessage">
-    ✓ Daily inspection target complete
    </div>
 
   </div>
 
- </section>
-
- <section class="card">
-
-  <div class="card-header-styled">
-   <h2>Tire Audits</h2>
+  <div class="progressbar">
+   <div class="fill" id="fill"></div>
   </div>
 
-  <div class="card-body">
+  <div class="progress-milestone" id="milestone7">
+   ✓ 7 / 28 — 25% milestone reached
+  </div>
 
-   <div class="tire-audit-entry">
+  <div class="progress-milestone" id="milestone14">
+   ✓ 14 / 28 — 50% milestone reached
+  </div>
 
-    <div>
+  <div class="progress-milestone" id="milestone21">
+   ✓ 21 / 28 — 75% milestone reached
+  </div>
 
-     <label for="tireAuditTotal">Total Number of Audits</label>
+  <div class="progress-milestone complete" id="milestone28">
+   🏆 28 / 28 — Daily inspection target complete
+  </div>
 
-     <input
-      id="tireAuditTotal"
-      type="number"
-      min="0"
-      step="1"
-      inputmode="numeric"
-      placeholder="Enter total audits"
-     >
+ </div>
 
-    </div>
+</section>
 
-   <div class="audit-notification" id="auditNotification" role="status">
-    ✓ Tire audits added successfully
+<section class="card">
+
+ <div class="card-header-styled">
+  <h2>Tire Audits</h2>
+ </div>
+
+ <div class="card-body">
+
+  <div class="tire-audit-entry">
+
+   <div>
+
+    <label for="tireAuditTotal">
+     Total Number of Audits
+    </label>
+
+    <input
+     id="tireAuditTotal"
+     type="number"
+     min="0"
+     step="1"
+     inputmode="numeric"
+     placeholder="Enter total audits"
+    >
+
    </div>
 
-    <button id="addTireAudits" class="primary">
-     ADD AUDITS
-    </button>
-
-   </div>
+   <button id="addTireAudits" class="primary">
+    ADD AUDITS
+   </button>
 
   </div>
 
- </section>
+  <div
+   class="audit-notification"
+   id="auditNotification"
+   role="status"
+  >
+   ✓ Tire audits added successfully
+  </div>
+
+ </div>
+
+</section>
 
 </div>
 
-<!-- COLUMN 1: CHASSIS -->
+<!-- CHASSIS -->
 
 <section class="card">
 
@@ -808,7 +824,9 @@ footer.app-footer {
 
    <div>
 
-    <label for="prefix">4-Character Prefix</label>
+    <label for="prefix">
+     4-Character Prefix
+    </label>
 
     <select id="prefix"></select>
 
@@ -816,7 +834,9 @@ footer.app-footer {
 
    <div>
 
-    <label for="number">6-Digit Number</label>
+    <label for="number">
+     6-Digit Number
+    </label>
 
     <input
      id="number"
@@ -835,13 +855,23 @@ footer.app-footer {
 
    <div>
 
-    <label for="type">Inspection Type</label>
+    <label for="type">
+     Inspection Type
+    </label>
 
     <select id="type">
 
-     <option value="5652">5652 — Pre-repair</option>
-     <option value="5900">5900 — Post-repair</option>
-     <option value="5658">5658 — Add-on</option>
+     <option value="5652">
+      5652 — Pre-repair
+     </option>
+
+     <option value="5900">
+      5900 — Post-repair
+     </option>
+
+     <option value="5658">
+      5658 — Add-on
+     </option>
 
     </select>
 
@@ -849,11 +879,15 @@ footer.app-footer {
 
    <div>
 
-    <label for="condition">Condition</label>
+    <label for="condition">
+     Condition
+    </label>
 
     <select id="condition">
+
      <option>Defect</option>
      <option>No Defect</option>
+
     </select>
 
    </div>
@@ -862,7 +896,9 @@ footer.app-footer {
 
   <div>
 
-   <label for="equipmentNote">Inspection Note</label>
+   <label for="equipmentNote">
+    Inspection Note
+   </label>
 
    <input
     id="equipmentNote"
@@ -893,7 +929,9 @@ footer.app-footer {
 
    <div>
 
-    <label for="containerPrefix">4-Character Prefix</label>
+    <label for="containerPrefix">
+     4-Character Prefix
+    </label>
 
     <input
      id="containerPrefix"
@@ -905,7 +943,9 @@ footer.app-footer {
 
    <div>
 
-    <label for="containerNumber">6-Digit Number</label>
+    <label for="containerNumber">
+     6-Digit Number
+    </label>
 
     <input
      id="containerNumber"
@@ -924,13 +964,23 @@ footer.app-footer {
 
    <div>
 
-    <label for="containerType">Inspection Type</label>
+    <label for="containerType">
+     Inspection Type
+    </label>
 
     <select id="containerType">
 
-     <option value="5653">5653 — Pre-repair</option>
-     <option value="5900">5900 — Post-repair</option>
-     <option value="5658">5658 — Add-on</option>
+     <option value="5653">
+      5653 — Pre-repair
+     </option>
+
+     <option value="5900">
+      5900 — Post-repair
+     </option>
+
+     <option value="5658">
+      5658 — Add-on
+     </option>
 
     </select>
 
@@ -938,11 +988,15 @@ footer.app-footer {
 
    <div>
 
-    <label for="containerCondition">Condition</label>
+    <label for="containerCondition">
+     Condition
+    </label>
 
     <select id="containerCondition">
+
      <option>Defect</option>
      <option>No Defect</option>
+
     </select>
 
    </div>
@@ -951,7 +1005,9 @@ footer.app-footer {
 
   <div>
 
-   <label for="containerNote">Inspection Note</label>
+   <label for="containerNote">
+    Inspection Note
+   </label>
 
    <input
     id="containerNote"
@@ -960,7 +1016,10 @@ footer.app-footer {
 
   </div>
 
-  <button id="addContainerInspection" class="primary">
+  <button
+   id="addContainerInspection"
+   class="primary"
+  >
    ADD INSPECTION
   </button>
 
@@ -982,15 +1041,21 @@ footer.app-footer {
 
    <div>
 
-    <label>4-Character Prefix</label>
+    <label>
+     4-Character Prefix
+    </label>
 
-    <div class="static-type">ZNSU</div>
+    <div class="static-type">
+     ZNSU
+    </div>
 
    </div>
 
    <div>
 
-    <label for="rackNumber">6-Digit Number</label>
+    <label for="rackNumber">
+     6-Digit Number
+    </label>
 
     <input
      id="rackNumber"
@@ -1009,19 +1074,27 @@ footer.app-footer {
 
    <div>
 
-    <label>Inspection Type</label>
+    <label>
+     Inspection Type
+    </label>
 
-    <div class="static-type">5657 — Pre-repair</div>
+    <div class="static-type">
+     5657 — Pre-repair
+    </div>
 
    </div>
 
    <div>
 
-    <label for="rackCondition">Condition</label>
+    <label for="rackCondition">
+     Condition
+    </label>
 
     <select id="rackCondition">
+
      <option>Defect</option>
      <option>No Defect</option>
+
     </select>
 
    </div>
@@ -1030,7 +1103,9 @@ footer.app-footer {
 
   <div>
 
-   <label for="rackNote">Inspection Note</label>
+   <label for="rackNote">
+    Inspection Note
+   </label>
 
    <input
     id="rackNote"
@@ -1039,7 +1114,10 @@ footer.app-footer {
 
   </div>
 
-  <button id="addRackInspection" class="primary">
+  <button
+   id="addRackInspection"
+   class="primary"
+  >
    ADD INSPECTION
   </button>
 
@@ -1047,7 +1125,7 @@ footer.app-footer {
 
 </section>
 
-<!-- FULL WIDTH COMMENTS -->
+<!-- COMMENTS -->
 
 <section class="card card-full-width">
 
@@ -1062,7 +1140,10 @@ footer.app-footer {
    placeholder="Enter comments or notes of interest..."
   ></textarea>
 
-  <button id="generateEod" class="primary">
+  <button
+   id="generateEod"
+   class="primary"
+  >
    GENERATE EOD
   </button>
 
@@ -1070,7 +1151,7 @@ footer.app-footer {
 
 </section>
 
-<!-- FULL WIDTH INSPECTION LIST -->
+<!-- INSPECTION LIST -->
 
 <section class="card card-full-width">
 
@@ -1080,13 +1161,21 @@ footer.app-footer {
 
  <div class="card-body">
 
-  <div id="inspectionList" class="inspection-list"></div>
+  <div
+   id="inspectionList"
+   class="inspection-list"
+  ></div>
 
  </div>
 
 </section>
 
-<section class="card card-full-width hidden" id="previewCard">
+<!-- PREVIEW -->
+
+<section
+ class="card card-full-width hidden"
+ id="previewCard"
+>
 
  <div class="card-header-styled">
   <h2>EOD Report Preview</h2>
@@ -1098,11 +1187,17 @@ footer.app-footer {
 
   <div class="preview-actions">
 
-   <button id="emailEod" class="primary">
+   <button
+    id="emailEod"
+    class="primary"
+   >
     ✉ EMAIL EOD
    </button>
 
-   <button id="editReport" class="secondary">
+   <button
+    id="editReport"
+    class="secondary"
+   >
     ✏ BACK TO EDIT
    </button>
 
@@ -1127,7 +1222,7 @@ footer.app-footer {
  </div>
 
  <div class="footer-brand-sub">
-  DESIGN &bull; CODE &bull; BUILD &bull; HARRISBURG, PA
+  DESIGN • CODE • BUILD • HARRISBURG, PA
  </div>
 
 </footer>
@@ -1138,7 +1233,7 @@ footer.app-footer {
 
 "use strict";
 
-const STORAGE_KEY="eodInspectionReport_v9";
+const STORAGE_KEY="eodInspectionReport_v10";
 const TARGET=28;
 
 function formatDate(d=new Date()){
@@ -1187,11 +1282,13 @@ const data={
    "Post-repair":[],
    "Add-on":[]
   },
+
   "5900":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
+
   "5658":{
    "Pre-repair":[],
    "Post-repair":[],
@@ -1205,11 +1302,13 @@ const data={
    "Post-repair":[],
    "Add-on":[]
   },
+
   "5900":{
    "Pre-repair":[],
    "Post-repair":[],
    "Add-on":[]
   },
+
   "5658":{
    "Pre-repair":[],
    "Post-repair":[],
@@ -1227,12 +1326,24 @@ const data={
 
 };
 
-const terminal=document.getElementById("terminal");
-const prefix=document.getElementById("prefix");
-const list=document.getElementById("inspectionList");
-const notes=document.getElementById("notes");
-const count=document.getElementById("count");
-const fill=document.getElementById("fill");
+const terminal=
+ document.getElementById("terminal");
+
+const prefix=
+ document.getElementById("prefix");
+
+const list=
+ document.getElementById("inspectionList");
+
+const notes=
+ document.getElementById("notes");
+
+const count=
+ document.getElementById("count");
+
+const fill=
+ document.getElementById("fill");
+
 
 function save(){
 
@@ -1248,22 +1359,30 @@ function save(){
 
 }
 
+
 function load(){
 
  try{
-  return JSON.parse(localStorage.getItem(STORAGE_KEY));
+
+  return JSON.parse(
+   localStorage.getItem(STORAGE_KEY)
+  );
+
  }catch(e){
+
   return null;
+
  }
 
 }
 
-function updatePrefixes(forceReset = false){
+
+function updatePrefixes(forceReset=false){
 
  const values=
   SPECIAL.includes(terminal.value)
    ?[...BASE,...EXTRA]
-   : BASE;
+   :BASE;
 
  prefix.innerHTML="";
 
@@ -1301,6 +1420,7 @@ function updatePrefixes(forceReset = false){
 
 }
 
+
 function inspectionTotal(){
 
  let n=0;
@@ -1324,14 +1444,18 @@ function inspectionTotal(){
 
 }
 
+
 function total(){
 
  const tireCredit=
-  Math.floor((Number(data.tireAudits)||0)/3);
+  Math.floor(
+   (Number(data.tireAudits)||0)/3
+  );
 
  return inspectionTotal()+tireCredit;
 
 }
+
 
 function progress(){
 
@@ -1340,18 +1464,45 @@ function progress(){
  count.textContent=n;
 
  fill.style.width=
-  Math.min(100,(n/TARGET)*100)+"%";
+  Math.min(
+   100,
+   (n/TARGET)*100
+  )+"%";
+
+ /*
+  * MILESTONES WORK FOR EVERY YARD.
+  * They are based only on the total count.
+  */
 
  document
-  .getElementById("completeMessage")
+  .getElementById("milestone7")
   .classList
-  .toggle("show",n>=TARGET);
+  .toggle("show",n>=7);
+
+ document
+  .getElementById("milestone14")
+  .classList
+  .toggle("show",n>=14);
+
+ document
+  .getElementById("milestone21")
+  .classList
+  .toggle("show",n>=21);
+
+ document
+  .getElementById("milestone28")
+  .classList
+  .toggle("show",n>=28);
 
 }
 
+
 function sectionFor(type){
 
- return (type==="5652"||type==="5653")
+ return (
+  type==="5652" ||
+  type==="5653"
+ )
   ?"Pre-repair"
   :type==="5900"
   ?"Post-repair"
@@ -1359,31 +1510,49 @@ function sectionFor(type){
 
 }
 
+
 function addChassis(){
 
  const num=
-  document.getElementById("number").value.trim();
+  document
+   .getElementById("number")
+   .value
+   .trim();
 
  if(!/^\d{6}$/.test(num)){
 
-  alert("Enter exactly 6 digits for the chassis number.");
+  alert(
+   "Enter exactly 6 digits for the chassis number."
+  );
 
   return;
 
  }
 
- const t=document.getElementById("type").value;
- const c=document.getElementById("condition").value;
+ const t=
+  document
+   .getElementById("type")
+   .value;
+
+ const c=
+  document
+   .getElementById("condition")
+   .value;
 
  const note=
-  document.getElementById("equipmentNote").value.trim();
+  document
+   .getElementById("equipmentNote")
+   .value
+   .trim();
 
- const chassisNumber=prefix.value+" "+num;
+ const chassisNumber=
+  prefix.value+" "+num;
 
- const duplicate=allRecords().some(record=>
-  record.category==="chassis" &&
-  record.number===chassisNumber
- );
+ const duplicate=
+  allRecords().some(record=>
+   record.category==="chassis" &&
+   record.number===chassisNumber
+  );
 
  if(duplicate){
 
@@ -1407,7 +1576,9 @@ function addChassis(){
  document.getElementById("equipmentNote").value="";
  document.getElementById("condition").selectedIndex=0;
  document.getElementById("type").selectedIndex=0;
+
  prefix.value="NSPZ";
+
  updatePrefixes(true);
 
  save();
@@ -1416,20 +1587,27 @@ function addChassis(){
 
 }
 
+
 function addContainer(){
 
  const p=
-  document.getElementById("containerPrefix")
-  .value.trim()
-  .toUpperCase();
+  document
+   .getElementById("containerPrefix")
+   .value
+   .trim()
+   .toUpperCase();
 
  const n=
-  document.getElementById("containerNumber")
-  .value.trim();
+  document
+   .getElementById("containerNumber")
+   .value
+   .trim();
 
  if(!/^[A-Z]{4}$/.test(p)){
 
-  alert("Enter exactly 4 letters for the container prefix.");
+  alert(
+   "Enter exactly 4 letters for the container prefix."
+  );
 
   return;
 
@@ -1437,13 +1615,18 @@ function addContainer(){
 
  if(!/^\d{6}$/.test(n)){
 
-  alert("Enter exactly 6 digits for the container number.");
+  alert(
+   "Enter exactly 6 digits for the container number."
+  );
 
   return;
 
  }
 
- const t=document.getElementById("containerType").value;
+ const t=
+  document
+   .getElementById("containerType")
+   .value;
 
  data.containers[t][sectionFor(t)].push([
   p+" "+n,
@@ -1463,15 +1646,20 @@ function addContainer(){
 
 }
 
+
 function addRack(){
 
  const n=
-  document.getElementById("rackNumber")
-  .value.trim();
+  document
+   .getElementById("rackNumber")
+   .value
+   .trim();
 
  if(!/^\d{6}$/.test(n)){
 
-  alert("Enter exactly 6 digits for the chassis rack number.");
+  alert(
+   "Enter exactly 6 digits for the chassis rack number."
+  );
 
   return;
 
@@ -1493,6 +1681,7 @@ function addRack(){
 
 }
 
+
 function addTireAudits(){
 
  const input=
@@ -1503,7 +1692,9 @@ function addTireAudits(){
 
  if(!Number.isInteger(amount)||amount<0){
 
-  alert("Enter a whole number for the total tire audits.");
+  alert(
+   "Enter a whole number for the total tire audits."
+  );
 
   return;
 
@@ -1520,19 +1711,24 @@ function addTireAudits(){
 
   notification.textContent=
    "✓ "+amount+
-   (amount===1
-    ?" tire audit added successfully"
-    :" tire audits added successfully");
+   (
+    amount===1
+     ?" tire audit added successfully"
+     :" tire audits added successfully"
+   );
 
   notification.classList.add("show");
 
-  clearTimeout(window.auditNotificationTimer);
+  clearTimeout(
+   window.auditNotificationTimer
+  );
 
-  window.auditNotificationTimer=setTimeout(()=>{
+  window.auditNotificationTimer=
+   setTimeout(()=>{
 
-   notification.classList.remove("show");
+    notification.classList.remove("show");
 
-  },3000);
+   },3000);
 
  }
 
@@ -1541,6 +1737,7 @@ function addTireAudits(){
  render();
 
 }
+
 
 function allRecords(){
 
@@ -1552,19 +1749,23 @@ function allRecords(){
 
    Object.keys(data[category][type]).forEach(section=>{
 
-    data[category][type][section].forEach((item,index)=>{
+    data[category][type][section].forEach(
+     (item,index)=>{
 
-     r.push({
-      category:category,
-      type:type,
-      section:section,
-      index:index,
-      number:item[0],
-      condition:item[1],
-      note:item[2]||""
-     });
+      r.push({
 
-    });
+       category:category,
+       type:type,
+       section:section,
+       index:index,
+       number:item[0],
+       condition:item[1],
+       note:item[2]||""
+
+      });
+
+     }
+    );
 
    });
 
@@ -1576,13 +1777,16 @@ function allRecords(){
 
 }
 
+
 function select(values,current){
 
- const s=document.createElement("select");
+ const s=
+  document.createElement("select");
 
  values.forEach(v=>{
 
-  const o=document.createElement("option");
+  const o=
+   document.createElement("option");
 
   o.value=v;
   o.textContent=v;
@@ -1598,16 +1802,23 @@ function select(values,current){
 
 }
 
+
 function split(value){
 
- const p=value.trim().split(/\s+/);
+ const p=
+  value
+   .trim()
+   .split(/\s+/);
 
  return {
+
   prefix:p[0]||"",
   number:p.slice(1).join("")
+
  };
 
 }
+
 
 function render(){
 
@@ -1617,10 +1828,13 @@ function render(){
 
  if(!records.length){
 
-  const e=document.createElement("div");
+  const e=
+   document.createElement("div");
 
   e.className="empty-list";
-  e.textContent="No inspections entered yet.";
+
+  e.textContent=
+   "No inspections entered yet.";
 
   list.appendChild(e);
 
@@ -1630,27 +1844,33 @@ function render(){
 
  records.forEach(r=>{
 
-  const row=document.createElement("div");
+  const row=
+   document.createElement("div");
 
   row.className="inspection-row";
 
-  const text=document.createElement("div");
+  const text=
+   document.createElement("div");
 
   text.className="inspection-display";
 
   text.textContent=
-   r.type+" • "+
-   r.condition+" • "+
+   r.type+
+   " • "+
+   r.condition+
+   " • "+
    r.number;
 
-  const edit=document.createElement("button");
+  const edit=
+   document.createElement("button");
 
   edit.className="edit-button";
   edit.type="button";
   edit.textContent="✎";
   edit.title="Edit inspection";
 
-  edit.onclick=()=>editRow(row,r);
+  edit.onclick=()=>
+   editRow(row,r);
 
   row.appendChild(text);
   row.appendChild(edit);
@@ -1661,30 +1881,46 @@ function render(){
 
 }
 
+
 function editRow(row,r){
 
  row.innerHTML="";
 
- const area=document.createElement("div");
+ const area=
+  document.createElement("div");
 
  area.className="inspection-edit";
 
- const isChassis=r.category==="chassis";
- const isContainer=r.category==="containers";
- const isRack=r.category==="racks";
+ const isChassis=
+  r.category==="chassis";
 
- const availableTypes=isChassis
-  ?["5652","5900","5658"]
-  :isContainer
-  ?["5653","5900","5658"]
-  :isRack
-  ?["5657"]
-  :["5657"];
+ const isContainer=
+  r.category==="containers";
 
- const type=select(availableTypes,r.type);
- const condition=select(["Defect","No Defect"],r.condition);
+ const isRack=
+  r.category==="racks";
 
- const parts=split(r.number);
+ const availableTypes=
+  isChassis
+   ?["5652","5900","5658"]
+   :isContainer
+   ?["5653","5900","5658"]
+   :["5657"];
+
+ const type=
+  select(
+   availableTypes,
+   r.type
+  );
+
+ const condition=
+  select(
+   ["Defect","No Defect"],
+   r.condition
+  );
+
+ const parts=
+  split(r.number);
 
  let p;
 
@@ -1694,64 +1930,86 @@ function editRow(row,r){
    SPECIAL.includes(terminal.value)
     ?[...BASE,...EXTRA]
     :[
-        ...BASE,
-        ...(EXTRA.includes(parts.prefix)
-        ?[parts.prefix]
-        :[])
-      ];
+      ...BASE,
+      ...(EXTRA.includes(parts.prefix)
+       ?[parts.prefix]
+       :[])
+     ];
 
-  p=select(
-   [...new Set(prefixes)],
-   parts.prefix
-  );
+  p=
+   select(
+    [...new Set(prefixes)],
+    parts.prefix
+   );
 
  }else if(isContainer){
 
-  p=document.createElement("input");
+  p=
+   document.createElement("input");
+
   p.type="text";
   p.maxLength=4;
   p.value=parts.prefix;
 
   p.oninput=()=>{
+
    p.value=
     p.value
      .replace(/[^a-zA-Z]/g,"")
      .toUpperCase()
      .slice(0,4);
+
   };
 
  }else{
 
-  p=document.createElement("input");
+  p=
+   document.createElement("input");
+
   p.type="text";
   p.value="ZNSU";
   p.disabled=true;
 
  }
 
- const num=document.createElement("input");
+ const num=
+  document.createElement("input");
 
  num.type="number";
- num.setAttribute("pattern","[0-9]*");
+ num.setAttribute(
+  "pattern",
+  "[0-9]*"
+ );
+
  num.inputMode="numeric";
  num.maxLength=6;
  num.value=parts.number;
 
  num.oninput=()=>{
+
   num.value=
-   num.value.replace(/\D/g,"").slice(0,6);
+   num.value
+    .replace(/\D/g,"")
+    .slice(0,6);
+
  };
 
- const check=document.createElement("button");
+ const check=
+  document.createElement("button");
 
- check.className="edit-button editing";
+ check.className=
+  "edit-button editing";
+
  check.type="button";
  check.textContent="✓";
  check.title="Save correction";
 
- const del=document.createElement("button");
+ const del=
+  document.createElement("button");
 
- del.className="edit-button delete-button";
+ del.className=
+  "edit-button delete-button";
+
  del.type="button";
  del.textContent="×";
  del.title="Delete inspection";
@@ -1800,15 +2058,21 @@ function editRow(row,r){
     x=>
      x[0]===r.number &&
      x[1]===r.condition &&
-     (x[2]||"")===(r.note||"")
+     (x[2]||"")===
+     (r.note||"")
    );
 
   if(oldIndex<0)return;
 
-  targetGroup.splice(oldIndex,1);
+  targetGroup.splice(
+   oldIndex,
+   1
+  );
 
   const newType=type.value;
-  const newSection=sectionFor(newType);
+
+  const newSection=
+   sectionFor(newType);
 
   const newPrefix=
    isChassis
@@ -1848,11 +2112,15 @@ function editRow(row,r){
     x=>
      x[0]===r.number &&
      x[1]===r.condition &&
-     (x[2]||"")===(r.note||"")
+     (x[2]||"")===
+     (r.note||"")
    );
 
   if(oldIndex>=0)
-   targetGroup.splice(oldIndex,1);
+   targetGroup.splice(
+    oldIndex,
+    1
+   );
 
   save();
   progress();
@@ -1864,6 +2132,7 @@ function editRow(row,r){
 
 }
 
+
 function reportSection(
  out,
  equipment,
@@ -1874,48 +2143,55 @@ function reportSection(
  label
 ){
 
- ["No Defect","Defect"].forEach(condition=>{
+ ["No Defect","Defect"].forEach(
+  condition=>{
 
-  const items=
-   equipment[type][section]
-    .filter(x=>x[1]===condition);
-
-  out.push(
-   "("+items.length+") "+
-   (
-    condition==="Defect"
-     ?yesText
-     :noText
-   )
-  );
-
-  out.push(label+":");
-
-  items.forEach((x,i)=>{
+   const items=
+    equipment[type][section]
+     .filter(
+      x=>x[1]===condition
+     );
 
    out.push(
-    "\t"+
-    (i+1)+
-    ". "+
-    x[0]
+    "("+items.length+") "+
+    (
+     condition==="Defect"
+      ?yesText
+      :noText
+    )
    );
 
-   if(x[2]){
+   out.push(
+    label+":"
+   );
+
+   items.forEach((x,i)=>{
 
     out.push(
-     "\t   Note: "+
-     x[2]
+     "\t"+
+     (i+1)+
+     ". "+
+     x[0]
     );
 
-   }
+    if(x[2]){
 
-  });
+     out.push(
+      "\t   Note: "+
+      x[2]
+     );
 
-  out.push("");
+    }
 
- });
+   });
+
+   out.push("");
+
+  }
+ );
 
 }
+
 
 function buildEOD(){
 
@@ -2014,8 +2290,14 @@ function buildEOD(){
  );
 
  out.push(
-  "Tire Audits: "+(Number(data.tireAudits)||0),
-  "Progress Credit: "+Math.floor((Number(data.tireAudits)||0)/3),
+  "Tire Audits: "+
+  (Number(data.tireAudits)||0),
+
+  "Progress Credit: "+
+  Math.floor(
+   (Number(data.tireAudits)||0)/3
+  ),
+
   ""
  );
 
@@ -2035,6 +2317,7 @@ function buildEOD(){
  return out.join("\n");
 
 }
+
 
 function generate(){
 
@@ -2056,6 +2339,7 @@ function generate(){
 
 }
 
+
 function attemptClose(){
 
  window.close();
@@ -2075,20 +2359,31 @@ function attemptClose(){
 }
 
 
-/* EMAIL RECIPIENTS */
-
 function email(){
 
- const report=buildEOD();
+ const report=
+  buildEOD();
 
- const to="joe@caliberis.com";
+ /*
+  * PRIMARY RECIPIENT FOR EVERY YARD
+  */
+
+ const to=
+  "joe@caliberis.com";
+
+ /*
+  * STANDARD CC RECIPIENTS FOR EVERY YARD
+  */
 
  const ccList=[
   "dgeists@caliberis.com",
   "jdoan@aspectassociates.com"
  ];
 
- // Additional CC recipients for CALUMET
+ /*
+  * ADDITIONAL CALUMET CC RECIPIENTS
+  */
+
  if(terminal.value==="CALUMET"){
 
   ccList.push(
@@ -2112,15 +2407,25 @@ function email(){
   "mailto:"+
   encodeURIComponent(to)+
   "?cc="+
-  encodeURIComponent(ccList.join(","))+
+  encodeURIComponent(
+   ccList.join(",")
+  )+
   "&subject="+
   encodeURIComponent(subject)+
   "&body="+
   encodeURIComponent(report);
 
- window.location.href=mailtoLink;
+ window.location.href=
+  mailtoLink;
 
- localStorage.removeItem(STORAGE_KEY);
+ /*
+  * Clear the saved report after
+  * sending the email.
+  */
+
+ localStorage.removeItem(
+  STORAGE_KEY
+ );
 
  setTimeout(()=>{
 
@@ -2130,49 +2435,85 @@ function email(){
 
 }
 
-document.getElementById("addInspection").onclick=addChassis;
-document.getElementById("addContainerInspection").onclick=addContainer;
-document.getElementById("addRackInspection").onclick=addRack;
-document.getElementById("addTireAudits").onclick=addTireAudits;
-document.getElementById("generateEod").onclick=generate;
-document.getElementById("emailEod").onclick=email;
 
-document.getElementById("editReport").onclick=()=>{
+document
+ .getElementById("addInspection")
+ .onclick=addChassis;
 
- document
-  .getElementById("previewCard")
-  .classList
-  .add("hidden");
+document
+ .getElementById("addContainerInspection")
+ .onclick=addContainer;
 
-};
+document
+ .getElementById("addRackInspection")
+ .onclick=addRack;
+
+document
+ .getElementById("addTireAudits")
+ .onclick=addTireAudits;
+
+document
+ .getElementById("generateEod")
+ .onclick=generate;
+
+document
+ .getElementById("emailEod")
+ .onclick=email;
+
+document
+ .getElementById("editReport")
+ .onclick=()=>{
+
+  document
+   .getElementById("previewCard")
+   .classList
+   .add("hidden");
+
+ };
+
 
 terminal.onchange=()=>{
 
  updatePrefixes();
+
  save();
 
 };
+
 
 const saved=load();
 
 if(saved){
 
- terminal.value=saved.terminal||"HARRISBURG";
- notes.value=saved.notes||"";
+ terminal.value=
+  saved.terminal||
+  "HARRISBURG";
+
+ notes.value=
+  saved.notes||
+  "";
 
  if(saved.data){
 
-  Object.assign(data,saved.data);
+  Object.assign(
+   data,
+   saved.data
+  );
 
  }
 
 }
 
 updatePrefixes();
+
 progress();
+
 render();
 
-document.getElementById("reportDate").textContent=TODAY;
+document
+ .getElementById("reportDate")
+ .textContent=
+ TODAY;
 
 })();
 
