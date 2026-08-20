@@ -2,13 +2,13 @@
 "use strict";
 
 const MILESTONES={
-  7:{icon:"🎯",title:"QUARTER COMPLETE!",subtitle:"7 / 28 INSPECTIONS",color:"#2196f3"},
-  14:{icon:"🔥",title:"HALFWAY THERE!",subtitle:"14 / 28 INSPECTIONS",color:"#ff9800"},
-  21:{icon:"⚡",title:"FINAL STRETCH!",subtitle:"21 / 28 INSPECTIONS",color:"#8b5cf6"},
-  28:{icon:"🏆",title:"DAILY TARGET COMPLETE!",subtitle:"28 / 28 INSPECTIONS",color:"#22c55e"}
+ 7:{icon:"🎯",title:"25% COMPLETE!",subtitle:"7 / 28 INSPECTIONS",color:"#2196f3"},
+ 14:{icon:"🔥",title:"50% COMPLETE!",subtitle:"14 / 28 INSPECTIONS",color:"#8b5cf6"},
+ 21:{icon:"⚡",title:"75% COMPLETE!",subtitle:"21 / 28 INSPECTIONS",color:"#f97316"},
+ 28:{icon:"🏆",title:"DAILY TARGET COMPLETE!",subtitle:"28 / 28 INSPECTIONS",color:"#22c55e"}
 };
 
-let lastTotal=0;
+let lastTotal=null;
 let showing=false;
 let styleInjected=false;
 let savedTerminalNodes=null;
@@ -39,6 +39,12 @@ function getColor(n){
  return "#ffc107";
 }
 
+function highestReached(total){
+ return [...Object.keys(MILESTONES).map(Number)]
+  .filter(mark=>total>=mark)
+  .pop()||0;
+}
+
 function showInTerminal(m){
  if(showing)return;
  const terminalCard=document.getElementById("terminal")?.closest(".card");
@@ -52,13 +58,13 @@ function showInTerminal(m){
  panel.innerHTML=`<div class="eod-milestone-icon">${m.icon}</div><div class="eod-milestone-title">${m.title}</div><div class="eod-milestone-subtitle">${m.subtitle}</div>`;
  body.replaceChildren(panel);
  setTimeout(()=>{
-  if(body&&savedTerminalNodes)body.replaceChildren(...savedTerminalNodes);
+  if(savedTerminalNodes)body.replaceChildren(...savedTerminalNodes);
   savedTerminalNodes=null;
   showing=false;
  },2800);
 }
 
-function update(n){
+function update(n,initial=false){
  injectStyles();
  const total=Number(n)||0;
  const fill=document.getElementById("fill");
@@ -68,45 +74,34 @@ function update(n){
   void fill.offsetWidth;
   if(MILESTONES[total])fill.classList.add("milestone-pulse");
  }
- if(MILESTONES[total]&&total!==lastTotal)showInTerminal(MILESTONES[total]);
- lastTotal=total;
-}
 
-function resetChassisAfterSuccessfulAdd(){
- const button=document.getElementById("addInspection");
- if(!button)return;
- button.addEventListener("click",()=>{
-  const before=Number.parseInt(document.getElementById("count")?.textContent,10)||0;
-  setTimeout(()=>{
-   const after=Number.parseInt(document.getElementById("count")?.textContent,10)||0;
-   if(after<=before)return;
-   const prefix=document.getElementById("prefix");
-   const type=document.getElementById("type");
-   const condition=document.getElementById("condition");
-   const number=document.getElementById("number");
-   const note=document.getElementById("equipmentNote");
-   if(prefix)prefix.value="NSPZ";
-   if(type)type.value="5652";
-   if(condition)condition.value="Defect";
-   if(number)number.value="";
-   if(note)note.value="";
-  },0);
- });
+ if(initial){
+  const reached=highestReached(total);
+  if(reached)showInTerminal(MILESTONES[reached]);
+ }else if(MILESTONES[total]&&total!==lastTotal){
+  showInTerminal(MILESTONES[total]);
+ }
+
+ lastTotal=total;
 }
 
 function watchCount(){
  const count=document.getElementById("count");
  if(!count){requestAnimationFrame(watchCount);return;}
- lastTotal=Number.parseInt(count.textContent,10)||0;
- update(lastTotal);
+
+ const initialTotal=Number.parseInt(count.textContent,10)||0;
+ update(initialTotal,true);
+
  new MutationObserver(()=>{
-  update(Number.parseInt(count.textContent,10)||0);
+  update(Number.parseInt(count.textContent,10)||0,false);
  }).observe(count,{childList:true,characterData:true,subtree:true});
- resetChassisAfterSuccessfulAdd();
 }
 
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",watchCount,{once:true});
-else watchCount();
+if(document.readyState==="loading"){
+ document.addEventListener("DOMContentLoaded",watchCount,{once:true});
+}else{
+ watchCount();
+}
 
-window.EODMilestones={update,getColor,setLastTotal:n=>{lastTotal=Number(n)||0;}};
+window.EODMilestones={update,getColor};
 })();
