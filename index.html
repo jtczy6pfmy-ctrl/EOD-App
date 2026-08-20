@@ -172,6 +172,13 @@ header{
  grid-column:span 2;
 }
 
+/* SIDEBAR STACK FOR TERMINAL & TIRE AUDITS */
+.sidebar-stack{
+ display:flex;
+ flex-direction:column;
+ gap:16px;
+}
+
 /* CARDS */
 
 .card{
@@ -216,6 +223,18 @@ header{
  flex-direction:column;
  gap:12px;
  flex-grow:1;
+}
+
+
+.header-date{
+ margin-left:auto;
+ margin-right:24px;
+ color:#fff;
+ font-size:.78rem;
+ font-weight:700;
+ letter-spacing:.3px;
+ white-space:nowrap;
+ opacity:.95;
 }
 
 /* STATUS */
@@ -328,6 +347,53 @@ textarea{
 
 .progress-complete-message.show{
  display:block;
+}
+
+
+.tire-audit-entry{
+ display:grid;
+ grid-template-columns:1fr auto;
+ gap:10px;
+ align-items:end;
+}
+
+.tire-audit-entry button{
+ width:auto;
+ margin:0;
+ min-width:130px;
+}
+
+@media(max-width:500px){
+ .tire-audit-entry{
+  grid-template-columns:1fr;
+ }
+
+ .tire-audit-entry button{
+  width:100%;
+ }
+}
+
+
+.audit-notification{
+ display:none;
+ margin-top:10px;
+ padding:10px 12px;
+ border-radius:8px;
+ background:#218653;
+ color:#fff;
+ font-size:.85rem;
+ font-weight:800;
+ text-align:center;
+ animation:auditNoticeIn .25s ease-out;
+}
+
+.audit-notification.show{
+ display:block;
+}
+
+@keyframes auditNoticeIn{
+ from{opacity:0;transform:translateY(-4px);}
+ to{opacity:1;transform:translateY(0);}
 }
 
 /* BUTTONS */
@@ -576,76 +642,120 @@ button.primary{
 
 <main class="app">
 
-<section class="card">
+<div class="sidebar-stack">
 
- <div class="card-header-styled">
-  <h2>Terminal</h2>
- </div>
+ <section class="card">
 
- <div class="card-body">
+  <div class="card-header-styled" style="display:flex;align-items:center;">
+   <h2>Terminal</h2>
+   <span class="header-date" id="reportDate"></span>
+  </div>
 
-  <div class="status-top">
+  <div class="card-body">
 
-   <div class="status-terminal">
+   <div class="status-top">
 
-    <select id="terminal" style="font-weight:700;">
+    <div class="status-terminal">
 
-     <option>APPLIANCE PARK</option>
-     <option>ATLANTA</option>
-     <option>AUSTELL</option>
-     <option>AYER</option>
-     <option>BETHLEHEM</option>
-     <option>BUFFALO</option>
-     <option>CALUMET</option>
-     <option>CHARLOTTE</option>
-     <option>CHGO 63RD</option>
-     <option>CHICAGO 47TH</option>
-     <option>CINCINNATI</option>
-     <option>CLEVELAND</option>
-     <option>CROXTON</option>
-     <option>GREENSBORO</option>
-     <option selected>HARRISBURG</option>
-     <option>JACKSONVILLE</option>
-     <option>KANSAS CITY</option>
-     <option>LANDERS</option>
-     <option>MORRISVILLE</option>
-     <option>NORFOLK</option>
-     <option>PITTSBURGH</option>
-     <option>RICKENBACKER</option>
-     <option>ROSSVILLE</option>
-     <option>RUTHERFORD</option>
-     <option>ST LOUIS</option>
-     <option>TAYLOR</option>
-     <option>TOLEDO</option>
+     <select id="terminal" style="font-weight:700;">
 
-    </select>
+      <option>APPLIANCE PARK</option>
+      <option>ATLANTA</option>
+      <option>AUSTELL</option>
+      <option>AYER</option>
+      <option>BETHLEHEM</option>
+      <option>BUFFALO</option>
+      <option>CALUMET</option>
+      <option>CHARLOTTE</option>
+      <option>CHGO 63RD</option>
+      <option>CHICAGO 47TH</option>
+      <option>CINCINNATI</option>
+      <option>CLEVELAND</option>
+      <option>CROXTON</option>
+      <option>GREENSBORO</option>
+      <option selected>HARRISBURG</option>
+      <option>JACKSONVILLE</option>
+      <option>KANSAS CITY</option>
+      <option>LANDERS</option>
+      <option>MORRISVILLE</option>
+      <option>NORFOLK</option>
+      <option>PITTSBURGH</option>
+      <option>RICKENBACKER</option>
+      <option>ROSSVILLE</option>
+      <option>RUTHERFORD</option>
+      <option>ST LOUIS</option>
+      <option>TAYLOR</option>
+      <option>TOLEDO</option>
 
-   </div>
+     </select>
 
-   <div class="date" id="reportDate"></div>
+    </div>
 
-   <div class="status-progress">
+    <div class="status-progress">
 
-    <div class="status-progress-number">
-     <span id="count">0</span> / 28
+     <div class="status-progress-number">
+      <span id="count">0</span> / 28
+     </div>
+
     </div>
 
    </div>
 
+   <div class="progressbar">
+    <div class="fill" id="fill"></div>
+   </div>
+
+   <div class="progress-complete-message" id="completeMessage">
+    ✓ Daily inspection target complete
+   </div>
+
   </div>
 
-  <div class="progressbar">
-   <div class="fill" id="fill"></div>
+ </section>
+
+ <section class="card">
+
+  <div class="card-header-styled">
+   <h2>Tire Audits</h2>
   </div>
 
-  <div class="progress-complete-message" id="completeMessage">
-   ✓ Daily inspection target complete
+  <div class="card-body">
+
+   <div class="tire-audit-entry">
+
+    <div>
+
+     <label for="tireAuditTotal">Total Number of Audits</label>
+
+     <input
+      id="tireAuditTotal"
+      type="number"
+      min="0"
+      step="1"
+      inputmode="numeric"
+      placeholder="Enter total audits"
+     >
+
+    </div>
+
+   <div class="audit-notification" id="auditNotification" role="status">
+    ✓ Tire audits added successfully
+   </div>
+
+    <button id="addTireAudits" class="primary">
+     ADD AUDITS
+    </button>
+
+   </div>
+
   </div>
 
- </div>
+ </section>
 
-</section>
+</div>
 
+
+<!-- COLUMN 1: CHASSIS -->
 <section class="card">
 
  <div class="card-header-styled">
@@ -729,6 +839,9 @@ button.primary{
 
 </section>
 
+<!-- COLUMN 2: STACKED TERMINAL & TIRE AUDITS -->
+
+<!-- CONTAINERS -->
 <section class="card">
 
  <div class="card-header-styled">
@@ -816,6 +929,7 @@ button.primary{
 
 </section>
 
+<!-- CHASSIS RACKS -->
 <section class="card">
 
  <div class="card-header-styled">
@@ -1047,7 +1161,9 @@ const data={
   "5657":{
    "Pre-repair":[]
   }
- }
+ },
+
+ tireAudits:0
 
 };
 
@@ -1086,7 +1202,7 @@ function updatePrefixes(forceReset = false){
 
  const values=
   SPECIAL.includes(terminal.value)
-   ? [...BASE,...EXTRA]
+   ?[...BASE,...EXTRA]
    : BASE;
 
  prefix.innerHTML="";
@@ -1116,16 +1232,19 @@ function updatePrefixes(forceReset = false){
 
 }
 
-function total(){
+function inspectionTotal(){
 
  let n=0;
 
- Object.values(data).forEach(equipment=>{
+ ["chassis","containers","racks"].forEach(category=>{
 
-  Object.values(equipment).forEach(types=>{
+  Object.values(data[category]).forEach(types=>{
 
    Object.values(types).forEach(section=>{
-    n+=section.length;
+
+    if(Array.isArray(section))
+     n+=section.length;
+
    });
 
   });
@@ -1133,6 +1252,15 @@ function total(){
  });
 
  return n;
+
+}
+
+function total(){
+
+ const tireCredit=
+  Math.floor((Number(data.tireAudits)||0)/3);
+
+ return inspectionTotal()+tireCredit;
 
 }
 
@@ -1296,11 +1424,60 @@ function addRack(){
 
 }
 
+function addTireAudits(){
+
+ const input=
+  document.getElementById("tireAuditTotal");
+
+ const amount=
+  Number.parseInt(input.value,10);
+
+ if(!Number.isInteger(amount)||amount<0){
+
+  alert("Enter a whole number for the total tire audits.");
+
+  return;
+
+ }
+
+ data.tireAudits=amount;
+
+ input.value="";
+
+ const notification=
+  document.getElementById("auditNotification");
+
+ if(notification){
+
+  notification.textContent=
+   "✓ "+amount+
+   (amount===1
+    ?" tire audit added successfully"
+    :" tire audits added successfully");
+
+  notification.classList.add("show");
+
+  clearTimeout(window.auditNotificationTimer);
+
+  window.auditNotificationTimer=setTimeout(()=>{
+
+   notification.classList.remove("show");
+
+  },3000);
+
+ }
+
+ save();
+ progress();
+ render();
+
+}
+
 function allRecords(){
 
  const r=[];
 
- Object.keys(data).forEach(category=>{
+ ["chassis","containers","racks"].forEach(category=>{
 
   Object.keys(data[category]).forEach(type=>{
 
@@ -1431,6 +1608,8 @@ function editRow(row,r){
   ?["5652","5900","5658"]
   :isContainer
   ?["5653","5900","5658"]
+  :isRack
+  ?["5657"]
   :["5657"];
 
  const type=select(availableTypes,r.type);
@@ -1527,7 +1706,7 @@ function editRow(row,r){
   ){
 
    alert(
-    "Enter exactly 4 letters for the container prefix."
+    "Enter exactly 4 letters for the prefix."
    );
 
    return;
@@ -1765,6 +1944,13 @@ function buildEOD(){
   "Chassis Rack Numbers"
  );
 
+
+ out.push(
+  "Tire Audits: "+(Number(data.tireAudits)||0),
+  "Progress Credit: "+Math.floor((Number(data.tireAudits)||0)/3),
+  ""
+ );
+
  out.push(
   "("+total()+") TOTAL INSPECTIONS",
   ""
@@ -1870,19 +2056,21 @@ function resetForNewDay(confirmReset=true){
 
  }
 
- Object.keys(data).forEach(k=>{
+ ["chassis","containers","racks"].forEach(k=>{
 
   Object.keys(data[k]).forEach(t=>{
 
-   Object.keys(data[k][t]).forEach(s=>{
+   Object.keys(data[k][t]).forEach(section=>{
 
-    data[k][t][s].length=0;
+    data[k][t][section].length=0;
 
    });
 
   });
 
  });
+
+ data.tireAudits=0;
 
  localStorage.removeItem(STORAGE_KEY);
 
@@ -1919,22 +2107,22 @@ function restore(){
   saved.data
  ){
 
-  Object.keys(data).forEach(k=>{
+  ["chassis","containers","racks"].forEach(k=>{
 
    Object.keys(data[k]).forEach(t=>{
 
-    Object.keys(data[k][t]).forEach(s=>{
+    Object.keys(data[k][t]).forEach(section=>{
 
-     data[k][t][s].length=0;
+     data[k][t][section].length=0;
 
      if(
       saved.data[k] &&
       saved.data[k][t] &&
-      Array.isArray(saved.data[k][t][s])
+      Array.isArray(saved.data[k][t][section])
      ){
 
-      data[k][t][s].push(
-       ...saved.data[k][t][s]
+      data[k][t][section].push(
+       ...saved.data[k][t][section]
       );
 
      }
@@ -1944,6 +2132,11 @@ function restore(){
    });
 
   });
+
+  data.tireAudits=
+   Number.isInteger(saved.data.tireAudits)
+    ?saved.data.tireAudits
+    :0;
 
   terminal.value=
    saved.terminal||
@@ -1979,6 +2172,10 @@ document
 document
  .getElementById("addRackInspection")
  .onclick=addRack;
+
+document
+ .getElementById("addTireAudits")
+ .onclick=addTireAudits;
 
 document
  .getElementById("generateEod")
@@ -2054,6 +2251,8 @@ document
 
  };
 
+
+
 ["number","containerNumber","rackNumber"]
 .forEach(id=>{
 
@@ -2074,9 +2273,21 @@ document
    if(id==="rackNumber")
     addRack();
 
+
   };
 
 });
+
+document
+ .getElementById("tireAuditTotal")
+ .onkeydown=e=>{
+
+  if(e.key!=="Enter")return;
+
+  e.preventDefault();
+  addTireAudits();
+
+ };
 
 restore();
 
