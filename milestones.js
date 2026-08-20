@@ -1,6 +1,24 @@
 (()=>{
 "use strict";
 
+const STORAGE_KEY="eodInspectionReport_v9";
+const RELOAD_RESET_FLAG="eodInspectionReloadResetDone";
+
+const navigationEntry=performance.getEntriesByType("navigation")[0];
+const isReload=navigationEntry?.type==="reload";
+
+// A browser reload, including Ctrl+F5, starts a fresh EOD count.
+// The first pass clears saved inspections, then reloads once so index.html
+// initializes from zero instead of restoring the previous localStorage data.
+if(isReload&&sessionStorage.getItem(RELOAD_RESET_FLAG)!=="1"){
+ localStorage.removeItem(STORAGE_KEY);
+ sessionStorage.setItem(RELOAD_RESET_FLAG,"1");
+ window.location.reload();
+ return;
+}
+
+sessionStorage.removeItem(RELOAD_RESET_FLAG);
+
 const MILESTONES={
  7:{icon:"🎯",title:"25% COMPLETE!",subtitle:"7 / 28 INSPECTIONS",color:"#2196f3"},
  14:{icon:"🔥",title:"50% COMPLETE!",subtitle:"14 / 28 INSPECTIONS",color:"#8b5cf6"},
