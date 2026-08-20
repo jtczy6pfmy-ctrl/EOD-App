@@ -1181,8 +1181,27 @@ function addChassis(){
  const note=
   document.getElementById("equipmentNote").value.trim();
 
+ const chassisNumber=prefix.value+" "+num;
+
+ const duplicate=allRecords().some(record=>
+  record.category==="chassis" &&
+  record.number===chassisNumber
+ );
+
+ if(duplicate){
+
+  alert(
+   "Duplicate chassis detected:\n\n"+
+   chassisNumber+
+   "\n\nThis chassis has already been entered."
+  );
+
+  return;
+
+ }
+
  data.chassis[t][sectionFor(t)].push([
-  prefix.value+" "+num,
+  chassisNumber,
   c,
   note
  ]);
