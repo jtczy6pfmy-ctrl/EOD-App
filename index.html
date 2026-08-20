@@ -178,6 +178,7 @@ header{
 }
 
 /* SIDEBAR STACK FOR TERMINAL & TIRE AUDITS */
+
 .sidebar-stack{
  display:flex;
  flex-direction:column;
@@ -229,7 +230,6 @@ header{
  gap:12px;
  flex-grow:1;
 }
-
 
 .header-date{
  margin-left:auto;
@@ -354,7 +354,6 @@ textarea{
  display:block;
 }
 
-
 .tire-audit-entry{
  display:grid;
  grid-template-columns:1fr auto;
@@ -377,7 +376,6 @@ textarea{
   width:100%;
  }
 }
-
 
 .audit-notification{
  display:none;
@@ -545,6 +543,7 @@ button.primary{
 }
 
 /* FOOTER BRANDING */
+
 footer.app-footer {
  width: min(1000px, 100%);
  margin: 0 auto;
@@ -795,8 +794,8 @@ footer.app-footer {
 
 </div>
 
-
 <!-- COLUMN 1: CHASSIS -->
+
 <section class="card">
 
  <div class="card-header-styled">
@@ -880,9 +879,8 @@ footer.app-footer {
 
 </section>
 
-<!-- COLUMN 2: STACKED TERMINAL & TIRE AUDITS -->
-
 <!-- CONTAINERS -->
+
 <section class="card">
 
  <div class="card-header-styled">
@@ -971,6 +969,7 @@ footer.app-footer {
 </section>
 
 <!-- CHASSIS RACKS -->
+
 <section class="card">
 
  <div class="card-header-styled">
@@ -1116,9 +1115,21 @@ footer.app-footer {
 </main>
 
 <footer class="app-footer">
- <img src="95F8261B-1561-4991-8D78-41933EF608DF.PNG" class="footer-logo-img" alt="Mad Martian Studios Logo">
- <div class="footer-brand-text">MAD MARTIAN STUDIOS 2026</div>
- <div class="footer-brand-sub">DESIGN &bull; CODE &bull; BUILD &bull; HARRISBURG, PA</div>
+
+ <img
+  src="95F8261B-1561-4991-8D78-41933EF608DF.PNG"
+  class="footer-logo-img"
+  alt="Mad Martian Studios Logo"
+ >
+
+ <div class="footer-brand-text">
+  MAD MARTIAN STUDIOS 2026
+ </div>
+
+ <div class="footer-brand-sub">
+  DESIGN &bull; CODE &bull; BUILD &bull; HARRISBURG, PA
+ </div>
+
 </footer>
 
 <script>
@@ -1131,11 +1142,13 @@ const STORAGE_KEY="eodInspectionReport_v9";
 const TARGET=28;
 
 function formatDate(d=new Date()){
+
  return (
   (d.getMonth()+1)+"/"+
   d.getDate()+"/"+
   String(d.getFullYear()).slice(-2)
  );
+
 }
 
 const TODAY=formatDate(new Date());
@@ -1265,16 +1278,25 @@ function updatePrefixes(forceReset = false){
 
  });
 
- if (forceReset) {
-  prefix.selectedIndex = 0;
-  prefix.value = values[0];
- } else {
-  const current = prefix.value;
-  if (!values.includes(current)) {
-   prefix.selectedIndex = 0;
-  } else {
-   prefix.value = current;
+ if(forceReset){
+
+  prefix.selectedIndex=0;
+  prefix.value=values[0];
+
+ }else{
+
+  const current=prefix.value;
+
+  if(!values.includes(current)){
+
+   prefix.selectedIndex=0;
+
+  }else{
+
+   prefix.value=current;
+
   }
+
  }
 
 }
@@ -1991,7 +2013,6 @@ function buildEOD(){
   "Chassis Rack Numbers"
  );
 
-
  out.push(
   "Tire Audits: "+(Number(data.tireAudits)||0),
   "Progress Credit: "+Math.floor((Number(data.tireAudits)||0)/3),
@@ -2053,35 +2074,59 @@ function attemptClose(){
 
 }
 
+
+/* EMAIL RECIPIENTS */
+
 function email(){
 
- const report = buildEOD();
+ const report=buildEOD();
 
- // Set default recipients or leave blank if none for other locations
- let recipients = ""; 
+ const to="joe@caliberis.com";
 
- // Check if the selected terminal is CALUMET
- if (terminal.value === "CALUMET") {
-  recipients = "calumet-recipient1@example.com, calumet-recipient2@example.com";
+ const ccList=[
+  "dgeists@caliberis.com",
+  "jdoan@aspectassociates.com"
+ ];
+
+ // Additional CC recipients for CALUMET
+ if(terminal.value==="CALUMET"){
+
+  ccList.push(
+   "pjasinki@aspectassociates.com",
+   "tmitchell@aspectassociates.com",
+   "bstenson@aspectassociates.com",
+   "bkubinski@aspectassociates.com",
+   "dneubauer@aspectassociates.com",
+   "asanjuan@aspectassociates.com"
+  );
+
  }
 
- const subject =
-  "End of Day Report - " + terminal.value + " - " + TODAY;
- 
- const mailtoLink = 
-  "mailto:" + encodeURIComponent(recipients) +
-  "?subject=" + 
-  encodeURIComponent(subject) + 
-  "&body=" + 
+ const subject=
+  "End of Day Report - "+
+  terminal.value+
+  " - "+
+  TODAY;
+
+ const mailtoLink=
+  "mailto:"+
+  encodeURIComponent(to)+
+  "?cc="+
+  encodeURIComponent(ccList.join(","))+
+  "&subject="+
+  encodeURIComponent(subject)+
+  "&body="+
   encodeURIComponent(report);
 
- window.location.href = mailtoLink;
+ window.location.href=mailtoLink;
 
  localStorage.removeItem(STORAGE_KEY);
- 
+
  setTimeout(()=>{
+
   attemptClose();
- }, 1000);
+
+ },1000);
 
 }
 
@@ -2093,22 +2138,34 @@ document.getElementById("generateEod").onclick=generate;
 document.getElementById("emailEod").onclick=email;
 
 document.getElementById("editReport").onclick=()=>{
- document.getElementById("previewCard").classList.add("hidden");
+
+ document
+  .getElementById("previewCard")
+  .classList
+  .add("hidden");
+
 };
 
 terminal.onchange=()=>{
+
  updatePrefixes();
  save();
+
 };
 
 const saved=load();
 
 if(saved){
+
  terminal.value=saved.terminal||"HARRISBURG";
  notes.value=saved.notes||"";
+
  if(saved.data){
+
   Object.assign(data,saved.data);
+
  }
+
 }
 
 updatePrefixes();
@@ -2120,5 +2177,6 @@ document.getElementById("reportDate").textContent=TODAY;
 })();
 
 </script>
+
 </body>
 </html>
