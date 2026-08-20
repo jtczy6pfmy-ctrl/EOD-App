@@ -1,4 +1,4 @@
-const CACHE_NAME="eod-inspection-v13";
+const CACHE_NAME="eod-inspection-v14";
 
 self.addEventListener("install",event=>{
  event.waitUntil(self.skipWaiting());
