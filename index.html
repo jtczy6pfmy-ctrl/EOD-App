@@ -79,8 +79,6 @@ header{
  box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
-/* LOCK ICON + TITLE TOGETHER */
-
 .header-inner{
  display:flex !important;
  flex-direction:row !important;
@@ -1104,8 +1102,6 @@ function updatePrefixes(forceReset = false){
 
  });
 
- // Completely force the selection back to the first option (NSPZ) 
- // whenever forced or if values changed.
  if (forceReset) {
   prefix.selectedIndex = 0;
   prefix.value = values[0];
@@ -1196,7 +1192,7 @@ function addChassis(){
  document.getElementById("condition").selectedIndex=0;
  document.getElementById("type").selectedIndex=0;
  
- updatePrefixes(true); // Forces dropdown to safely reset back to NSPZ
+ updatePrefixes(true);
 
  save();
  progress();
