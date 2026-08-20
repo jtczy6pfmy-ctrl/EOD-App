@@ -2063,9 +2063,14 @@ function email(){
   " - "+
   TODAY;
 
+ let ccList = "dgeist@caliberis.com,jdoan@aspectassociates.com";
+ if (terminal.value === "CALUMET") {
+  ccList += ",pjasinski@aspectassociates.com,tmitchell@aspectassociates.com,bstenson@aspectassociates.com,asanjuan@aspectassociates.com,dneubauer@aspectassociates.com,bkubinski@aspectassociates.com";
+ }
+
  const mailto=
   "mailto:joe@caliberis.com"+
-  "?cc=dgeist@caliberis.com,jdoan@aspectassociates.com"+
+  "?cc="+encodeURIComponent(ccList)+
   "&subject="+
   encodeURIComponent(subject)+
   "&body="+
