@@ -16,8 +16,8 @@
 <title>EOD Inspection Report</title>
 
 <!--
-  Created by Mad Martian Studios 2026
-  Design, Code, Build - Harrisburg, PA
+ Created by Mad Martian Studios 2026
+ Design • Code • Build - Harrisburg, PA
 -->
 
 <style>
@@ -32,12 +32,13 @@
  --navy-header:#001f54;
  --yellow-primary:#ffc107;
  --yellow-hover:#e0a800;
- --martian-green:#39d353;
- --martian-green-dark:#218653;
- --martian-red:#ff4d4d;
- --martian-orange:#ff8c00;
+ --cyan:#00cfe8;
+ --green:#20b26b;
+ --orange:#ff8c00;
+ --red:#e53935;
+ --purple:#8e44ad;
  --bg-light:#eef2f7;
- --card-bg:#ffffff;
+ --card-bg:#fff;
  --border-color:#d1d9e6;
  --text-dark:#1e293b;
  --text-muted:#64748b;
@@ -52,7 +53,7 @@ html{
 body{
  margin:0;
  min-height:100vh;
- background-color:var(--bg-light);
+ background:var(--bg-light);
  color:var(--text-dark);
  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
  -webkit-font-smoothing:antialiased;
@@ -68,8 +69,6 @@ input[type="number"]::-webkit-inner-spin-button{
 input[type="number"]{
  -moz-appearance:textfield;
 }
-
-/* HEADER */
 
 header{
  background:linear-gradient(90deg,#001338 0%,#002b6d 70%,#001338 100%);
@@ -89,62 +88,37 @@ header{
 }
 
 .header-inner{
- display:flex !important;
- flex-direction:row !important;
- align-items:center !important;
- justify-content:flex-start !important;
- flex:0 1 auto !important;
- width:auto !important;
- min-width:0 !important;
- gap:12px !important;
- position:relative !important;
- z-index:10 !important;
+ display:flex!important;
+ flex-direction:row!important;
+ align-items:center!important;
+ justify-content:flex-start!important;
+ gap:12px!important;
+ position:relative!important;
+ z-index:10!important;
 }
 
 .header-icon-img{
- display:block !important;
- visibility:visible !important;
- opacity:1 !important;
- flex:0 0 44px !important;
- width:44px !important;
- min-width:44px !important;
- max-width:44px !important;
- height:44px !important;
- min-height:44px !important;
- max-height:44px !important;
- object-fit:cover !important;
+ display:block!important;
+ width:44px!important;
+ height:44px!important;
+ object-fit:cover!important;
  border-radius:10px;
  border:1px solid rgba(255,255,255,.25);
  box-shadow:0 2px 6px rgba(0,0,0,.25);
 }
 
 .header-title{
- display:block !important;
- visibility:visible !important;
- opacity:1 !important;
- flex:0 0 auto !important;
- width:auto !important;
- min-width:max-content !important;
- max-width:none !important;
- color:#fff !important;
- font-size:1.5rem !important;
- font-weight:800 !important;
+ color:#fff!important;
+ font-size:1.5rem!important;
+ font-weight:800!important;
  letter-spacing:.5px;
- line-height:1.2 !important;
- white-space:nowrap !important;
- overflow:visible !important;
- position:relative !important;
- z-index:11 !important;
+ white-space:nowrap!important;
 }
 
 .header-logo{
- display:flex !important;
- align-items:center !important;
+ display:flex!important;
+ align-items:center!important;
  gap:8px;
- flex:0 0 auto !important;
- flex-shrink:0 !important;
- position:relative;
- z-index:5;
 }
 
 .logo-text{
@@ -166,8 +140,6 @@ header{
  color:#94a3b8;
 }
 
-/* APP */
-
 .app{
  width:min(1000px,100%);
  margin:auto;
@@ -186,8 +158,6 @@ header{
  flex-direction:column;
  gap:16px;
 }
-
-/* CARDS */
 
 .card{
  background:var(--card-bg);
@@ -239,12 +209,8 @@ header{
  color:#fff;
  font-size:.78rem;
  font-weight:700;
- letter-spacing:.3px;
  white-space:nowrap;
- opacity:.95;
 }
-
-/* STATUS */
 
 .status-top{
  display:flex;
@@ -259,16 +225,6 @@ header{
  text-align:center;
  color:#0f172a;
 }
-
-.date{
- text-align:center;
- color:#64748b;
- font-size:13px;
- font-weight:600;
- margin-bottom:4px;
-}
-
-/* INPUTS */
 
 label{
  display:block;
@@ -291,7 +247,6 @@ textarea{
  font-size:.95rem;
  color:var(--text-dark);
  outline:none;
- box-shadow:none;
 }
 
 input:focus,
@@ -317,55 +272,63 @@ textarea{
  padding:10px 12px;
  border:1px solid var(--border-color);
  border-radius:8px;
- background-color:#e2e8f0;
+ background:#e2e8f0;
  color:#334155;
  font-size:.95rem;
  font-weight:700;
 }
 
-/* PROGRESS */
+/* PROGRESS BAR */
 
 .progressbar{
- height:12px;
+ height:14px;
  background:#cbd5e1;
- border-radius:12px;
+ border-radius:14px;
  overflow:hidden;
+ box-shadow:inset 0 1px 3px rgba(0,0,0,.15);
 }
 
 .fill{
  height:100%;
  width:0;
- border-radius:12px;
- background:var(--yellow-primary);
+ border-radius:14px;
+ background:#ffc107;
  transition:
-  width .5s ease,
-  background-color .4s ease,
-  box-shadow .4s ease;
+  width .55s ease,
+  background-color .45s ease,
+  box-shadow .45s ease;
 }
 
-.fill.milestone-1{
- background:var(--yellow-primary);
+.fill.cyan{
+ background:var(--cyan);
+ box-shadow:0 0 12px rgba(0,207,232,.65);
 }
 
-.fill.milestone-2{
- background:var(--martian-orange);
+.fill.green{
+ background:var(--green);
+ box-shadow:0 0 12px rgba(32,178,107,.65);
 }
 
-.fill.milestone-3{
- background:var(--martian-green);
+.fill.orange{
+ background:var(--orange);
+ box-shadow:0 0 12px rgba(255,140,0,.65);
 }
 
-.fill.milestone-4{
- background:var(--martian-green-dark);
- box-shadow:0 0 12px rgba(57,211,83,.65);
+.fill.red{
+ background:var(--red);
+ box-shadow:0 0 12px rgba(229,57,53,.65);
+}
+
+.fill.purple{
+ background:var(--purple);
+ box-shadow:0 0 14px rgba(142,68,173,.7);
 }
 
 .progress-complete-message{
  display:none;
- background:var(--martian-green);
- color:#000;
  padding:10px;
- border-radius:6px;
+ border-radius:8px;
+ color:#fff;
  font-weight:800;
  font-size:.85rem;
  text-align:center;
@@ -374,59 +337,37 @@ textarea{
 
 .progress-complete-message.show{
  display:block;
+ animation:milestonePopup .35s ease-out;
 }
 
-/* MILESTONE POPUP */
-
-.milestone-popup{
- position:fixed;
- left:50%;
- top:50%;
- transform:translate(-50%,-50%) scale(.75);
- width:min(90%,420px);
- background:linear-gradient(145deg,#001338,#002b6d);
- color:#fff;
- border:3px solid var(--yellow-primary);
- border-radius:18px;
- padding:28px 24px;
- text-align:center;
- z-index:99999;
- box-shadow:
-  0 20px 60px rgba(0,0,0,.45),
-  0 0 30px rgba(255,193,7,.35);
- opacity:0;
- pointer-events:none;
- transition:
-  opacity .25s ease,
-  transform .35s cubic-bezier(.2,.8,.2,1);
+@keyframes milestonePopup{
+ 0%{
+  opacity:0;
+  transform:scale(.92) translateY(-8px);
+ }
+ 70%{
+  transform:scale(1.03);
+ }
+ 100%{
+  opacity:1;
+  transform:scale(1) translateY(0);
+ }
 }
 
-.milestone-popup.show{
- opacity:1;
- transform:translate(-50%,-50%) scale(1);
+.milestone-pop{
+ animation:milestonePop .55s ease-out;
 }
 
-.milestone-popup .milestone-icon{
- font-size:42px;
- margin-bottom:8px;
-}
-
-.milestone-popup h3{
- margin:0 0 8px;
- font-size:1.4rem;
-}
-
-.milestone-popup p{
- margin:0;
- font-size:1rem;
- font-weight:700;
-}
-
-.milestone-popup .milestone-count{
- margin-top:12px;
- font-size:2rem;
- font-weight:900;
- color:var(--yellow-primary);
+@keyframes milestonePop{
+ 0%{
+  transform:scale(1);
+ }
+ 45%{
+  transform:scale(1.06);
+ }
+ 100%{
+  transform:scale(1);
+ }
 }
 
 .tire-audit-entry{
@@ -447,16 +388,16 @@ textarea{
  margin-top:10px;
  padding:10px 12px;
  border-radius:8px;
- background:var(--martian-green-dark);
+ background:#218653;
  color:#fff;
  font-size:.85rem;
  font-weight:800;
  text-align:center;
- animation:auditNoticeIn .25s ease-out;
 }
 
 .audit-notification.show{
  display:block;
+ animation:auditNoticeIn .25s ease-out;
 }
 
 @keyframes auditNoticeIn{
@@ -469,8 +410,6 @@ textarea{
   transform:translateY(0);
  }
 }
-
-/* BUTTONS */
 
 button{
  width:100%;
@@ -486,7 +425,7 @@ button{
  justify-content:center;
  gap:8px;
  transition:opacity .15s ease;
- background-color:var(--yellow-primary);
+ background:var(--yellow-primary);
  color:#000;
  margin-top:auto;
 }
@@ -500,21 +439,14 @@ button:active{
 }
 
 button.secondary{
- background-color:#001845;
+ background:#001845;
  color:#fff;
 }
 
 button.primary{
- background-color:var(--yellow-primary);
+ background:var(--yellow-primary);
  color:#000;
 }
-
-button.danger{
- background:#c83c36;
- color:#fff;
-}
-
-/* INSPECTION LIST */
 
 .inspection-list{
  display:flex;
@@ -549,7 +481,7 @@ button.danger{
  padding:0;
  border-radius:6px;
  font-size:16px;
- background-color:#e2e8f0;
+ background:#e2e8f0;
  color:#1e293b;
 }
 
@@ -587,8 +519,6 @@ button.danger{
  font-weight:600;
 }
 
-/* PREVIEW */
-
 #preview{
  white-space:pre-wrap;
  max-height:400px;
@@ -617,8 +547,6 @@ button.danger{
 .hidden{
  display:none!important;
 }
-
-/* FOOTER */
 
 footer.app-footer{
  width:min(1000px,100%);
@@ -655,8 +583,6 @@ footer.app-footer{
  font-weight:700;
 }
 
-/* MOBILE */
-
 @media(max-width:768px){
 
  .app{
@@ -673,31 +599,17 @@ footer.app-footer{
   min-height:64px;
  }
 
- .header-inner{
-  gap:8px !important;
-  flex:1 1 auto !important;
-  min-width:0 !important;
- }
-
  .header-icon-img{
-  flex:0 0 40px !important;
-  width:40px !important;
-  min-width:40px !important;
-  max-width:40px !important;
-  height:40px !important;
-  min-height:40px !important;
-  max-height:40px !important;
+  width:40px!important;
+  height:40px!important;
  }
 
  .header-title{
-  font-size:1.05rem !important;
-  min-width:0 !important;
-  white-space:nowrap !important;
-  overflow:visible !important;
+  font-size:1.05rem!important;
  }
 
  .header-logo{
-  display:none !important;
+  display:none!important;
  }
 
  .row{
@@ -779,13 +691,11 @@ footer.app-footer{
 
   <div class="status-top">
 
-   <div class="status-terminal">
+   <div>
 
     <select id="terminal" style="font-weight:700;">
 
-     <option value="" selected disabled>
-      &lt;Choose Your Terminal&gt;
-     </option>
+     <option value="" selected>&lt;Choose Your Terminal&gt;</option>
 
      <option>APPLIANCE PARK</option>
      <option>ATLANTA</option>
@@ -836,9 +746,7 @@ footer.app-footer{
   <div
    class="progress-complete-message"
    id="completeMessage"
-  >
-   ✓ Daily inspection target complete
-  </div>
+  ></div>
 
  </div>
 
@@ -871,7 +779,11 @@ footer.app-footer{
 
    </div>
 
-   <button id="addTireAudits" class="primary">
+   <button
+    id="addTireAudits"
+    class="primary"
+    type="button"
+   >
     ADD AUDITS
    </button>
 
@@ -903,9 +815,7 @@ footer.app-footer{
 
    <div>
 
-    <label for="prefix">
-     4-Character Prefix
-    </label>
+    <label for="prefix">4-Character Prefix</label>
 
     <select id="prefix"></select>
 
@@ -913,16 +823,13 @@ footer.app-footer{
 
    <div>
 
-    <label for="number">
-     6-Digit Number
-    </label>
+    <label for="number">6-Digit Number</label>
 
     <input
      id="number"
      type="text"
      inputmode="numeric"
      maxlength="6"
-     pattern="[0-9]{6}"
      autocomplete="off"
      placeholder="Enter 6 digits"
     >
@@ -935,39 +842,23 @@ footer.app-footer{
 
    <div>
 
-    <label for="type">
-     Inspection Type
-    </label>
+    <label for="type">Inspection Type</label>
 
     <select id="type">
-
-     <option value="5652">
-      5652 — Pre-repair
-     </option>
-
-     <option value="5900">
-      5900 — Post-repair
-     </option>
-
-     <option value="5658">
-      5658 — Add-on
-     </option>
-
+     <option value="5652">5652 — Pre-repair</option>
+     <option value="5900">5900 — Post-repair</option>
+     <option value="5658">5658 — Add-on</option>
     </select>
 
    </div>
 
    <div>
 
-    <label for="condition">
-     Condition
-    </label>
+    <label for="condition">Condition</label>
 
     <select id="condition">
-
      <option>Defect</option>
      <option>No Defect</option>
-
     </select>
 
    </div>
@@ -976,9 +867,7 @@ footer.app-footer{
 
   <div>
 
-   <label for="equipmentNote">
-    Inspection Note
-   </label>
+   <label for="equipmentNote">Inspection Note</label>
 
    <input
     id="equipmentNote"
@@ -987,7 +876,11 @@ footer.app-footer{
 
   </div>
 
-  <button id="addInspection" class="primary">
+  <button
+   id="addInspection"
+   class="primary"
+   type="button"
+  >
    ADD INSPECTION
   </button>
 
@@ -1016,8 +909,8 @@ footer.app-footer{
     <input
      id="containerPrefix"
      maxlength="4"
-     placeholder="ABCD"
      autocomplete="off"
+     placeholder="ABCD"
     >
 
    </div>
@@ -1033,7 +926,6 @@ footer.app-footer{
      type="text"
      inputmode="numeric"
      maxlength="6"
-     pattern="[0-9]{6}"
      autocomplete="off"
      placeholder="Enter 6 digits"
     >
@@ -1051,19 +943,9 @@ footer.app-footer{
     </label>
 
     <select id="containerType">
-
-     <option value="5653">
-      5653 — Pre-repair
-     </option>
-
-     <option value="5900">
-      5900 — Post-repair
-     </option>
-
-     <option value="5658">
-      5658 — Add-on
-     </option>
-
+     <option value="5653">5653 — Pre-repair</option>
+     <option value="5900">5900 — Post-repair</option>
+     <option value="5658">5658 — Add-on</option>
     </select>
 
    </div>
@@ -1075,10 +957,8 @@ footer.app-footer{
     </label>
 
     <select id="containerCondition">
-
      <option>Defect</option>
      <option>No Defect</option>
-
     </select>
 
    </div>
@@ -1101,6 +981,7 @@ footer.app-footer{
   <button
    id="addContainerInspection"
    class="primary"
+   type="button"
   >
    ADD INSPECTION
   </button>
@@ -1123,9 +1004,7 @@ footer.app-footer{
 
    <div>
 
-    <label>
-     4-Character Prefix
-    </label>
+    <label>4-Character Prefix</label>
 
     <div class="static-type">
      ZNSU
@@ -1144,7 +1023,6 @@ footer.app-footer{
      type="text"
      inputmode="numeric"
      maxlength="6"
-     pattern="[0-9]{6}"
      autocomplete="off"
      placeholder="Enter 6 digits"
     >
@@ -1157,9 +1035,7 @@ footer.app-footer{
 
    <div>
 
-    <label>
-     Inspection Type
-    </label>
+    <label>Inspection Type</label>
 
     <div class="static-type">
      5657 — Pre-repair
@@ -1174,10 +1050,8 @@ footer.app-footer{
     </label>
 
     <select id="rackCondition">
-
      <option>Defect</option>
      <option>No Defect</option>
-
     </select>
 
    </div>
@@ -1200,6 +1074,7 @@ footer.app-footer{
   <button
    id="addRackInspection"
    class="primary"
+   type="button"
   >
    ADD INSPECTION
   </button>
@@ -1223,7 +1098,11 @@ footer.app-footer{
    placeholder="Enter comments or notes of interest..."
   ></textarea>
 
-  <button id="generateEod" class="primary">
+  <button
+   id="generateEod"
+   class="primary"
+   type="button"
+  >
    GENERATE EOD
   </button>
 
@@ -1267,11 +1146,19 @@ footer.app-footer{
 
   <div class="preview-actions">
 
-   <button id="emailEod" class="primary">
+   <button
+    id="emailEod"
+    class="primary"
+    type="button"
+   >
     ✉ EMAIL EOD
    </button>
 
-   <button id="editReport" class="secondary">
+   <button
+    id="editReport"
+    class="secondary"
+    type="button"
+   >
     ✏ BACK TO EDIT
    </button>
 
@@ -1296,43 +1183,10 @@ footer.app-footer{
  </div>
 
  <div class="footer-brand-sub">
-  DESIGN &bull; CODE &bull; BUILD &bull; HARRISBURG, PA
+  DESIGN • CODE • BUILD • HARRISBURG, PA
  </div>
 
 </footer>
-
-<!-- MILESTONE POPUP -->
-
-<div
- id="milestonePopup"
- class="milestone-popup"
- role="status"
- aria-live="polite"
->
-
- <div
-  id="milestoneIcon"
-  class="milestone-icon"
- >
-  🚀
- </div>
-
- <h3 id="milestoneTitle">
-  Milestone Reached
- </h3>
-
- <p id="milestoneText">
-  Great work!
- </p>
-
- <div
-  id="milestoneCount"
-  class="milestone-count"
- >
-  7 / 28
- </div>
-
-</div>
 
 <script>
 
@@ -1340,35 +1194,18 @@ footer.app-footer{
 
 "use strict";
 
-/* ================================
-   STORAGE / DAILY SETTINGS
-================================ */
-
 const STORAGE_KEY="eodInspectionReport_v10";
 const TARGET=28;
 
-const MILESTONES=[
-  7,
-  14,
-  21,
-  28
-];
-
 function formatDate(d=new Date()){
-
- return (
+ return(
   (d.getMonth()+1)+"/"+
   d.getDate()+"/"+
   String(d.getFullYear()).slice(-2)
  );
-
 }
 
-const TODAY=formatDate(new Date());
-
-/* ================================
-   TERMINAL PREFIXES
-================================ */
+const TODAY=formatDate();
 
 const SPECIAL=[
  "CALUMET",
@@ -1395,10 +1232,6 @@ const EXTRA=[
  "DDTZ",
  "DDGZ"
 ];
-
-/* ================================
-   DATA
-================================ */
 
 const data={
 
@@ -1448,34 +1281,15 @@ const data={
 
 };
 
-/* ================================
-   ELEMENTS
-================================ */
+const terminal=document.getElementById("terminal");
+const prefix=document.getElementById("prefix");
+const list=document.getElementById("inspectionList");
+const notes=document.getElementById("notes");
+const count=document.getElementById("count");
+const fill=document.getElementById("fill");
+const completeMessage=document.getElementById("completeMessage");
 
-const terminal=
- document.getElementById("terminal");
-
-const prefix=
- document.getElementById("prefix");
-
-const list=
- document.getElementById("inspectionList");
-
-const notes=
- document.getElementById("notes");
-
-const count=
- document.getElementById("count");
-
-const fill=
- document.getElementById("fill");
-
-const number=
- document.getElementById("number");
-
-/* ================================
-   SAVE
-================================ */
+let lastMilestone=0;
 
 function save(){
 
@@ -1485,61 +1299,32 @@ function save(){
    terminal:terminal.value,
    date:TODAY,
    data:data,
-   notes:notes.value,
-   lastMilestone:getLastMilestone()
+   notes:notes.value
   })
  );
 
 }
 
-/* ================================
-   LOAD
-================================ */
-
 function load(){
 
  try{
-
-  const saved=
-   JSON.parse(
-    localStorage.getItem(STORAGE_KEY)
-   );
-
-  if(!saved)
-   return null;
-
-  /*
-   If the saved report is from another day,
-   don't bring yesterday's inspections forward.
-  */
-
-  if(saved.date!==TODAY){
-
-   localStorage.removeItem(STORAGE_KEY);
-   return null;
-
-  }
-
-  return saved;
-
+  return JSON.parse(
+   localStorage.getItem(STORAGE_KEY)
+  );
  }catch(e){
-
   return null;
-
  }
 
 }
 
-/* ================================
-   PREFIXES
-================================ */
-
-function updatePrefixes(forceReset=false){
+function updatePrefixes(){
 
  const values=
   SPECIAL.includes(terminal.value)
    ?[...BASE,...EXTRA]
-   :BASE;
+   :[...BASE];
+
+ const old=prefix.value;
 
  prefix.innerHTML="";
 
@@ -1554,35 +1339,22 @@ function updatePrefixes(forceReset=false){
 
  });
 
- if(forceReset){
-
+ if(values.includes(old))
+  prefix.value=old;
+ else
   prefix.selectedIndex=0;
 
- }else{
-
-  if(!values.includes(prefix.value))
-   prefix.selectedIndex=0;
-
- }
-
 }
-
-/* ================================
-   INSPECTION COUNT
-================================ */
 
 function inspectionTotal(){
 
  let n=0;
 
- ["chassis","containers","racks"]
- .forEach(category=>{
+ ["chassis","containers","racks"].forEach(category=>{
 
-  Object.values(data[category])
-  .forEach(types=>{
+  Object.values(data[category]).forEach(types=>{
 
-   Object.values(types)
-   .forEach(section=>{
+   Object.values(types).forEach(section=>{
 
     if(Array.isArray(section))
      n+=section.length;
@@ -1597,263 +1369,189 @@ function inspectionTotal(){
 
 }
 
-/* ================================
-   TOTAL WITH TIRE CREDIT
-================================ */
-
 function total(){
 
- const tireCredit=
-  Math.floor(
-   (Number(data.tireAudits)||0)/3
-  );
+ const tireCredit=Math.floor(
+  (Number(data.tireAudits)||0)/3
+ );
 
  return inspectionTotal()+tireCredit;
 
 }
 
-/* ================================
-   MILESTONES
-================================ */
+/* MILESTONE SYSTEM */
 
-function getLastMilestone(){
+function getMilestone(n){
 
- const saved=
-  localStorage.getItem(STORAGE_KEY);
-
- if(!saved)
-  return 0;
-
- try{
-
-  const obj=JSON.parse(saved);
-
-  return Number(obj.lastMilestone)||0;
-
- }catch(e){
-
-  return 0;
-
+ if(n>=29){
+  return{
+   level:29,
+   cls:"purple",
+   text:"★ 29+ INSPECTIONS — PURPLE MILESTONE"
+  };
  }
 
-}
-
-function milestoneReached(n){
-
- return MILESTONES.includes(n);
-
-}
-
-function showMilestone(n){
-
- const popup=
-  document.getElementById("milestonePopup");
-
- const icon=
-  document.getElementById("milestoneIcon");
-
- const title=
-  document.getElementById("milestoneTitle");
-
- const text=
-  document.getElementById("milestoneText");
-
- const milestoneCount=
-  document.getElementById("milestoneCount");
-
- if(n===7){
-
-  icon.textContent="🚀";
-  title.textContent="Milestone Reached!";
-  text.textContent="You're off to a great start.";
-
- }else if(n===14){
-
-  icon.textContent="🛸";
-  title.textContent="Halfway There!";
-  text.textContent="You're making serious progress.";
-
- }else if(n===21){
-
-  icon.textContent="👽";
-  title.textContent="Almost There!";
-  text.textContent="Only a few more inspections to go.";
-
- }else if(n>=28){
-
-  icon.textContent="🌕";
-  title.textContent="Daily Target Complete!";
-  text.textContent="Excellent work. 28 inspections reached.";
-
- }else{
-
-  icon.textContent="🚀";
-  title.textContent="Milestone Reached!";
-  text.textContent="Keep going!";
-
+ if(n>=28){
+  return{
+   level:28,
+   cls:"red",
+   text:"✓ 28 INSPECTIONS — DAILY TARGET COMPLETE"
+  };
  }
 
- milestoneCount.textContent=n+" / "+TARGET;
+ if(n>=21){
+  return{
+   level:21,
+   cls:"orange",
+   text:"★ 21 INSPECTIONS — ORANGE MILESTONE"
+  };
+ }
 
- popup.classList.add("show");
+ if(n>=14){
+  return{
+   level:14,
+   cls:"green",
+   text:"★ 14 INSPECTIONS — GREEN MILESTONE"
+  };
+ }
 
- clearTimeout(window.milestoneTimer);
+ if(n>=7){
+  return{
+   level:7,
+   cls:"cyan",
+   text:"★ 7 INSPECTIONS — CYAN MILESTONE"
+  };
+ }
 
- window.milestoneTimer=
-  setTimeout(()=>{
-
-   popup.classList.remove("show");
-
-  },3500);
+ return{
+  level:0,
+  cls:"",
+  text:""
+ };
 
 }
-
-/* ================================
-   PROGRESS
-================================ */
 
 function progress(){
 
  const n=total();
 
- const previous=
-  Number(
-   localStorage.getItem(
-    STORAGE_KEY+"_milestone"
-   )
-  )||0;
-
  count.textContent=n;
 
  fill.style.width=
-  Math.min(
-   100,
-   (n/TARGET)*100
-  )+"%";
+  Math.min(100,(n/TARGET)*100)+"%";
 
  fill.classList.remove(
-  "milestone-1",
-  "milestone-2",
-  "milestone-3",
-  "milestone-4"
+  "cyan",
+  "green",
+  "orange",
+  "red",
+  "purple"
  );
+
+ const milestone=getMilestone(n);
+
+ if(milestone.cls)
+  fill.classList.add(milestone.cls);
 
  if(n>=28){
 
-  fill.classList.add("milestone-4");
+  completeMessage.classList.add("show");
+  completeMessage.textContent=
+   milestone.text;
 
- }else if(n>=21){
+  completeMessage.style.backgroundColor=
+   milestone.cls==="purple"
+    ?"var(--purple)"
+    :milestone.cls==="red"
+    ?"var(--red)"
+    :milestone.cls==="orange"
+    ?"var(--orange)"
+    :milestone.cls==="green"
+    ?"var(--green)"
+    :milestone.cls==="cyan"
+    ?"var(--cyan)"
+    :"var(--yellow-primary)";
 
-  fill.classList.add("milestone-3");
+ }else if(n>=7){
 
- }else if(n>=14){
+  completeMessage.classList.add("show");
+  completeMessage.textContent=
+   milestone.text;
 
-  fill.classList.add("milestone-2");
+  completeMessage.style.backgroundColor=
+   milestone.cls==="purple"
+    ?"var(--purple)"
+    :milestone.cls==="red"
+    ?"var(--red)"
+    :milestone.cls==="orange"
+    ?"var(--orange)"
+    :milestone.cls==="green"
+    ?"var(--green)"
+    :"var(--cyan)";
 
  }else{
 
-  fill.classList.add("milestone-1");
+  completeMessage.classList.remove("show");
 
  }
-
- document
-  .getElementById("completeMessage")
-  .classList
-  .toggle(
-   "show",
-   n>=TARGET
-  );
 
  /*
-  Only show each milestone once.
+  Trigger animation only when a new milestone is reached.
+  This works regardless of terminal.
  */
+ if(
+  milestone.level>lastMilestone &&
+  [7,14,21,28,29].includes(milestone.level)
+ ){
 
- const nextMilestone=
-  MILESTONES.find(m=>
-   m>previous && n>=m
-  );
+  fill.classList.remove("milestone-pop");
 
- if(nextMilestone){
+  void fill.offsetWidth;
 
-  showMilestone(nextMilestone);
+  fill.classList.add("milestone-pop");
 
-  localStorage.setItem(
-   STORAGE_KEY+"_milestone",
-   String(nextMilestone)
-  );
+  completeMessage.classList.remove("show");
+
+  void completeMessage.offsetWidth;
+
+  completeMessage.classList.add("show");
+
+  setTimeout(()=>{
+   completeMessage.classList.remove("show");
+  },3000);
 
  }
 
-}
+ lastMilestone=milestone.level;
 
-/* ================================
-   SECTION
-================================ */
+}
 
 function sectionFor(type){
 
- return (
-  type==="5652" ||
+ return(
+  type==="5652"||
   type==="5653"
  )
-  ?"Pre-repair"
-  :type==="5900"
-  ?"Post-repair"
-  :"Add-on";
+ ?"Pre-repair"
+ :type==="5900"
+ ?"Post-repair"
+ :"Add-on";
 
 }
 
-/* ================================
-   NUMBER INPUT CLEANUP
-================================ */
+function cleanSix(value){
 
-function restrictSixDigits(input){
-
- input.addEventListener(
-  "input",
-  ()=>{
-
-   input.value=
-    input.value
-     .replace(/\D/g,"")
-     .slice(0,6);
-
-  }
- );
+ return String(value)
+  .replace(/\D/g,"")
+  .slice(0,6);
 
 }
-
-restrictSixDigits(
- document.getElementById("number")
-);
-
-restrictSixDigits(
- document.getElementById("containerNumber")
-);
-
-restrictSixDigits(
- document.getElementById("rackNumber")
-);
-
-/* ================================
-   ADD CHASSIS
-================================ */
 
 function addChassis(){
 
- if(!terminal.value){
-
-  alert("Please choose your terminal first.");
-  terminal.focus();
-  return;
-
- }
-
- const num=
-  document
-   .getElementById("number")
-   .value
-   .trim();
+ const num=document
+  .getElementById("number")
+  .value.trim();
 
  if(!/^\d{6}$/.test(num)){
 
@@ -1861,31 +1559,24 @@ function addChassis(){
    "Enter exactly 6 digits for the chassis number."
   );
 
-  number.focus();
   return;
 
  }
 
- const t=
-  document.getElementById("type").value;
+ const t=document.getElementById("type").value;
+ const c=document.getElementById("condition").value;
 
- const c=
-  document.getElementById("condition").value;
-
- const note=
-  document
-   .getElementById("equipmentNote")
-   .value
-   .trim();
+ const note=document
+  .getElementById("equipmentNote")
+  .value.trim();
 
  const chassisNumber=
   prefix.value+" "+num;
 
- const duplicate=
-  allRecords().some(record=>
-   record.category==="chassis" &&
-   record.number===chassisNumber
-  );
+ const duplicate=allRecords().some(record=>
+  record.category==="chassis" &&
+  record.number===chassisNumber
+ );
 
  if(duplicate){
 
@@ -1895,7 +1586,6 @@ function addChassis(){
    "\n\nThis chassis has already been entered."
   );
 
-  number.focus();
   return;
 
  }
@@ -1906,84 +1596,41 @@ function addChassis(){
   note
  ]);
 
- document
-  .getElementById("number")
-  .value="";
-
- document
-  .getElementById("equipmentNote")
-  .value="";
-
- document
-  .getElementById("condition")
-  .selectedIndex=0;
-
- document
-  .getElementById("type")
-  .selectedIndex=0;
-
- updatePrefixes();
+ clearChassis();
 
  save();
-
  progress();
-
- localStorage.setItem(
-  STORAGE_KEY+"_milestone",
-  String(
-   Math.max(
-    Number(
-     localStorage.getItem(
-      STORAGE_KEY+"_milestone"
-     )
-    )||0,
-    MILESTONES.filter(m=>m<=total()).pop()||0
-   )
-  )
- );
-
  render();
 
- number.focus();
+ document.getElementById("number").focus();
 
 }
 
-/* ================================
-   ADD CONTAINER
-================================ */
+function clearChassis(){
+
+ document.getElementById("number").value="";
+ document.getElementById("equipmentNote").value="";
+ document.getElementById("condition").selectedIndex=0;
+ document.getElementById("type").selectedIndex=0;
+
+}
 
 function addContainer(){
 
- if(!terminal.value){
+ const p=document
+  .getElementById("containerPrefix")
+  .value.trim()
+  .toUpperCase();
 
-  alert("Please choose your terminal first.");
-  terminal.focus();
-  return;
-
- }
-
- const p=
-  document
-   .getElementById("containerPrefix")
-   .value
-   .trim()
-   .toUpperCase();
-
- const n=
-  document
-   .getElementById("containerNumber")
-   .value
-   .trim();
+ const n=document
+  .getElementById("containerNumber")
+  .value.trim();
 
  if(!/^[A-Z]{4}$/.test(p)){
 
   alert(
    "Enter exactly 4 letters for the container prefix."
   );
-
-  document
-   .getElementById("containerPrefix")
-   .focus();
 
   return;
 
@@ -1995,103 +1642,55 @@ function addContainer(){
    "Enter exactly 6 digits for the container number."
   );
 
-  document
-   .getElementById("containerNumber")
-   .focus();
-
   return;
 
  }
 
- const fullNumber=p+" "+n;
-
- const duplicate=
-  allRecords().some(record=>
-   record.category==="containers" &&
-   record.number===fullNumber
-  );
+ const duplicate=allRecords().some(record=>
+  record.category==="containers" &&
+  record.number===p+" "+n
+ );
 
  if(duplicate){
 
   alert(
    "Duplicate container detected:\n\n"+
-   fullNumber+
-   "\n\nThis container has already been entered."
+   p+" "+n
   );
-
-  document
-   .getElementById("containerNumber")
-   .focus();
 
   return;
 
  }
 
- const t=
-  document
-   .getElementById("containerType")
-   .value;
+ const t=document
+  .getElementById("containerType")
+  .value;
 
  data.containers[t][sectionFor(t)].push([
-  fullNumber,
-  document
-   .getElementById("containerCondition")
-   .value,
-  document
-   .getElementById("containerNote")
-   .value
-   .trim()
+  p+" "+n,
+  document.getElementById("containerCondition").value,
+  document.getElementById("containerNote").value.trim()
  ]);
 
- document
-  .getElementById("containerPrefix")
-  .value="";
-
- document
-  .getElementById("containerNumber")
-  .value="";
-
- document
-  .getElementById("containerNote")
-  .value="";
-
- document
-  .getElementById("containerCondition")
-  .selectedIndex=0;
-
- document
-  .getElementById("containerType")
-  .selectedIndex=0;
+ document.getElementById("containerPrefix").value="";
+ document.getElementById("containerNumber").value="";
+ document.getElementById("containerNote").value="";
+ document.getElementById("containerCondition").selectedIndex=0;
+ document.getElementById("containerType").selectedIndex=0;
 
  save();
  progress();
  render();
 
- document
-  .getElementById("containerNumber")
-  .focus();
+ document.getElementById("containerNumber").focus();
 
 }
 
-/* ================================
-   ADD RACK
-================================ */
-
 function addRack(){
 
- if(!terminal.value){
-
-  alert("Please choose your terminal first.");
-  terminal.focus();
-  return;
-
- }
-
- const n=
-  document
-   .getElementById("rackNumber")
-   .value
-   .trim();
+ const n=document
+  .getElementById("rackNumber")
+  .value.trim();
 
  if(!/^\d{6}$/.test(n)){
 
@@ -2099,104 +1698,60 @@ function addRack(){
    "Enter exactly 6 digits for the chassis rack number."
   );
 
-  document
-   .getElementById("rackNumber")
-   .focus();
-
   return;
 
  }
 
- const fullNumber="ZNSU "+n;
-
- const duplicate=
-  allRecords().some(record=>
-   record.category==="racks" &&
-   record.number===fullNumber
-  );
+ const duplicate=allRecords().some(record=>
+  record.category==="racks" &&
+  record.number==="ZNSU "+n
+ );
 
  if(duplicate){
 
   alert(
    "Duplicate chassis rack detected:\n\n"+
-   fullNumber+
-   "\n\nThis rack has already been entered."
+   "ZNSU "+n
   );
-
-  document
-   .getElementById("rackNumber")
-   .focus();
 
   return;
 
  }
 
  data.racks["5657"]["Pre-repair"].push([
-  fullNumber,
-  document
-   .getElementById("rackCondition")
-   .value,
-  document
-   .getElementById("rackNote")
-   .value
-   .trim()
+  "ZNSU "+n,
+  document.getElementById("rackCondition").value,
+  document.getElementById("rackNote").value.trim()
  ]);
 
- document
-  .getElementById("rackNumber")
-  .value="";
-
- document
-  .getElementById("rackNote")
-  .value="";
-
- document
-  .getElementById("rackCondition")
-  .selectedIndex=0;
+ document.getElementById("rackNumber").value="";
+ document.getElementById("rackNote").value="";
+ document.getElementById("rackCondition").selectedIndex=0;
 
  save();
  progress();
  render();
 
- document
-  .getElementById("rackNumber")
-  .focus();
+ document.getElementById("rackNumber").focus();
 
 }
 
-/* ================================
-   TIRE AUDITS
-================================ */
-
 function addTireAudits(){
 
- if(!terminal.value){
+ const input=document
+  .getElementById("tireAuditTotal");
 
-  alert("Please choose your terminal first.");
-  terminal.focus();
-  return;
+ const amount=Number.parseInt(
+  input.value,
+  10
+ );
 
- }
-
- const input=
-  document.getElementById("tireAuditTotal");
-
- const amount=
-  Number.parseInt(
-   input.value,
-   10
-  );
-
- if(
-  !Number.isInteger(amount) ||
-  amount<0
- ){
+ if(!Number.isInteger(amount)||amount<0){
 
   alert(
    "Enter a whole number for the total tire audits."
   );
 
-  input.focus();
   return;
 
  }
@@ -2205,78 +1760,54 @@ function addTireAudits(){
 
  input.value="";
 
- const notification=
-  document.getElementById("auditNotification");
+ const notification=document
+  .getElementById("auditNotification");
 
- if(notification){
+ notification.textContent=
+  "✓ "+
+  amount+
+  (amount===1
+   ?" tire audit added successfully"
+   :" tire audits added successfully");
 
-  notification.textContent=
-   "✓ "+
-   amount+
-   (
-    amount===1
-     ?" tire audit added successfully"
-     :" tire audits added successfully"
-   );
+ notification.classList.add("show");
 
-  notification.classList.add("show");
+ clearTimeout(window.auditNotificationTimer);
 
-  clearTimeout(
-   window.auditNotificationTimer
-  );
-
-  window.auditNotificationTimer=
-   setTimeout(()=>{
-
-    notification.classList.remove("show");
-
-   },3000);
-
- }
+ window.auditNotificationTimer=setTimeout(()=>{
+  notification.classList.remove("show");
+ },3000);
 
  save();
  progress();
  render();
 
- input.focus();
-
 }
-
-/* ================================
-   ALL RECORDS
-================================ */
 
 function allRecords(){
 
  const r=[];
 
- [
-  "chassis",
-  "containers",
-  "racks"
- ]
- .forEach(category=>{
+ ["chassis","containers","racks"].forEach(category=>{
 
-  Object.keys(data[category])
-  .forEach(type=>{
+  Object.keys(data[category]).forEach(type=>{
 
-   Object.keys(data[category][type])
-   .forEach(section=>{
+   Object.keys(data[category][type]).forEach(section=>{
 
     data[category][type][section]
-    .forEach((item,index)=>{
+     .forEach((item,index)=>{
 
-     r.push({
-      category:category,
-      type:type,
-      section:section,
-      index:index,
-      number:item[0],
-      condition:item[1],
-      note:item[2]||""
+      r.push({
+       category,
+       type,
+       section,
+       index,
+       number:item[0],
+       condition:item[1],
+       note:item[2]||""
+      });
+
      });
-
-    });
 
    });
 
@@ -2288,19 +1819,13 @@ function allRecords(){
 
 }
 
-/* ================================
-   SELECT HELPER
-================================ */
-
 function select(values,current){
 
- const s=
-  document.createElement("select");
+ const s=document.createElement("select");
 
  values.forEach(v=>{
 
-  const o=
-   document.createElement("option");
+  const o=document.createElement("option");
 
   o.value=v;
   o.textContent=v;
@@ -2316,40 +1841,28 @@ function select(values,current){
 
 }
 
-/* ================================
-   SPLIT NUMBER
-================================ */
-
 function split(value){
 
- const p=
-  value.trim().split(/\s+/);
+ const p=value.trim().split(/\s+/);
 
- return {
+ return{
   prefix:p[0]||"",
   number:p.slice(1).join("")
  };
 
 }
 
-/* ================================
-   RENDER
-================================ */
-
 function render(){
 
  list.innerHTML="";
 
- const records=
-  allRecords();
+ const records=allRecords();
 
  if(!records.length){
 
-  const e=
-   document.createElement("div");
+  const e=document.createElement("div");
 
   e.className="empty-list";
-
   e.textContent=
    "No inspections entered yet.";
 
@@ -2361,16 +1874,13 @@ function render(){
 
  records.forEach(r=>{
 
-  const row=
-   document.createElement("div");
+  const row=document.createElement("div");
 
   row.className="inspection-row";
 
-  const text=
-   document.createElement("div");
+  const text=document.createElement("div");
 
-  text.className=
-   "inspection-display";
+  text.className="inspection-display";
 
   text.textContent=
    r.type+
@@ -2379,8 +1889,7 @@ function render(){
    " • "+
    r.number;
 
-  const edit=
-   document.createElement("button");
+  const edit=document.createElement("button");
 
   edit.className="edit-button";
   edit.type="button";
@@ -2400,49 +1909,35 @@ function render(){
 
 }
 
-/* ================================
-   EDIT ROW
-================================ */
-
 function editRow(row,r){
 
  row.innerHTML="";
 
- const area=
-  document.createElement("div");
+ const area=document.createElement("div");
 
  area.className="inspection-edit";
 
- const isChassis=
-  r.category==="chassis";
+ const isChassis=r.category==="chassis";
+ const isContainer=r.category==="containers";
+ const isRack=r.category==="racks";
 
- const isContainer=
-  r.category==="containers";
+ const availableTypes=isChassis
+  ?["5652","5900","5658"]
+  :isContainer
+  ?["5653","5900","5658"]
+  :["5657"];
 
- const isRack=
-  r.category==="racks";
+ const type=select(
+  availableTypes,
+  r.type
+ );
 
- const availableTypes=
-  isChassis
-   ?["5652","5900","5658"]
-   :isContainer
-   ?["5653","5900","5658"]
-   :["5657"];
+ const condition=select(
+  ["Defect","No Defect"],
+  r.condition
+ );
 
- const type=
-  select(
-   availableTypes,
-   r.type
-  );
-
- const condition=
-  select(
-   ["Defect","No Defect"],
-   r.condition
-  );
-
- const parts=
-  split(r.number);
+ const parts=split(r.number);
 
  let p;
 
@@ -2452,50 +1947,41 @@ function editRow(row,r){
    SPECIAL.includes(terminal.value)
     ?[...BASE,...EXTRA]
     :[
-       ...BASE,
-       ...(EXTRA.includes(parts.prefix)
-        ?[parts.prefix]
-        :[])
+      ...BASE,
+      ...(EXTRA.includes(parts.prefix)
+       ?[parts.prefix]
+       :[])
      ];
 
-  p=
-   select(
-    [...new Set(prefixes)],
-    parts.prefix
-   );
+  p=select(
+   [...new Set(prefixes)],
+   parts.prefix
+  );
 
  }else if(isContainer){
 
-  p=
-   document.createElement("input");
-
+  p=document.createElement("input");
   p.type="text";
   p.maxLength=4;
   p.value=parts.prefix;
 
   p.oninput=()=>{
-
-   p.value=
-    p.value
-     .replace(/[^a-zA-Z]/g,"")
-     .toUpperCase()
-     .slice(0,4);
-
+   p.value=p.value
+    .replace(/[^a-zA-Z]/g,"")
+    .toUpperCase()
+    .slice(0,4);
   };
 
  }else{
 
-  p=
-   document.createElement("input");
-
+  p=document.createElement("input");
   p.type="text";
   p.value="ZNSU";
   p.disabled=true;
 
  }
 
- const num=
-  document.createElement("input");
+ const num=document.createElement("input");
 
  num.type="text";
  num.inputMode="numeric";
@@ -2503,33 +1989,24 @@ function editRow(row,r){
  num.value=parts.number;
 
  num.oninput=()=>{
-
-  num.value=
-   num.value
-    .replace(/\D/g,"")
-    .slice(0,6);
-
+  num.value=cleanSix(num.value);
  };
 
- const check=
-  document.createElement("button");
+ const check=document.createElement("button");
 
  check.className=
   "edit-button editing";
 
  check.type="button";
  check.textContent="✓";
- check.title="Save correction";
 
- const del=
-  document.createElement("button");
+ const del=document.createElement("button");
 
  del.className=
   "edit-button delete-button";
 
  del.type="button";
  del.textContent="×";
- del.title="Delete inspection";
 
  area.append(
   type,
@@ -2575,23 +2052,15 @@ function editRow(row,r){
     x=>
      x[0]===r.number &&
      x[1]===r.condition &&
-     (x[2]||"")===
-      (r.note||"")
+     (x[2]||"")===(r.note||"")
    );
 
-  if(oldIndex<0)
-   return;
+  if(oldIndex<0)return;
 
-  targetGroup.splice(
-   oldIndex,
-   1
-  );
+  targetGroup.splice(oldIndex,1);
 
-  const newType=
-   type.value;
-
-  const newSection=
-   sectionFor(newType);
+  const newType=type.value;
+  const newSection=sectionFor(newType);
 
   const newPrefix=
    isChassis
@@ -2600,8 +2069,7 @@ function editRow(row,r){
     ?p.value
     :"ZNSU";
 
-  data[r.category][newType][newSection]
-  .push([
+  data[r.category][newType][newSection].push([
    newPrefix+" "+num.value,
    condition.value,
    r.note||""
@@ -2615,15 +2083,12 @@ function editRow(row,r){
 
  del.onclick=()=>{
 
-  if(
-   !confirm(
-    "Delete this inspection?\n\n"+
-    r.type+" "+
-    r.condition+" "+
-    r.number
-   )
-  )
-   return;
+  if(!confirm(
+   "Delete this inspection?\n\n"+
+   r.type+" "+
+   r.condition+" "+
+   r.number
+  ))return;
 
   const targetGroup=
    data[r.category][r.type][r.section];
@@ -2633,15 +2098,11 @@ function editRow(row,r){
     x=>
      x[0]===r.number &&
      x[1]===r.condition &&
-     (x[2]||"")===
-      (r.note||"")
+     (x[2]||"")===(r.note||"")
    );
 
   if(oldIndex>=0)
-   targetGroup.splice(
-    oldIndex,
-    1
-   );
+   targetGroup.splice(oldIndex,1);
 
   save();
   progress();
@@ -2653,10 +2114,6 @@ function editRow(row,r){
 
 }
 
-/* ================================
-   REPORT SECTION
-================================ */
-
 function reportSection(
  out,
  equipment,
@@ -2667,17 +2124,11 @@ function reportSection(
  label
 ){
 
- [
-  "No Defect",
-  "Defect"
- ]
- .forEach(condition=>{
+ ["No Defect","Defect"].forEach(condition=>{
 
   const items=
    equipment[type][section]
-   .filter(
-    x=>x[1]===condition
-   );
+    .filter(x=>x[1]===condition);
 
   out.push(
    "("+items.length+") "+
@@ -2688,27 +2139,16 @@ function reportSection(
    )
   );
 
-  out.push(
-   label+":"
-  );
+  out.push(label+":");
 
   items.forEach((x,i)=>{
 
    out.push(
-    "\t"+
-    (i+1)+
-    ". "+
-    x[0]
+    "\t"+(i+1)+". "+x[0]
    );
 
-   if(x[2]){
-
-    out.push(
-     "\t   Note: "+
-     x[2]
-    );
-
-   }
+   if(x[2])
+    out.push("\t   Note: "+x[2]);
 
   });
 
@@ -2717,10 +2157,6 @@ function reportSection(
  });
 
 }
-
-/* ================================
-   BUILD EOD
-================================ */
 
 function buildEOD(){
 
@@ -2738,7 +2174,7 @@ function buildEOD(){
 
  out.push(
   "End of Day Report for:",
-  terminal.value,
+  terminal.value||"<Choose Your Terminal>",
   ""
  );
 
@@ -2821,12 +2257,10 @@ function buildEOD(){
  out.push(
   "Tire Audits: "+
   (Number(data.tireAudits)||0),
-
   "Progress Credit: "+
   Math.floor(
    (Number(data.tireAudits)||0)/3
   ),
-
   ""
  );
 
@@ -2847,29 +2281,22 @@ function buildEOD(){
 
 }
 
-/* ================================
-   GENERATE
-================================ */
-
 function generate(){
 
  if(!terminal.value){
 
-  alert(
-   "Please choose your terminal before generating the EOD."
-  );
+  alert("Please choose a terminal first.");
 
   terminal.focus();
+
   return;
 
  }
 
  save();
 
- document
-  .getElementById("preview")
-  .textContent=
-   buildEOD();
+ document.getElementById("preview").textContent=
+  buildEOD();
 
  document
   .getElementById("previewCard")
@@ -2884,230 +2311,84 @@ function generate(){
 
 }
 
-/* ================================
-   HARD RESET
-================================ */
-
 function hardReset(){
 
- const answer=
-  confirm(
-   "HARD RESET\n\n"+
-   "This will erase today's inspections, "+
-   "tire audits, notes, milestone progress, "+
-   "and selected terminal.\n\n"+
-   "Continue?"
-  );
+ if(!confirm(
+  "HARD RESET\n\n"+
+  "This will erase all inspections, tire audits, "+
+  "notes, and the saved terminal selection.\n\n"+
+  "Continue?"
+ ))return;
 
- if(!answer)
-  return;
+ localStorage.removeItem(STORAGE_KEY);
 
- localStorage.removeItem(
-  STORAGE_KEY
- );
-
- localStorage.removeItem(
-  STORAGE_KEY+"_milestone"
- );
-
- /*
-  Reset data completely.
- */
-
- [
-  "chassis",
-  "containers",
-  "racks"
- ]
- .forEach(category=>{
-
-  Object.keys(data[category])
-  .forEach(type=>{
-
-   Object.keys(data[category][type])
-   .forEach(section=>{
-
-    data[category][type][section]=[];
-
-   });
-
-  });
-
- });
-
- data.tireAudits=0;
-
- /*
-  Reset terminal to placeholder.
- */
-
- terminal.value="";
-
- updatePrefixes(true);
-
- /*
-  Reset fields.
- */
-
- document
-  .getElementById("number")
-  .value="";
-
- document
-  .getElementById("equipmentNote")
-  .value="";
-
- document
-  .getElementById("containerPrefix")
-  .value="";
-
- document
-  .getElementById("containerNumber")
-  .value="";
-
- document
-  .getElementById("containerNote")
-  .value="";
-
- document
-  .getElementById("rackNumber")
-  .value="";
-
- document
-  .getElementById("rackNote")
-  .value="";
-
- document
-  .getElementById("tireAuditTotal")
-  .value="";
-
- notes.value="";
-
- document
-  .getElementById("previewCard")
-  .classList
-  .add("hidden");
-
- count.textContent="0";
-
- fill.style.width="0%";
-
- fill.classList.remove(
-  "milestone-1",
-  "milestone-2",
-  "milestone-3",
-  "milestone-4"
- );
-
- document
-  .getElementById("completeMessage")
-  .classList
-  .remove("show");
-
- render();
-
- /*
-  Cursor returns to chassis number.
- */
-
- number.focus();
+ location.reload();
 
 }
 
-/* ================================
-   CLOSE AFTER EMAIL
-================================ */
+/*
+ EMAIL SETUP
 
-function attemptClose(){
+ Standard:
+ TO: joe@caliberis.com
+ CC:
+ dgeists@caliberis.com
+ jdoan@aspectassociates.com
 
- window.close();
+ Calumet:
+ Adds:
+ pjasinki@aspectassociates.com
+ tmitchell@aspectassociates.com
+ bstenson@aspectassociates.com
+ bkubinski@aspectassociates.com
+ dneubauer@aspectassociates.com
+ asanjuan@aspectassociates.com
 
- setTimeout(()=>{
+ Calumet also includes the 47th, 63rd and Landers
+ addresses in the CC routing.
+*/
 
-  if(!window.closed){
+const STANDARD_TO=
+ "joe@caliberis.com";
 
-   alert(
-    "Report sent and app reset. "+
-    "You can now close this tab."
-   );
+const STANDARD_CC=[
+ "dgeists@caliberis.com",
+ "jdoan@aspectassociates.com"
+];
 
-  }
+const CALUMET_CC=[
+ "pjasinki@aspectassociates.com",
+ "tmitchell@aspectassociates.com",
+ "bstenson@aspectassociates.com",
+ "bkubinski@aspectassociates.com",
+ "dneubauer@aspectassociates.com",
+ "asanjuan@aspectassociates.com"
+];
 
- },500);
-
-}
-
-/* ================================
-   EMAIL ROUTING
-================================ */
+/*
+ These are included in the Calumet routing so the
+ Calumet report can also cover the 47th, 63rd and
+ Landers locations.
+*/
+const CALUMET_LOCATION_CC=[
+ "chicago47th@aspectassociates.com",
+ "chgo63rd@aspectassociates.com",
+ "landers@aspectassociates.com"
+];
 
 function email(){
 
  if(!terminal.value){
 
-  alert(
-   "Please choose your terminal before emailing the EOD."
-  );
+  alert("Please choose a terminal first.");
 
   terminal.focus();
+
   return;
 
  }
 
- const report=
-  buildEOD();
-
- /*
-  Main recipient for ALL yards.
- */
-
- const to=
-  "joe@caliberis.com";
-
- /*
-  Standard CC for ALL yards.
- */
-
- let cc=
-  "dgeists@caliberis.com,"+
-  "jdoan@aspectassociates.com";
-
- /*
-  Additional recipients for:
-  CALUMET
-  CHGO 63RD
-  CHICAGO 47TH
-  LANDERS
- */
-
- const specialYards=[
-  "CALUMET",
-  "CHGO 63RD",
-  "CHICAGO 47TH",
-  "LANDERS"
- ];
-
- if(
-  specialYards.includes(
-   terminal.value
-  )
- ){
-
-  cc+=
-   ","+
-   "pjasinki@aspectassociates.com"+
-   ","+
-   "tmitchell@aspectassociates.com"+
-   ","+
-   "bstenson@aspectassociates.com"+
-   ","+
-   "bkubinski@aspectassociates.com"+
-   ","+
-   "dneubauer@aspectassociates.com"+
-   ","+
-   "asanjuan@aspectassociates.com";
-
- }
+ const report=buildEOD();
 
  const subject=
   "End of Day Report - "+
@@ -3115,138 +2396,68 @@ function email(){
   " - "+
   TODAY;
 
- const mailtoLink=
+ let to=STANDARD_TO;
+
+ let cc=[
+  ...STANDARD_CC
+ ];
+
+ if(terminal.value==="CALUMET"){
+
+  cc=[
+   ...cc,
+   ...CALUMET_CC,
+   ...CALUMET_LOCATION_CC
+  ];
+
+ }
+
+ const mailto=
   "mailto:"+
   encodeURIComponent(to)+
   "?cc="+
-  encodeURIComponent(cc)+
+  encodeURIComponent(cc.join(","))+
   "&subject="+
   encodeURIComponent(subject)+
   "&body="+
   encodeURIComponent(report);
 
+ window.location.href=mailto;
+
  /*
-  Clear today's saved report after
-  the email action is launched.
+  Give the mail application time to open before
+  clearing the report.
  */
-
- window.location.href=
-  mailtoLink;
-
- localStorage.removeItem(
-  STORAGE_KEY
- );
-
- localStorage.removeItem(
-  STORAGE_KEY+"_milestone"
- );
-
  setTimeout(()=>{
 
-  attemptClose();
+  localStorage.removeItem(STORAGE_KEY);
 
- },1000);
-
-}
-
-/* ================================
-   ENTER / RETURN HANDLING
-================================ */
-
-function enterHandler(event,action){
-
- if(event.key==="Enter"){
-
-  event.preventDefault();
-
-  action();
-
- }
+ },1500);
 
 }
 
-/*
- Chassis:
- Enter from number or note
- adds chassis inspection.
-*/
+function setupEnter(id,action){
 
-document
- .getElementById("number")
- .addEventListener(
-  "keydown",
-  e=>enterHandler(e,addChassis)
- );
+ const element=document.getElementById(id);
 
-document
- .getElementById("equipmentNote")
- .addEventListener(
-  "keydown",
-  e=>enterHandler(e,addChassis)
- );
+ element.addEventListener("keydown",event=>{
 
-/*
- Container:
- Enter from prefix, number, or note
- adds container inspection.
-*/
+  if(
+   event.key==="Enter" &&
+   !event.shiftKey
+  ){
 
-document
- .getElementById("containerPrefix")
- .addEventListener(
-  "keydown",
-  e=>enterHandler(e,addContainer)
- );
+   event.preventDefault();
 
-document
- .getElementById("containerNumber")
- .addEventListener(
-  "keydown",
-  e=>enterHandler(e,addContainer)
- );
+   action();
 
-document
- .getElementById("containerNote")
- .addEventListener(
-  "keydown",
-  e=>enterHandler(e,addContainer)
- );
+  }
 
-/*
- Rack:
- Enter from number or note
- adds rack inspection.
-*/
+ });
 
-document
- .getElementById("rackNumber")
- .addEventListener(
-  "keydown",
-  e=>enterHandler(e,addRack)
- );
+}
 
-document
- .getElementById("rackNote")
- .addEventListener(
-  "keydown",
-  e=>enterHandler(e,addRack)
- );
-
-/*
- Tire audits:
- Enter adds audits.
-*/
-
-document
- .getElementById("tireAuditTotal")
- .addEventListener(
-  "keydown",
-  e=>enterHandler(e,addTireAudits)
- );
-
-/* ================================
-   BUTTONS
-================================ */
+/* BUTTONS */
 
 document
  .getElementById("addInspection")
@@ -3275,75 +2486,107 @@ document
 document
  .getElementById("editReport")
  .onclick=()=>{
-
   document
    .getElementById("previewCard")
    .classList
    .add("hidden");
-
  };
 
-/* ================================
-   TERMINAL CHANGE
-================================ */
+/* ENTER / RETURN SUPPORT */
+
+setupEnter(
+ "number",
+ addChassis
+);
+
+setupEnter(
+ "equipmentNote",
+ addChassis
+);
+
+setupEnter(
+ "containerNumber",
+ addContainer
+);
+
+setupEnter(
+ "containerNote",
+ addContainer
+);
+
+setupEnter(
+ "rackNumber",
+ addRack
+);
+
+setupEnter(
+ "rackNote",
+ addRack
+);
+
+setupEnter(
+ "tireAuditTotal",
+ addTireAudits
+);
+
+/* SIX DIGIT LIMITS */
+
+[
+ "number",
+ "containerNumber",
+ "rackNumber"
+].forEach(id=>{
+
+ const input=document.getElementById(id);
+
+ input.addEventListener("input",()=>{
+
+  input.value=cleanSix(input.value);
+
+ });
+
+});
+
+/* TERMINAL */
 
 terminal.onchange=()=>{
 
  updatePrefixes();
 
- /*
-  Save the selected yard immediately.
- */
-
  save();
 
  /*
-  Focus returns to chassis number
-  whenever a yard is selected.
+  Reset milestone animation tracking when changing yards
+  so the current yard immediately displays the correct
+  milestone state without losing the progress.
  */
+ const current=total();
 
- number.focus();
+ const m=getMilestone(current);
+
+ lastMilestone=m.level;
+
+ progress();
 
 };
 
-/* ================================
-   ADD HARD RESET BUTTON
-================================ */
+/* LOAD SAVED DATA */
 
-const resetButton=
- document.createElement("button");
-
-resetButton.type="button";
-resetButton.className="danger";
-resetButton.textContent="HARD RESET";
-
-resetButton.style.marginTop="4px";
-
-resetButton.onclick=
- hardReset;
-
-document
- .querySelector(".status-terminal")
- .appendChild(resetButton);
-
-/* ================================
-   LOAD SAVED DATA
-================================ */
-
-const saved=
- load();
+const saved=load();
 
 if(saved){
 
  /*
-  Restore terminal ONLY if there is
-  a valid saved terminal.
+  Only restore a terminal if one was actually selected.
+  Otherwise keep <Choose Your Terminal>.
  */
+ if(
+  saved.terminal &&
+  [...terminal.options]
+   .some(o=>o.value===saved.terminal)
+ ){
 
- if(saved.terminal){
-
-  terminal.value=
-   saved.terminal;
+  terminal.value=saved.terminal;
 
  }else{
 
@@ -3351,64 +2594,102 @@ if(saved){
 
  }
 
- notes.value=
-  saved.notes||"";
+ notes.value=saved.notes||"";
 
  if(saved.data){
 
-  /*
-   Merge saved values safely.
-  */
-
-  if(saved.data.chassis)
-   data.chassis=
-    saved.data.chassis;
-
-  if(saved.data.containers)
-   data.containers=
-    saved.data.containers;
-
-  if(saved.data.racks)
-   data.racks=
-    saved.data.racks;
-
-  if(
-   Number.isFinite(
-    Number(saved.data.tireAudits)
-   )
-  ){
-
-   data.tireAudits=
-    Number(saved.data.tireAudits);
-
-  }
+  Object.assign(data,saved.data);
 
  }
 
 }
 
-/* ================================
-   INITIALIZE
-================================ */
+/*
+ If this is a new installation/day, make sure
+ the old date does not accidentally carry forward.
+*/
+if(saved && saved.date!==TODAY){
+
+ localStorage.removeItem(STORAGE_KEY);
+
+ data.chassis={
+  "5652":{
+   "Pre-repair":[],
+   "Post-repair":[],
+   "Add-on":[]
+  },
+  "5900":{
+   "Pre-repair":[],
+   "Post-repair":[],
+   "Add-on":[]
+  },
+  "5658":{
+   "Pre-repair":[],
+   "Post-repair":[],
+   "Add-on":[]
+  }
+ };
+
+ data.containers={
+  "5653":{
+   "Pre-repair":[],
+   "Post-repair":[],
+   "Add-on":[]
+  },
+  "5900":{
+   "Pre-repair":[],
+   "Post-repair":[],
+   "Add-on":[]
+  },
+  "5658":{
+   "Pre-repair":[],
+   "Post-repair":[],
+   "Add-on":[]
+  }
+ };
+
+ data.racks={
+  "5657":{
+   "Pre-repair":[]
+  }
+ };
+
+ data.tireAudits=0;
+
+ terminal.value="";
+ notes.value="";
+
+}
 
 updatePrefixes();
 
-progress();
+/*
+ Set initial milestone state without triggering
+ the animation on page load.
+*/
+lastMilestone=getMilestone(total()).level;
 
+progress();
 render();
 
-document
- .getElementById("reportDate")
- .textContent=TODAY;
+document.getElementById("reportDate").textContent=TODAY;
 
 /*
- Default cursor:
- chassis number box.
-*/
-
+ DEFAULT CURSOR
+ */
 setTimeout(()=>{
 
- number.focus();
+ if(!terminal.value){
+
+  terminal.focus();
+
+ }else{
+
+  document
+   .getElementById("number")
+   .focus();
+
+ }
 
 },100);
 
